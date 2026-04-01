@@ -1,9 +1,9 @@
 
-// SDK
-export { default, CommerceLayer } from './commercelayer'
 
 // Resource adapters
 export * from './api'
+// SDK
+export { CommerceLayer, default } from './commercelayer'
 
 // Commerce Layer static functions
 export { CommerceLayerStatic } from './static'
@@ -12,68 +12,58 @@ export { CommerceLayerStatic } from './static'
 /** ** TYPES ** **/
 
 // Commerce Layer client type
-export type { CommerceLayerClient, CommerceLayerInitConfig, CommerceLayerConfig } from './commercelayer'
-
+export type { CommerceLayerClient, CommerceLayerConfig, CommerceLayerInitConfig } from './commercelayer'
+// Resource API types
+export type {
+  CreatableResource,
+  CreatableResourceType,
+  DeletableResource,
+  DeletableResourceType,
+  ListableResource,
+  ListableResourceType,
+  ResourceTypeLock,
+  RetrievableResource,
+  RetrievableResourceType,
+  TaggableResource,
+  TaggableResourceType,
+  UpdatableResource,
+  UpdatableResourceType,
+  VersionableResource, 
+  VersionableResourceType
+} from './enum'
+// Error types
+export type { ApiError, SdkError } from './error'
+// Raw response reader and request/response interceptors
+export type { ErrorObj, HeadersObj, RequestObj, ResponseObj } from './interceptor'
+// Resource model types
+export type * from './model'
 // Query filter types
 export type {
-  QueryInclude,
   QueryFields,
-  QueryParamsRetrieve,
-  QueryParamsList,
-  QueryParams,
+  QueryFilter, 
+  QueryInclude,
   QueryPageNumber,
   QueryPageSize,
-  QuerySort,
-  QueryFilter
+  QueryParams,
+  QueryParamsList,
+  QueryParamsRetrieve,
+  QuerySort
 } from './query'
-
-
-// Raw response reader and request/response interceptors
-export type { RequestObj, ResponseObj, ErrorObj, HeadersObj } from './interceptor'
-
-// Error types
-export type { SdkError, ApiError } from './error'
-
-
 // Resource types
 export type {
   ApiResource,
   ApiSingleton,
+  ListMeta,
+  ListResponse,
   Metadata,
-  ResourceType,
-  ResourceId,
   Resource,
   ResourceCreate,
-  ResourceUpdate,
-  ListResponse,
-  ListMeta,
+  ResourceFilter,
+  ResourceId,
   ResourceRel,
   ResourceSort,
-  ResourceFilter,
   ResourcesConfig,
-  ResourcesInitConfig
+  ResourcesInitConfig, 
+  ResourceType,
+  ResourceUpdate
 } from './resource'
-
-
-// Resource model types
-export type * from './model'
-
-
-// Resource API types
-export type {
-  ResourceTypeLock,
-  RetrievableResourceType,
-  RetrievableResource,
-  ListableResourceType,
-  ListableResource,
-  CreatableResourceType,
-  CreatableResource,
-  UpdatableResourceType,
-  UpdatableResource,
-  DeletableResourceType,
-  DeletableResource,
-  TaggableResourceType,
-  TaggableResource,
-  VersionableResourceType,
-  VersionableResource
-} from './enum'

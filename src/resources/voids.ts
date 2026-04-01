@@ -1,22 +1,21 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Order } from './orders'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Version } from './versions'
-import type { EventStore } from './event_stores'
-import type { Authorization } from './authorizations'
 import type { AdyenPayment } from './adyen_payments'
+import type { Attachment } from './attachments'
+import type { Authorization } from './authorizations'
 import type { AxervePayment } from './axerve_payments'
 import type { BraintreePayment } from './braintree_payments'
 import type { CheckoutComPayment } from './checkout_com_payments'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { ExternalPayment } from './external_payments'
 import type { KlarnaPayment } from './klarna_payments'
+import type { Order } from './orders'
 import type { PaypalPayment } from './paypal_payments'
 import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
+import type { Version } from './versions'
 import type { WireTransfer } from './wire_transfers'
 
 
@@ -185,4 +184,4 @@ class Voids extends ApiResource<Void> {
 const instance = new Voids()
 export default instance
 
-export type { Voids, Void, VoidUpdate, VoidType }
+export type { Void, Voids, VoidType, VoidUpdate }

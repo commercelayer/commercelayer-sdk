@@ -1,9 +1,10 @@
 
-import type { InterceptorManager } from './interceptor'
-import { ErrorType, SdkError } from './error'
 
 
 import Debug from './debug'
+import { ErrorType, SdkError } from './error'
+import type { InterceptorManager } from './interceptor'
+
 const debug = Debug('fetch')
 
 

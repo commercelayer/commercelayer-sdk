@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Price } from './prices'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { Price } from './prices'
+import type { Version } from './versions'
 
 
 type PriceTierType = 'price_tiers'
@@ -103,4 +102,4 @@ class PriceTiers extends ApiResource<PriceTier> {
 const instance = new PriceTiers()
 export default instance
 
-export type { PriceTiers, PriceTier, PriceTierType }
+export type { PriceTier, PriceTiers, PriceTierType }

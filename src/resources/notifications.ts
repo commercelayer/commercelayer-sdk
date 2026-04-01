@@ -1,6 +1,6 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { EventStore } from './event_stores'
 import type { LineItem, LineItemType } from './line_items'
@@ -134,4 +134,4 @@ class Notifications extends ApiResource<Notification> {
 const instance = new Notifications()
 export default instance
 
-export type { Notifications, Notification, NotificationCreate, NotificationUpdate, NotificationType }
+export type { Notification, NotificationCreate, Notifications, NotificationType, NotificationUpdate }

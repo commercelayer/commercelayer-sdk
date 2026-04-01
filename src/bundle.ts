@@ -1,7 +1,8 @@
-import { CommerceLayerClient, type CommerceLayerInitConfig } from './commercelayer'
 import * as api from './api'
+import { CommerceLayerClient, type CommerceLayerInitConfig } from './commercelayer'
 
 import Debug from './debug'
+
 const debug = Debug('bundle')
 
 

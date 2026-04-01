@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Shipment } from './shipments'
-import type { Parcel } from './parcels'
-import type { Event } from './events'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Parcel } from './parcels'
+import type { Shipment } from './shipments'
 
 
 type PickupType = 'pickups'
@@ -88,4 +87,4 @@ class Pickups extends ApiResource<Pickup> {
 const instance = new Pickups()
 export default instance
 
-export type { Pickups, Pickup, PickupType }
+export type { Pickup, Pickups, PickupType }

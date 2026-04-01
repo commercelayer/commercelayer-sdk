@@ -1,6 +1,5 @@
-import { readFileSync, writeFileSync } from "fs"
-import { resolve } from "path"
-import Inflector from './inflector'
+import { readFileSync, writeFileSync } from "node:fs"
+import { resolve } from "node:path"
 
 
 const RESOURCES_LOCAL_PATH = resolve('./gen/resources.json')
@@ -34,7 +33,7 @@ const loadResources = (): any => {
 	try {
 		const schema = readFileSync(schemaPath, { encoding: 'utf-8'})
 		return JSON.parse(schema)
-	} catch (error) {
+	} catch (_error) {
 		console.log('Error loading local resources schema: ' + schemaPath)
 		return undefined
 	}

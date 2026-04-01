@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { StockLocation, StockLocationType } from './stock_locations'
-import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { Parcel } from './parcels'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Version } from './versions'
 
 
 type PackageType = 'packages'
@@ -204,4 +203,4 @@ class Packages extends ApiResource<Package> {
 const instance = new Packages()
 export default instance
 
-export type { Packages, Package, PackageCreate, PackageUpdate, PackageType }
+export type { Package, PackageCreate, Packages, PackageType, PackageUpdate }

@@ -1,12 +1,13 @@
 
-// import * as api from './api'
-import { getResources } from './enum'
-import { isApiError, type ApiError } from './error'
-import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj, HeadersObj, InterceptorManager } from './interceptor'
-import { ApiResourceAdapter, type ResourcesInitConfig } from './resource'
 
 
 import Debug from './debug'
+// import * as api from './api'
+import { getResources } from './enum'
+import { type ApiError, isApiError } from './error'
+import type { ErrorInterceptor, HeadersObj, InterceptorManager, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj } from './interceptor'
+import { ApiResourceAdapter, type ResourcesInitConfig } from './resource'
+
 const debug = Debug('commercelayer')
 
 
@@ -15,6 +16,7 @@ export const OPEN_API_SCHEMA_VERSION = '7.9.14'
 
 
 // SDK local configuration
+// biome-ignore lint/complexity/noBannedTypes: left as placeholder for future SDK config options
 type SdkConfig = {
 	// abc?: string
 }
@@ -67,7 +69,7 @@ class CommerceLayerClient {
 	private get interceptors(): InterceptorManager { return ApiResourceAdapter.get().client?.interceptors }
 
 
-	private localConfig(config: Partial<SdkConfig>): void {
+	private localConfig(_config: Partial<SdkConfig>): void {
 		// if (config.abc) this.abc = config.abc
 	}
 
@@ -105,7 +107,7 @@ class CommerceLayerClient {
 		return 1
 	}
 
-	removeInterceptor(type: InterceptorType, id: number = 1): void {
+	removeInterceptor(type: InterceptorType, _id: number = 1): void {
 		this.interceptors[type] = undefined
 	}
 
@@ -160,7 +162,5 @@ const CommerceLayer = (config: CommerceLayerInitConfig): CommerceLayerClient => 
 
 
 export default CommerceLayer
-export { CommerceLayer }
-
-export { CommerceLayerClient }
 export type { CommerceLayerConfig, CommerceLayerInitConfig }
+export { CommerceLayer, CommerceLayerClient }

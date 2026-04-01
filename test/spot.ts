@@ -1,5 +1,5 @@
-import { getAccessToken, handleError, init, initConfig } from './util'
-import commercelayer, { customers, organization, application, CommerceLayerClient } from '../src'
+import commercelayer, { application, customers, organization } from '../src'
+import { getAccessToken, handleError, initConfig } from './util'
 
 
 
@@ -10,7 +10,7 @@ async function customFetch(input: string | URL | Request, init?: RequestInit) {
 	return res
 }
 
-async function refreshToken(old: string): Promise<string> {
+async function refreshToken(_old: string): Promise<string> {
 	console.log('Getting new access token from auth server')
 	// if (true) throw new Error('Error refreshing test expired access token')
 	return (await getAccessToken()).accessToken

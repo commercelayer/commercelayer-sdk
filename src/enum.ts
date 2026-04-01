@@ -1,7 +1,7 @@
+import type * as models from './model'
 import type { Resource, ResourceRel } from './resource'
 import type { TagType } from './resources/tags'
 import type { VersionType } from './resources/versions'
-import type * as models from './model'
 
 
 

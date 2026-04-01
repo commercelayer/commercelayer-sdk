@@ -1,15 +1,14 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { Market, MarketType } from './markets'
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type BundleType = 'bundles'
@@ -321,4 +320,4 @@ class Bundles extends ApiResource<Bundle> {
 const instance = new Bundles()
 export default instance
 
-export type { Bundles, Bundle, BundleCreate, BundleUpdate, BundleType }
+export type { Bundle, BundleCreate, Bundles, BundleType, BundleUpdate }

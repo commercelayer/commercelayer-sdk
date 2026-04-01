@@ -1,15 +1,18 @@
 
-import { expect, test, beforeAll, describe } from 'vitest'
-import { type CommerceLayerClient, customer_subscriptions, customers, orders, ResourceTypeLock } from '../src'
-import { getClient, TestData } from '../test/common'
-import { normalize, denormalize } from '../src/jsonapi'
 import { isDeepStrictEqual } from 'node:util'
+import { beforeAll, describe, expect, test } from 'vitest'
+import { type CommerceLayerClient, customer_subscriptions, customers, orders, type ResourceTypeLock } from '../src'
+import { denormalize, normalize } from '../src/jsonapi'
+import { getClient, TestData } from '../test/common'
 
 
 let cl: CommerceLayerClient
 
 
-beforeAll(async () => { cl = await getClient() })
+beforeAll(async () => {
+	cl = await getClient()
+	const _version = cl.openApiSchemaVersion	// avoid not used var issue
+})
 
 
 describe('SDK:jsonapi suite', () => {

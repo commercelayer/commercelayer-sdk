@@ -1,11 +1,11 @@
 
 import type { Value as JSONValue } from 'json-typescript'
-import type { DocWithData, Included, ResourceIdentifierObject, ResourceObject as JSONAPIObject, AttributesObject, RelationshipsObject } from 'jsonapi-typescript'
-import type { ResourceCreate, ResourceUpdate, ResourceId, ResourceType, Resource, ResourceRel } from './resource'
-import { isResourceId, isResourceType } from './resource'
+import type { AttributesObject, DocWithData, Included, ResourceObject as JSONAPIObject, RelationshipsObject, ResourceIdentifierObject } from 'jsonapi-typescript'
 import config from './config'
-
 import Debug from './debug'
+import type { Resource, ResourceCreate, ResourceId, ResourceRel, ResourceType, ResourceUpdate } from './resource'
+import { isResourceId, isResourceType } from './resource'
+
 const debug = Debug('jsonapi')
 
 export type { DocWithData }
@@ -18,7 +18,7 @@ const denormalize = <R extends Resource>(response: DocWithData): R | R[] => {
 
 	if (!response) return response
 	
-	let denormalizedResponse
+	let denormalizedResponse: R | R[]
 
 	if (response.links) delete response.links
 

@@ -1,13 +1,12 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
-import type { LineItem } from './line_items'
-import type { EventStore } from './event_stores'
-import type { Sku, SkuType } from './skus'
-import type { Bundle, BundleType } from './bundles'
 import type { Adjustment, AdjustmentType } from './adjustments'
+import type { Bundle, BundleType } from './bundles'
+import type { EventStore } from './event_stores'
+import type { LineItem } from './line_items'
+import type { OrderSubscription, OrderSubscriptionType } from './order_subscriptions'
+import type { Sku, SkuType } from './skus'
 
 
 type OrderSubscriptionItemType = 'order_subscription_items'
@@ -197,4 +196,4 @@ class OrderSubscriptionItems extends ApiResource<OrderSubscriptionItem> {
 const instance = new OrderSubscriptionItems()
 export default instance
 
-export type { OrderSubscriptionItems, OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemUpdate, OrderSubscriptionItemType }
+export type { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItems, OrderSubscriptionItemType, OrderSubscriptionItemUpdate }

@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Market } from './markets'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
+import type { Market } from './markets'
 
 
 type BingGeocoderType = 'bing_geocoders'
@@ -127,4 +126,4 @@ class BingGeocoders extends ApiResource<BingGeocoder> {
 const instance = new BingGeocoders()
 export default instance
 
-export type { BingGeocoders, BingGeocoder, BingGeocoderCreate, BingGeocoderUpdate, BingGeocoderType }
+export type { BingGeocoder, BingGeocoderCreate, BingGeocoders, BingGeocoderType, BingGeocoderUpdate }

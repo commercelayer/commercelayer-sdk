@@ -1,16 +1,15 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { LineItem, LineItemType } from './line_items'
+import type { Shipment, ShipmentType } from './shipments'
 import type { Sku, SkuType } from './skus'
 import type { StockLocation, StockLocationType } from './stock_locations'
-import type { Shipment, ShipmentType } from './shipments'
-import type { LineItem, LineItemType } from './line_items'
 import type { StockReservation } from './stock_reservations'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type StockTransferType = 'stock_transfers'
@@ -288,4 +287,4 @@ class StockTransfers extends ApiResource<StockTransfer> {
 const instance = new StockTransfers()
 export default instance
 
-export type { StockTransfers, StockTransfer, StockTransferCreate, StockTransferUpdate, StockTransferType }
+export type { StockTransfer, StockTransferCreate, StockTransfers, StockTransferType, StockTransferUpdate }

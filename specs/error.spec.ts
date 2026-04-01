@@ -1,8 +1,9 @@
 
-import { expect, test, beforeAll, afterAll, describe } from 'vitest'
-import { CommerceLayerClient, customers, ErrorObj } from '../src'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
+import { type CommerceLayerClient, customers, type ErrorObj } from '../src'
 import { ErrorType } from '../src/error'
 import { getClient } from '../test/common'
+
 // import { DBG } from '../src/common'
 
 

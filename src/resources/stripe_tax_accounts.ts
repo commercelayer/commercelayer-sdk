@@ -1,13 +1,12 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Market } from './markets'
 import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Market } from './markets'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
+import type { Version } from './versions'
 
 
 type StripeTaxAccountType = 'stripe_tax_accounts'
@@ -161,4 +160,4 @@ class StripeTaxAccounts extends ApiResource<StripeTaxAccount> {
 const instance = new StripeTaxAccounts()
 export default instance
 
-export type { StripeTaxAccounts, StripeTaxAccount, StripeTaxAccountCreate, StripeTaxAccountUpdate, StripeTaxAccountType }
+export type { StripeTaxAccount, StripeTaxAccountCreate, StripeTaxAccounts, StripeTaxAccountType, StripeTaxAccountUpdate }

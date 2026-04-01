@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
+import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
-import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
 
 
 type CheckoutComGatewayType = 'checkout_com_gateways'
@@ -205,4 +204,4 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 const instance = new CheckoutComGateways()
 export default instance
 
-export type { CheckoutComGateways, CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewayUpdate, CheckoutComGatewayType }
+export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGateways, CheckoutComGatewayType, CheckoutComGatewayUpdate }

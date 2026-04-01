@@ -1,18 +1,19 @@
 
-import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CommerceLayerStatic, Customer, customers } from '../src'
+import { beforeAll, describe, expect, test } from 'vitest'
+import { type CommerceLayerClient, type Customer, customers } from '../src'
+import { isResourceType } from '../src/resource'
+import type { ObjectType } from '../src/types'
 import { sleep, sortObjectFields } from '../src/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
-import { isResourceType } from '../src/resource'
-import { ObjectType } from '../src/types'
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
 
 
 let cl: CommerceLayerClient
 
 
-beforeAll(async () => { cl = await getClient() })
+beforeAll(async () => {
+	cl = await getClient()
+	const _version = cl.openApiSchemaVersion	// avoid not used var issue
+})
 
 
 describe('SDK suite', () => {

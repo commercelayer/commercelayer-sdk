@@ -1,7 +1,7 @@
 
-import { expect, test, beforeAll, describe } from 'vitest'
-import { organization, domain } from '../test/common'
+import { beforeAll, describe, expect, test } from 'vitest'
 import { CommerceLayer, type CommerceLayerBundle } from '../src/bundle'
+import { domain, organization } from '../test/common'
 import getToken from '../test/token'
 
 

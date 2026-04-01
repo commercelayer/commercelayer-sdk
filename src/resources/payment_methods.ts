@@ -1,13 +1,12 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
 import type { Market, MarketType } from './markets'
 import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
 import type { Store, StoreType } from './stores'
-import type { Attachment } from './attachments'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type PaymentMethodType = 'payment_methods'
@@ -301,4 +300,4 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 const instance = new PaymentMethods()
 export default instance
 
-export type { PaymentMethods, PaymentMethod, PaymentMethodCreate, PaymentMethodUpdate, PaymentMethodType }
+export type { PaymentMethod, PaymentMethodCreate, PaymentMethods, PaymentMethodType, PaymentMethodUpdate }

@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { ExternalPayment } from './external_payments'
+import type { PaymentMethod } from './payment_methods'
+import type { Version } from './versions'
 
 
 type ExternalGatewayType = 'external_gateways'
@@ -279,4 +278,4 @@ class ExternalGateways extends ApiResource<ExternalGateway> {
 const instance = new ExternalGateways()
 export default instance
 
-export type { ExternalGateways, ExternalGateway, ExternalGatewayCreate, ExternalGatewayUpdate, ExternalGatewayType }
+export type { ExternalGateway, ExternalGatewayCreate, ExternalGateways, ExternalGatewayType, ExternalGatewayUpdate }

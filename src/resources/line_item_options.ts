@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { LineItem, LineItemType } from './line_items'
 import type { SkuOption, SkuOptionType } from './sku_options'
-import type { Event } from './events'
 import type { Tag, TagType } from './tags'
-import type { EventStore } from './event_stores'
 
 
 type LineItemOptionType = 'line_item_options'
@@ -235,4 +234,4 @@ class LineItemOptions extends ApiResource<LineItemOption> {
 const instance = new LineItemOptions()
 export default instance
 
-export type { LineItemOptions, LineItemOption, LineItemOptionCreate, LineItemOptionUpdate, LineItemOptionType }
+export type { LineItemOption, LineItemOptionCreate, LineItemOptions, LineItemOptionType, LineItemOptionUpdate }

@@ -1,10 +1,9 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Order } from './orders'
-import type { Event } from './events'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Order } from './orders'
 
 
 type OrderFactoryType = 'order_factories'

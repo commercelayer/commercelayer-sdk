@@ -1,25 +1,24 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Order, OrderType } from './orders'
-import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
-import type { InventoryStockLocation, InventoryStockLocationType } from './inventory_stock_locations'
-import type { StockLocation } from './stock_locations'
 import type { Address, AddressType } from './addresses'
-import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
-import type { DeliveryLeadTime } from './delivery_lead_times'
-import type { Pickup } from './pickups'
-import type { StockLineItem } from './stock_line_items'
-import type { StockTransfer } from './stock_transfers'
-import type { LineItem } from './line_items'
-import type { CarrierAccount } from './carrier_accounts'
-import type { Parcel } from './parcels'
 import type { Attachment } from './attachments'
+import type { CarrierAccount } from './carrier_accounts'
+import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { InventoryStockLocation, InventoryStockLocationType } from './inventory_stock_locations'
+import type { LineItem } from './line_items'
+import type { Order, OrderType } from './orders'
+import type { Parcel } from './parcels'
+import type { Pickup } from './pickups'
+import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { StockLineItem } from './stock_line_items'
+import type { StockLocation } from './stock_locations'
+import type { StockTransfer } from './stock_transfers'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type ShipmentType = 'shipments'
@@ -488,4 +487,4 @@ class Shipments extends ApiResource<Shipment> {
 const instance = new Shipments()
 export default instance
 
-export type { Shipments, Shipment, ShipmentCreate, ShipmentUpdate, ShipmentType }
+export type { Shipment, ShipmentCreate, Shipments, ShipmentType, ShipmentUpdate }

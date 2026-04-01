@@ -272,7 +272,7 @@ const _Inflector = {
 	ordinalize: (str: string): string => {
 		const strArr = str.split(' ')
 		for (let x = 0; x < strArr.length; x++) {
-			const i = parseInt(strArr[x])
+			const i = parseInt(strArr[x], 10)
 			if (Number.isNaN(i)) {
 				const ltd = strArr[x].substring(strArr[x].length - 2)
 				const ld = strArr[x].substring(strArr[x].length - 1)

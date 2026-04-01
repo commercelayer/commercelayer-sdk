@@ -1,13 +1,12 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Market, MarketType } from './markets'
 import type { Customer, CustomerType } from './customers'
-import type { Sku, SkuType } from './skus'
-import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Market, MarketType } from './markets'
+import type { Sku, SkuType } from './skus'
+import type { Version } from './versions'
 
 
 type InStockSubscriptionType = 'in_stock_subscriptions'
@@ -190,4 +189,4 @@ class InStockSubscriptions extends ApiResource<InStockSubscription> {
 const instance = new InStockSubscriptions()
 export default instance
 
-export type { InStockSubscriptions, InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionUpdate, InStockSubscriptionType }
+export type { InStockSubscription, InStockSubscriptionCreate, InStockSubscriptions, InStockSubscriptionType, InStockSubscriptionUpdate }

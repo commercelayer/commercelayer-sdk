@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Event } from './events'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { Order, OrderType } from './orders'
-import type { Sku, SkuType } from './skus'
 import type { SkuList, SkuListType } from './sku_lists'
+import type { Sku, SkuType } from './skus'
 
 
 type LinkType = 'links'
@@ -262,4 +261,4 @@ class Links extends ApiResource<Link> {
 const instance = new Links()
 export default instance
 
-export type { Links, Link, LinkCreate, LinkUpdate, LinkType }
+export type { Link, LinkCreate, Links, LinkType, LinkUpdate }

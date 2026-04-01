@@ -1,14 +1,13 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Market, MarketType } from './markets'
-import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recipients'
 import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recipients'
+import type { Market, MarketType } from './markets'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type GiftCardType = 'gift_cards'
@@ -378,4 +377,4 @@ class GiftCards extends ApiResource<GiftCard> {
 const instance = new GiftCards()
 export default instance
 
-export type { GiftCards, GiftCard, GiftCardCreate, GiftCardUpdate, GiftCardType }
+export type { GiftCard, GiftCardCreate, GiftCards, GiftCardType, GiftCardUpdate }

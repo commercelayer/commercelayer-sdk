@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { StockItem } from './stock_items'
+import type { EventStore } from './event_stores'
 import type { Sku } from './skus'
+import type { StockItem } from './stock_items'
 import type { StockReservation } from './stock_reservations'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type ReservedStockType = 'reserved_stocks'
@@ -90,4 +89,4 @@ class ReservedStocks extends ApiResource<ReservedStock> {
 const instance = new ReservedStocks()
 export default instance
 
-export type { ReservedStocks, ReservedStock, ReservedStockType }
+export type { ReservedStock, ReservedStocks, ReservedStockType }

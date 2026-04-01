@@ -1,20 +1,19 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Market, MarketType } from './markets'
-import type { ShippingZone, ShippingZoneType } from './shipping_zones'
-import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
-import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Attachment } from './attachments'
 import type { DeliveryLeadTime } from './delivery_lead_times'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Market, MarketType } from './markets'
+import type { Notification } from './notifications'
+import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
 import type { ShippingMethodTier, ShippingMethodTierType } from './shipping_method_tiers'
 import type { ShippingWeightTier } from './shipping_weight_tiers'
-import type { Attachment } from './attachments'
-import type { Notification } from './notifications'
-import type { Event } from './events'
+import type { ShippingZone, ShippingZoneType } from './shipping_zones'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type ShippingMethodType = 'shipping_methods'
@@ -471,4 +470,4 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 const instance = new ShippingMethods()
 export default instance
 
-export type { ShippingMethods, ShippingMethod, ShippingMethodCreate, ShippingMethodUpdate, ShippingMethodType }
+export type { ShippingMethod, ShippingMethodCreate, ShippingMethods, ShippingMethodType, ShippingMethodUpdate }

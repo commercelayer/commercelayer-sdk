@@ -1,7 +1,7 @@
 
-import { expect, test, beforeAll, describe } from 'vitest'
-import { application, CommerceLayerClient } from '../src'
-import { getClient, CommonData, handleError, interceptRequest } from '../test/common'
+import { beforeAll, describe, expect, test } from 'vitest'
+import { application, type CommerceLayerClient } from '../src'
+import { CommonData, getClient, handleError, interceptRequest } from '../test/common'
 
 
 
@@ -25,7 +25,7 @@ describe('Test headers', () => {
 			}
 		}
 
-		const intId = cl.addRequestInterceptor((request) => {
+		const _intId = cl.addRequestInterceptor((request) => {
 			const requestOptionsHeaders = request.options.headers as Record<string, string>
 			expect(requestOptionsHeaders).toBeDefined()
 			if (requestOptionsHeaders) {

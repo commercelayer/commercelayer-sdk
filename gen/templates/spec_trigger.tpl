@@ -9,7 +9,7 @@ test(resourceType + '.##__OPERATION_NAME__##', async () => {
 	const attributes = { [triggerAttr]: triggerValue }
   const id = TestData.id
 
-	const intId = cl.addRequestInterceptor((request) => {
+	const _intId = cl.addRequestInterceptor((request) => {
 		const data = JSON.parse(String(request.options.body))
 		expect(request.options.method).toBe('PATCH')
 		checkCommon(request, resourcePath, id, currentAccessToken)

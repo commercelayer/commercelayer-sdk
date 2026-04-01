@@ -1,24 +1,23 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
-import type { Price } from './prices'
-import type { StockItem } from './stock_items'
-import type { StockReservation } from './stock_reservations'
+import type { Attachment } from './attachments'
+import type { Customer } from './customers'
 import type { DeliveryLeadTime } from './delivery_lead_times'
-import type { SkuOption } from './sku_options'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Link } from './links'
+import type { Market } from './markets'
+import type { Price } from './prices'
+import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
 import type { SkuListItem } from './sku_list_items'
 import type { SkuList } from './sku_lists'
-import type { Attachment } from './attachments'
-import type { Link } from './links'
-import type { Event } from './events'
+import type { SkuOption } from './sku_options'
+import type { StockItem } from './stock_items'
+import type { StockLocation } from './stock_locations'
+import type { StockReservation } from './stock_reservations'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { Customer } from './customers'
-import type { Market } from './markets'
-import type { StockLocation } from './stock_locations'
-import type { EventStore } from './event_stores'
 
 
 type SkuType = 'skus'
@@ -371,4 +370,4 @@ class Skus extends ApiResource<Sku> {
 const instance = new Skus()
 export default instance
 
-export type { Skus, Sku, SkuCreate, SkuUpdate, SkuType }
+export type { Sku, SkuCreate, Skus, SkuType, SkuUpdate }

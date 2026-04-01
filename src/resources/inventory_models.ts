@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { InventoryStockLocation } from './inventory_stock_locations'
-import type { InventoryReturnLocation } from './inventory_return_locations'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { InventoryReturnLocation } from './inventory_return_locations'
+import type { InventoryStockLocation } from './inventory_stock_locations'
+import type { Version } from './versions'
 
 
 type InventoryModelType = 'inventory_models'
@@ -199,4 +198,4 @@ class InventoryModels extends ApiResource<InventoryModel> {
 const instance = new InventoryModels()
 export default instance
 
-export type { InventoryModels, InventoryModel, InventoryModelCreate, InventoryModelUpdate, InventoryModelType }
+export type { InventoryModel, InventoryModelCreate, InventoryModels, InventoryModelType, InventoryModelUpdate }

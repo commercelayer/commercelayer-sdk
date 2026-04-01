@@ -60,7 +60,7 @@ export default async (type: TokenType, env?: string): Promise<AccessToken> => {
 	if (credentials) {
 		switch (type) {
 			case 'integration': return getAccessToken(credentials)
-			case 'sales_channel':
+			// case 'sales_channel':
 			default: return getAccessToken(credentials)
 		}
 	} else throw Error('Environment configuration error')

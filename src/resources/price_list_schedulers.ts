@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { Market, MarketType } from './markets'
 import type { PriceList, PriceListType } from './price_lists'
-import type { Event } from './events'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type PriceListSchedulerType = 'price_list_schedulers'
@@ -205,4 +204,4 @@ class PriceListSchedulers extends ApiResource<PriceListScheduler> {
 const instance = new PriceListSchedulers()
 export default instance
 
-export type { PriceListSchedulers, PriceListScheduler, PriceListSchedulerCreate, PriceListSchedulerUpdate, PriceListSchedulerType }
+export type { PriceListScheduler, PriceListSchedulerCreate, PriceListSchedulers, PriceListSchedulerType, PriceListSchedulerUpdate }

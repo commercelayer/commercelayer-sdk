@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { CustomerPaymentSource } from './customer_payment_sources'
+import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
-import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type ExternalPaymentType = 'external_payments'
@@ -144,4 +143,4 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 const instance = new ExternalPayments()
 export default instance
 
-export type { ExternalPayments, ExternalPayment, ExternalPaymentCreate, ExternalPaymentUpdate, ExternalPaymentType }
+export type { ExternalPayment, ExternalPaymentCreate, ExternalPayments, ExternalPaymentType, ExternalPaymentUpdate }

@@ -1,10 +1,11 @@
 
-import type { Resource, ResourceType } from "./resource"
-import { ErrorType, SdkError } from "./error"
-import type { PositiveNumberRange, StringKey } from "./types"
-import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from "./enum"
 
 import Debug from './debug'
+import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from "./enum"
+import { ErrorType, SdkError } from "./error"
+import type { Resource, ResourceType } from "./resource"
+import type { PositiveNumberRange, StringKey } from "./types"
+
 const debug = Debug('query')
 
 
@@ -93,7 +94,7 @@ const generateQueryStringParams = <R extends Resource>(params: QueryParams<R> | 
 		// Filters
 		if (params.filters) {
 			Object.entries(params.filters).forEach(([p, v]) => {
-				let val
+				let val: string
 				if (Array.isArray(v)) {
 					if (!isArrayFilter(p)) throw new SdkError({ message: `Incorrect filter [${p}]: Array value is supported only for the following filters: ${arrayFilters.join(', ')}`, type: ErrorType.REQUEST })
 					val = v.join(',')
@@ -121,4 +122,4 @@ const generateSearchString = (params?: QueryStringParams, questionMark: boolean 
 }
 
 
-export { generateQueryStringParams, isParamsList, generateSearchString }
+export { generateQueryStringParams, generateSearchString, isParamsList }

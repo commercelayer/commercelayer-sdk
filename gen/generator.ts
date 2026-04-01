@@ -1,10 +1,10 @@
 
-import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs'
-import { basename, resolve } from 'node:path'
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { basename } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
 import { updateLicense } from './license'
+import apiSchema, { type Attribute, Cardinality, type Component, type Operation, type Resource } from './schema'
 
 
 type ConfigType = {
@@ -42,7 +42,7 @@ type OperationType = 'retrieve' | 'list' | 'create' | 'update' | 'delete'
 type ApiRes = {
 	type: string
 	apiClass: string
-	models: Array<String>
+	models: Array<string>
 	singleton: boolean
 	operations: Array<OperationType>
 	taggable: boolean
@@ -81,7 +81,7 @@ const generate = async (localSchema?: boolean) => {
 		try {
 			const currentSchema = apiSchema.current()
 			currentVersion = currentSchema.info.version
-		} catch (err) {
+		} catch (_err) {
 			console.log('No current local schema available')
 		}
 
@@ -191,13 +191,11 @@ const findLine = (str: string, lines: string[]): { text: string, index: number, 
 }
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const tabsCount = (template: string): number => {
+const _tabsCount = (template: string): number => {
 	return template.match(/##__TAB__##/g)?.length || 0
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const tabsString = (num: number): string => {
+const _tabsString = (num: number): string => {
 	let str = ''
 	for (let i = 0; i < num; i++) str += '\t'
 	return str
@@ -411,7 +409,7 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 	Object.entries(resources).forEach(([type, res]) => {
 
-		const pathAndName = res.singleton? Inflector.singularize(type) : type
+		const _pathAndName = res.singleton? Inflector.singularize(type) : type
 
 		const tabType = `\t'${type}'`
 		types.push(tabType)
@@ -612,7 +610,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		const attributes = reqType ? resource.components[reqType].attributes : {}
 		const required = Object.values(attributes).filter(attr => attr.required)
 		// required.forEach(r => obj += `\t\t\t${r.name}: ${inspect(randomValue(r.type, r.name))},\n`)
-		required.forEach(r => obj += `\t\t\t${r.name}: randomValue('${r.type}', '${r.name}'),\n`)
+		required.forEach(r => { obj += `\t\t\t${r.name}: randomValue('${r.type}', '${r.name}'),\n` })
 
 		// Relationships
 		const relationships = reqType ? resource.components[reqType].relationships : {}
@@ -718,7 +716,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const resMod = new Set<string>()	// Resource generic models (Es. ResponseList)
 	// const relMod = new Set<string>()	// Relationships models
 	Object.entries(resource.operations).forEach(([opName, op]) => {
-		const tpl = op.singleton ? templates['singleton'] : templates[opName]
+		const tpl = op.singleton ? templates.singleton : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
 		if (tpl) {
 			if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')
@@ -731,7 +729,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			else {
 				const tplOp = templatedOperation(resName, opName, op, tpl)
 				operations.push(tplOp.operation)
-				tplOp.types.forEach(t => declaredTypes.add(t))
+				tplOp.types.forEach(t => { declaredTypes.add(t) })
 			}
 		}
 		else {
@@ -800,7 +798,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			if (m !== 'Resource') declaredImportsModels.add(m)	// Fix resource_errors issue
 		})
 		modelInterfaces.push(tplCmp.component)
-		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
+		if (cudSuffix) tplCmp.models.forEach(t => { relationshipTypes.add(t) })
 		else {
 			sortableFields.push('id', ...Object.values(component.attributes).filter(f => (f.sortable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
 			filterableFields.push('id', ...Object.values(component.attributes).filter(f => (f.filterable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
@@ -871,7 +869,7 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 
 	if (placeholders) Object.entries(placeholders).forEach(([key, val]) => {
 		const plh = (key.startsWith('##__') && key.endsWith('__##')) ? key : `##__${key.toUpperCase()}__##`
-		operation = operation.replace(key, val)
+		operation = operation.replace(plh, val)
 	})
 
 	operation = operation.replace(/\n/g, '\n\t')
@@ -917,7 +915,7 @@ const isCUDModel = (name: string): boolean => {
 
 type ComponentEnums = { [key: string]: string }
 
-const templatedComponent = (res: string, name: string, cmp: Component): { component: string, models: string[], enums: ComponentEnums } => {
+const templatedComponent = (_res: string, name: string, cmp: Component): { component: string, models: string[], enums: ComponentEnums } => {
 
 	const cudModel = isCUDModel(name)
 
@@ -930,7 +928,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	attributes.forEach(a => {
 		if (!RESOURCE_COMMON_FIELDS.includes(a.name)) {
 			if (cudModel || a.fetchable) {
-				let attrType = fixAttributeType(a)
+				const attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
 				if (a.description || a.example) {
 					const desc = (a.description && !a.description.endsWith('.')) ? `${a.description}.` : a.description

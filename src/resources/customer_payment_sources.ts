@@ -1,20 +1,19 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Customer, CustomerType } from './customers'
-import type { PaymentMethod, PaymentMethodType } from './payment_methods'
-import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 import type { AxervePayment, AxervePaymentType } from './axerve_payments'
 import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
 import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
+import type { Customer, CustomerType } from './customers'
+import type { EventStore } from './event_stores'
 import type { ExternalPayment, ExternalPaymentType } from './external_payments'
 import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
+import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
 import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
 import type { StripePayment, StripePaymentType } from './stripe_payments'
+import type { Version } from './versions'
 import type { WireTransfer, WireTransferType } from './wire_transfers'
 
 
@@ -168,4 +167,4 @@ class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
 const instance = new CustomerPaymentSources()
 export default instance
 
-export type { CustomerPaymentSources, CustomerPaymentSource, CustomerPaymentSourceCreate, CustomerPaymentSourceUpdate, CustomerPaymentSourceType }
+export type { CustomerPaymentSource, CustomerPaymentSourceCreate, CustomerPaymentSources, CustomerPaymentSourceType, CustomerPaymentSourceUpdate }

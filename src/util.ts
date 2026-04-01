@@ -57,7 +57,7 @@ export const extractTokenData = (token: string): TokenData | undefined => {
 			domain: data.iss? String(data.iss).replace('https://auth.', '') : undefined,
 			expiration: data.exp
 		}
-	} catch (err: any) {
+	} catch (_err: any) {
 		return undefined
 	}
 }
@@ -67,7 +67,7 @@ export const isTokenExpired = (token: string): boolean => {
 	try {
 		const tokenData = extractTokenData(token)
 		return tokenData?.expiration? (((tokenData.expiration * 1000) - Date.now()) < 0) : false
-	} catch (err: any) {
+	} catch (_err: any) {
 		return false
 	}
 }

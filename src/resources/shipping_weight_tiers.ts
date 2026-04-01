@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { Version } from './versions'
 
 
 type ShippingWeightTierType = 'shipping_weight_tiers'
@@ -162,4 +161,4 @@ class ShippingWeightTiers extends ApiResource<ShippingWeightTier> {
 const instance = new ShippingWeightTiers()
 export default instance
 
-export type { ShippingWeightTiers, ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierUpdate, ShippingWeightTierType }
+export type { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTiers, ShippingWeightTierType, ShippingWeightTierUpdate }

@@ -1,21 +1,20 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { CustomerGroup, CustomerGroupType } from './customer_groups'
+import type { Attachment } from './attachments'
 import type { CustomerAddress } from './customer_addresses'
+import type { CustomerGroup, CustomerGroupType } from './customer_groups'
 import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { CustomerSubscription } from './customer_subscriptions'
-import type { Order } from './orders'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Market } from './markets'
 import type { OrderSubscription } from './order_subscriptions'
+import type { Order } from './orders'
 import type { Return } from './returns'
 import type { SkuList } from './sku_lists'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Tag, TagType } from './tags'
-import type { Market } from './markets'
 import type { StockLocation } from './stock_locations'
-import type { EventStore } from './event_stores'
+import type { Tag, TagType } from './tags'
 
 
 type CustomerType = 'customers'
@@ -319,4 +318,4 @@ class Customers extends ApiResource<Customer> {
 const instance = new Customers()
 export default instance
 
-export type { Customers, Customer, CustomerCreate, CustomerUpdate, CustomerType }
+export type { Customer, CustomerCreate, Customers, CustomerType, CustomerUpdate }

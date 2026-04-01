@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Geocoder, GeocoderType } from './geocoders'
+import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { Geocoder, GeocoderType } from './geocoders'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type AddressType = 'addresses'
@@ -410,4 +409,4 @@ class Addresses extends ApiResource<Address> {
 const instance = new Addresses()
 export default instance
 
-export type { Addresses, Address, AddressCreate, AddressUpdate, AddressType }
+export type { Address, AddressCreate, Addresses, AddressType, AddressUpdate }

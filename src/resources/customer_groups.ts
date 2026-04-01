@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Customer } from './customers'
-import type { Market } from './markets'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { Customer } from './customers'
 import type { EventStore } from './event_stores'
+import type { Market } from './markets'
+import type { Version } from './versions'
 
 
 type CustomerGroupType = 'customer_groups'
@@ -139,4 +138,4 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 const instance = new CustomerGroups()
 export default instance
 
-export type { CustomerGroups, CustomerGroup, CustomerGroupCreate, CustomerGroupUpdate, CustomerGroupType }
+export type { CustomerGroup, CustomerGroupCreate, CustomerGroups, CustomerGroupType, CustomerGroupUpdate }

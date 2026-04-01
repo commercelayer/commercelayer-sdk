@@ -1,10 +1,9 @@
-import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
-
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import { ApiResource } from '../resource'
+import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type PaymentGatewayType = 'payment_gateways'
@@ -86,4 +85,4 @@ class PaymentGateways extends ApiResource<PaymentGateway> {
 const instance = new PaymentGateways()
 export default instance
 
-export type { PaymentGateways, PaymentGateway, PaymentGatewayType }
+export type { PaymentGateway, PaymentGateways, PaymentGatewayType }

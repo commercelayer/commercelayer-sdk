@@ -1,10 +1,9 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Order, OrderType } from './orders'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
+import type { Order, OrderType } from './orders'
 
 
 type PaymentOptionType = 'payment_options'
@@ -140,4 +139,4 @@ class PaymentOptions extends ApiResource<PaymentOption> {
 const instance = new PaymentOptions()
 export default instance
 
-export type { PaymentOptions, PaymentOption, PaymentOptionCreate, PaymentOptionUpdate, PaymentOptionType }
+export type { PaymentOption, PaymentOptionCreate, PaymentOptions, PaymentOptionType, PaymentOptionUpdate }

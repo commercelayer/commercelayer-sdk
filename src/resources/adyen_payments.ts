@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type AdyenPaymentType = 'adyen_payments'
@@ -187,4 +186,4 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 const instance = new AdyenPayments()
 export default instance
 
-export type { AdyenPayments, AdyenPayment, AdyenPaymentCreate, AdyenPaymentUpdate, AdyenPaymentType }
+export type { AdyenPayment, AdyenPaymentCreate, AdyenPayments, AdyenPaymentType, AdyenPaymentUpdate }

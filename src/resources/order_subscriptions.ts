@@ -1,19 +1,18 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Market, MarketType } from './markets'
-import type { SubscriptionModel } from './subscription_models'
-import type { Order, OrderType } from './orders'
-import type { Customer } from './customers'
 import type { CustomerPaymentSource, CustomerPaymentSourceType } from './customer_payment_sources'
-import type { OrderSubscriptionItem } from './order_subscription_items'
-import type { OrderFactory } from './order_factories'
-import type { RecurringOrderCopy } from './recurring_order_copies'
+import type { Customer } from './customers'
+import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { Market, MarketType } from './markets'
+import type { OrderFactory } from './order_factories'
+import type { OrderSubscriptionItem } from './order_subscription_items'
+import type { Order, OrderType } from './orders'
+import type { RecurringOrderCopy } from './recurring_order_copies'
+import type { SubscriptionModel } from './subscription_models'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type OrderSubscriptionType = 'order_subscriptions'
@@ -357,4 +356,4 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 const instance = new OrderSubscriptions()
 export default instance
 
-export type { OrderSubscriptions, OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionUpdate, OrderSubscriptionType }
+export type { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptions, OrderSubscriptionType, OrderSubscriptionUpdate }

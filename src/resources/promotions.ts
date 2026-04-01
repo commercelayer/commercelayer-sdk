@@ -1,20 +1,19 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { Attachment } from './attachments'
+import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { Coupon } from './coupons'
+import type { CustomPromotionRule } from './custom_promotion_rules'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { Market } from './markets'
 import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
+import type { PromotionRule } from './promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
-import type { CustomPromotionRule } from './custom_promotion_rules'
 import type { SkuList } from './sku_lists'
-import type { Coupon } from './coupons'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
 import type { Tag } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
-import type { PromotionRule } from './promotion_rules'
 
 
 type PromotionType = 'promotions'
@@ -205,4 +204,4 @@ class Promotions extends ApiResource<Promotion> {
 const instance = new Promotions()
 export default instance
 
-export type { Promotions, Promotion, PromotionType }
+export type { Promotion, Promotions, PromotionType }

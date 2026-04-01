@@ -1,8 +1,8 @@
 
-import dotenv from 'dotenv'
-import getToken from './token'
-import CommerceLayer, { CommerceLayerClient, CommerceLayerConfig, QueryParamsList, QueryParamsRetrieve, RequestObj, Resource } from '../src'
 import { inspect, isDeepStrictEqual } from 'node:util'
+import dotenv from 'dotenv'
+import CommerceLayer, { type CommerceLayerClient, type CommerceLayerConfig, type QueryParamsList, type QueryParamsRetrieve, type RequestObj, type Resource } from '../src'
+import getToken from './token'
 
 
 dotenv.config()
@@ -12,7 +12,7 @@ export const GLOBAL_TIMEOUT = 15000
 const organization = process.env.CL_SDK_ORGANIZATION as string
 const domain = process.env.CL_SDK_DOMAIN as string
 
-export { organization, domain }
+export { domain, organization }
 
 const INTERCEPTOR_CANCEL = 'TEST-INTERCEPTED'
 const REQUEST_TIMEOUT = 5550
@@ -71,7 +71,7 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerCli
 	currentAccessToken = accessToken
 
 	client.config({ timeout: config.timeout || GLOBAL_TIMEOUT })
-	try { vi.setConfig({ testTimeout: config.timeout || GLOBAL_TIMEOUT })  } catch(err: any) {}
+	try { vi.setConfig({ testTimeout: config.timeout || GLOBAL_TIMEOUT })  } catch(_err: any) {}
 
 
 	return client
@@ -96,7 +96,7 @@ const printObject = (obj: unknown): string => {
 }
 
 
-export { initClient, fakeClient, getClient, printObject, currentAccessToken }
+export { currentAccessToken, fakeClient, getClient, initClient, printObject }
 
 
 
@@ -152,7 +152,7 @@ const checkCommon = (request: RequestObj, path: string, id?: string, token?: str
 	expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''))
 	const requestOptionsHeaders = request.options.headers as Record<string, string>
 	expect(requestOptionsHeaders).toBeDefined()
-	if (requestOptionsHeaders) expect(requestOptionsHeaders['Authorization']).toContain('Bearer ' + (token || ''))
+	if (requestOptionsHeaders) expect(requestOptionsHeaders.Authorization).toContain('Bearer ' + (token || ''))
 	expect(request.options.signal).not.toBeNull()
 }
 
@@ -160,7 +160,7 @@ const checkCommonData = (data: any, type: string, attributes: any, id?: string) 
 	if (id) expect(data.data.id).toBe(id)
 	expect(data.data.type).toBe(type)
 	const relationships: { [k: string]: any } = {}
-	Object.entries(data.data.relationships).forEach(([k, v]) => relationships[k] = (v as any)['data'])
+	Object.entries(data.data.relationships).forEach(([k, v]) => { relationships[k] = (v as any).data })
 	const received = {
 		...data.data.attributes,
 		...relationships

@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Market } from './markets'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
+import type { Market } from './markets'
 
 
 type GoogleGeocoderType = 'google_geocoders'
@@ -127,4 +126,4 @@ class GoogleGeocoders extends ApiResource<GoogleGeocoder> {
 const instance = new GoogleGeocoders()
 export default instance
 
-export type { GoogleGeocoders, GoogleGeocoder, GoogleGeocoderCreate, GoogleGeocoderUpdate, GoogleGeocoderType }
+export type { GoogleGeocoder, GoogleGeocoderCreate, GoogleGeocoders, GoogleGeocoderType, GoogleGeocoderUpdate }
