@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Market } from './markets'
-import type { DiscountEngineItem } from './discount_engine_items'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
+import type { DiscountEngineItem } from './discount_engine_items'
 import type { EventStore } from './event_stores'
+import type { Market } from './markets'
+import type { Version } from './versions'
 
 
 type TalonOneAccountType = 'talon_one_accounts'
@@ -161,4 +160,4 @@ class TalonOneAccounts extends ApiResource<TalonOneAccount> {
 const instance = new TalonOneAccounts()
 export default instance
 
-export type { TalonOneAccounts, TalonOneAccount, TalonOneAccountCreate, TalonOneAccountUpdate, TalonOneAccountType }
+export type { TalonOneAccount, TalonOneAccountCreate, TalonOneAccounts, TalonOneAccountType, TalonOneAccountUpdate }

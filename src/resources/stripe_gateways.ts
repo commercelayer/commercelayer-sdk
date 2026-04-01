@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { PaymentMethod } from './payment_methods'
 import type { StripePayment } from './stripe_payments'
+import type { Version } from './versions'
 
 
 type StripeGatewayType = 'stripe_gateways'
@@ -208,4 +207,4 @@ class StripeGateways extends ApiResource<StripeGateway> {
 const instance = new StripeGateways()
 export default instance
 
-export type { StripeGateways, StripeGateway, StripeGatewayCreate, StripeGatewayUpdate, StripeGatewayType }
+export type { StripeGateway, StripeGatewayCreate, StripeGateways, StripeGatewayType, StripeGatewayUpdate }

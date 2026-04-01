@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
+import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
-import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
 
 
 type BraintreeGatewayType = 'braintree_gateways'
@@ -260,4 +259,4 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 const instance = new BraintreeGateways()
 export default instance
 
-export type { BraintreeGateways, BraintreeGateway, BraintreeGatewayCreate, BraintreeGatewayUpdate, BraintreeGatewayType }
+export type { BraintreeGateway, BraintreeGatewayCreate, BraintreeGateways, BraintreeGatewayType, BraintreeGatewayUpdate }

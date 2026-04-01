@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync } from 'fs'
-import { resolve } from 'path'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { sortObjectFields } from '../src/util'
 import Inflector from './inflector'
 
@@ -200,7 +200,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 
 const getReference = (obj: any): string | undefined => {
-	if (obj) return obj['$ref']
+	if (obj) return obj.$ref
 	return undefined
 }
 
@@ -211,7 +211,7 @@ const resolveReference = (schemaComponents: any, ref: string): any => {
 	const key = Inflector.camelize(segs.shift() as string, true)
 
 	let reference: any = schemaComponents[key]
-	segs.forEach(s => reference = reference[s])
+	segs.forEach(s => { reference = reference[s] })
 
 	return reference
 
@@ -368,4 +368,4 @@ export default {
 	remoteUrl: SCHEMA_REMOTE_URL
 }
 
-export { Resource, Operation, Component, ComponentMap, Cardinality, Relationship, ApiSchema, Attribute }
+export { type ApiSchema, type Attribute, Cardinality, type Component, type ComponentMap, type Operation, type Relationship, type Resource }

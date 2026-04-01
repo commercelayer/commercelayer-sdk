@@ -1,14 +1,13 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { Attachment } from './attachments'
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { Coupon } from './coupons'
-import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type FlexPromotionType = 'flex_promotions'
@@ -310,4 +309,4 @@ class FlexPromotions extends ApiResource<FlexPromotion> {
 const instance = new FlexPromotions()
 export default instance
 
-export type { FlexPromotions, FlexPromotion, FlexPromotionCreate, FlexPromotionUpdate, FlexPromotionType }
+export type { FlexPromotion, FlexPromotionCreate, FlexPromotions, FlexPromotionType, FlexPromotionUpdate }

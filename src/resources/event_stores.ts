@@ -1,5 +1,5 @@
-import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
+import { ApiResource } from '../resource'
 
 
 
@@ -76,4 +76,4 @@ class EventStores extends ApiResource<EventStore> {
 const instance = new EventStores()
 export default instance
 
-export type { EventStores, EventStore, EventStoreType }
+export type { EventStore, EventStores, EventStoreType }

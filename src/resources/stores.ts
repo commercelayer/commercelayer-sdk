@@ -1,15 +1,14 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { Market, MarketType } from './markets'
 import type { Merchant, MerchantType } from './merchants'
-import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Order } from './orders'
 import type { PaymentMethod } from './payment_methods'
-import type { Event } from './events'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type StoreType = 'stores'
@@ -171,4 +170,4 @@ class Stores extends ApiResource<Store> {
 const instance = new Stores()
 export default instance
 
-export type { Stores, Store, StoreCreate, StoreUpdate, StoreType }
+export type { Store, StoreCreate, Stores, StoreType, StoreUpdate }

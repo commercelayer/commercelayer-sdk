@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { StockLocation, StockLocationType } from './stock_locations'
-import type { InventoryModel, InventoryModelType } from './inventory_models'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { InventoryModel, InventoryModelType } from './inventory_models'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Version } from './versions'
 
 
 type InventoryReturnLocationType = 'inventory_return_locations'
@@ -125,4 +124,4 @@ class InventoryReturnLocations extends ApiResource<InventoryReturnLocation> {
 const instance = new InventoryReturnLocations()
 export default instance
 
-export type { InventoryReturnLocations, InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocationUpdate, InventoryReturnLocationType }
+export type { InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocations, InventoryReturnLocationType, InventoryReturnLocationUpdate }

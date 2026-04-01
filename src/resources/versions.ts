@@ -1,6 +1,6 @@
-import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import { ApiResource } from '../resource'
 
 import type { EventStore } from './event_stores'
 
@@ -82,4 +82,4 @@ class Versions extends ApiResource<Version> {
 const instance = new Versions()
 export default instance
 
-export type { Versions, Version, VersionType }
+export type { Version, Versions, VersionType }

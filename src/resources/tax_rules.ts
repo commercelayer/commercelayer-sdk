@@ -1,10 +1,9 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { EventStore } from './event_stores'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type TaxRuleType = 'tax_rules'
@@ -273,4 +272,4 @@ class TaxRules extends ApiResource<TaxRule> {
 const instance = new TaxRules()
 export default instance
 
-export type { TaxRules, TaxRule, TaxRuleCreate, TaxRuleUpdate, TaxRuleType }
+export type { TaxRule, TaxRuleCreate, TaxRules, TaxRuleType, TaxRuleUpdate }

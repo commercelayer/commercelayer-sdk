@@ -1,15 +1,14 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { EventStore } from './event_stores'
 import type { LineItem } from './line_items'
 import type { Order } from './orders'
-import type { StockLineItem } from './stock_line_items'
-import type { StockTransfer } from './stock_transfers'
-import type { StockItem, StockItemType } from './stock_items'
 import type { ReservedStock } from './reserved_stocks'
 import type { Sku } from './skus'
-import type { EventStore } from './event_stores'
+import type { StockItem, StockItemType } from './stock_items'
+import type { StockLineItem } from './stock_line_items'
+import type { StockTransfer } from './stock_transfers'
 
 
 type StockReservationType = 'stock_reservations'
@@ -167,4 +166,4 @@ class StockReservations extends ApiResource<StockReservation> {
 const instance = new StockReservations()
 export default instance
 
-export type { StockReservations, StockReservation, StockReservationCreate, StockReservationUpdate, StockReservationType }
+export type { StockReservation, StockReservationCreate, StockReservations, StockReservationType, StockReservationUpdate }

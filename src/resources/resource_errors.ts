@@ -1,6 +1,6 @@
-import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import { ApiResource } from '../resource'
 
 import type { EventStore } from './event_stores'
 import type { Order } from './orders'
@@ -75,4 +75,4 @@ class ResourceErrors extends ApiResource<ResourceError> {
 const instance = new ResourceErrors()
 export default instance
 
-export type { ResourceErrors, ResourceError, ResourceErrorType }
+export type { ResourceError, ResourceErrors, ResourceErrorType }

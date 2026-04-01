@@ -1,10 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { DiscountEngine } from './discount_engines'
-import type { Order } from './orders'
 import type { EventStore } from './event_stores'
+import type { Order } from './orders'
 
 
 type DiscountEngineItemType = 'discount_engine_items'
@@ -76,4 +76,4 @@ class DiscountEngineItems extends ApiResource<DiscountEngineItem> {
 const instance = new DiscountEngineItems()
 export default instance
 
-export type { DiscountEngineItems, DiscountEngineItem, DiscountEngineItemType }
+export type { DiscountEngineItem, DiscountEngineItems, DiscountEngineItemType }

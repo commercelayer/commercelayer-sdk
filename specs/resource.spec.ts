@@ -1,6 +1,6 @@
 
-import { expect, test, beforeAll, describe } from 'vitest'
-import { application, CommerceLayerClient, Customer, customers, orders, type ListResponse } from '../src'
+import { beforeAll, describe, expect, test } from 'vitest'
+import { application, type CommerceLayerClient, type Customer, customers, type ListResponse, orders } from '../src'
 import { getClient } from '../test/common'
 
 
@@ -11,6 +11,7 @@ let tempId: string
 
 beforeAll(async () => {
 	cl = await getClient({})
+	const _version = cl.openApiSchemaVersion	// avoid not used var issue
 	customerList = await customers.list({ pageSize: 1})
 })
 

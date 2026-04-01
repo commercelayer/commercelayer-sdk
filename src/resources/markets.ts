@@ -1,27 +1,26 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Merchant, MerchantType } from './merchants'
-import type { PriceList, PriceListType } from './price_lists'
-import type { InventoryModel, InventoryModelType } from './inventory_models'
-import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
-import type { DiscountEngine, DiscountEngineType } from './discount_engines'
-import type { CustomerGroup, CustomerGroupType } from './customer_groups'
-import type { Geocoder, GeocoderType } from './geocoders'
-import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
-import type { PaymentMethod, PaymentMethodType } from './payment_methods'
-import type { Store } from './stores'
-import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
-import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
-import type { VertexAccount, VertexAccountType } from './vertex_accounts'
-import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
-import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { CustomerGroup, CustomerGroupType } from './customer_groups'
+import type { DiscountEngine, DiscountEngineType } from './discount_engines'
+import type { EventStore } from './event_stores'
 import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
+import type { Geocoder, GeocoderType } from './geocoders'
+import type { InventoryModel, InventoryModelType } from './inventory_models'
+import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { Merchant, MerchantType } from './merchants'
+import type { PaymentMethod, PaymentMethodType } from './payment_methods'
+import type { PriceListScheduler } from './price_list_schedulers'
+import type { PriceList, PriceListType } from './price_lists'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { Store } from './stores'
+import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
+import type { SubscriptionModel, SubscriptionModelType } from './subscription_models'
+import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
+import type { Version } from './versions'
+import type { VertexAccount, VertexAccountType } from './vertex_accounts'
 
 
 type MarketType = 'markets'
@@ -390,4 +389,4 @@ class Markets extends ApiResource<Market> {
 const instance = new Markets()
 export default instance
 
-export type { Markets, Market, MarketCreate, MarketUpdate, MarketType }
+export type { Market, MarketCreate, Markets, MarketType, MarketUpdate }

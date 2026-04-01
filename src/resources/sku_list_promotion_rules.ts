@@ -1,19 +1,18 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Version } from './versions'
-import type { EventStore } from './event_stores'
-import type { SkuList, SkuListType } from './sku_lists'
-import type { Sku } from './skus'
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
-import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
-import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
+import type { EventStore } from './event_stores'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
 import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { FlexPromotion, FlexPromotionType } from './flex_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
+import type { SkuList, SkuListType } from './sku_lists'
+import type { Sku } from './skus'
+import type { Version } from './versions'
 
 
 type SkuListPromotionRuleType = 'sku_list_promotion_rules'
@@ -156,4 +155,4 @@ class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
 const instance = new SkuListPromotionRules()
 export default instance
 
-export type { SkuListPromotionRules, SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleUpdate, SkuListPromotionRuleType }
+export type { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRules, SkuListPromotionRuleType, SkuListPromotionRuleUpdate }

@@ -1,9 +1,8 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Event } from './events'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
 
 
 type ImportType = 'imports'
@@ -202,4 +201,4 @@ class Imports extends ApiResource<Import> {
 const instance = new Imports()
 export default instance
 
-export type { Imports, Import, ImportCreate, ImportUpdate, ImportType }
+export type { Import, ImportCreate, Imports, ImportType, ImportUpdate }

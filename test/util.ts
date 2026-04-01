@@ -1,6 +1,6 @@
 import { inspect } from "node:util"
-import CommerceLayer, { CommerceLayerClient, type CommerceLayerInitConfig, CommerceLayerStatic } from "../src"
-import getToken, { AccessToken } from './token'
+import CommerceLayer, { type CommerceLayerClient, type CommerceLayerInitConfig, CommerceLayerStatic } from "../src"
+import getToken, { type AccessToken } from './token'
 
 
 
@@ -15,7 +15,7 @@ export const getAccessToken = async (env?: string): Promise<AccessToken> => {
 
 export const initConfig = async (env?: string): Promise<CommerceLayerInitConfig> => {
 
-	let accessToken
+	let accessToken: string | undefined
 	if (process.env.CL_SDK_ACCESS_TOKEN) {
 		accessToken = process.env.CL_SDK_ACCESS_TOKEN
 		console.log('ENV access token:')

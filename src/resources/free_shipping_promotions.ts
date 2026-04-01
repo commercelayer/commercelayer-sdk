@@ -1,20 +1,19 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { Attachment } from './attachments'
+import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
+import type { Coupon } from './coupons'
+import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { Market, MarketType } from './markets'
 import type { OrderAmountPromotionRule, OrderAmountPromotionRuleType } from './order_amount_promotion_rules'
+import type { PromotionRule } from './promotion_rules'
 import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_promotion_rules'
-import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
-import type { CustomPromotionRule, CustomPromotionRuleType } from './custom_promotion_rules'
 import type { SkuList, SkuListType } from './sku_lists'
-import type { Coupon } from './coupons'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
-import type { PromotionRule } from './promotion_rules'
 
 
 type FreeShippingPromotionType = 'free_shipping_promotions'
@@ -366,4 +365,4 @@ class FreeShippingPromotions extends ApiResource<FreeShippingPromotion> {
 const instance = new FreeShippingPromotions()
 export default instance
 
-export type { FreeShippingPromotions, FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionUpdate, FreeShippingPromotionType }
+export type { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotions, FreeShippingPromotionType, FreeShippingPromotionUpdate }

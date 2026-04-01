@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type KlarnaPaymentType = 'klarna_payments'
@@ -149,4 +148,4 @@ class KlarnaPayments extends ApiResource<KlarnaPayment> {
 const instance = new KlarnaPayments()
 export default instance
 
-export type { KlarnaPayments, KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentUpdate, KlarnaPaymentType }
+export type { KlarnaPayment, KlarnaPaymentCreate, KlarnaPayments, KlarnaPaymentType, KlarnaPaymentUpdate }

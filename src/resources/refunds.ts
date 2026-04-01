@@ -1,23 +1,22 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Order } from './orders'
-import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Version } from './versions'
-import type { EventStore } from './event_stores'
-import type { Capture } from './captures'
-import type { Return } from './returns'
 import type { AdyenPayment } from './adyen_payments'
+import type { Attachment } from './attachments'
 import type { AxervePayment } from './axerve_payments'
 import type { BraintreePayment } from './braintree_payments'
+import type { Capture } from './captures'
 import type { CheckoutComPayment } from './checkout_com_payments'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { ExternalPayment } from './external_payments'
 import type { KlarnaPayment } from './klarna_payments'
+import type { Order } from './orders'
 import type { PaypalPayment } from './paypal_payments'
+import type { Return } from './returns'
 import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
+import type { Version } from './versions'
 import type { WireTransfer } from './wire_transfers'
 
 
@@ -192,4 +191,4 @@ class Refunds extends ApiResource<Refund> {
 const instance = new Refunds()
 export default instance
 
-export type { Refunds, Refund, RefundUpdate, RefundType }
+export type { Refund, Refunds, RefundType, RefundUpdate }

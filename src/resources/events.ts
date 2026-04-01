@@ -1,10 +1,9 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Webhook } from './webhooks'
 import type { EventCallback } from './event_callbacks'
 import type { EventStore } from './event_stores'
+import type { Webhook } from './webhooks'
 
 
 type EventType = 'events'
@@ -95,4 +94,4 @@ class Events extends ApiResource<Event> {
 const instance = new Events()
 export default instance
 
-export type { Events, Event, EventUpdate, EventType }
+export type { Event, Events, EventType, EventUpdate }

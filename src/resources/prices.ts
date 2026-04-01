@@ -1,18 +1,17 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { Attachment } from './attachments'
+import type { Customer } from './customers'
+import type { EventStore } from './event_stores'
+import type { Market } from './markets'
+import type { PriceFrequencyTier } from './price_frequency_tiers'
 import type { PriceList, PriceListType } from './price_lists'
-import type { Sku, SkuType } from './skus'
 import type { PriceTier, PriceTierType } from './price_tiers'
 import type { PriceVolumeTier } from './price_volume_tiers'
-import type { PriceFrequencyTier } from './price_frequency_tiers'
-import type { Attachment } from './attachments'
-import type { Version } from './versions'
-import type { Customer } from './customers'
-import type { Market } from './markets'
+import type { Sku, SkuType } from './skus'
 import type { StockLocation } from './stock_locations'
-import type { EventStore } from './event_stores'
+import type { Version } from './versions'
 
 
 type PriceType = 'prices'
@@ -282,4 +281,4 @@ class Prices extends ApiResource<Price> {
 const instance = new Prices()
 export default instance
 
-export type { Prices, Price, PriceCreate, PriceUpdate, PriceType }
+export type { Price, PriceCreate, Prices, PriceType, PriceUpdate }

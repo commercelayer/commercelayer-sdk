@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Price, PriceType } from './prices'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { Price, PriceType } from './prices'
+import type { Version } from './versions'
 
 
 type PriceVolumeTierType = 'price_volume_tiers'
@@ -169,4 +168,4 @@ class PriceVolumeTiers extends ApiResource<PriceVolumeTier> {
 const instance = new PriceVolumeTiers()
 export default instance
 
-export type { PriceVolumeTiers, PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierUpdate, PriceVolumeTierType }
+export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTiers, PriceVolumeTierType, PriceVolumeTierUpdate }

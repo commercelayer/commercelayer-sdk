@@ -1,5 +1,5 @@
-import { ApiSingleton } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
+import { ApiSingleton } from '../resource'
 
 
 
@@ -80,4 +80,4 @@ class Applications extends ApiSingleton<Application> {
 const instance = new Applications()
 export default instance
 
-export type { Applications, Application, ApplicationType }
+export type { Application, Applications, ApplicationType }

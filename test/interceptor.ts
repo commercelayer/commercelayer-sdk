@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import commercelayer, { ErrorObj, RequestObj, ResponseObj, customers } from '../src'
+import commercelayer, { customers, type ErrorObj, type RequestObj, type ResponseObj } from '../src'
 import getToken from './token'
 
 

@@ -1,12 +1,11 @@
-import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
-
-import type { Market } from './markets'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
-import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Market } from './markets'
+import type { Version } from './versions'
 
 
 type TaxCalculatorType = 'tax_calculators'
@@ -90,4 +89,4 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
 const instance = new TaxCalculators()
 export default instance
 
-export type { TaxCalculators, TaxCalculator, TaxCalculatorType }
+export type { TaxCalculator, TaxCalculators, TaxCalculatorType }

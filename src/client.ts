@@ -1,12 +1,11 @@
-import { ErrorType, SdkError, handleError, isExpiredTokenError } from './error'
-import type { InterceptorManager } from './interceptor'
 import config from './config'
-import type { FetchResponse, FetchRequestOptions, FetchClientOptions, Fetch } from './fetch'
+import Debug from './debug'
+import { ErrorType, handleError, isExpiredTokenError, SdkError } from './error'
+import type { Fetch, FetchClientOptions, FetchRequestOptions, FetchResponse } from './fetch'
 import { fetchURL } from './fetch'
+import type { InterceptorManager } from './interceptor'
 import { extractTokenData, isTokenExpired } from './util'
 
-
-import Debug from './debug'
 const debug = Debug('client')
 
 
@@ -261,4 +260,4 @@ class ApiClient {
 
 export default ApiClient
 
-export type { ApiClientInitConfig, ApiClientConfig, RequestConfig }
+export type { ApiClientConfig, ApiClientInitConfig, RequestConfig }

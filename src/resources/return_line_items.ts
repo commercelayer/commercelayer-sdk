@@ -1,10 +1,9 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Return, ReturnType } from './returns'
-import type { LineItem, LineItemType } from './line_items'
 import type { EventStore } from './event_stores'
+import type { LineItem, LineItemType } from './line_items'
+import type { Return, ReturnType } from './returns'
 
 
 type ReturnLineItemType = 'return_line_items'
@@ -179,4 +178,4 @@ class ReturnLineItems extends ApiResource<ReturnLineItem> {
 const instance = new ReturnLineItems()
 export default instance
 
-export type { ReturnLineItems, ReturnLineItem, ReturnLineItemCreate, ReturnLineItemUpdate, ReturnLineItemType }
+export type { ReturnLineItem, ReturnLineItemCreate, ReturnLineItems, ReturnLineItemType, ReturnLineItemUpdate }

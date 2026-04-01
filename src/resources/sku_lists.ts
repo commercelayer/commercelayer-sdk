@@ -1,15 +1,14 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Customer, CustomerType } from './customers'
-import type { Sku } from './skus'
-import type { SkuListItem } from './sku_list_items'
-import type { Bundle } from './bundles'
 import type { Attachment } from './attachments'
-import type { Link } from './links'
-import type { Version } from './versions'
+import type { Bundle } from './bundles'
+import type { Customer, CustomerType } from './customers'
 import type { EventStore } from './event_stores'
+import type { Link } from './links'
+import type { SkuListItem } from './sku_list_items'
+import type { Sku } from './skus'
+import type { Version } from './versions'
 
 
 type SkuListType = 'sku_lists'
@@ -212,4 +211,4 @@ class SkuLists extends ApiResource<SkuList> {
 const instance = new SkuLists()
 export default instance
 
-export type { SkuLists, SkuList, SkuListCreate, SkuListUpdate, SkuListType }
+export type { SkuList, SkuListCreate, SkuLists, SkuListType, SkuListUpdate }

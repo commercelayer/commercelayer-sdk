@@ -1,17 +1,16 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Sku, SkuType } from './skus'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
-import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
-import type { VertexAccount, VertexAccountType } from './vertex_accounts'
-import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
-import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { EventStore } from './event_stores'
 import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
+import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { Sku, SkuType } from './skus'
+import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
+import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
+import type { Version } from './versions'
+import type { VertexAccount, VertexAccountType } from './vertex_accounts'
 
 
 type TaxCategoryType = 'tax_categories'
@@ -151,4 +150,4 @@ class TaxCategories extends ApiResource<TaxCategory> {
 const instance = new TaxCategories()
 export default instance
 
-export type { TaxCategories, TaxCategory, TaxCategoryCreate, TaxCategoryUpdate, TaxCategoryType }
+export type { TaxCategories, TaxCategory, TaxCategoryCreate, TaxCategoryType, TaxCategoryUpdate }

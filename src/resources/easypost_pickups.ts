@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Shipment, ShipmentType } from './shipments'
-import type { Parcel } from './parcels'
-import type { Event } from './events'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { Parcel } from './parcels'
+import type { Shipment, ShipmentType } from './shipments'
 
 
 type EasypostPickupType = 'easypost_pickups'
@@ -181,4 +180,4 @@ class EasypostPickups extends ApiResource<EasypostPickup> {
 const instance = new EasypostPickups()
 export default instance
 
-export type { EasypostPickups, EasypostPickup, EasypostPickupCreate, EasypostPickupUpdate, EasypostPickupType }
+export type { EasypostPickup, EasypostPickupCreate, EasypostPickups, EasypostPickupType, EasypostPickupUpdate }

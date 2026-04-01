@@ -1,14 +1,17 @@
 
-import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerClient, CommerceLayerStatic } from '../src'
-import { getClient } from '../test/common'
+import { beforeAll, describe, expect, test } from 'vitest'
+import { type CommerceLayerClient, CommerceLayerStatic } from '../src'
 import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
+import { getClient } from '../test/common'
 
 
 let cl: CommerceLayerClient
 
 
-beforeAll(async () => { cl = await getClient() })
+beforeAll(async () => {
+	cl = await getClient()
+	const _version = cl.openApiSchemaVersion	// avoid not used var issue
+})
 
 
 describe('SDK:static suite', () => {

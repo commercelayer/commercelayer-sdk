@@ -1,6 +1,6 @@
-import { ApiSingleton } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import { ApiSingleton } from '../resource'
 
 import type { EventStore } from './event_stores'
 
@@ -327,4 +327,4 @@ class Organizations extends ApiSingleton<Organization> {
 const instance = new Organizations()
 export default instance
 
-export type { Organizations, Organization, OrganizationType }
+export type { Organization, Organizations, OrganizationType }

@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { ShippingMethod } from './shipping_methods'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { ShippingMethod } from './shipping_methods'
+import type { Version } from './versions'
 
 
 type ShippingMethodTierType = 'shipping_method_tiers'
@@ -103,4 +102,4 @@ class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 const instance = new ShippingMethodTiers()
 export default instance
 
-export type { ShippingMethodTiers, ShippingMethodTier, ShippingMethodTierType }
+export type { ShippingMethodTier, ShippingMethodTiers, ShippingMethodTierType }

@@ -1,6 +1,6 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { EventStore } from './event_stores'
 
@@ -96,4 +96,4 @@ class Tags extends ApiResource<Tag> {
 const instance = new Tags()
 export default instance
 
-export type { Tags, Tag, TagCreate, TagUpdate, TagType }
+export type { Tag, TagCreate, Tags, TagType, TagUpdate }

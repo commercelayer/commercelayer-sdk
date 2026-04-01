@@ -1,11 +1,10 @@
-import { ApiResource } from '../resource'
-import type { Resource, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsList } from '../query'
-
-import type { Market } from './markets'
+import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import { ApiResource } from '../resource'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
+import type { Market } from './markets'
 
 
 type GeocoderType = 'geocoders'
@@ -83,4 +82,4 @@ class Geocoders extends ApiResource<Geocoder> {
 const instance = new Geocoders()
 export default instance
 
-export type { Geocoders, Geocoder, GeocoderType }
+export type { Geocoder, Geocoders, GeocoderType }

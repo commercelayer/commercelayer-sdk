@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Sku } from './skus'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { Sku } from './skus'
+import type { Version } from './versions'
 
 
 type ShippingCategoryType = 'shipping_categories'
@@ -132,4 +131,4 @@ class ShippingCategories extends ApiResource<ShippingCategory> {
 const instance = new ShippingCategories()
 export default instance
 
-export type { ShippingCategories, ShippingCategory, ShippingCategoryCreate, ShippingCategoryUpdate, ShippingCategoryType }
+export type { ShippingCategories, ShippingCategory, ShippingCategoryCreate, ShippingCategoryType, ShippingCategoryUpdate }

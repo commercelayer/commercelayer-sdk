@@ -1,20 +1,19 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Order, OrderType } from './orders'
-import type { Customer } from './customers'
-import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Address } from './addresses'
-import type { Capture, CaptureType } from './captures'
-import type { Refund } from './refunds'
-import type { ReturnLineItem } from './return_line_items'
 import type { Attachment } from './attachments'
-import type { ResourceError } from './resource_errors'
+import type { Capture, CaptureType } from './captures'
+import type { Customer } from './customers'
+import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { Order, OrderType } from './orders'
+import type { Refund } from './refunds'
+import type { ResourceError } from './resource_errors'
+import type { ReturnLineItem } from './return_line_items'
+import type { StockLocation, StockLocationType } from './stock_locations'
 import type { Tag, TagType } from './tags'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type ReturnType = 'returns'
@@ -368,4 +367,4 @@ class Returns extends ApiResource<Return> {
 const instance = new Returns()
 export default instance
 
-export type { Returns, Return, ReturnCreate, ReturnUpdate, ReturnType }
+export type { Return, ReturnCreate, Returns, ReturnType, ReturnUpdate }

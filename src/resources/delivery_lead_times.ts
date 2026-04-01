@@ -1,12 +1,11 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { StockLocation, StockLocationType } from './stock_locations'
-import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
+import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
+import type { StockLocation, StockLocationType } from './stock_locations'
+import type { Version } from './versions'
 
 
 type DeliveryLeadTimeType = 'delivery_lead_times'
@@ -157,4 +156,4 @@ class DeliveryLeadTimes extends ApiResource<DeliveryLeadTime> {
 const instance = new DeliveryLeadTimes()
 export default instance
 
-export type { DeliveryLeadTimes, DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeUpdate, DeliveryLeadTimeType }
+export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimes, DeliveryLeadTimeType, DeliveryLeadTimeUpdate }

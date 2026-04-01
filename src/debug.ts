@@ -16,7 +16,7 @@ let debuggerFactory: DebuggerFactory = (_namespace: string): Debugger => debugge
 try {
 	const debugModule = require('debug')
 	if (debugModule && (typeof debugModule === 'function')) debuggerFactory = debugModule
-} catch (error) {
+} catch (_error) {
 	//
 }
 

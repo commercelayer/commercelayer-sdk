@@ -1,17 +1,16 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Version } from './versions'
-import type { EventStore } from './event_stores'
-import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
-import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
-import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
-import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
+import type { EventStore } from './event_stores'
 import type { ExternalPromotion, ExternalPromotionType } from './external_promotions'
 import type { FixedAmountPromotion, FixedAmountPromotionType } from './fixed_amount_promotions'
+import type { FixedPricePromotion, FixedPricePromotionType } from './fixed_price_promotions'
 import type { FlexPromotion, FlexPromotionType } from './flex_promotions'
+import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
+import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
+import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
+import type { Version } from './versions'
 
 
 type CustomPromotionRuleType = 'custom_promotion_rules'
@@ -124,4 +123,4 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 const instance = new CustomPromotionRules()
 export default instance
 
-export type { CustomPromotionRules, CustomPromotionRule, CustomPromotionRuleCreate, CustomPromotionRuleUpdate, CustomPromotionRuleType }
+export type { CustomPromotionRule, CustomPromotionRuleCreate, CustomPromotionRules, CustomPromotionRuleType, CustomPromotionRuleUpdate }

@@ -1,11 +1,10 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type CheckoutComPaymentType = 'checkout_com_payments'
@@ -199,4 +198,4 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 const instance = new CheckoutComPayments()
 export default instance
 
-export type { CheckoutComPayments, CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentUpdate, CheckoutComPaymentType }
+export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPayments, CheckoutComPaymentType, CheckoutComPaymentUpdate }

@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import { ApiSchema } from './schema'
-import resSchema from './resources.js'
+
 import { sortObjectFields } from '../src/util'
-import Inflector from './inflector.js'
 import { CONFIG } from './generator.js'
+import Inflector from './inflector.js'
+import resSchema from './resources.js'
+import type { ApiSchema } from './schema'
 
 
 

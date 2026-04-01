@@ -1,15 +1,14 @@
 
 import ApiClient, { type ApiClientInitConfig } from './client'
-import { denormalize, normalize, type DocWithData } from './jsonapi'
-import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
-import { generateQueryStringParams, isParamsList } from './query'
-import { type ResourceTypeLock, resourceList } from './enum'
 import config from './config'
+import Debug from './debug'
+import { type ResourceTypeLock, resourceList } from './enum'
 import { SdkError } from './error'
+import { type DocWithData, denormalize, normalize } from './jsonapi'
+import type { QueryFilter, QueryParams, QueryParamsList, QueryParamsRetrieve } from './query'
+import { generateQueryStringParams, isParamsList } from './query'
 import type { ObjectType } from './types'
 
-
-import Debug from './debug'
 const debug = Debug('resource')
 
 
@@ -86,7 +85,7 @@ class ListResponse<R extends Resource = Resource> extends Array<R> {
 }
 
 
-export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ListMeta, ResourceRel }
+export type { ListMeta, ListResponse, Metadata, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceType, ResourceUpdate }
 
 export type ResourceSort = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'created_at' | 'updated_at'>
 export type ResourceFilter = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'metadata' | 'created_at' | 'updated_at'>
@@ -94,6 +93,7 @@ export type ResourceFilter = Pick<Resource, 'id' | 'reference' | 'reference_orig
 
 
 // Resource adapters local configuration
+// biome-ignore lint/complexity/noBannedTypes: left as placeholder 
 type ResourceAdapterConfig = {
 	// xyz?: boolean
 }
@@ -366,7 +366,7 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 
 
-export { ApiResourceAdapter, ApiResource, ApiSingleton, type ResourceAdapter }
+export { ApiResource, ApiResourceAdapter, ApiSingleton, type ResourceAdapter }
 
 
 

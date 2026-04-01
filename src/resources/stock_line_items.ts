@@ -1,14 +1,13 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Shipment, ShipmentType } from './shipments'
+import type { EventStore } from './event_stores'
 import type { LineItem, LineItemType } from './line_items'
-import type { StockItem, StockItemType } from './stock_items'
+import type { Shipment, ShipmentType } from './shipments'
 import type { Sku, SkuType } from './skus'
+import type { StockItem, StockItemType } from './stock_items'
 import type { StockReservation } from './stock_reservations'
 import type { Version } from './versions'
-import type { EventStore } from './event_stores'
 
 
 type StockLineItemType = 'stock_line_items'
@@ -209,4 +208,4 @@ class StockLineItems extends ApiResource<StockLineItem> {
 const instance = new StockLineItems()
 export default instance
 
-export type { StockLineItems, StockLineItem, StockLineItemCreate, StockLineItemUpdate, StockLineItemType }
+export type { StockLineItem, StockLineItemCreate, StockLineItems, StockLineItemType, StockLineItemUpdate }
