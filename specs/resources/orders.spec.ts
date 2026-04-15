@@ -1683,6 +1683,32 @@ describe('Orders resource', () => {
 	/* trigger._refresh stop */
 	
 
+	/* trigger._refresh_prices start */
+	it(resourceType + '._refresh_prices', async () => {
+	
+		let triggerAttr = '_refresh_prices'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await cl[resourcePath]._refresh_prices(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._refresh_prices stop */
+	
+
 	/* trigger._validate start */
 	it(resourceType + '._validate', async () => {
 	
