@@ -1,3 +1,22 @@
+## [7.11.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.10.0...v7.11.0) (2026-04-15)
+
+### Features
+
+* update resources to schema v7.9.15 ([3c1a576](https://github.com/commercelayer/commercelayer-sdk/commit/3c1a576da473b3e63b7c879afdb045b6d935c69b))
+* update resources to schema v7.9.15 ([ac6acf1](https://github.com/commercelayer/commercelayer-sdk/commit/ac6acf12e69a0a575a53a196591269e6fddd0077))
+* update resources to schema v7.9.15 ([d795b40](https://github.com/commercelayer/commercelayer-sdk/commit/d795b4096de0441a90016fc8581e4bb77fd0ca88))
+* update resources to schema v7.9.16 ([17687ae](https://github.com/commercelayer/commercelayer-sdk/commit/17687ae25f18a95c1a405a7ae6d018803927ccbe))
+
+### Bug Fixes
+
+* fix dependencies ([2b3ee3f](https://github.com/commercelayer/commercelayer-sdk/commit/2b3ee3fb2b7b49b79a526d22354776b7d6805ace))
+* fix merge ([6405877](https://github.com/commercelayer/commercelayer-sdk/commit/6405877bfd43be3d710d3db5a7c41305f9770ce8))
+* update dependencies ([b2e8a5c](https://github.com/commercelayer/commercelayer-sdk/commit/b2e8a5cb096bd3912cee73f759290bf68fb6c4a3))
+* update dependencies ([3eeebba](https://github.com/commercelayer/commercelayer-sdk/commit/3eeebbaf4312bfca3767a39f390334399ca4b36f))
+* update dependencies ([8759db0](https://github.com/commercelayer/commercelayer-sdk/commit/8759db00a378202dba3f7156bf40c18dbe4fd56f))
+* update github actions ([9f99706](https://github.com/commercelayer/commercelayer-sdk/commit/9f99706043121722a89e2cfda2b786a954704b4c))
+* update github actions ([7681442](https://github.com/commercelayer/commercelayer-sdk/commit/7681442b23d9dfefea3426f37fff488dcf769e94))
+
 ## [7.10.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.9.0...v7.10.0) (2026-04-01)
 
 ### Features
