@@ -1,4 +1,5 @@
 
+import { execSync } from 'node:child_process'
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { basename } from 'node:path'
 import Fixer from './fixer'
@@ -66,6 +67,16 @@ const loadTemplates = (): void => {
 		const tpl = readFileSync(`${tplDir}/${tplName}.tpl`, { encoding: 'utf-8' })
 		templates[tplName] = tpl
 	})
+}
+
+
+function formatCode(sourcePath: string): void {
+  try {
+    console.log(`- Formatting folder: ${sourcePath}`)
+    execSync(`pnpm biome check --write ${sourcePath}`, { encoding: "utf-8" })
+  } catch (error) {
+    console.error("Formatter error:", error)
+  }
 }
 
 
@@ -174,6 +185,9 @@ const generate = async (localSchema?: boolean) => {
 
 	updateSdkVersion()
 	updateLicense()
+
+	formatCode(resDir)
+	formatCode(testDir)
 
 	console.log(`SDK generation completed [${global.version}].\n`)
 
@@ -380,6 +394,7 @@ const updateModelTypes = (resources: Record<string, ApiRes>): void => {
 
 
 	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
+	formatCode(filePath)
 
 	console.log('Model types generated.')
 
@@ -469,6 +484,7 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 
 	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
+	formatCode(filePath)
 
 	console.log('API resources generated.')
 
@@ -512,6 +528,7 @@ const updateAdapters = (resources: Record<string, ApiRes>): void => {
 
 
 	writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
+	formatCode(filePath)
 
 	console.log('Resource adapters generated.')
 
