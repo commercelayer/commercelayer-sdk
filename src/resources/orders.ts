@@ -1011,6 +1011,11 @@ interface OrderUpdate extends ResourceUpdate {
 	 */
 	_refresh?: boolean | null
 	/** 
+	 * Send this attribute if you want to refresh the prices of the line items associated to this order. Cannot be passed by sales channels.
+	 * @example ```true```
+	 */
+	_refresh_prices?: boolean | null
+	/** 
 	 * Send this attribute if you want to trigger the external validation for the order.
 	 * @example ```true```
 	 */
@@ -1374,6 +1379,10 @@ class Orders extends ApiResource<Order> {
 
 	async _refresh(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _refresh: true }, params, options)
+	}
+
+	async _refresh_prices(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+		return this.resources.update<OrderUpdate, Order>({ id: (typeof id === 'string')? id: id.id, type: Orders.TYPE, _refresh_prices: true }, params, options)
 	}
 
 	async _validate(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
