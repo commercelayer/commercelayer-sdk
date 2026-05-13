@@ -14,7 +14,6 @@ import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 
 
 type ExternalPromotionType = 'external_promotions'
@@ -142,7 +141,6 @@ interface ExternalPromotion extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	skus?: Sku[] | null
 
@@ -364,11 +362,6 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 	async tags(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `external_promotions/${_externalPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `external_promotions/${_externalPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

@@ -3,7 +3,6 @@ import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, R
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
-import type { Version } from './versions'
 
 
 type ExportType = 'exports'
@@ -104,7 +103,6 @@ interface Export extends Resource {
 	errors_log?: Record<string, any> | null
 
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -185,11 +183,6 @@ class Exports extends ApiResource<Export> {
 	async events(exportId: string | Export, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _exportId = (exportId as Export).id || exportId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `exports/${_exportId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(exportId: string | Export, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _exportId = (exportId as Export).id || exportId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `exports/${_exportId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(exportId: string | Export, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

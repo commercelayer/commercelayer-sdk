@@ -6,7 +6,6 @@ import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { Market } from './markets'
 import type { TaxRule, TaxRuleType } from './tax_rules'
-import type { Version } from './versions'
 
 
 type ManualTaxCalculatorType = 'manual_tax_calculators'
@@ -31,7 +30,6 @@ interface ManualTaxCalculator extends Resource {
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	tax_rules?: TaxRule[] | null
 
@@ -93,11 +91,6 @@ class ManualTaxCalculators extends ApiResource<ManualTaxCalculator> {
 	async events(manualTaxCalculatorId: string | ManualTaxCalculator, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _manualTaxCalculatorId = (manualTaxCalculatorId as ManualTaxCalculator).id || manualTaxCalculatorId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `manual_tax_calculators/${_manualTaxCalculatorId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(manualTaxCalculatorId: string | ManualTaxCalculator, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _manualTaxCalculatorId = (manualTaxCalculatorId as ManualTaxCalculator).id || manualTaxCalculatorId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `manual_tax_calculators/${_manualTaxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(manualTaxCalculatorId: string | ManualTaxCalculator, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

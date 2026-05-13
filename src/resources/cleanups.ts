@@ -3,7 +3,6 @@ import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, R
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
-import type { Version } from './versions'
 
 
 type CleanupType = 'cleanups'
@@ -70,7 +69,6 @@ interface Cleanup extends Resource {
 	errors_log?: Record<string, any> | null
 
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -122,11 +120,6 @@ class Cleanups extends ApiResource<Cleanup> {
 	async events(cleanupId: string | Cleanup, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `cleanups/${_cleanupId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(cleanupId: string | Cleanup, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `cleanups/${_cleanupId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(cleanupId: string | Cleanup, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

@@ -15,7 +15,6 @@ import type { Order } from './orders'
 import type { PaypalPayment } from './paypal_payments'
 import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
-import type { Version } from './versions'
 import type { Void } from './voids'
 import type { WireTransfer } from './wire_transfers'
 
@@ -166,7 +165,6 @@ interface Authorization extends Resource {
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	captures?: Capture[] | null
 	voids?: Void[] | null
@@ -230,11 +228,6 @@ class Authorizations extends ApiResource<Authorization> {
 	async events(authorizationId: string | Authorization, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `authorizations/${_authorizationId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(authorizationId: string | Authorization, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _authorizationId = (authorizationId as Authorization).id || authorizationId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `authorizations/${_authorizationId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(authorizationId: string | Authorization, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

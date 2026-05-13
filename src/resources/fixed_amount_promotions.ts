@@ -14,7 +14,6 @@ import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 
 
 type FixedAmountPromotionType = 'fixed_amount_promotions'
@@ -132,7 +131,6 @@ interface FixedAmountPromotion extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	skus?: Sku[] | null
 
@@ -339,11 +337,6 @@ class FixedAmountPromotions extends ApiResource<FixedAmountPromotion> {
 	async tags(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _fixedAmountPromotionId = (fixedAmountPromotionId as FixedAmountPromotion).id || fixedAmountPromotionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `fixed_amount_promotions/${_fixedAmountPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(fixedAmountPromotionId: string | FixedAmountPromotion, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

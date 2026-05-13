@@ -3,7 +3,6 @@ import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, R
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 
 
 type ManualGatewayType = 'manual_gateways'
@@ -29,13 +28,17 @@ interface ManualGateway extends Resource {
 	 */
 	force_payments?: boolean | null
 	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -112,11 +115,6 @@ class ManualGateways extends ApiResource<ManualGateway> {
 	async payment_methods(manualGatewayId: string | ManualGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `manual_gateways/${_manualGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
-	}
-
-	async versions(manualGatewayId: string | ManualGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _manualGatewayId = (manualGatewayId as ManualGateway).id || manualGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `manual_gateways/${_manualGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(manualGatewayId: string | ManualGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

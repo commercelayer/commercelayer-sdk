@@ -6,7 +6,6 @@ import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { Market, MarketType } from './markets'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 
 
 type SkuOptionType = 'sku_options'
@@ -73,7 +72,6 @@ interface SkuOption extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -199,11 +197,6 @@ class SkuOptions extends ApiResource<SkuOption> {
 	async tags(skuOptionId: string | SkuOption, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `sku_options/${_skuOptionId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(skuOptionId: string | SkuOption, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _skuOptionId = (skuOptionId as SkuOption).id || skuOptionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `sku_options/${_skuOptionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(skuOptionId: string | SkuOption, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

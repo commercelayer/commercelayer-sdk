@@ -66,9 +66,4 @@ describe('SDK:static suite', () => {
 		expect(CommerceLayerStatic.isTaggable('orders')).toBeTruthy()
 	})
 
-
-	test('static.versionable', async () => {
-		expect(CommerceLayerStatic.isVersionable('orders')).toBeTruthy()
-	})
-
 })

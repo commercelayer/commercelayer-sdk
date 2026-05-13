@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
-import type { Version } from './versions'
 
 
 type PaypalPaymentType = 'paypal_payments'
@@ -72,7 +71,6 @@ interface PaypalPayment extends Resource {
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -138,11 +136,6 @@ class PaypalPayments extends ApiResource<PaypalPayment> {
 	async payment_gateway(paypalPaymentId: string | PaypalPayment, params?: QueryParamsRetrieve<PaymentGateway>, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `paypal_payments/${_paypalPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
-	}
-
-	async versions(paypalPaymentId: string | PaypalPayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || paypalPaymentId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `paypal_payments/${_paypalPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(paypalPaymentId: string | PaypalPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

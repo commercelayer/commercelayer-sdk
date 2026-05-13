@@ -1,7 +1,7 @@
 
 import { OPEN_API_SCHEMA_VERSION } from './commercelayer'
 import type { ResourceTypeLock } from './enum'
-import { getResources, getSingletons, isCreatable, isDeletable, isSingleton, isTaggable, isUpdatable, isVersionable } from './enum'
+import { getResources, getSingletons, isCreatable, isDeletable, isSingleton, isTaggable, isUpdatable } from './enum'
 import { type ApiError, isApiError, isSdkError, type SdkError } from './error'
 import { isTokenExpired } from './util'
 
@@ -35,10 +35,6 @@ export const CommerceLayerStatic = {
 
 	isTaggable: (resource: ResourceTypeLock): boolean => {
 		return isTaggable(resource)
-	},
-
-	isVersionable: (resource: ResourceTypeLock): boolean => {
-		return isVersionable(resource)
 	},
 
 	isSdkError: (error: unknown): error is SdkError => {

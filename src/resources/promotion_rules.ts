@@ -10,7 +10,6 @@ import type { FlexPromotion } from './flex_promotions'
 import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
-import type { Version } from './versions'
 
 
 type PromotionRuleType = 'promotion_rules'
@@ -27,7 +26,6 @@ interface PromotionRule extends Resource {
 
 
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -36,11 +34,6 @@ interface PromotionRule extends Resource {
 class PromotionRules extends ApiResource<PromotionRule> {
 
 	static readonly TYPE: PromotionRuleType = 'promotion_rules' as const
-
-	async versions(promotionRuleId: string | PromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _promotionRuleId = (promotionRuleId as PromotionRule).id || promotionRuleId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `promotion_rules/${_promotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
 
 	async event_stores(promotionRuleId: string | PromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
 		const _promotionRuleId = (promotionRuleId as PromotionRule).id || promotionRuleId as string

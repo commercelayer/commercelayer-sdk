@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
 import type { ShippingMethod } from './shipping_methods'
-import type { Version } from './versions'
 
 
 type ShippingMethodTierType = 'shipping_method_tiers'
@@ -47,7 +46,6 @@ interface ShippingMethodTier extends Resource {
 
 	shipping_method?: ShippingMethod | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -65,11 +63,6 @@ class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
 	async attachments(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingMethodTierId = (shippingMethodTierId as ShippingMethodTier).id || shippingMethodTierId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_method_tiers/${_shippingMethodTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _shippingMethodTierId = (shippingMethodTierId as ShippingMethodTier).id || shippingMethodTierId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_method_tiers/${_shippingMethodTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(shippingMethodTierId: string | ShippingMethodTier, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

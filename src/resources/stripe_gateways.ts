@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
 import type { StripePayment } from './stripe_payments'
-import type { Version } from './versions'
 
 
 type StripeGatewayType = 'stripe_gateways'
@@ -25,6 +24,11 @@ interface StripeGateway extends Resource {
 	 */
 	name: string
 	force_payments?: boolean | null
+	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
 	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
@@ -57,7 +61,6 @@ interface StripeGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	stripe_payments?: StripePayment[] | null
 
@@ -157,11 +160,6 @@ class StripeGateways extends ApiResource<StripeGateway> {
 	async payment_methods(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${_stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
-	}
-
-	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

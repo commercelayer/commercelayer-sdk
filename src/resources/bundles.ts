@@ -8,7 +8,6 @@ import type { Market, MarketType } from './markets'
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 
 
 type BundleType = 'bundles'
@@ -101,7 +100,6 @@ interface Bundle extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -267,11 +265,6 @@ class Bundles extends ApiResource<Bundle> {
 	async tags(bundleId: string | Bundle, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _bundleId = (bundleId as Bundle).id || bundleId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `bundles/${_bundleId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(bundleId: string | Bundle, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _bundleId = (bundleId as Bundle).id || bundleId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `bundles/${_bundleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(bundleId: string | Bundle, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
