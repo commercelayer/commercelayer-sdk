@@ -79,5 +79,8 @@
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",
   "publishConfig": {
     "access": "public"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
   }
 }
