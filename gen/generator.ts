@@ -47,7 +47,6 @@ type ApiRes = {
 	singleton: boolean
 	operations: Array<OperationType>
 	taggable: boolean
-	versionable: boolean
 }
 
 
@@ -163,7 +162,6 @@ const generate = async (localSchema?: boolean) => {
 		const singleton = Object.values(res.operations).some(op => op.singleton)
 		const operations = Object.keys(res.operations).filter(op => ['retrieve', 'list', 'create', 'update', 'delete'].includes(op)) as OperationType[]
 		const taggable = Object.keys(res.operations).includes('tags')
-		const versionable = Object.keys(res.operations).includes('versions')
 
 		resources[type] = {
 			type,
@@ -172,7 +170,6 @@ const generate = async (localSchema?: boolean) => {
 			singleton,
 			operations: singleton ? [] : operations,
 			taggable,
-			versionable
 		}
 
 	})
@@ -417,7 +414,6 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 	const updatables: string[] = []
 	const deletables: string[] = []
 	const taggables: string[] = []
-	const versionables: string[] = []
 
 	const fieldsets: string[] = []
 	const sortables: string[] = []
@@ -435,7 +431,6 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 		if (res.operations.includes('update')) updatables.push(tabType)
 		if (res.operations.includes('delete')) deletables.push(tabType)
 		if (res.taggable) taggables.push(tabType)
-		if (res.versionable) versionables.push(tabType)
 
 		fieldsets.push(`\t${res.type}: models.${Inflector.singularize(res.apiClass)}`)
 		sortables.push(`\t${res.type}: models.${Inflector.singularize(res.apiClass)}Sort`)
@@ -469,10 +464,6 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 	const rtStartIdx = findLine('##__API_RESOURCE_TAGGABLE_START__##', lines).index + 1
 	const rtStopIdx = findLine('##__API_RESOURCE_TAGGABLE_STOP__##', lines).index
 	lines.splice(rtStartIdx, rtStopIdx - rtStartIdx, taggables.join(',\n'))
-
-	const rvStartIdx = findLine('##__API_RESOURCE_VERSIONABLE_START__##', lines).index + 1
-	const rvStopIdx = findLine('##__API_RESOURCE_VERSIONABLE_STOP__##', lines).index
-	lines.splice(rvStartIdx, rvStopIdx - rvStartIdx, versionables.join(',\n'))
 
 	const rfStartIdx = findLine('##__API_RESOURCE_FIELDS_START__##', lines).index + 1
 	const rfStopIdx = findLine('##__API_RESOURCE_FIELDS_STOP__##', lines).index

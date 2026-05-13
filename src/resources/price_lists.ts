@@ -5,7 +5,6 @@ import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { Price } from './prices'
-import type { Version } from './versions'
 
 
 type PriceListType = 'price_lists'
@@ -59,7 +58,6 @@ interface PriceList extends Resource {
 	prices?: Price[] | null
 	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -156,11 +154,6 @@ class PriceLists extends ApiResource<PriceList> {
 	async attachments(priceListId: string | PriceList, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceListId = (priceListId as PriceList).id || priceListId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_lists/${_priceListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(priceListId: string | PriceList, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _priceListId = (priceListId as PriceList).id || priceListId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `price_lists/${_priceListId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(priceListId: string | PriceList, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

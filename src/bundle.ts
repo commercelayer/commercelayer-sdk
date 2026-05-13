@@ -166,7 +166,6 @@ class CommerceLayerBundle extends CommerceLayerClient {
 	get tax_rules(): api.TaxRules { return api.tax_rules }
 	get taxjar_accounts(): api.TaxjarAccounts { return api.taxjar_accounts }
 	get transactions(): api.Transactions { return api.transactions }
-	get versions(): api.Versions { return api.versions }
 	get vertex_accounts(): api.VertexAccounts { return api.vertex_accounts }
 	get voids(): api.Voids { return api.voids }
 	get webhooks(): api.Webhooks { return api.webhooks }

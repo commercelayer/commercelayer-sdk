@@ -10,7 +10,6 @@ import type { FlexPromotion, FlexPromotionType } from './flex_promotions'
 import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
-import type { Version } from './versions'
 
 
 type CustomPromotionRuleType = 'custom_promotion_rules'
@@ -40,7 +39,6 @@ interface CustomPromotionRule extends Resource {
 	filters?: Record<string, any> | null
 
 	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -86,11 +84,6 @@ class CustomPromotionRules extends ApiResource<CustomPromotionRule> {
 
 	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete((typeof id === 'string')? { id, type: CustomPromotionRules.TYPE } : id, options)
-	}
-
-	async versions(customPromotionRuleId: string | CustomPromotionRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _customPromotionRuleId = (customPromotionRuleId as CustomPromotionRule).id || customPromotionRuleId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `custom_promotion_rules/${_customPromotionRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(customPromotionRuleId: string | CustomPromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

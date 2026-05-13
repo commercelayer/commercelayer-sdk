@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
 import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 
 
 type CheckoutComGatewayType = 'checkout_com_gateways'
@@ -31,6 +30,11 @@ interface CheckoutComGateway extends Resource {
 	 */
 	force_payments?: boolean | null
 	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -52,7 +56,6 @@ interface CheckoutComGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	checkout_com_payments?: CheckoutComPayment[] | null
 
@@ -154,11 +157,6 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 	async payment_methods(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `checkout_com_gateways/${_checkoutComGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
-	}
-
-	async versions(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `checkout_com_gateways/${_checkoutComGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

@@ -5,7 +5,6 @@ import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { Market } from './markets'
-import type { Version } from './versions'
 
 
 type VertexAccountType = 'vertex_accounts'
@@ -54,7 +53,6 @@ interface VertexAccount extends Resource {
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -166,11 +164,6 @@ class VertexAccounts extends ApiResource<VertexAccount> {
 	async events(vertexAccountId: string | VertexAccount, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _vertexAccountId = (vertexAccountId as VertexAccount).id || vertexAccountId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `vertex_accounts/${_vertexAccountId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(vertexAccountId: string | VertexAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _vertexAccountId = (vertexAccountId as VertexAccount).id || vertexAccountId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `vertex_accounts/${_vertexAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(vertexAccountId: string | VertexAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

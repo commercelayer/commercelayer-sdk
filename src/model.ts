@@ -131,7 +131,6 @@ export type { TaxCategory, TaxCategoryCreate, TaxCategorySort, TaxCategoryUpdate
 export type { TaxRule, TaxRuleCreate, TaxRuleSort, TaxRuleUpdate } from './resources/tax_rules'
 export type { TaxjarAccount, TaxjarAccountCreate, TaxjarAccountSort, TaxjarAccountUpdate } from './resources/taxjar_accounts'
 export type { Transaction, TransactionSort } from './resources/transactions'
-export type { Version, VersionSort } from './resources/versions'
 export type { VertexAccount, VertexAccountCreate, VertexAccountSort, VertexAccountUpdate } from './resources/vertex_accounts'
 export type { Void, VoidSort, VoidUpdate } from './resources/voids'
 export type { Webhook, WebhookCreate, WebhookSort, WebhookUpdate } from './resources/webhooks'

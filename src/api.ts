@@ -131,7 +131,6 @@ export { default as tax_categories, type TaxCategories } from './resources/tax_c
 export { default as tax_rules, type TaxRules } from './resources/tax_rules'
 export { default as taxjar_accounts, type TaxjarAccounts } from './resources/taxjar_accounts'
 export { default as transactions, type Transactions } from './resources/transactions'
-export { default as versions, type Versions } from './resources/versions'
 export { default as vertex_accounts, type VertexAccounts } from './resources/vertex_accounts'
 export { default as voids, type Voids } from './resources/voids'
 export { default as webhooks, type Webhooks } from './resources/webhooks'

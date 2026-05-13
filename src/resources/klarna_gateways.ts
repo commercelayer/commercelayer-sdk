@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 
 
 type KlarnaGatewayType = 'klarna_gateways'
@@ -31,13 +30,17 @@ interface KlarnaGateway extends Resource {
 	 */
 	force_payments?: boolean | null
 	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	klarna_payments?: KlarnaPayment[] | null
 
@@ -149,11 +152,6 @@ class KlarnaGateways extends ApiResource<KlarnaGateway> {
 	async payment_methods(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `klarna_gateways/${_klarnaGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
-	}
-
-	async versions(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _klarnaGatewayId = (klarnaGatewayId as KlarnaGateway).id || klarnaGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `klarna_gateways/${_klarnaGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(klarnaGatewayId: string | KlarnaGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

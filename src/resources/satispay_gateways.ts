@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
 import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
-import type { Version } from './versions'
 
 
 type SatispayGatewayType = 'satispay_gateways'
@@ -31,6 +30,11 @@ interface SatispayGateway extends Resource {
 	 */
 	force_payments?: boolean | null
 	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -52,7 +56,6 @@ interface SatispayGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	satispay_payments?: SatispayPayment[] | null
 
@@ -139,11 +142,6 @@ class SatispayGateways extends ApiResource<SatispayGateway> {
 	async payment_methods(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _satispayGatewayId = (satispayGatewayId as SatispayGateway).id || satispayGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `satispay_gateways/${_satispayGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
-	}
-
-	async versions(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _satispayGatewayId = (satispayGatewayId as SatispayGateway).id || satispayGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `satispay_gateways/${_satispayGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(satispayGatewayId: string | SatispayGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

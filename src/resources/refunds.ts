@@ -16,7 +16,6 @@ import type { PaypalPayment } from './paypal_payments'
 import type { Return } from './returns'
 import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
-import type { Version } from './versions'
 import type { WireTransfer } from './wire_transfers'
 
 
@@ -96,7 +95,6 @@ interface Refund extends Resource {
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	reference_capture?: Capture | null
 	return?: Return | null
@@ -140,11 +138,6 @@ class Refunds extends ApiResource<Refund> {
 	async events(refundId: string | Refund, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _refundId = (refundId as Refund).id || refundId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `refunds/${_refundId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(refundId: string | Refund, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _refundId = (refundId as Refund).id || refundId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `refunds/${_refundId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(refundId: string | Refund, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

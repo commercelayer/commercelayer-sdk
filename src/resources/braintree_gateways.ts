@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
 import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 
 
 type BraintreeGatewayType = 'braintree_gateways'
@@ -30,6 +29,11 @@ interface BraintreeGateway extends Resource {
 	 * @example ```true```
 	 */
 	force_payments?: boolean | null
+	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
 	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
@@ -57,7 +61,6 @@ interface BraintreeGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	braintree_payments?: BraintreePayment[] | null
 
@@ -209,11 +212,6 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 	async payment_methods(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `braintree_gateways/${_braintreeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
-	}
-
-	async versions(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `braintree_gateways/${_braintreeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

@@ -5,7 +5,6 @@ import type { CustomerPaymentSource } from './customer_payment_sources'
 import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
-import type { Version } from './versions'
 
 
 type ExternalPaymentType = 'external_payments'
@@ -40,7 +39,6 @@ interface ExternalPayment extends Resource {
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
 	wallet?: CustomerPaymentSource | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -106,11 +104,6 @@ class ExternalPayments extends ApiResource<ExternalPayment> {
 	async wallet(externalPaymentId: string | ExternalPayment, params?: QueryParamsRetrieve<CustomerPaymentSource>, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
 		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId as string
 		return this.resources.fetch<CustomerPaymentSource>({ type: 'customer_payment_sources' }, `external_payments/${_externalPaymentId}/wallet`, params, options) as unknown as CustomerPaymentSource
-	}
-
-	async versions(externalPaymentId: string | ExternalPayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _externalPaymentId = (externalPaymentId as ExternalPayment).id || externalPaymentId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `external_payments/${_externalPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(externalPaymentId: string | ExternalPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

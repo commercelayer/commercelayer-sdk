@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
 import type { Price } from './prices'
-import type { Version } from './versions'
 
 
 type PriceTierType = 'price_tiers'
@@ -47,7 +46,6 @@ interface PriceTier extends Resource {
 
 	price?: Price | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -65,11 +63,6 @@ class PriceTiers extends ApiResource<PriceTier> {
 	async attachments(priceTierId: string | PriceTier, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceTierId = (priceTierId as PriceTier).id || priceTierId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_tiers/${_priceTierId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(priceTierId: string | PriceTier, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _priceTierId = (priceTierId as PriceTier).id || priceTierId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `price_tiers/${_priceTierId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(priceTierId: string | PriceTier, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
