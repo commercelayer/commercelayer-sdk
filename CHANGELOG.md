@@ -1,3 +1,9 @@
+## [8.0.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.1...v8.0.0-beta.2) (2026-05-14)
+
+### Bug Fixes
+
+* fix build config ([579b0e6](https://github.com/commercelayer/commercelayer-sdk/commit/579b0e6ec72c5548304ede0ff9374579d6cb9f70))
+
 ## [8.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v7.11.0...v8.0.0-beta.1) (2026-05-13)
 
 ### ⚠ BREAKING CHANGES
