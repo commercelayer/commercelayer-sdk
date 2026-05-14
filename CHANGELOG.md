@@ -1,3 +1,9 @@
+## [8.0.0-beta.3](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.2...v8.0.0-beta.3) (2026-05-14)
+
+### Bug Fixes
+
+* remove reviewers ([bbb8333](https://github.com/commercelayer/commercelayer-sdk/commit/bbb833386d245c650ce00b4e4e35bbb258bbc5f7))
+
 ## [8.0.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.1...v8.0.0-beta.2) (2026-05-14)
 
 ### Bug Fixes
