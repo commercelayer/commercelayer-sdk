@@ -169,7 +169,7 @@ const generate = async (localSchema?: boolean) => {
 			models,
 			singleton,
 			operations: singleton ? [] : operations,
-			taggable
+			taggable,
 		}
 
 	})

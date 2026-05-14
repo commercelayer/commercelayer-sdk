@@ -79,8 +79,5 @@
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",
   "publishConfig": {
     "access": "public"
-  },
-  "resolutions": {
-    "ansi-regex": "5.0.1"
   }
 }
