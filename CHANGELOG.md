@@ -1,3 +1,32 @@
+## [8.0.0-beta.3](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.2...v8.0.0-beta.3) (2026-05-14)
+
+### Bug Fixes
+
+* remove reviewers ([bbb8333](https://github.com/commercelayer/commercelayer-sdk/commit/bbb833386d245c650ce00b4e4e35bbb258bbc5f7))
+
+## [8.0.0-beta.2](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.1...v8.0.0-beta.2) (2026-05-14)
+
+### Bug Fixes
+
+* fix build config ([579b0e6](https://github.com/commercelayer/commercelayer-sdk/commit/579b0e6ec72c5548304ede0ff9374579d6cb9f70))
+
+## [8.0.0-beta.1](https://github.com/commercelayer/commercelayer-sdk/compare/v7.11.0...v8.0.0-beta.1) (2026-05-13)
+
+### ⚠ BREAKING CHANGES
+
+* remove /versions endpoints
+
+### Features
+
+* update resources to schema v7.10.0 ([b1c9837](https://github.com/commercelayer/commercelayer-sdk/commit/b1c983753b035c95fa30cfd0d988ac373c2b5e63))
+
+### Bug Fixes
+
+* fix overrides ([4ace756](https://github.com/commercelayer/commercelayer-sdk/commit/4ace75603fb01eb749007bb0a73cc858a0edcc50))
+* fix overrides ([dcabdfa](https://github.com/commercelayer/commercelayer-sdk/commit/dcabdfa3c43b9a9b79f3b42ec71eeb53bc247f2d))
+* fix overrides ([64a31ae](https://github.com/commercelayer/commercelayer-sdk/commit/64a31aedb623fec9322d7b81bcdbfbfdc6dc8c1e))
+* fix release script pnpm version ([c3ea435](https://github.com/commercelayer/commercelayer-sdk/commit/c3ea4352bcac686060dfc789c805ee6f7aae89c5))
+
 ## [7.11.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.10.0...v7.11.0) (2026-04-15)
 
 ### Features

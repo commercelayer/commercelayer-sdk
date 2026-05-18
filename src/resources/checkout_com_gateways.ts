@@ -85,6 +85,11 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway secret key.
 	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
 	 */
@@ -122,6 +127,11 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway secret key.
 	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
@@ -175,6 +185,10 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 
 	async _enable(id: string | CheckoutComGateway, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | CheckoutComGateway, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComGateways.TYPE, _check: true }, params, options)
 	}
 
 

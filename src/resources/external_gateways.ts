@@ -39,6 +39,26 @@ interface ExternalGateway extends Resource {
 	 */
 	disabled_at?: string | null
 	/** 
+	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
+	 * @example ```"closed"```
+	 */
+	circuit_state?: string | null
+	/** 
+	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
+	 * @example ```5```
+	 */
+	circuit_failure_count?: number | null
+	/** 
+	 * The shared secret used to sign the external request payload.
+	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+	 */
+	shared_secret: string
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
+	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
 	 */
@@ -63,26 +83,6 @@ interface ExternalGateway extends Resource {
 	 * @example ```"https://external_gateway.com/token"```
 	 */
 	token_url?: string | null
-	/** 
-	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
-	 * @example ```"closed"```
-	 */
-	circuit_state?: string | null
-	/** 
-	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```5```
-	 */
-	circuit_failure_count?: number | null
-	/** 
-	 * The shared secret used to sign the external request payload.
-	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
-	 */
-	shared_secret: string
-	/** 
-	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
-	 * @example ```["order.line_item_options"]```
-	 */
-	external_includes?: string[] | null
 
 	payment_methods?: PaymentMethod[] | null
 	event_stores?: EventStore[] | null
@@ -114,6 +114,11 @@ interface ExternalGatewayCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
+	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
 	 */
@@ -138,11 +143,6 @@ interface ExternalGatewayCreate extends ResourceCreate {
 	 * @example ```"https://external_gateway.com/token"```
 	 */
 	token_url?: string | null
-	/** 
-	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
-	 * @example ```["order.line_item_options"]```
-	 */
-	external_includes?: string[] | null
 	
 }
 
@@ -170,6 +170,16 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
+	 * @example ```true```
+	 */
+	_reset_circuit?: boolean | null
+	/** 
+	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+	 * @example ```["order.line_item_options"]```
+	 */
+	external_includes?: string[] | null
+	/** 
 	 * The endpoint used by the external gateway to authorize payments.
 	 * @example ```"https://external_gateway.com/authorize"```
 	 */
@@ -194,16 +204,6 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
 	 * @example ```"https://external_gateway.com/token"```
 	 */
 	token_url?: string | null
-	/** 
-	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
-	 * @example ```true```
-	 */
-	_reset_circuit?: boolean | null
-	/** 
-	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
-	 * @example ```["order.line_item_options"]```
-	 */
-	external_includes?: string[] | null
 	
 }
 
