@@ -25,11 +25,6 @@ interface ExternalTaxCalculator extends Resource {
 	 */
 	name: string
 	/** 
-	 * The URL to the service that will compute the taxes.
-	 * @example ```"https://external_calculator.yourbrand.com"```
-	 */
-	tax_calculator_url: string
-	/** 
 	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
 	 */
@@ -49,6 +44,11 @@ interface ExternalTaxCalculator extends Resource {
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the taxes.
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
+	tax_calculator_url: string
 
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
@@ -66,15 +66,15 @@ interface ExternalTaxCalculatorCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The URL to the service that will compute the taxes.
-	 * @example ```"https://external_calculator.yourbrand.com"```
-	 */
-	tax_calculator_url: string
-	/** 
 	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the taxes.
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
+	tax_calculator_url: string
 	
 }
 
@@ -87,11 +87,6 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The URL to the service that will compute the taxes.
-	 * @example ```"https://external_calculator.yourbrand.com"```
-	 */
-	tax_calculator_url?: string | null
-	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
@@ -101,6 +96,11 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the taxes.
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
+	tax_calculator_url?: string | null
 	
 }
 

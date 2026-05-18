@@ -804,6 +804,18 @@
                         "foo": "bar"
                     }
                 },
+                "_check": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "merchant_account": {
                     "type": "string",
                     "desc": "The gateway merchant account.",
@@ -3499,6 +3511,18 @@
                         "foo": "bar"
                     }
                 },
+                "_check": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "merchant_account_id": {
                     "type": "string",
                     "desc": "The gateway merchant account ID.",
@@ -5616,6 +5640,18 @@
                     "example": {
                         "foo": "bar"
                     }
+                },
+                "_check": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "secret_key": {
                     "type": "string",
@@ -10430,61 +10466,6 @@
                         "foo": "bar"
                     }
                 },
-                "authorize_url": {
-                    "type": "string",
-                    "desc": "The endpoint used by the external gateway to authorize payments.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "https://external_gateway.com/authorize"
-                },
-                "capture_url": {
-                    "type": "string",
-                    "desc": "The endpoint used by the external gateway to capture payments.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "https://external_gateway.com/capture"
-                },
-                "void_url": {
-                    "type": "string",
-                    "desc": "The endpoint used by the external gateway to void payments.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "https://external_gateway.com/void"
-                },
-                "refund_url": {
-                    "type": "string",
-                    "desc": "The endpoint used by the external gateway to refund payments.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "https://external_gateway.com/refund"
-                },
-                "token_url": {
-                    "type": "string",
-                    "desc": "The endpoint used by the external gateway to create a customer payment token.",
-                    "required": "optional",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "https://external_gateway.com/token"
-                },
                 "circuit_state": {
                     "type": "string",
                     "desc": "The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.",
@@ -10558,6 +10539,61 @@
                     "example": [
                         "order.line_item_options"
                     ]
+                },
+                "authorize_url": {
+                    "type": "string",
+                    "desc": "The endpoint used by the external gateway to authorize payments.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://external_gateway.com/authorize"
+                },
+                "capture_url": {
+                    "type": "string",
+                    "desc": "The endpoint used by the external gateway to capture payments.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://external_gateway.com/capture"
+                },
+                "void_url": {
+                    "type": "string",
+                    "desc": "The endpoint used by the external gateway to void payments.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://external_gateway.com/void"
+                },
+                "refund_url": {
+                    "type": "string",
+                    "desc": "The endpoint used by the external gateway to refund payments.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://external_gateway.com/refund"
+                },
+                "token_url": {
+                    "type": "string",
+                    "desc": "The endpoint used by the external gateway to create a customer payment token.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://external_gateway.com/token"
                 }
             },
             "relationships": {
@@ -11134,17 +11170,6 @@
                         "foo": "bar"
                     }
                 },
-                "promotion_url": {
-                    "type": "string",
-                    "desc": "The URL to the service that will compute the discount.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "https://external_promotion.yourbrand.com"
-                },
                 "circuit_state": {
                     "type": "string",
                     "desc": "The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.",
@@ -11218,6 +11243,17 @@
                     "example": [
                         "order.line_item_options"
                     ]
+                },
+                "promotion_url": {
+                    "type": "string",
+                    "desc": "The URL to the service that will compute the discount.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://external_promotion.yourbrand.com"
                 }
             },
             "relationships": {
@@ -11520,17 +11556,6 @@
                         "foo": "bar"
                     }
                 },
-                "tax_calculator_url": {
-                    "type": "string",
-                    "desc": "The URL to the service that will compute the taxes.",
-                    "required": "required",
-                    "creatable": true,
-                    "updatable": true,
-                    "fetchable": true,
-                    "filterable": false,
-                    "sortable": false,
-                    "example": "https://external_calculator.yourbrand.com"
-                },
                 "circuit_state": {
                     "type": "string",
                     "desc": "The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.",
@@ -11604,6 +11629,17 @@
                     "example": [
                         "order.line_item_options"
                     ]
+                },
+                "tax_calculator_url": {
+                    "type": "string",
+                    "desc": "The URL to the service that will compute the taxes.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "https://external_calculator.yourbrand.com"
                 }
             },
             "relationships": {
@@ -26213,6 +26249,18 @@
                         "foo": "bar"
                     }
                 },
+                "_check": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "client_id": {
                     "type": "string",
                     "desc": "The gateway client ID.",
@@ -34052,6 +34100,14 @@
                     "exportable": false,
                     "includable": false,
                     "parent_resource": "Api::ShippingWeightTierResource"
+                },
+                "events": {
+                    "type": "has_many",
+                    "desc": "The associated events.",
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "Api::ShippingWeightTierResource",
+                    "class_name": "Event"
                 }
             },
             "filters": [
@@ -34068,6 +34124,7 @@
                 "q",
                 "shipping_method_id",
                 "attachments_id",
+                "events_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",
@@ -37478,6 +37535,18 @@
                     "example": {
                         "foo": "bar"
                     }
+                },
+                "_check": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "login": {
                     "type": "string",

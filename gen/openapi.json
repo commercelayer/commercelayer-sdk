@@ -2,7 +2,7 @@
     "openapi": "3.1.0",
     "info": {
         "title": "Commerce Layer API",
-        "version": "7.10.0",
+        "version": "7.10.1",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -28005,6 +28005,33 @@
                 }
             }
         },
+        "/shipping_weight_tiers/{shippingWeightTierId}/events": {
+            "get": {
+                "operationId": "GET/shippingWeightTierId/events",
+                "summary": "Retrieve the events associated to the shipping weight tier",
+                "description": "Retrieve the events associated to the shipping weight tier",
+                "tags": [
+                    "has_many",
+                    "events"
+                ],
+                "parameters": [
+                    {
+                        "name": "shippingWeightTierId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The events associated to the shipping weight tier"
+                    }
+                }
+            }
+        },
         "/shipping_zones": {
             "get": {
                 "operationId": "GET/shipping_zones",
@@ -36859,6 +36886,11 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true
+                                    },
                                     "merchant_account": {
                                         "type": "string",
                                         "description": "The gateway merchant account.",
@@ -37023,6 +37055,12 @@
                                             "foo": "bar"
                                         },
                                         "nullable": true
+                                    },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true,
+                                        "nullable": false
                                     },
                                     "merchant_account": {
                                         "type": "string",
@@ -42190,6 +42228,11 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true
+                                    },
                                     "merchant_account_id": {
                                         "type": "string",
                                         "description": "The gateway merchant account ID.",
@@ -42340,6 +42383,12 @@
                                             "foo": "bar"
                                         },
                                         "nullable": true
+                                    },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true,
+                                        "nullable": false
                                     },
                                     "merchant_account_id": {
                                         "type": "string",
@@ -47143,6 +47192,11 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true
+                                    },
                                     "secret_key": {
                                         "type": "string",
                                         "description": "The gateway secret key.",
@@ -47266,6 +47320,12 @@
                                             "foo": "bar"
                                         },
                                         "nullable": true
+                                    },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true,
+                                        "nullable": false
                                     },
                                     "secret_key": {
                                         "type": "string",
@@ -58107,6 +58167,35 @@
                                         },
                                         "nullable": true
                                     },
+                                    "circuit_state": {
+                                        "type": "string",
+                                        "description": "The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.",
+                                        "example": "closed",
+                                        "nullable": true
+                                    },
+                                    "circuit_failure_count": {
+                                        "type": "integer",
+                                        "description": "The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.",
+                                        "example": 5,
+                                        "nullable": true
+                                    },
+                                    "shared_secret": {
+                                        "type": "string",
+                                        "description": "The shared secret used to sign the external request payload.",
+                                        "example": "1c0994cc4e996e8c6ee56a2198f66f3c",
+                                        "nullable": false
+                                    },
+                                    "external_includes": {
+                                        "type": "array",
+                                        "description": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
+                                        "example": [
+                                            "order.line_item_options"
+                                        ],
+                                        "nullable": true,
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
                                     "authorize_url": {
                                         "type": "string",
                                         "description": "The endpoint used by the external gateway to authorize payments.",
@@ -58136,35 +58225,6 @@
                                         "description": "The endpoint used by the external gateway to create a customer payment token.",
                                         "example": "https://external_gateway.com/token",
                                         "nullable": true
-                                    },
-                                    "circuit_state": {
-                                        "type": "string",
-                                        "description": "The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.",
-                                        "example": "closed",
-                                        "nullable": true
-                                    },
-                                    "circuit_failure_count": {
-                                        "type": "integer",
-                                        "description": "The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.",
-                                        "example": 5,
-                                        "nullable": true
-                                    },
-                                    "shared_secret": {
-                                        "type": "string",
-                                        "description": "The shared secret used to sign the external request payload.",
-                                        "example": "1c0994cc4e996e8c6ee56a2198f66f3c",
-                                        "nullable": false
-                                    },
-                                    "external_includes": {
-                                        "type": "array",
-                                        "description": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
-                                        "example": [
-                                            "order.line_item_options"
-                                        ],
-                                        "nullable": true,
-                                        "items": {
-                                            "type": "string"
-                                        }
                                     }
                                 }
                             },
@@ -58303,6 +58363,16 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "external_includes": {
+                                        "type": "array",
+                                        "description": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
+                                        "example": [
+                                            "order.line_item_options"
+                                        ],
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
                                     "authorize_url": {
                                         "type": "string",
                                         "description": "The endpoint used by the external gateway to authorize payments.",
@@ -58327,16 +58397,6 @@
                                         "type": "string",
                                         "description": "The endpoint used by the external gateway to create a customer payment token.",
                                         "example": "https://external_gateway.com/token"
-                                    },
-                                    "external_includes": {
-                                        "type": "array",
-                                        "description": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
-                                        "example": [
-                                            "order.line_item_options"
-                                        ],
-                                        "items": {
-                                            "type": "string"
-                                        }
                                     }
                                 },
                                 "required": [
@@ -58424,6 +58484,23 @@
                                         },
                                         "nullable": true
                                     },
+                                    "_reset_circuit": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
+                                        "example": true,
+                                        "nullable": false
+                                    },
+                                    "external_includes": {
+                                        "type": "array",
+                                        "description": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
+                                        "example": [
+                                            "order.line_item_options"
+                                        ],
+                                        "nullable": true,
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
                                     "authorize_url": {
                                         "type": "string",
                                         "description": "The endpoint used by the external gateway to authorize payments.",
@@ -58453,23 +58530,6 @@
                                         "description": "The endpoint used by the external gateway to create a customer payment token.",
                                         "example": "https://external_gateway.com/token",
                                         "nullable": true
-                                    },
-                                    "_reset_circuit": {
-                                        "type": "boolean",
-                                        "description": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
-                                        "example": true,
-                                        "nullable": false
-                                    },
-                                    "external_includes": {
-                                        "type": "array",
-                                        "description": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
-                                        "example": [
-                                            "order.line_item_options"
-                                        ],
-                                        "nullable": true,
-                                        "items": {
-                                            "type": "string"
-                                        }
                                     }
                                 }
                             },
@@ -59339,12 +59399,6 @@
                                         },
                                         "nullable": true
                                     },
-                                    "promotion_url": {
-                                        "type": "string",
-                                        "description": "The URL to the service that will compute the discount.",
-                                        "example": "https://external_promotion.yourbrand.com",
-                                        "nullable": false
-                                    },
                                     "circuit_state": {
                                         "type": "string",
                                         "description": "The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.",
@@ -59373,6 +59427,12 @@
                                         "items": {
                                             "type": "string"
                                         }
+                                    },
+                                    "promotion_url": {
+                                        "type": "string",
+                                        "description": "The URL to the service that will compute the discount.",
+                                        "example": "https://external_promotion.yourbrand.com",
+                                        "nullable": false
                                     }
                                 }
                             },
@@ -59756,11 +59816,6 @@
                                             "foo": "bar"
                                         }
                                     },
-                                    "promotion_url": {
-                                        "type": "string",
-                                        "description": "The URL to the service that will compute the discount.",
-                                        "example": "https://external_promotion.yourbrand.com"
-                                    },
                                     "external_includes": {
                                         "type": "array",
                                         "description": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
@@ -59770,6 +59825,11 @@
                                         "items": {
                                             "type": "string"
                                         }
+                                    },
+                                    "promotion_url": {
+                                        "type": "string",
+                                        "description": "The URL to the service that will compute the discount.",
+                                        "example": "https://external_promotion.yourbrand.com"
                                     }
                                 },
                                 "required": [
@@ -60074,12 +60134,6 @@
                                         },
                                         "nullable": true
                                     },
-                                    "promotion_url": {
-                                        "type": "string",
-                                        "description": "The URL to the service that will compute the discount.",
-                                        "example": "https://external_promotion.yourbrand.com",
-                                        "nullable": false
-                                    },
                                     "_reset_circuit": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
@@ -60096,6 +60150,12 @@
                                         "items": {
                                             "type": "string"
                                         }
+                                    },
+                                    "promotion_url": {
+                                        "type": "string",
+                                        "description": "The URL to the service that will compute the discount.",
+                                        "example": "https://external_promotion.yourbrand.com",
+                                        "nullable": false
                                     }
                                 }
                             },
@@ -60847,12 +60907,6 @@
                                         },
                                         "nullable": true
                                     },
-                                    "tax_calculator_url": {
-                                        "type": "string",
-                                        "description": "The URL to the service that will compute the taxes.",
-                                        "example": "https://external_calculator.yourbrand.com",
-                                        "nullable": false
-                                    },
                                     "circuit_state": {
                                         "type": "string",
                                         "description": "The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.",
@@ -60881,6 +60935,12 @@
                                         "items": {
                                             "type": "string"
                                         }
+                                    },
+                                    "tax_calculator_url": {
+                                        "type": "string",
+                                        "description": "The URL to the service that will compute the taxes.",
+                                        "example": "https://external_calculator.yourbrand.com",
+                                        "nullable": false
                                     }
                                 }
                             },
@@ -61026,11 +61086,6 @@
                                             "foo": "bar"
                                         }
                                     },
-                                    "tax_calculator_url": {
-                                        "type": "string",
-                                        "description": "The URL to the service that will compute the taxes.",
-                                        "example": "https://external_calculator.yourbrand.com"
-                                    },
                                     "external_includes": {
                                         "type": "array",
                                         "description": "List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.",
@@ -61040,6 +61095,11 @@
                                         "items": {
                                             "type": "string"
                                         }
+                                    },
+                                    "tax_calculator_url": {
+                                        "type": "string",
+                                        "description": "The URL to the service that will compute the taxes.",
+                                        "example": "https://external_calculator.yourbrand.com"
                                     }
                                 },
                                 "required": [
@@ -61110,12 +61170,6 @@
                                         },
                                         "nullable": true
                                     },
-                                    "tax_calculator_url": {
-                                        "type": "string",
-                                        "description": "The URL to the service that will compute the taxes.",
-                                        "example": "https://external_calculator.yourbrand.com",
-                                        "nullable": false
-                                    },
                                     "_reset_circuit": {
                                         "type": "boolean",
                                         "description": "Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.",
@@ -61132,6 +61186,12 @@
                                         "items": {
                                             "type": "string"
                                         }
+                                    },
+                                    "tax_calculator_url": {
+                                        "type": "string",
+                                        "description": "The URL to the service that will compute the taxes.",
+                                        "example": "https://external_calculator.yourbrand.com",
+                                        "nullable": false
                                     }
                                 }
                             },
@@ -94118,6 +94178,11 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true
+                                    },
                                     "client_id": {
                                         "type": "string",
                                         "description": "The gateway client ID.",
@@ -94215,6 +94280,12 @@
                                             "foo": "bar"
                                         },
                                         "nullable": true
+                                    },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true,
+                                        "nullable": false
                                     },
                                     "client_id": {
                                         "type": "string",
@@ -110859,6 +110930,28 @@
                                                 }
                                             }
                                         }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "Unique identifier for the resource (hash).",
+                                                        "example": "XAyRWNUzyN"
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -111192,6 +111285,40 @@
                                                         "description": "The resource's type",
                                                         "enum": [
                                                             "event_stores"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "events": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "events"
                                                         ]
                                                     },
                                                     "id": {
@@ -121130,6 +121257,11 @@
                                             "foo": "bar"
                                         }
                                     },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true
+                                    },
                                     "login": {
                                         "type": "string",
                                         "description": "The gateway login.",
@@ -121235,6 +121367,12 @@
                                             "foo": "bar"
                                         },
                                         "nullable": true
+                                    },
+                                    "_check": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to check the credentials against the payment gateway's APIs.",
+                                        "example": true,
+                                        "nullable": false
                                     },
                                     "connected_account": {
                                         "type": "string",

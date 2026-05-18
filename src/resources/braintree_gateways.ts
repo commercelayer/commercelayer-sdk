@@ -90,6 +90,11 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway merchant account ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
@@ -152,6 +157,11 @@ interface BraintreeGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway merchant account ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -230,6 +240,10 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 
 	async _enable(id: string | BraintreeGateway, params?: QueryParamsRetrieve<BraintreeGateway>, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.update<BraintreeGatewayUpdate, BraintreeGateway>({ id: (typeof id === 'string')? id: id.id, type: BraintreeGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | BraintreeGateway, params?: QueryParamsRetrieve<BraintreeGateway>, options?: ResourcesConfig): Promise<BraintreeGateway> {
+		return this.resources.update<BraintreeGatewayUpdate, BraintreeGateway>({ id: (typeof id === 'string')? id: id.id, type: BraintreeGateways.TYPE, _check: true }, params, options)
 	}
 
 

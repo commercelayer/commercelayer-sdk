@@ -86,6 +86,11 @@ interface StripeGatewayCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway login.
 	 * @example ```"sk_live_xxxx-yyyy-zzzz"```
 	 */
@@ -127,6 +132,11 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The account (if any) for which the funds of the PaymentIntent are intended.
 	 * @example ```"acct_xxxx-yyyy-zzzz"```
@@ -178,6 +188,10 @@ class StripeGateways extends ApiResource<StripeGateway> {
 
 	async _enable(id: string | StripeGateway, params?: QueryParamsRetrieve<StripeGateway>, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.update<StripeGatewayUpdate, StripeGateway>({ id: (typeof id === 'string')? id: id.id, type: StripeGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | StripeGateway, params?: QueryParamsRetrieve<StripeGateway>, options?: ResourcesConfig): Promise<StripeGateway> {
+		return this.resources.update<StripeGatewayUpdate, StripeGateway>({ id: (typeof id === 'string')? id: id.id, type: StripeGateways.TYPE, _check: true }, params, options)
 	}
 
 

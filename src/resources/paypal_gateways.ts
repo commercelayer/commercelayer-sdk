@@ -69,6 +69,11 @@ interface PaypalGatewayCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway client ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
@@ -104,6 +109,11 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway client ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -155,6 +165,10 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 
 	async _enable(id: string | PaypalGateway, params?: QueryParamsRetrieve<PaypalGateway>, options?: ResourcesConfig): Promise<PaypalGateway> {
 		return this.resources.update<PaypalGatewayUpdate, PaypalGateway>({ id: (typeof id === 'string')? id: id.id, type: PaypalGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | PaypalGateway, params?: QueryParamsRetrieve<PaypalGateway>, options?: ResourcesConfig): Promise<PaypalGateway> {
+		return this.resources.update<PaypalGatewayUpdate, PaypalGateway>({ id: (typeof id === 'string')? id: id.id, type: PaypalGateways.TYPE, _check: true }, params, options)
 	}
 
 

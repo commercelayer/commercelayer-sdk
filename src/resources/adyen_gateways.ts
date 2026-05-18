@@ -109,6 +109,11 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway merchant account.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
@@ -185,6 +190,11 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway merchant account.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -277,6 +287,10 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 
 	async _enable(id: string | AdyenGateway, params?: QueryParamsRetrieve<AdyenGateway>, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ id: (typeof id === 'string')? id: id.id, type: AdyenGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | AdyenGateway, params?: QueryParamsRetrieve<AdyenGateway>, options?: ResourcesConfig): Promise<AdyenGateway> {
+		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ id: (typeof id === 'string')? id: id.id, type: AdyenGateways.TYPE, _check: true }, params, options)
 	}
 
 
