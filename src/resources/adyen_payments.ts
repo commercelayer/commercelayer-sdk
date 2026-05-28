@@ -59,6 +59,11 @@ interface AdyenPayment extends Resource {
 	 */
 	expires_at?: string | null
 	/** 
+	 * The date/time when the Adyen order was closed, meaning all partial payments have been completed (valid for partial payments only).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	closed_at?: string | null
+	/** 
 	 * Information about the payment instrument used in the transaction.
 	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */

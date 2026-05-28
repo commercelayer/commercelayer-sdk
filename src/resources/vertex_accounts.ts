@@ -25,7 +25,7 @@ interface VertexAccount extends Resource {
 	 */
 	name: string
 	/** 
-	 * The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.
+	 * The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.
 	 * @example ```"cloud"```
 	 */
 	kind?: 'cloud' | 'on_demand' | 'on_premise' | null
@@ -66,7 +66,7 @@ interface VertexAccountCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.
+	 * The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.
 	 * @example ```"cloud"```
 	 */
 	kind?: 'cloud' | 'on_demand' | 'on_premise' | null
@@ -102,7 +102,7 @@ interface VertexAccountUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.
+	 * The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.
 	 * @example ```"cloud"```
 	 */
 	kind?: 'cloud' | 'on_demand' | 'on_premise' | null

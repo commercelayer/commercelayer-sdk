@@ -2,7 +2,7 @@
     "openapi": "3.1.0",
     "info": {
         "title": "Commerce Layer API",
-        "version": "7.10.2",
+        "version": "7.10.3",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -37383,6 +37383,12 @@
                                         "example": "2018-01-02T12:00:00.000Z",
                                         "nullable": true
                                     },
+                                    "closed_at": {
+                                        "type": "string",
+                                        "description": "The date/time when the Adyen order was closed, meaning all partial payments have been completed (valid for partial payments only).",
+                                        "example": "2018-01-02T12:00:00.000Z",
+                                        "nullable": true
+                                    },
                                     "payment_instrument": {
                                         "type": "object",
                                         "description": "Information about the payment instrument used in the transaction.",
@@ -57788,7 +57794,7 @@
                                     },
                                     "format": {
                                         "type": "string",
-                                        "description": "The format of the export one of 'json' (default) or 'csv'. One of 'csv', or 'json'.",
+                                        "description": "The format of the export. One of 'csv', or 'json' (default).",
                                         "example": "json",
                                         "nullable": true,
                                         "enum": [
@@ -58115,7 +58121,7 @@
                                     },
                                     "format": {
                                         "type": "string",
-                                        "description": "The format of the export one of 'json' (default) or 'csv'. One of 'csv', or 'json'.",
+                                        "description": "The format of the export. One of 'csv', or 'json' (default).",
                                         "example": "json",
                                         "enum": [
                                             "csv",
@@ -71052,7 +71058,7 @@
                                     },
                                     "format": {
                                         "type": "string",
-                                        "description": "The format of the import inputs one of 'json' (default) or 'csv'. One of 'csv', or 'json'.",
+                                        "description": "The format of the import. One of 'csv', or 'json' (default).",
                                         "example": "json",
                                         "nullable": true,
                                         "enum": [
@@ -71315,7 +71321,7 @@
                                     },
                                     "format": {
                                         "type": "string",
-                                        "description": "The format of the import inputs one of 'json' (default) or 'csv'. One of 'csv', or 'json'.",
+                                        "description": "The format of the import. One of 'csv', or 'json' (default).",
                                         "example": "json",
                                         "enum": [
                                             "csv",
@@ -127268,7 +127274,7 @@
                                     },
                                     "kind": {
                                         "type": "string",
-                                        "description": "The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.",
+                                        "description": "The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.",
                                         "example": "cloud",
                                         "nullable": true,
                                         "enum": [
@@ -127447,7 +127453,7 @@
                                     },
                                     "kind": {
                                         "type": "string",
-                                        "description": "The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.",
+                                        "description": "The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.",
                                         "example": "cloud",
                                         "enum": [
                                             "cloud",
@@ -127547,7 +127553,7 @@
                                     },
                                     "kind": {
                                         "type": "string",
-                                        "description": "The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.",
+                                        "description": "The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.",
                                         "example": "cloud",
                                         "nullable": true,
                                         "enum": [
