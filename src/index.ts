@@ -21,6 +21,8 @@ export type {
   DeletableResourceType,
   ListableResource,
   ListableResourceType,
+  ResourceFields,
+  ResourceSortFields,
   ResourceTypeLock,
   RetrievableResource,
   RetrievableResourceType,
