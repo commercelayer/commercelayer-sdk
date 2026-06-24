@@ -6260,6 +6260,17 @@
                         }
                     }
                 },
+                "dry_run": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "When true, evaluates filters and populates records_count without performing any deletion.",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",

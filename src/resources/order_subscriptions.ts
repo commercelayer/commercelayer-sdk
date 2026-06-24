@@ -100,6 +100,11 @@ interface OrderSubscription extends Resource {
 	 * @example ```true```
 	 */
 	succeeded_on_last_run?: boolean | null
+	/** 
+	 * The subscription options used to create the order.
+	 * @example ```{"place_target_order":false}```
+	 */
+	options?: Record<string, any> | null
 
 	market?: Market | null
 	subscription_model?: SubscriptionModel | null
@@ -108,6 +113,10 @@ interface OrderSubscription extends Resource {
 	customer_payment_source?: CustomerPaymentSource | null
 	order_subscription_items?: OrderSubscriptionItem[] | null
 	order_factories?: OrderFactory[] | null
+	/**
+	* @deprecated This field should not be used as it may be removed in the future without notice
+	*/
+	order_copies?: object[]
 	recurring_order_copies?: RecurringOrderCopy[] | null
 	orders?: Order[] | null
 	events?: Event[] | null
@@ -149,6 +158,11 @@ interface OrderSubscriptionCreate extends ResourceCreate {
 	 * @example ```"2018-01-02T12:00:00.000Z"```
 	 */
 	expires_at?: string | null
+	/** 
+	 * The subscription options used to create the order.
+	 * @example ```{"place_target_order":false}```
+	 */
+	options?: Record<string, any> | null
 
 	market?: MarketRel | null
 	source_order: OrderRel
@@ -189,6 +203,11 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	next_run_at?: string | null
+	/** 
+	 * The subscription options used to create the order.
+	 * @example ```{"place_target_order":false}```
+	 */
+	options?: Record<string, any> | null
 	/** 
 	 * Send this attribute if you want to mark this subscription as active.
 	 * @example ```true```

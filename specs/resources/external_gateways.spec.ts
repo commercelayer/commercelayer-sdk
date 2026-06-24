@@ -358,4 +358,31 @@ describe('ExternalGateways resource', () => {
 	})
 	/* trigger._reset_circuit stop */
 	
+
+	
+	/* trigger._regenerate_shared_secret start */
+	test(resourceType + '._regenerate_shared_secret', async () => {
+	
+		let triggerAttr = '_regenerate_shared_secret'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const _intId = cl.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await external_gateways._regenerate_shared_secret(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* trigger._regenerate_shared_secret stop */
+	
 })

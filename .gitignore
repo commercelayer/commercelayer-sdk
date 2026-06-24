@@ -1,6 +1,13 @@
 build/
 dist/
 
+# Transient outputs from `pnpm generate-diff`
+src/resources-openapi/
+src/resources-public/
+specs/resources-openapi/
+specs/resources-public/
+gen/public_resources.json
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,macos

@@ -254,6 +254,7 @@ interface Organization extends Resource {
 	price_lists_max_rules_size?: number | null
 	/** 
 	 * Enables triggering of webhooks during imports, default is false.
+	 * @example ```"false"```
 	 */
 	imports_trigger_webhooks?: number | null
 	/** 

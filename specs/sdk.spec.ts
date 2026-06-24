@@ -12,7 +12,7 @@ let cl: CommerceLayerClient
 
 beforeAll(async () => {
 	cl = await getClient()
-	const _version = cl.openApiSchemaVersion	// avoid not used var issue
+	const _version = cl.apiSchemaVersion	// avoid not used var issue
 })
 
 

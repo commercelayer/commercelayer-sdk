@@ -193,6 +193,11 @@ interface Order extends Resource {
 	 */
 	gift_card_code?: string | null
 	/** 
+	 * The gift card or coupon code (at least the first 8 characters) to be used for the order. If a gift card mathes, it uses the gift card balance to pay for the order. Otherwise it tries to find a valid coupon code and applies the associated discount.
+	 * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
+	 */
+	gift_card_or_coupon_code?: string | null
+	/** 
 	 * The sum of all the SKU line items total amounts, in cents.
 	 * @example ```5000```
 	 */
@@ -741,6 +746,11 @@ interface OrderCreate extends ResourceCreate {
 	 */
 	gift_card_code?: string | null
 	/** 
+	 * The gift card or coupon code (at least the first 8 characters) to be used for the order. If a gift card mathes, it uses the gift card balance to pay for the order. Otherwise it tries to find a valid coupon code and applies the associated discount.
+	 * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
+	 */
+	gift_card_or_coupon_code?: string | null
+	/** 
 	 * The cart url on your site. If present, it will be used on our hosted checkout application.
 	 * @example ```"https://yourdomain.com/cart"```
 	 */
@@ -859,6 +869,11 @@ interface OrderUpdate extends ResourceUpdate {
 	 * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
 	 */
 	gift_card_code?: string | null
+	/** 
+	 * The gift card or coupon code (at least the first 8 characters) to be used for the order. If a gift card mathes, it uses the gift card balance to pay for the order. Otherwise it tries to find a valid coupon code and applies the associated discount.
+	 * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
+	 */
+	gift_card_or_coupon_code?: string | null
 	/** 
 	 * The cart url on your site. If present, it will be used on our hosted checkout application.
 	 * @example ```"https://yourdomain.com/cart"```

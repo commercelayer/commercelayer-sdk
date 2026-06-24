@@ -9,8 +9,8 @@ type ImportType = 'imports'
 type ImportRel = ResourceRel & { type: ImportType }
 
 
-export type ImportSort = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceSort
-// export type ImportFilter = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'errors_log' | 'warnings_log' | 'attachment_url'> & ResourceFilter
+export type ImportSort = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'destroyed_count' | 'processed_count' | 'attachment_url'> & ResourceSort
+// export type ImportFilter = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'destroyed_count' | 'processed_count' | 'errors_log' | 'warnings_log' | 'attachment_url'> & ResourceFilter
 
 
 interface Import extends Resource {
@@ -73,6 +73,11 @@ interface Import extends Resource {
 	 */
 	warnings_count?: number | null
 	/** 
+	 * Indicates the number of records that have been destroyed, if any.
+	 * @example ```99```
+	 */
+	destroyed_count?: number | null
+	/** 
 	 * Indicates the number of records that have been processed (created or updated).
 	 * @example ```270```
 	 */
@@ -87,6 +92,11 @@ interface Import extends Resource {
 	 * @example ```{"ABC":["could not be deleted"]}```
 	 */
 	warnings_log?: Record<string, any> | null
+	/** 
+	 * Indicates if the import should cleanup records that are not included in the inputs array.
+	 * @example ```true```
+	 */
+	cleanup_records?: boolean | null
 	/** 
 	 * Disables the interruption of the import in case its errors exceeds the 10% threshold.
 	 * @example ```true```
@@ -126,6 +136,11 @@ interface ImportCreate extends ResourceCreate {
 	 * @example ```[{"code":"ABC","name":"Foo"},{"code":"DEF","name":"Bar"}]```
 	 */
 	inputs: Array<Record<string, any>>
+	/** 
+	 * Indicates if the import should cleanup records that are not included in the inputs array.
+	 * @example ```true```
+	 */
+	cleanup_records?: boolean | null
 	/** 
 	 * Disables the interruption of the import in case its errors exceeds the 10% threshold.
 	 * @example ```true```

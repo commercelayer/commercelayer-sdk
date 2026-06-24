@@ -163,6 +163,10 @@ interface Shipment extends Resource {
 	shipping_method?: ShippingMethod | null
 	delivery_lead_time?: DeliveryLeadTime | null
 	pickup?: Pickup | null
+	/**
+	* @deprecated This field should not be used as it may be removed in the future without notice
+	*/
+	shipment_line_items?: object[]
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null
 	line_items?: LineItem[] | null

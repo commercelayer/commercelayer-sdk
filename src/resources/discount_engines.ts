@@ -26,6 +26,7 @@ interface DiscountEngine extends Resource {
 	name: string
 	/** 
 	 * Indicates if the discount engine manages both promotions and gift cards application at once.
+	 * @example ```true```
 	 */
 	manage_gift_cards?: boolean | null
 

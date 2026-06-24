@@ -67,6 +67,10 @@ interface Cleanup extends Resource {
 	 * @example ```{"ABC":{"name":["has already been taken"]}}```
 	 */
 	errors_log?: Record<string, any> | null
+	/** 
+	 * When true, evaluates filters and populates records_count without performing any deletion.
+	 */
+	dry_run?: boolean | null
 
 	events?: Event[] | null
 	event_stores?: EventStore[] | null
@@ -86,6 +90,10 @@ interface CleanupCreate extends ResourceCreate {
 	 * @example ```{"code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
+	/** 
+	 * When true, evaluates filters and populates records_count without performing any deletion.
+	 */
+	dry_run?: boolean | null
 	
 }
 
