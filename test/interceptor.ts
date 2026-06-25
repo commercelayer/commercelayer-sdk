@@ -2,49 +2,44 @@
 import commercelayer, { customers, type ErrorObj, type RequestObj, type ResponseObj } from '../src'
 import getToken from './token'
 
-
 const requestInterceptor = (request: RequestObj): RequestObj => {
-	console.log('INSIDE REQUEST INTERCEPTOR')
-	console.log(request)
-	return request
+  console.log('INSIDE REQUEST INTERCEPTOR')
+  console.log(request)
+  return request
 }
 
 const responseInterceptor = (response: ResponseObj): ResponseObj => {
-	console.log('INSIDE RESPONSE INTERCEPTOR')
-	console.log(response)
-	return response
+  console.log('INSIDE RESPONSE INTERCEPTOR')
+  console.log(response)
+  return response
 }
 
 const errorInterceptor = (error: ErrorObj): ErrorObj => {
-	console.log('INSIDE RESPONSE INTERCEPTOR')
-	console.log(error)
-	return error
+  console.log('INSIDE RESPONSE INTERCEPTOR')
+  console.log(error)
+  return error
 }
 
+;(async () => {
+  const organization = process.env.CL_SDK_ORGANIZATION || ''
+  const auth = await getToken('integration')
+  const accessToken = auth ? auth.accessToken + 'x' : ''
 
+  const cl = commercelayer({
+    organization,
+    accessToken,
+    timeout: 5000,
+  })
 
-(async () => {
+  const rrr = cl.addRawResponseReader({ headers: true })
+  cl.addRequestInterceptor(requestInterceptor)
+  cl.addResponseInterceptor(responseInterceptor, errorInterceptor)
 
-	const organization = process.env.CL_SDK_ORGANIZATION || ''
-	const auth = await getToken('integration')
-	const accessToken = auth? auth.accessToken+'x' : ''
+  const customerList = await customers.list({ pageSize: 1 }).catch((error) => console.log(error.message))
 
-	const cl = commercelayer({
-		organization,
-		accessToken,
-		timeout: 5000,
-	})
+  cl.removeInterceptors()
 
-	const rrr = cl.addRawResponseReader({ headers: true })
-	cl.addRequestInterceptor(requestInterceptor)
-	cl.addResponseInterceptor(responseInterceptor, errorInterceptor)
-
-	const customerList = await customers.list({ pageSize: 1 }).catch(error => console.log(error.message))
-
-	cl.removeInterceptors()
-
-	console.log(customerList)
-	console.log(rrr.rawResponse)
-	console.log(rrr.headers)
-
+  console.log(customerList)
+  console.log(rrr.rawResponse)
+  console.log(rrr.headers)
 })()

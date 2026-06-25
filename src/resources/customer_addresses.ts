@@ -1,124 +1,167 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { Address, AddressType } from './addresses'
 import type { Customer, CustomerType } from './customers'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
 
-
 type CustomerAddressType = 'customer_addresses'
 type CustomerAddressRel = ResourceRel & { type: CustomerAddressType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 type AddressRel = ResourceRel & { type: AddressType }
 
-
 export type CustomerAddressSort = Pick<CustomerAddress, 'id'> & ResourceSort
 // export type CustomerAddressFilter = Pick<CustomerAddress, 'id'> & ResourceFilter
 
-
 interface CustomerAddress extends Resource {
-	
-	readonly type: CustomerAddressType
+  readonly type: CustomerAddressType
 
-	/** 
-	 * Returns the associated address' name.
-	 * @example ```"John Smith, 2883 Geraldine Lane Apt.23, 10013 New York NY (US) (212) 646-338-1228"```
-	 */
-	name?: string | null
-	/** 
-	 * The email of the customer associated to the address.
-	 * @example ```"john@example.com"```
-	 */
-	customer_email: string
+  /**
+   * Returns the associated address' name.
+   * @example ```"John Smith, 2883 Geraldine Lane Apt.23, 10013 New York NY (US) (212) 646-338-1228"```
+   */
+  name?: string | null
+  /**
+   * The email of the customer associated to the address.
+   * @example ```"john@example.com"```
+   */
+  customer_email: string
 
-	customer?: Customer | null
-	address?: Address | null
-	events?: Event[] | null
-	event_stores?: EventStore[] | null
-
+  customer?: Customer | null
+  address?: Address | null
+  events?: Event[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface CustomerAddressCreate extends ResourceCreate {
-	
-	/** 
-	 * The email of the customer associated to the address.
-	 * @example ```"john@example.com"```
-	 */
-	customer_email: string
+  /**
+   * The email of the customer associated to the address.
+   * @example ```"john@example.com"```
+   */
+  customer_email: string
 
-	customer: CustomerRel
-	address: AddressRel
-
+  customer: CustomerRel
+  address: AddressRel
 }
-
 
 interface CustomerAddressUpdate extends ResourceUpdate {
-	
-	customer?: CustomerRel | null
-	address?: AddressRel | null
-
+  customer?: CustomerRel | null
+  address?: AddressRel | null
 }
-
 
 class CustomerAddresses extends ApiResource<CustomerAddress> {
+  static readonly TYPE: CustomerAddressType = 'customer_addresses' as const
 
-	static readonly TYPE: CustomerAddressType = 'customer_addresses' as const
+  async create(
+    resource: CustomerAddressCreate,
+    params?: QueryParamsRetrieve<CustomerAddress>,
+    options?: ResourcesConfig,
+  ): Promise<CustomerAddress> {
+    return this.resources.create<CustomerAddressCreate, CustomerAddress>(
+      { ...resource, type: CustomerAddresses.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: CustomerAddressCreate, params?: QueryParamsRetrieve<CustomerAddress>, options?: ResourcesConfig): Promise<CustomerAddress> {
-		return this.resources.create<CustomerAddressCreate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
-	}
+  async update(
+    resource: CustomerAddressUpdate,
+    params?: QueryParamsRetrieve<CustomerAddress>,
+    options?: ResourcesConfig,
+  ): Promise<CustomerAddress> {
+    return this.resources.update<CustomerAddressUpdate, CustomerAddress>(
+      { ...resource, type: CustomerAddresses.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: CustomerAddressUpdate, params?: QueryParamsRetrieve<CustomerAddress>, options?: ResourcesConfig): Promise<CustomerAddress> {
-		return this.resources.update<CustomerAddressUpdate, CustomerAddress>({ ...resource, type: CustomerAddresses.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: CustomerAddresses.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: CustomerAddresses.TYPE } : id, options)
-	}
+  async customer(
+    customerAddressId: string | CustomerAddress,
+    params?: QueryParamsRetrieve<Customer>,
+    options?: ResourcesConfig,
+  ): Promise<Customer> {
+    const _customerAddressId = (customerAddressId as CustomerAddress).id || (customerAddressId as string)
+    return this.resources.fetch<Customer>(
+      { type: 'customers' },
+      `customer_addresses/${_customerAddressId}/customer`,
+      params,
+      options,
+    ) as unknown as Customer
+  }
 
-	async customer(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_addresses/${_customerAddressId}/customer`, params, options) as unknown as Customer
-	}
+  async address(
+    customerAddressId: string | CustomerAddress,
+    params?: QueryParamsRetrieve<Address>,
+    options?: ResourcesConfig,
+  ): Promise<Address> {
+    const _customerAddressId = (customerAddressId as CustomerAddress).id || (customerAddressId as string)
+    return this.resources.fetch<Address>(
+      { type: 'addresses' },
+      `customer_addresses/${_customerAddressId}/address`,
+      params,
+      options,
+    ) as unknown as Address
+  }
 
-	async address(customerAddressId: string | CustomerAddress, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `customer_addresses/${_customerAddressId}/address`, params, options) as unknown as Address
-	}
+  async events(
+    customerAddressId: string | CustomerAddress,
+    params?: QueryParamsList<Event>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Event>> {
+    const _customerAddressId = (customerAddressId as CustomerAddress).id || (customerAddressId as string)
+    return this.resources.fetch<Event>(
+      { type: 'events' },
+      `customer_addresses/${_customerAddressId}/events`,
+      params,
+      options,
+    ) as unknown as ListResponse<Event>
+  }
 
-	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Event>({ type: 'events' }, `customer_addresses/${_customerAddressId}/events`, params, options) as unknown as ListResponse<Event>
-	}
+  async event_stores(
+    customerAddressId: string | CustomerAddress,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _customerAddressId = (customerAddressId as CustomerAddress).id || (customerAddressId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `customer_addresses/${_customerAddressId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(customerAddressId: string | CustomerAddress, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `customer_addresses/${_customerAddressId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isCustomerAddress(resource: any): resource is CustomerAddress {
+    return resource.type && resource.type === CustomerAddresses.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): CustomerAddressRel {
+    return super.relationshipOneToOne<CustomerAddressRel>(id)
+  }
 
-	isCustomerAddress(resource: any): resource is CustomerAddress {
-		return resource.type && (resource.type === CustomerAddresses.TYPE)
-	}
+  relationshipToMany(...ids: string[]): CustomerAddressRel[] {
+    return super.relationshipOneToMany<CustomerAddressRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): CustomerAddressRel {
-		return super.relationshipOneToOne<CustomerAddressRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): CustomerAddressRel[] {
-		return super.relationshipOneToMany<CustomerAddressRel>(...ids)
-	}
-
-
-	type(): CustomerAddressType {
-		return CustomerAddresses.TYPE
-	}
-
+  type(): CustomerAddressType {
+    return CustomerAddresses.TYPE
+  }
 }
-
 
 const instance = new CustomerAddresses()
 export default instance

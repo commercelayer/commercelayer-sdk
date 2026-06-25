@@ -1,5 +1,14 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
 import type { Coupon, CouponType } from './coupons'
@@ -11,7 +20,6 @@ import type { FlexPromotion, FlexPromotionType } from './flex_promotions'
 import type { FreeGiftPromotion, FreeGiftPromotionType } from './free_gift_promotions'
 import type { FreeShippingPromotion, FreeShippingPromotionType } from './free_shipping_promotions'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
-
 
 type CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules'
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
@@ -25,88 +33,138 @@ type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
 type FlexPromotionRel = ResourceRel & { type: FlexPromotionType }
 type CouponRel = ResourceRel & { type: CouponType }
 
-
 export type CouponCodesPromotionRuleSort = Pick<CouponCodesPromotionRule, 'id'> & ResourceSort
 // export type CouponCodesPromotionRuleFilter = Pick<CouponCodesPromotionRule, 'id'> & ResourceFilter
 
-
 interface CouponCodesPromotionRule extends Resource {
-	
-	readonly type: CouponCodesPromotionRuleType
+  readonly type: CouponCodesPromotionRuleType
 
-
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
-	event_stores?: EventStore[] | null
-	coupons?: Coupon[] | null
-
+  promotion?:
+    | PercentageDiscountPromotion
+    | FreeShippingPromotion
+    | BuyXPayYPromotion
+    | FreeGiftPromotion
+    | FixedPricePromotion
+    | ExternalPromotion
+    | FixedAmountPromotion
+    | FlexPromotion
+    | null
+  event_stores?: EventStore[] | null
+  coupons?: Coupon[] | null
 }
-
 
 interface CouponCodesPromotionRuleCreate extends ResourceCreate {
-	
-	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel
-	coupons?: CouponRel[] | null
-
+  promotion:
+    | PercentageDiscountPromotionRel
+    | FreeShippingPromotionRel
+    | BuyXPayYPromotionRel
+    | FreeGiftPromotionRel
+    | FixedPricePromotionRel
+    | ExternalPromotionRel
+    | FixedAmountPromotionRel
+    | FlexPromotionRel
+  coupons?: CouponRel[] | null
 }
-
 
 interface CouponCodesPromotionRuleUpdate extends ResourceUpdate {
-	
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel | null
-	coupons?: CouponRel[] | null
-
+  promotion?:
+    | PercentageDiscountPromotionRel
+    | FreeShippingPromotionRel
+    | BuyXPayYPromotionRel
+    | FreeGiftPromotionRel
+    | FixedPricePromotionRel
+    | ExternalPromotionRel
+    | FixedAmountPromotionRel
+    | FlexPromotionRel
+    | null
+  coupons?: CouponRel[] | null
 }
-
 
 class CouponCodesPromotionRules extends ApiResource<CouponCodesPromotionRule> {
+  static readonly TYPE: CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules' as const
 
-	static readonly TYPE: CouponCodesPromotionRuleType = 'coupon_codes_promotion_rules' as const
+  async create(
+    resource: CouponCodesPromotionRuleCreate,
+    params?: QueryParamsRetrieve<CouponCodesPromotionRule>,
+    options?: ResourcesConfig,
+  ): Promise<CouponCodesPromotionRule> {
+    return this.resources.create<CouponCodesPromotionRuleCreate, CouponCodesPromotionRule>(
+      { ...resource, type: CouponCodesPromotionRules.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: CouponCodesPromotionRuleCreate, params?: QueryParamsRetrieve<CouponCodesPromotionRule>, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.create<CouponCodesPromotionRuleCreate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
-	}
+  async update(
+    resource: CouponCodesPromotionRuleUpdate,
+    params?: QueryParamsRetrieve<CouponCodesPromotionRule>,
+    options?: ResourcesConfig,
+  ): Promise<CouponCodesPromotionRule> {
+    return this.resources.update<CouponCodesPromotionRuleUpdate, CouponCodesPromotionRule>(
+      { ...resource, type: CouponCodesPromotionRules.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: CouponCodesPromotionRuleUpdate, params?: QueryParamsRetrieve<CouponCodesPromotionRule>, options?: ResourcesConfig): Promise<CouponCodesPromotionRule> {
-		return this.resources.update<CouponCodesPromotionRuleUpdate, CouponCodesPromotionRule>({ ...resource, type: CouponCodesPromotionRules.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: CouponCodesPromotionRules.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: CouponCodesPromotionRules.TYPE } : id, options)
-	}
+  async event_stores(
+    couponCodesPromotionRuleId: string | CouponCodesPromotionRule,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _couponCodesPromotionRuleId =
+      (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || (couponCodesPromotionRuleId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  async coupons(
+    couponCodesPromotionRuleId: string | CouponCodesPromotionRule,
+    params?: QueryParamsList<Coupon>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Coupon>> {
+    const _couponCodesPromotionRuleId =
+      (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || (couponCodesPromotionRuleId as string)
+    return this.resources.fetch<Coupon>(
+      { type: 'coupons' },
+      `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/coupons`,
+      params,
+      options,
+    ) as unknown as ListResponse<Coupon>
+  }
 
-	async coupons(couponCodesPromotionRuleId: string | CouponCodesPromotionRule, params?: QueryParamsList<Coupon>, options?: ResourcesConfig): Promise<ListResponse<Coupon>> {
-		const _couponCodesPromotionRuleId = (couponCodesPromotionRuleId as CouponCodesPromotionRule).id || couponCodesPromotionRuleId as string
-		return this.resources.fetch<Coupon>({ type: 'coupons' }, `coupon_codes_promotion_rules/${_couponCodesPromotionRuleId}/coupons`, params, options) as unknown as ListResponse<Coupon>
-	}
+  isCouponCodesPromotionRule(resource: any): resource is CouponCodesPromotionRule {
+    return resource.type && resource.type === CouponCodesPromotionRules.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): CouponCodesPromotionRuleRel {
+    return super.relationshipOneToOne<CouponCodesPromotionRuleRel>(id)
+  }
 
-	isCouponCodesPromotionRule(resource: any): resource is CouponCodesPromotionRule {
-		return resource.type && (resource.type === CouponCodesPromotionRules.TYPE)
-	}
+  relationshipToMany(...ids: string[]): CouponCodesPromotionRuleRel[] {
+    return super.relationshipOneToMany<CouponCodesPromotionRuleRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): CouponCodesPromotionRuleRel {
-		return super.relationshipOneToOne<CouponCodesPromotionRuleRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): CouponCodesPromotionRuleRel[] {
-		return super.relationshipOneToMany<CouponCodesPromotionRuleRel>(...ids)
-	}
-
-
-	type(): CouponCodesPromotionRuleType {
-		return CouponCodesPromotionRules.TYPE
-	}
-
+  type(): CouponCodesPromotionRuleType {
+    return CouponCodesPromotionRules.TYPE
+  }
 }
-
 
 const instance = new CouponCodesPromotionRules()
 export default instance
 
-export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRules, CouponCodesPromotionRuleType, CouponCodesPromotionRuleUpdate }
+export type {
+  CouponCodesPromotionRule,
+  CouponCodesPromotionRuleCreate,
+  CouponCodesPromotionRules,
+  CouponCodesPromotionRuleType,
+  CouponCodesPromotionRuleUpdate,
+}

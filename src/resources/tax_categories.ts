@@ -1,5 +1,14 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
@@ -11,7 +20,6 @@ import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accoun
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
 import type { VertexAccount, VertexAccountType } from './vertex_accounts'
 
-
 type TaxCategoryType = 'tax_categories'
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 type SkuRel = ResourceRel & { type: SkuType }
@@ -22,123 +30,162 @@ type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
 type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
 
-
 export type TaxCategorySort = Pick<TaxCategory, 'id' | 'code'> & ResourceSort
 // export type TaxCategoryFilter = Pick<TaxCategory, 'id' | 'code'> & ResourceFilter
 
-
 interface TaxCategory extends Resource {
-	
-	readonly type: TaxCategoryType
+  readonly type: TaxCategoryType
 
-	/** 
-	 * The tax category identifier code, specific for a particular tax calculator.
-	 * @example ```"31000"```
-	 */
-	code: string
-	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
+  /**
+   * The tax category identifier code, specific for a particular tax calculator.
+   * @example ```"31000"```
+   */
+  code: string
+  /**
+   * The code of the associated SKU.
+   * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+   */
+  sku_code?: string | null
 
-	sku?: Sku | null
-	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
-	attachments?: Attachment[] | null
-	event_stores?: EventStore[] | null
-
+  sku?: Sku | null
+  tax_calculator?:
+    | AvalaraAccount
+    | StripeTaxAccount
+    | VertexAccount
+    | TaxjarAccount
+    | ManualTaxCalculator
+    | ExternalTaxCalculator
+    | null
+  attachments?: Attachment[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface TaxCategoryCreate extends ResourceCreate {
-	
-	/** 
-	 * The tax category identifier code, specific for a particular tax calculator.
-	 * @example ```"31000"```
-	 */
-	code: string
-	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
+  /**
+   * The tax category identifier code, specific for a particular tax calculator.
+   * @example ```"31000"```
+   */
+  code: string
+  /**
+   * The code of the associated SKU.
+   * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+   */
+  sku_code?: string | null
 
-	sku: SkuRel
-	tax_calculator: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel
-
+  sku: SkuRel
+  tax_calculator:
+    | AvalaraAccountRel
+    | StripeTaxAccountRel
+    | VertexAccountRel
+    | TaxjarAccountRel
+    | ManualTaxCalculatorRel
+    | ExternalTaxCalculatorRel
 }
-
 
 interface TaxCategoryUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The tax category identifier code, specific for a particular tax calculator.
-	 * @example ```"31000"```
-	 */
-	code?: string | null
-	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
+  /**
+   * The tax category identifier code, specific for a particular tax calculator.
+   * @example ```"31000"```
+   */
+  code?: string | null
+  /**
+   * The code of the associated SKU.
+   * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+   */
+  sku_code?: string | null
 
-	sku?: SkuRel | null
-
+  sku?: SkuRel | null
 }
-
 
 class TaxCategories extends ApiResource<TaxCategory> {
+  static readonly TYPE: TaxCategoryType = 'tax_categories' as const
 
-	static readonly TYPE: TaxCategoryType = 'tax_categories' as const
+  async create(
+    resource: TaxCategoryCreate,
+    params?: QueryParamsRetrieve<TaxCategory>,
+    options?: ResourcesConfig,
+  ): Promise<TaxCategory> {
+    return this.resources.create<TaxCategoryCreate, TaxCategory>(
+      { ...resource, type: TaxCategories.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: TaxCategoryCreate, params?: QueryParamsRetrieve<TaxCategory>, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.create<TaxCategoryCreate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
-	}
+  async update(
+    resource: TaxCategoryUpdate,
+    params?: QueryParamsRetrieve<TaxCategory>,
+    options?: ResourcesConfig,
+  ): Promise<TaxCategory> {
+    return this.resources.update<TaxCategoryUpdate, TaxCategory>(
+      { ...resource, type: TaxCategories.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: TaxCategoryUpdate, params?: QueryParamsRetrieve<TaxCategory>, options?: ResourcesConfig): Promise<TaxCategory> {
-		return this.resources.update<TaxCategoryUpdate, TaxCategory>({ ...resource, type: TaxCategories.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: TaxCategories.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: TaxCategories.TYPE } : id, options)
-	}
+  async sku(
+    taxCategoryId: string | TaxCategory,
+    params?: QueryParamsRetrieve<Sku>,
+    options?: ResourcesConfig,
+  ): Promise<Sku> {
+    const _taxCategoryId = (taxCategoryId as TaxCategory).id || (taxCategoryId as string)
+    return this.resources.fetch<Sku>(
+      { type: 'skus' },
+      `tax_categories/${_taxCategoryId}/sku`,
+      params,
+      options,
+    ) as unknown as Sku
+  }
 
-	async sku(taxCategoryId: string | TaxCategory, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
-		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `tax_categories/${_taxCategoryId}/sku`, params, options) as unknown as Sku
-	}
+  async attachments(
+    taxCategoryId: string | TaxCategory,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _taxCategoryId = (taxCategoryId as TaxCategory).id || (taxCategoryId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `tax_categories/${_taxCategoryId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
+  }
 
-	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
+  async event_stores(
+    taxCategoryId: string | TaxCategory,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _taxCategoryId = (taxCategoryId as TaxCategory).id || (taxCategoryId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `tax_categories/${_taxCategoryId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(taxCategoryId: string | TaxCategory, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `tax_categories/${_taxCategoryId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isTaxCategory(resource: any): resource is TaxCategory {
+    return resource.type && resource.type === TaxCategories.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): TaxCategoryRel {
+    return super.relationshipOneToOne<TaxCategoryRel>(id)
+  }
 
-	isTaxCategory(resource: any): resource is TaxCategory {
-		return resource.type && (resource.type === TaxCategories.TYPE)
-	}
+  relationshipToMany(...ids: string[]): TaxCategoryRel[] {
+    return super.relationshipOneToMany<TaxCategoryRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): TaxCategoryRel {
-		return super.relationshipOneToOne<TaxCategoryRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): TaxCategoryRel[] {
-		return super.relationshipOneToMany<TaxCategoryRel>(...ids)
-	}
-
-
-	type(): TaxCategoryType {
-		return TaxCategories.TYPE
-	}
-
+  type(): TaxCategoryType {
+    return TaxCategories.TYPE
+  }
 }
-
 
 const instance = new TaxCategories()
 export default instance

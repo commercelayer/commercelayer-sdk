@@ -1,5 +1,12 @@
 import type { QueryParamsList } from '../query'
-import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { BuyXPayYPromotion } from './buy_x_pay_y_promotions'
 import type { EventStore } from './event_stores'
@@ -11,56 +18,61 @@ import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 
-
 type PromotionRuleType = 'promotion_rules'
 type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
-
 
 export type PromotionRuleSort = Pick<PromotionRule, 'id'> & ResourceSort
 // export type PromotionRuleFilter = Pick<PromotionRule, 'id'> & ResourceFilter
 
-
 interface PromotionRule extends Resource {
-	
-	readonly type: PromotionRuleType
+  readonly type: PromotionRuleType
 
-
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
-	event_stores?: EventStore[] | null
-
+  promotion?:
+    | PercentageDiscountPromotion
+    | FreeShippingPromotion
+    | BuyXPayYPromotion
+    | FreeGiftPromotion
+    | FixedPricePromotion
+    | ExternalPromotion
+    | FixedAmountPromotion
+    | FlexPromotion
+    | null
+  event_stores?: EventStore[] | null
 }
-
 
 class PromotionRules extends ApiResource<PromotionRule> {
+  static readonly TYPE: PromotionRuleType = 'promotion_rules' as const
 
-	static readonly TYPE: PromotionRuleType = 'promotion_rules' as const
+  async event_stores(
+    promotionRuleId: string | PromotionRule,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _promotionRuleId = (promotionRuleId as PromotionRule).id || (promotionRuleId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `promotion_rules/${_promotionRuleId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(promotionRuleId: string | PromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _promotionRuleId = (promotionRuleId as PromotionRule).id || promotionRuleId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `promotion_rules/${_promotionRuleId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isPromotionRule(resource: any): resource is PromotionRule {
+    return resource.type && resource.type === PromotionRules.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): PromotionRuleRel {
+    return super.relationshipOneToOne<PromotionRuleRel>(id)
+  }
 
-	isPromotionRule(resource: any): resource is PromotionRule {
-		return resource.type && (resource.type === PromotionRules.TYPE)
-	}
+  relationshipToMany(...ids: string[]): PromotionRuleRel[] {
+    return super.relationshipOneToMany<PromotionRuleRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): PromotionRuleRel {
-		return super.relationshipOneToOne<PromotionRuleRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): PromotionRuleRel[] {
-		return super.relationshipOneToMany<PromotionRuleRel>(...ids)
-	}
-
-
-	type(): PromotionRuleType {
-		return PromotionRules.TYPE
-	}
-
+  type(): PromotionRuleType {
+    return PromotionRules.TYPE
+  }
 }
-
 
 const instance = new PromotionRules()
 export default instance

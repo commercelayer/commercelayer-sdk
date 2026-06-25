@@ -1,4 +1,3 @@
-
 import { beforeAll, describe, expect, test } from 'vitest'
 import { type CommerceLayerClient, type Customer, customers } from '../src'
 import { isResourceType } from '../src/resource'
@@ -6,91 +5,76 @@ import type { ObjectType } from '../src/types'
 import { sleep, sortObjectFields } from '../src/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
 
-
 let cl: CommerceLayerClient
 
-
 beforeAll(async () => {
-	cl = await getClient()
-	const _version = cl.apiSchemaVersion	// avoid not used var issue
+  cl = await getClient()
+  const _version = cl.apiSchemaVersion // avoid not used var issue
 })
 
-
 describe('SDK suite', () => {
+  test('util.sleep', async () => {
+    const ms = 2000
 
-	test('util.sleep', async () => {
+    const start = Date.now()
+    await sleep(ms)
+    const stop = Date.now()
 
-		const ms = 2000
+    const delay = stop - start
 
-		const start = Date.now()
-		await sleep(ms)
-		const stop = Date.now()
+    expect(delay).toBeGreaterThanOrEqual(ms - 10)
+    expect(delay).toBeLessThan(ms + 50)
+  })
 
-		const delay = stop - start
+  test('util.sortObjectFields', async () => {
+    const obj: ObjectType = {
+      beta: 'beta',
+      delta: 'delta',
+      alfa: 'alfa',
+      gamma: 'gamma',
+    }
 
-		expect(delay).toBeGreaterThanOrEqual(ms - 10)
-		expect(delay).toBeLessThan(ms + 50)
+    const exp: ObjectType = {
+      alfa: 'alfa',
+      beta: 'beta',
+      gamma: 'gamma',
+      delta: 'delta',
+    }
 
-	})
+    const sorted = sortObjectFields(obj)
 
+    expect(sorted).toEqual(exp)
+  })
 
-	test('util.sortObjectFields', async () => {
+  test('common.type', async () => {
+    const customer: Customer = {
+      id: TestData.id,
+      type: 'customers',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      email: 'user@test.org',
+      status: 'prospect',
+    }
 
-		const obj: ObjectType = {
-			beta: 'beta',
-			delta: 'delta',
-			alfa: 'alfa',
-			gamma: 'gamma'			
-		}
+    expect(isResourceType(customer)).toBeTruthy()
+  })
 
-		const exp: ObjectType = {
-			alfa: 'alfa',
-			beta: 'beta',
-			gamma: 'gamma',
-			delta: 'delta'
-		}
-
-		const sorted = sortObjectFields(obj)
-
-		expect(sorted).toEqual(exp)
-
-	})
-
-
-	test('common.type', async () => {
-
-		const customer: Customer = {
-			id: TestData.id,
-			type: 'customers',
-			created_at: new Date().toISOString(),
-			updated_at: new Date().toISOString(),
-			email: 'user@test.org',
-			status: 'prospect'
-		}
-
-		expect(isResourceType(customer)).toBeTruthy()
-
-	})
-
-
-	test('loadBalancer.optimization', async () => {
-
-		const cl = await getClient()
+  test('loadBalancer.optimization', async () => {
+    const cl = await getClient()
 
     cl.addRequestInterceptor((request) => {
-			const url = new URL(request.url)
-			checkParam(url, 'page[number]', 1)
+      const url = new URL(request.url)
+      checkParam(url, 'page[number]', 1)
       return interceptRequest()
     })
 
-    await customers.list({})
+    await customers
+      .list({})
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
-    
   })
 
-
-	/*
+  /*
 	test('sdk.version', async () => {
 
 		const cl = await getClient()
@@ -108,5 +92,4 @@ describe('SDK suite', () => {
     
   })
 		*/
-
 })

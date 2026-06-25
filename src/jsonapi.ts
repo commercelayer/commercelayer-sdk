@@ -1,6 +1,12 @@
-
 import type { Value as JSONValue } from 'json-typescript'
-import type { AttributesObject, DocWithData, Included, ResourceObject as JSONAPIObject, RelationshipsObject, ResourceIdentifierObject } from 'jsonapi-typescript'
+import type {
+  AttributesObject,
+  DocWithData,
+  Included,
+  ResourceObject as JSONAPIObject,
+  RelationshipsObject,
+  ResourceIdentifierObject,
+} from 'jsonapi-typescript'
 import config from './config'
 import Debug from './debug'
 import type { Resource, ResourceCreate, ResourceId, ResourceRel, ResourceType, ResourceUpdate } from './resource'
@@ -10,110 +16,106 @@ const debug = Debug('jsonapi')
 
 export type { DocWithData }
 
-
-
 // DENORMALIZATION
 
 const denormalize = <R extends Resource>(response: DocWithData): R | R[] => {
+  if (!response) return response
 
-	if (!response) return response
-	
-	let denormalizedResponse: R | R[]
+  let denormalizedResponse: R | R[]
 
-	if (response.links) delete response.links
+  if (response.links) delete response.links
 
-	const data = response.data
-	const included = response.included
+  const data = response.data
+  const included = response.included
 
-	if (!data) denormalizedResponse = data
-	else {
-		if (Array.isArray(data)) denormalizedResponse = data.map(res => denormalizeResource<R>(res, included))
-		else denormalizedResponse = denormalizeResource<R>(data, included)
-	}
+  if (!data) denormalizedResponse = data
+  else {
+    if (Array.isArray(data)) denormalizedResponse = data.map((res) => denormalizeResource<R>(res, included))
+    else denormalizedResponse = denormalizeResource<R>(data, included)
+  }
 
-	return denormalizedResponse
-
+  return denormalizedResponse
 }
-
 
 const findIncluded = (rel: ResourceIdentifierObject, included: Included = []): JSONAPIObject | undefined => {
-	const inc = included.find(inc => {
-		return (rel.id === inc.id) && (rel.type === inc.type)
-	})
-	return inc || rel
+  const inc = included.find((inc) => {
+    return rel.id === inc.id && rel.type === inc.type
+  })
+  return inc || rel
 }
 
+const denormalizeResource = <T extends ResourceType>(
+  res: any,
+  included?: Included,
+  chain: ResourceIdentifierObject[] = [],
+): T => {
+  debug('denormalize resource: %O, %o', res, included || {})
 
-const denormalizeResource = <T extends ResourceType>(res: any, included?: Included, chain: ResourceIdentifierObject[] = []): T => {
+  if (!res) return res
 
-	debug('denormalize resource: %O, %o', res, included || {})
+  const resource = {
+    id: res.id,
+    type: res.type,
+    ...res.attributes,
+  }
 
-	if (!res) return res
+  if (res.relationships)
+    Object.keys(res.relationships as object).forEach((key) => {
+      const rel: ResourceIdentifierObject = res.relationships[key].data
+      if (rel) {
+        if (chain.filter((r) => r.id === rel.id && r.type === rel.type).length >= config.jsonapi.maxResourceIncluded)
+          resource[key] = rel
+        else {
+          if (Array.isArray(rel))
+            resource[key] = rel.map((r: ResourceIdentifierObject) =>
+              denormalizeResource<ResourceType>(findIncluded(r, included), included, [...chain, r]),
+            )
+          else resource[key] = denormalizeResource<ResourceType>(findIncluded(rel, included), included, [...chain, rel])
+        }
+      } else if (rel === null) resource[key] = null
+    })
 
-	const resource = {
-		id: res.id,
-		type: res.type,
-		...res.attributes,
-	}
+  debug('denormalized resource: %O', resource)
 
-	if (res.relationships) Object.keys(res.relationships as object).forEach(key => {
-		const rel: ResourceIdentifierObject = res.relationships[key].data
-		if (rel) {
-			if (chain.filter(r => (r.id === rel.id) && (r.type === rel.type)).length >= config.jsonapi.maxResourceIncluded) resource[key] = rel
-			else {
-				if (Array.isArray(rel)) resource[key] = rel.map((r: ResourceIdentifierObject) => denormalizeResource<ResourceType>(findIncluded(r, included), included, [...chain, r]))
-				else resource[key] = denormalizeResource<ResourceType>(findIncluded(rel, included), included, [...chain, rel])
-			}
-		} else if (rel === null) resource[key] = null
-	})
-
-	debug('denormalized resource: %O', resource)
-
-	return resource
-
+  return resource
 }
-
 
 // NORMALIZATION
 
 const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate & ResourceId)): JSONAPIObject => {
+  debug('normalize resource: %O', resource)
 
-	debug('normalize resource: %O', resource)
+  const attributes: AttributesObject = {}
+  const relationships: RelationshipsObject = {}
 
-	const attributes: AttributesObject = {}
-	const relationships: RelationshipsObject = {}
+  for (const field in resource) {
+    if (['type', 'id'].includes(field)) continue
+    const value = resource[field as keyof (ResourceCreate | ResourceUpdate)]
+    if (
+      Array.isArray(value) &&
+      value.length === 1 &&
+      isResourceType(value[0]) &&
+      (value[0] as ResourceRel).id === null
+    ) {
+      relationships[field] = { data: [] }
+    } else if (value && isResourceType(value) && (value as ResourceRel).id === null) {
+      relationships[field] = { data: null }
+    } else if (value && (isResourceId(value) || (Array.isArray(value) && isResourceId(value[0])))) {
+      relationships[field] = { data: value as ResourceIdentifierObject }
+    } else attributes[field] = value as JSONValue
+  }
 
-	for (const field in resource) {
-		if (['type', 'id'].includes(field)) continue
-		const value = resource[field as keyof (ResourceCreate | ResourceUpdate)]
-		if (Array.isArray(value) && (value.length === 1) && isResourceType(value[0]) && ((value[0] as ResourceRel).id === null)) {
-			relationships[field] = { data: [] }
-		}
-		else
-		if (value && isResourceType(value) && ((value as ResourceRel).id === null)) {
-			relationships[field] = { data: null }
-		}
-		else
-		if (value && (isResourceId(value) || (Array.isArray(value) && isResourceId(value[0])))) {
-			relationships[field] = { data: value as ResourceIdentifierObject }
-		}
-		else attributes[field] = value as JSONValue
-	}
+  const normalized: JSONAPIObject = {
+    type: resource.type,
+    attributes,
+    relationships,
+  }
 
-	const normalized: JSONAPIObject = {
-		type: resource.type,
-		attributes,
-		relationships
-	}
+  if (isResourceId(resource)) normalized.id = resource.id
 
-	if (isResourceId(resource)) normalized.id = resource.id
+  debug('normalized resource: %O', normalized)
 
-	debug('normalized resource: %O', normalized)
-
-	return normalized
-
+  return normalized
 }
-
-
 
 export { denormalize, normalize }

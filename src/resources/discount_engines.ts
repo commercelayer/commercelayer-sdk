@@ -1,88 +1,119 @@
 import type { QueryParamsList } from '../query'
-import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { DiscountEngineItem } from './discount_engine_items'
 import type { EventStore } from './event_stores'
 import type { Market } from './markets'
 
-
 type DiscountEngineType = 'discount_engines'
 type DiscountEngineRel = ResourceRel & { type: DiscountEngineType }
-
 
 export type DiscountEngineSort = Pick<DiscountEngine, 'id' | 'name'> & ResourceSort
 // export type DiscountEngineFilter = Pick<DiscountEngine, 'id' | 'name'> & ResourceFilter
 
-
 interface DiscountEngine extends Resource {
-	
-	readonly type: DiscountEngineType
+  readonly type: DiscountEngineType
 
-	/** 
-	 * The discount engine's internal name.
-	 * @example ```"Personal discount engine"```
-	 */
-	name: string
-	/** 
-	 * Indicates if the discount engine manages both promotions and gift cards application at once.
-	 * @example ```true```
-	 */
-	manage_gift_cards?: boolean | null
+  /**
+   * The discount engine's internal name.
+   * @example ```"Personal discount engine"```
+   */
+  name: string
+  /**
+   * Indicates if the discount engine manages both promotions and gift cards application at once.
+   * @example ```true```
+   */
+  manage_gift_cards?: boolean | null
 
-	markets?: Market[] | null
-	discount_engine_items?: DiscountEngineItem[] | null
-	attachments?: Attachment[] | null
-	event_stores?: EventStore[] | null
-
+  markets?: Market[] | null
+  discount_engine_items?: DiscountEngineItem[] | null
+  attachments?: Attachment[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 class DiscountEngines extends ApiResource<DiscountEngine> {
+  static readonly TYPE: DiscountEngineType = 'discount_engines' as const
 
-	static readonly TYPE: DiscountEngineType = 'discount_engines' as const
+  async markets(
+    discountEngineId: string | DiscountEngine,
+    params?: QueryParamsList<Market>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Market>> {
+    const _discountEngineId = (discountEngineId as DiscountEngine).id || (discountEngineId as string)
+    return this.resources.fetch<Market>(
+      { type: 'markets' },
+      `discount_engines/${_discountEngineId}/markets`,
+      params,
+      options,
+    ) as unknown as ListResponse<Market>
+  }
 
-	async markets(discountEngineId: string | DiscountEngine, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		const _discountEngineId = (discountEngineId as DiscountEngine).id || discountEngineId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `discount_engines/${_discountEngineId}/markets`, params, options) as unknown as ListResponse<Market>
-	}
+  async discount_engine_items(
+    discountEngineId: string | DiscountEngine,
+    params?: QueryParamsList<DiscountEngineItem>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<DiscountEngineItem>> {
+    const _discountEngineId = (discountEngineId as DiscountEngine).id || (discountEngineId as string)
+    return this.resources.fetch<DiscountEngineItem>(
+      { type: 'discount_engine_items' },
+      `discount_engines/${_discountEngineId}/discount_engine_items`,
+      params,
+      options,
+    ) as unknown as ListResponse<DiscountEngineItem>
+  }
 
-	async discount_engine_items(discountEngineId: string | DiscountEngine, params?: QueryParamsList<DiscountEngineItem>, options?: ResourcesConfig): Promise<ListResponse<DiscountEngineItem>> {
-		const _discountEngineId = (discountEngineId as DiscountEngine).id || discountEngineId as string
-		return this.resources.fetch<DiscountEngineItem>({ type: 'discount_engine_items' }, `discount_engines/${_discountEngineId}/discount_engine_items`, params, options) as unknown as ListResponse<DiscountEngineItem>
-	}
+  async attachments(
+    discountEngineId: string | DiscountEngine,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _discountEngineId = (discountEngineId as DiscountEngine).id || (discountEngineId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `discount_engines/${_discountEngineId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
+  }
 
-	async attachments(discountEngineId: string | DiscountEngine, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _discountEngineId = (discountEngineId as DiscountEngine).id || discountEngineId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `discount_engines/${_discountEngineId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
+  async event_stores(
+    discountEngineId: string | DiscountEngine,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _discountEngineId = (discountEngineId as DiscountEngine).id || (discountEngineId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `discount_engines/${_discountEngineId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(discountEngineId: string | DiscountEngine, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _discountEngineId = (discountEngineId as DiscountEngine).id || discountEngineId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `discount_engines/${_discountEngineId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isDiscountEngine(resource: any): resource is DiscountEngine {
+    return resource.type && resource.type === DiscountEngines.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): DiscountEngineRel {
+    return super.relationshipOneToOne<DiscountEngineRel>(id)
+  }
 
-	isDiscountEngine(resource: any): resource is DiscountEngine {
-		return resource.type && (resource.type === DiscountEngines.TYPE)
-	}
+  relationshipToMany(...ids: string[]): DiscountEngineRel[] {
+    return super.relationshipOneToMany<DiscountEngineRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): DiscountEngineRel {
-		return super.relationshipOneToOne<DiscountEngineRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): DiscountEngineRel[] {
-		return super.relationshipOneToMany<DiscountEngineRel>(...ids)
-	}
-
-
-	type(): DiscountEngineType {
-		return DiscountEngines.TYPE
-	}
-
+  type(): DiscountEngineType {
+    return DiscountEngines.TYPE
+  }
 }
-
 
 const instance = new DiscountEngines()
 export default instance

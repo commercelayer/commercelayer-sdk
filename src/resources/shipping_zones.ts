@@ -1,194 +1,219 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
 
-
 type ShippingZoneType = 'shipping_zones'
 type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
-
 
 export type ShippingZoneSort = Pick<ShippingZone, 'id' | 'name'> & ResourceSort
 // export type ShippingZoneFilter = Pick<ShippingZone, 'id' | 'name'> & ResourceFilter
 
-
 interface ShippingZone extends Resource {
-	
-	readonly type: ShippingZoneType
+  readonly type: ShippingZoneType
 
-	/** 
-	 * The shipping zone's internal name.
-	 * @example ```"Europe (main countries)"```
-	 */
-	name: string
-	/** 
-	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
-	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
-	 */
-	country_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
-	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
-	 */
-	not_country_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
-	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
-	 */
-	state_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
-	 * @example ```"A[KLRZ]|C[AOT]"```
-	 */
-	not_state_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
-	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
-	 */
-	zip_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
-	 * @example ```"(?i)(JE1|JE2|JE3)"```
-	 */
-	not_zip_code_regex?: string | null
+  /**
+   * The shipping zone's internal name.
+   * @example ```"Europe (main countries)"```
+   */
+  name: string
+  /**
+   * The regex that will be evaluated to match the shipping address country code, max size is 5000.
+   * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
+   */
+  country_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
+   * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
+   */
+  not_country_code_regex?: string | null
+  /**
+   * The regex that will be evaluated to match the shipping address state code, max size is 5000.
+   * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
+   */
+  state_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
+   * @example ```"A[KLRZ]|C[AOT]"```
+   */
+  not_state_code_regex?: string | null
+  /**
+   * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
+   * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
+   */
+  zip_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
+   * @example ```"(?i)(JE1|JE2|JE3)"```
+   */
+  not_zip_code_regex?: string | null
 
-	attachments?: Attachment[] | null
-	event_stores?: EventStore[] | null
-
+  attachments?: Attachment[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface ShippingZoneCreate extends ResourceCreate {
-	
-	/** 
-	 * The shipping zone's internal name.
-	 * @example ```"Europe (main countries)"```
-	 */
-	name: string
-	/** 
-	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
-	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
-	 */
-	country_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
-	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
-	 */
-	not_country_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
-	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
-	 */
-	state_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
-	 * @example ```"A[KLRZ]|C[AOT]"```
-	 */
-	not_state_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
-	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
-	 */
-	zip_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
-	 * @example ```"(?i)(JE1|JE2|JE3)"```
-	 */
-	not_zip_code_regex?: string | null
-	
+  /**
+   * The shipping zone's internal name.
+   * @example ```"Europe (main countries)"```
+   */
+  name: string
+  /**
+   * The regex that will be evaluated to match the shipping address country code, max size is 5000.
+   * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
+   */
+  country_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
+   * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
+   */
+  not_country_code_regex?: string | null
+  /**
+   * The regex that will be evaluated to match the shipping address state code, max size is 5000.
+   * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
+   */
+  state_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
+   * @example ```"A[KLRZ]|C[AOT]"```
+   */
+  not_state_code_regex?: string | null
+  /**
+   * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
+   * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
+   */
+  zip_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
+   * @example ```"(?i)(JE1|JE2|JE3)"```
+   */
+  not_zip_code_regex?: string | null
 }
-
 
 interface ShippingZoneUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The shipping zone's internal name.
-	 * @example ```"Europe (main countries)"```
-	 */
-	name?: string | null
-	/** 
-	 * The regex that will be evaluated to match the shipping address country code, max size is 5000.
-	 * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
-	 */
-	country_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
-	 * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
-	 */
-	not_country_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated to match the shipping address state code, max size is 5000.
-	 * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
-	 */
-	state_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
-	 * @example ```"A[KLRZ]|C[AOT]"```
-	 */
-	not_state_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
-	 * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
-	 */
-	zip_code_regex?: string | null
-	/** 
-	 * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
-	 * @example ```"(?i)(JE1|JE2|JE3)"```
-	 */
-	not_zip_code_regex?: string | null
-	
+  /**
+   * The shipping zone's internal name.
+   * @example ```"Europe (main countries)"```
+   */
+  name?: string | null
+  /**
+   * The regex that will be evaluated to match the shipping address country code, max size is 5000.
+   * @example ```"AT|BE|BG|CZ|DK|EE|DE|HU|LV|LT"```
+   */
+  country_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping address country code, max size is 5000.
+   * @example ```"AT|BE|BG|CZ|DK|EE|DE"```
+   */
+  not_country_code_regex?: string | null
+  /**
+   * The regex that will be evaluated to match the shipping address state code, max size is 5000.
+   * @example ```"A[KLRZ]|C[AOT]|D[CE]|FL"```
+   */
+  state_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping address state code, max size is 5000.
+   * @example ```"A[KLRZ]|C[AOT]"```
+   */
+  not_state_code_regex?: string | null
+  /**
+   * The regex that will be evaluated to match the shipping address zip code, max size is 5000.
+   * @example ```"(?i)(JE1|JE2|JE3|JE4|JE5)"```
+   */
+  zip_code_regex?: string | null
+  /**
+   * The regex that will be evaluated as negative match for the shipping zip country code, max size is 5000.
+   * @example ```"(?i)(JE1|JE2|JE3)"```
+   */
+  not_zip_code_regex?: string | null
 }
-
 
 class ShippingZones extends ApiResource<ShippingZone> {
+  static readonly TYPE: ShippingZoneType = 'shipping_zones' as const
 
-	static readonly TYPE: ShippingZoneType = 'shipping_zones' as const
+  async create(
+    resource: ShippingZoneCreate,
+    params?: QueryParamsRetrieve<ShippingZone>,
+    options?: ResourcesConfig,
+  ): Promise<ShippingZone> {
+    return this.resources.create<ShippingZoneCreate, ShippingZone>(
+      { ...resource, type: ShippingZones.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: ShippingZoneCreate, params?: QueryParamsRetrieve<ShippingZone>, options?: ResourcesConfig): Promise<ShippingZone> {
-		return this.resources.create<ShippingZoneCreate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
-	}
+  async update(
+    resource: ShippingZoneUpdate,
+    params?: QueryParamsRetrieve<ShippingZone>,
+    options?: ResourcesConfig,
+  ): Promise<ShippingZone> {
+    return this.resources.update<ShippingZoneUpdate, ShippingZone>(
+      { ...resource, type: ShippingZones.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: ShippingZoneUpdate, params?: QueryParamsRetrieve<ShippingZone>, options?: ResourcesConfig): Promise<ShippingZone> {
-		return this.resources.update<ShippingZoneUpdate, ShippingZone>({ ...resource, type: ShippingZones.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: ShippingZones.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: ShippingZones.TYPE } : id, options)
-	}
+  async attachments(
+    shippingZoneId: string | ShippingZone,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _shippingZoneId = (shippingZoneId as ShippingZone).id || (shippingZoneId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `shipping_zones/${_shippingZoneId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
+  }
 
-	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${_shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
+  async event_stores(
+    shippingZoneId: string | ShippingZone,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _shippingZoneId = (shippingZoneId as ShippingZone).id || (shippingZoneId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `shipping_zones/${_shippingZoneId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(shippingZoneId: string | ShippingZone, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `shipping_zones/${_shippingZoneId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isShippingZone(resource: any): resource is ShippingZone {
+    return resource.type && resource.type === ShippingZones.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): ShippingZoneRel {
+    return super.relationshipOneToOne<ShippingZoneRel>(id)
+  }
 
-	isShippingZone(resource: any): resource is ShippingZone {
-		return resource.type && (resource.type === ShippingZones.TYPE)
-	}
+  relationshipToMany(...ids: string[]): ShippingZoneRel[] {
+    return super.relationshipOneToMany<ShippingZoneRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): ShippingZoneRel {
-		return super.relationshipOneToOne<ShippingZoneRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): ShippingZoneRel[] {
-		return super.relationshipOneToMany<ShippingZoneRel>(...ids)
-	}
-
-
-	type(): ShippingZoneType {
-		return ShippingZones.TYPE
-	}
-
+  type(): ShippingZoneType {
+    return ShippingZones.TYPE
+  }
 }
-
 
 const instance = new ShippingZones()
 export default instance

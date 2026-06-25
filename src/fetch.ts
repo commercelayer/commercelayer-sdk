@@ -1,25 +1,19 @@
-
-
-
 import Debug from './debug'
 import { ErrorType, SdkError } from './error'
 import type { InterceptorManager } from './interceptor'
 
 const debug = Debug('fetch')
 
-
 export type Fetch = (input: string | URL | Request, init?: RequestInit) => Promise<Response>
 
 export type FetchResponse = any
 export type FetchRequestOptions = RequestInit
 export type FetchClientOptions = {
-  interceptors?: InterceptorManager,
+  interceptors?: InterceptorManager
   fetch?: Fetch
 }
 
-
 export class FetchError extends Error {
-
   static NAME = 'FetchError'
 
   static isFetchError = (error: any): error is FetchError => {
@@ -40,26 +34,34 @@ export class FetchError extends Error {
     this.name = FetchError.NAME
   }
 
+  get errors(): any[] | undefined {
+    return this.#errors
+  }
 
-  get errors(): any[] | undefined { return this.#errors }
+  get status(): number {
+    return this.#status
+  }
 
-  get status(): number { return this.#status }
+  get statusText(): string {
+    return this.#statusText
+  }
 
-  get statusText(): string { return this.#statusText }
-
-  get request(): Partial<FetchRequestOptions> | undefined { return this.#request }
-
+  get request(): Partial<FetchRequestOptions> | undefined {
+    return this.#request
+  }
 }
 
-
-
-export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, clientOptions?: FetchClientOptions): Promise<FetchResponse> => {
-
-  debug('fetch: %s, %O, native[%s]', url, requestOptions || {}, (clientOptions?.fetch? 'no' : 'yes'))
+export const fetchURL = async (
+  url: URL,
+  requestOptions: FetchRequestOptions,
+  clientOptions?: FetchClientOptions,
+): Promise<FetchResponse> => {
+  debug('fetch: %s, %O, native[%s]', url, requestOptions || {}, clientOptions?.fetch ? 'no' : 'yes')
 
   const interceptors = clientOptions?.interceptors
 
-  if (interceptors?.request?.onSuccess) ( { url, options: requestOptions } = await interceptors.request.onSuccess({ url, options: requestOptions }) )
+  if (interceptors?.request?.onSuccess)
+    ({ url, options: requestOptions } = await interceptors.request.onSuccess({ url, options: requestOptions }))
 
   // const request: Request = new Request(url, requestOptions)  // not supported by all fetch implementations
 
@@ -74,14 +76,20 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
     if (interceptors?.rawReader?.onFailure) await interceptors.rawReader.onFailure(response)
   }
 
-  const responseBody = (response.body && (response.status !== 204)) ? await response.json()
-    .then(json => { debug('response: %O', json); return json })
-    .catch((err: Error) => {
-      debug('error: %s', err.message)
-      if (response.ok) throw new SdkError({ message: 'Error parsing API response body', type: ErrorType.PARSE })
-    })
-    : undefined
-    
+  const responseBody =
+    response.body && response.status !== 204
+      ? await response
+          .json()
+          .then((json) => {
+            debug('response: %O', json)
+            return json
+          })
+          .catch((err: Error) => {
+            debug('error: %s', err.message)
+            if (response.ok) throw new SdkError({ message: 'Error parsing API response body', type: ErrorType.PARSE })
+          })
+      : undefined
+
   if (!response.ok) {
     let error = new FetchError(response.status, response.statusText, responseBody, requestOptions)
     if (interceptors?.response?.onFailure) error = await interceptors.response.onFailure(error)
@@ -89,5 +97,4 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
   }
 
   return responseBody
-
 }

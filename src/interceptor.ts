@@ -1,26 +1,25 @@
-import type { FetchError, FetchRequestOptions } from "./fetch"
+import type { FetchError, FetchRequestOptions } from './fetch'
 
-
-type InterceptorEventManager<S extends (RequestInterceptor | ResponseInterceptor), F extends (ErrorInterceptor | ResponseInterceptor)> = {
-	onSuccess?: S
-	onFailure?: F
+type InterceptorEventManager<
+  S extends RequestInterceptor | ResponseInterceptor,
+  F extends ErrorInterceptor | ResponseInterceptor,
+> = {
+  onSuccess?: S
+  onFailure?: F
 }
-
 
 type RequestEventManager = InterceptorEventManager<RequestInterceptor, ErrorInterceptor>
 type ResponseEventManager = InterceptorEventManager<ResponseInterceptor, ErrorInterceptor>
 type ErrorEventManager = InterceptorEventManager<ResponseInterceptor, ResponseInterceptor>
 
-
 type InterceptorManager = {
-	request?: RequestEventManager
-	response?: ResponseEventManager
-	rawReader?: ErrorEventManager
+  request?: RequestEventManager
+  response?: ResponseEventManager
+  rawReader?: ErrorEventManager
 }
 
-
 // Request
-type RequestObj = { url: URL, options: FetchRequestOptions }
+type RequestObj = { url: URL; options: FetchRequestOptions }
 type RequestInterceptor = (request: RequestObj) => RequestObj | Promise<RequestObj>
 
 // Response
@@ -38,17 +37,23 @@ type ErrorInterceptor = (error: ErrorObj) => ErrorObj | Promise<ErrorObj>
 
 type InterceptorType = 'request' | 'response'
 
-
-export type { ErrorInterceptor, ErrorObj, HeadersObj, InterceptorManager, InterceptorType, RequestInterceptor, RequestObj, ResponseInterceptor, ResponseObj }
-
-
-
-type RawResponseReader = {
-	id: number
-	rawResponse?: any
-	headers?: HeadersObj
-	ok: boolean
+export type {
+  ErrorInterceptor,
+  ErrorObj,
+  HeadersObj,
+  InterceptorManager,
+  InterceptorType,
+  RequestInterceptor,
+  RequestObj,
+  ResponseInterceptor,
+  ResponseObj,
 }
 
+type RawResponseReader = {
+  id: number
+  rawResponse?: any
+  headers?: HeadersObj
+  ok: boolean
+}
 
 export type { RawResponseReader }

@@ -1,135 +1,171 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { Parcel, ParcelType } from './parcels'
 import type { StockLineItem, StockLineItemType } from './stock_line_items'
-
 
 type ParcelLineItemType = 'parcel_line_items'
 type ParcelLineItemRel = ResourceRel & { type: ParcelLineItemType }
 type ParcelRel = ResourceRel & { type: ParcelType }
 type StockLineItemRel = ResourceRel & { type: StockLineItemType }
 
-
 export type ParcelLineItemSort = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceSort
 // export type ParcelLineItemFilter = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceFilter
 
-
 interface ParcelLineItem extends Resource {
-	
-	readonly type: ParcelLineItemType
+  readonly type: ParcelLineItemType
 
-	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
-	/** 
-	 * The code of the associated bundle.
-	 * @example ```"BUNDLEMM000000FFFFFFXLXX"```
-	 */
-	bundle_code?: string | null
-	/** 
-	 * The parcel line item quantity.
-	 * @example ```4```
-	 */
-	quantity: number
-	/** 
-	 * The internal name of the associated line item.
-	 * @example ```"Men's Black T-shirt with White Logo (XL)"```
-	 */
-	name?: string | null
-	/** 
-	 * The image_url of the associated line item.
-	 * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
-	 */
-	image_url?: string | null
+  /**
+   * The code of the associated SKU.
+   * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+   */
+  sku_code?: string | null
+  /**
+   * The code of the associated bundle.
+   * @example ```"BUNDLEMM000000FFFFFFXLXX"```
+   */
+  bundle_code?: string | null
+  /**
+   * The parcel line item quantity.
+   * @example ```4```
+   */
+  quantity: number
+  /**
+   * The internal name of the associated line item.
+   * @example ```"Men's Black T-shirt with White Logo (XL)"```
+   */
+  name?: string | null
+  /**
+   * The image_url of the associated line item.
+   * @example ```"https://img.yourdomain.com/skus/xYZkjABcde.png"```
+   */
+  image_url?: string | null
 
-	parcel?: Parcel | null
-	stock_line_item?: StockLineItem | null
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_item?: object
-	event_stores?: EventStore[] | null
-
+  parcel?: Parcel | null
+  stock_line_item?: StockLineItem | null
+  /**
+   * @deprecated This field should not be used as it may be removed in the future without notice
+   */
+  shipment_line_item?: object
+  event_stores?: EventStore[] | null
 }
-
 
 interface ParcelLineItemCreate extends ResourceCreate {
-	
-	/** 
-	 * The parcel line item quantity.
-	 * @example ```4```
-	 */
-	quantity: number
+  /**
+   * The parcel line item quantity.
+   * @example ```4```
+   */
+  quantity: number
 
-	parcel: ParcelRel
-	stock_line_item: StockLineItemRel
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	shipment_line_item?: object
-
+  parcel: ParcelRel
+  stock_line_item: StockLineItemRel
+  /**
+   * @deprecated This field should not be used as it may be removed in the future without notice
+   */
+  shipment_line_item?: object
 }
-
 
 type ParcelLineItemUpdate = ResourceUpdate
 
-
 class ParcelLineItems extends ApiResource<ParcelLineItem> {
+  static readonly TYPE: ParcelLineItemType = 'parcel_line_items' as const
 
-	static readonly TYPE: ParcelLineItemType = 'parcel_line_items' as const
+  async create(
+    resource: ParcelLineItemCreate,
+    params?: QueryParamsRetrieve<ParcelLineItem>,
+    options?: ResourcesConfig,
+  ): Promise<ParcelLineItem> {
+    return this.resources.create<ParcelLineItemCreate, ParcelLineItem>(
+      { ...resource, type: ParcelLineItems.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: ParcelLineItemCreate, params?: QueryParamsRetrieve<ParcelLineItem>, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.create<ParcelLineItemCreate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
-	}
+  async update(
+    resource: ParcelLineItemUpdate,
+    params?: QueryParamsRetrieve<ParcelLineItem>,
+    options?: ResourcesConfig,
+  ): Promise<ParcelLineItem> {
+    return this.resources.update<ParcelLineItemUpdate, ParcelLineItem>(
+      { ...resource, type: ParcelLineItems.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: ParcelLineItemUpdate, params?: QueryParamsRetrieve<ParcelLineItem>, options?: ResourcesConfig): Promise<ParcelLineItem> {
-		return this.resources.update<ParcelLineItemUpdate, ParcelLineItem>({ ...resource, type: ParcelLineItems.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: ParcelLineItems.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: ParcelLineItems.TYPE } : id, options)
-	}
+  async parcel(
+    parcelLineItemId: string | ParcelLineItem,
+    params?: QueryParamsRetrieve<Parcel>,
+    options?: ResourcesConfig,
+  ): Promise<Parcel> {
+    const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || (parcelLineItemId as string)
+    return this.resources.fetch<Parcel>(
+      { type: 'parcels' },
+      `parcel_line_items/${_parcelLineItemId}/parcel`,
+      params,
+      options,
+    ) as unknown as Parcel
+  }
 
-	async parcel(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve<Parcel>, options?: ResourcesConfig): Promise<Parcel> {
-		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<Parcel>({ type: 'parcels' }, `parcel_line_items/${_parcelLineItemId}/parcel`, params, options) as unknown as Parcel
-	}
+  async stock_line_item(
+    parcelLineItemId: string | ParcelLineItem,
+    params?: QueryParamsRetrieve<StockLineItem>,
+    options?: ResourcesConfig,
+  ): Promise<StockLineItem> {
+    const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || (parcelLineItemId as string)
+    return this.resources.fetch<StockLineItem>(
+      { type: 'stock_line_items' },
+      `parcel_line_items/${_parcelLineItemId}/stock_line_item`,
+      params,
+      options,
+    ) as unknown as StockLineItem
+  }
 
-	async stock_line_item(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve<StockLineItem>, options?: ResourcesConfig): Promise<StockLineItem> {
-		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
-	}
+  async event_stores(
+    parcelLineItemId: string | ParcelLineItem,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || (parcelLineItemId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `parcel_line_items/${_parcelLineItemId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `parcel_line_items/${_parcelLineItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isParcelLineItem(resource: any): resource is ParcelLineItem {
+    return resource.type && resource.type === ParcelLineItems.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): ParcelLineItemRel {
+    return super.relationshipOneToOne<ParcelLineItemRel>(id)
+  }
 
-	isParcelLineItem(resource: any): resource is ParcelLineItem {
-		return resource.type && (resource.type === ParcelLineItems.TYPE)
-	}
+  relationshipToMany(...ids: string[]): ParcelLineItemRel[] {
+    return super.relationshipOneToMany<ParcelLineItemRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): ParcelLineItemRel {
-		return super.relationshipOneToOne<ParcelLineItemRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): ParcelLineItemRel[] {
-		return super.relationshipOneToMany<ParcelLineItemRel>(...ids)
-	}
-
-
-	type(): ParcelLineItemType {
-		return ParcelLineItems.TYPE
-	}
-
+  type(): ParcelLineItemType {
+    return ParcelLineItems.TYPE
+  }
 }
-
 
 const instance = new ParcelLineItems()
 export default instance

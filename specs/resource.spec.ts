@@ -1,95 +1,81 @@
-
 import { beforeAll, describe, expect, test } from 'vitest'
 import { application, type CommerceLayerClient, type Customer, customers, type ListResponse, orders } from '../src'
 import { getClient } from '../test/common'
-
 
 let cl: CommerceLayerClient
 let customerList: ListResponse<Customer>
 let tempId: string
 
-
 beforeAll(async () => {
-	cl = await getClient({})
-	const _version = cl.apiSchemaVersion	// avoid not used var issue
-	customerList = await customers.list({ pageSize: 1})
+  cl = await getClient({})
+  const _version = cl.apiSchemaVersion // avoid not used var issue
+  customerList = await customers.list({ pageSize: 1 })
 })
 
-
 describe('SDK:resource suite', () => {
+  test('resource.first', async () => {
+    const first = customerList.first()
+    expect(first?.id).not.toBeUndefined()
+  })
 
-	test('resource.first', async () => {
-		const first = customerList.first()
-		expect(first?.id).not.toBeUndefined()
-	})
+  test('resource.last', async () => {
+    const first = customerList.first()
+    const last = customerList.last()
+    expect(last?.id).not.toBeUndefined()
+    expect(first).toEqual(last)
+  })
 
+  test('resource.get', async () => {
+    const customer = customerList.get(0)
+    expect(customer?.id).not.toBeUndefined()
+  })
 
-	test('resource.last', async () => {
-		const first = customerList.first()
-		const last = customerList.last()
-		expect(last?.id).not.toBeUndefined()
-		expect(first).toEqual(last)
-	})
+  test('resource.retrieve', async () => {
+    const id = customerList.first()?.id as string
+    const customer = await customers.retrieve(id)
+    expect(customer.id).toEqual(id)
+  })
 
+  test('resource.update', async () => {
+    const id = customerList.first()?.id as string
+    const reference = String(Date.now())
+    const customer = await customers.update({ id, reference })
+    expect(customer.reference).toEqual(reference)
+  })
 
-	test('resource.get', async () => {
-		const customer = customerList.get(0)
-		expect(customer?.id).not.toBeUndefined()
-	})
+  test('resource.singleton', async () => {
+    const app = await application.retrieve()
+    expect(app.id).not.toBeNull()
+    expect(app.id).not.toBeUndefined()
+  })
 
+  test('resource.create', async () => {
+    const email = 'spec@sdk-test.org'
+    const customer = await customers.create({ email })
+    expect(customer.id).not.toBeUndefined()
+    expect(customer.email).toEqual(email)
+    tempId = customer.id
+  })
 
-	test('resource.retrieve', async () => {
-		const id = customerList.first()?.id as string
-		const customer = await customers.retrieve(id)
-		expect(customer.id).toEqual(id)
-	})
+  test('resource.delete', async () => {
+    await customers.delete(tempId)
+    try {
+      await customers.retrieve(tempId)
+    } catch (error: any) {
+      expect(error.code).toEqual('404')
+      expect(error.status).toEqual(404)
+    }
+  })
 
+  test('resource.fetch', async () => {
+    const id = customerList.first()?.id as string
+    const orderList = await customers.orders(id)
+    expect(orderList.length).toBeGreaterThan(0)
+    const customer = await orders.customer(orderList.first()?.id as string)
+    expect(customer.id).toEqual(id)
+  })
 
-	test('resource.update', async () => {
-		const id = customerList.first()?.id as string
-		const reference = String(Date.now())
-		const customer = await customers.update({ id, reference })
-		expect(customer.reference).toEqual(reference)
-	})
-
-
-	test('resource.singleton', async () => {
-		const app = await application.retrieve()
-		expect(app.id).not.toBeNull()
-		expect(app.id).not.toBeUndefined()
-	})
-
-
-	test('resource.create', async () => {
-		const email = 'spec@sdk-test.org'
-		const customer = await customers.create({ email })
-		expect(customer.id).not.toBeUndefined()
-		expect(customer.email).toEqual(email)
-		tempId = customer.id
-	})
-
-
-	test('resource.delete', async () => {
-		await customers.delete(tempId)
-		try {
-			await customers.retrieve(tempId)
-		} catch (error: any) {
-			expect(error.code).toEqual("404")
-			expect(error.status).toEqual(404)
-		}
-	})
-
-
-	test('resource.fetch', async () => {
-		const id = customerList.first()?.id as string
-		const orderList = await customers.orders(id)
-		expect(orderList.length).toBeGreaterThan(0)
-		const customer = await orders.customer(orderList.first()?.id as string)
-		expect(customer.id).toEqual(id)
-	})
-
-
-	/*
+  /*
 	test('resource.relationship.delete', async () => {
 
 		const customerOptions = { fields: ['email', 'customer_group'], include: ['customer_group'] }
@@ -116,5 +102,4 @@ describe('SDK:resource suite', () => {
 
 	})
 	*/
-
 })

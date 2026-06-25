@@ -1,132 +1,175 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { StockLocation, StockLocationType } from './stock_locations'
-
 
 type InventoryStockLocationType = 'inventory_stock_locations'
 type InventoryStockLocationRel = ResourceRel & { type: InventoryStockLocationType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 
-
 export type InventoryStockLocationSort = Pick<InventoryStockLocation, 'id' | 'priority' | 'on_hold'> & ResourceSort
 // export type InventoryStockLocationFilter = Pick<InventoryStockLocation, 'id' | 'priority' | 'on_hold'> & ResourceFilter
 
-
 interface InventoryStockLocation extends Resource {
-	
-	readonly type: InventoryStockLocationType
+  readonly type: InventoryStockLocationType
 
-	/** 
-	 * The stock location priority within the associated invetory model.
-	 * @example ```1```
-	 */
-	priority: number
-	/** 
-	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
-	 */
-	on_hold?: boolean | null
+  /**
+   * The stock location priority within the associated invetory model.
+   * @example ```1```
+   */
+  priority: number
+  /**
+   * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
+   */
+  on_hold?: boolean | null
 
-	stock_location?: StockLocation | null
-	inventory_model?: InventoryModel | null
-	event_stores?: EventStore[] | null
-
+  stock_location?: StockLocation | null
+  inventory_model?: InventoryModel | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface InventoryStockLocationCreate extends ResourceCreate {
-	
-	/** 
-	 * The stock location priority within the associated invetory model.
-	 * @example ```1```
-	 */
-	priority: number
-	/** 
-	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
-	 */
-	on_hold?: boolean | null
+  /**
+   * The stock location priority within the associated invetory model.
+   * @example ```1```
+   */
+  priority: number
+  /**
+   * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
+   */
+  on_hold?: boolean | null
 
-	stock_location: StockLocationRel
-	inventory_model: InventoryModelRel
-
+  stock_location: StockLocationRel
+  inventory_model: InventoryModelRel
 }
-
 
 interface InventoryStockLocationUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The stock location priority within the associated invetory model.
-	 * @example ```1```
-	 */
-	priority?: number | null
-	/** 
-	 * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
-	 */
-	on_hold?: boolean | null
+  /**
+   * The stock location priority within the associated invetory model.
+   * @example ```1```
+   */
+  priority?: number | null
+  /**
+   * Indicates if the shipment should be put on hold if fulfilled from the associated stock location. This is useful to manage use cases like back-orders, pre-orders or personalized orders that need to be customized before being fulfilled.
+   */
+  on_hold?: boolean | null
 
-	stock_location?: StockLocationRel | null
-	inventory_model?: InventoryModelRel | null
-
+  stock_location?: StockLocationRel | null
+  inventory_model?: InventoryModelRel | null
 }
-
 
 class InventoryStockLocations extends ApiResource<InventoryStockLocation> {
+  static readonly TYPE: InventoryStockLocationType = 'inventory_stock_locations' as const
 
-	static readonly TYPE: InventoryStockLocationType = 'inventory_stock_locations' as const
+  async create(
+    resource: InventoryStockLocationCreate,
+    params?: QueryParamsRetrieve<InventoryStockLocation>,
+    options?: ResourcesConfig,
+  ): Promise<InventoryStockLocation> {
+    return this.resources.create<InventoryStockLocationCreate, InventoryStockLocation>(
+      { ...resource, type: InventoryStockLocations.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: InventoryStockLocationCreate, params?: QueryParamsRetrieve<InventoryStockLocation>, options?: ResourcesConfig): Promise<InventoryStockLocation> {
-		return this.resources.create<InventoryStockLocationCreate, InventoryStockLocation>({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
-	}
+  async update(
+    resource: InventoryStockLocationUpdate,
+    params?: QueryParamsRetrieve<InventoryStockLocation>,
+    options?: ResourcesConfig,
+  ): Promise<InventoryStockLocation> {
+    return this.resources.update<InventoryStockLocationUpdate, InventoryStockLocation>(
+      { ...resource, type: InventoryStockLocations.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: InventoryStockLocationUpdate, params?: QueryParamsRetrieve<InventoryStockLocation>, options?: ResourcesConfig): Promise<InventoryStockLocation> {
-		return this.resources.update<InventoryStockLocationUpdate, InventoryStockLocation>({ ...resource, type: InventoryStockLocations.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: InventoryStockLocations.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: InventoryStockLocations.TYPE } : id, options)
-	}
+  async stock_location(
+    inventoryStockLocationId: string | InventoryStockLocation,
+    params?: QueryParamsRetrieve<StockLocation>,
+    options?: ResourcesConfig,
+  ): Promise<StockLocation> {
+    const _inventoryStockLocationId =
+      (inventoryStockLocationId as InventoryStockLocation).id || (inventoryStockLocationId as string)
+    return this.resources.fetch<StockLocation>(
+      { type: 'stock_locations' },
+      `inventory_stock_locations/${_inventoryStockLocationId}/stock_location`,
+      params,
+      options,
+    ) as unknown as StockLocation
+  }
 
-	async stock_location(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsRetrieve<StockLocation>, options?: ResourcesConfig): Promise<StockLocation> {
-		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
-		return this.resources.fetch<StockLocation>({ type: 'stock_locations' }, `inventory_stock_locations/${_inventoryStockLocationId}/stock_location`, params, options) as unknown as StockLocation
-	}
+  async inventory_model(
+    inventoryStockLocationId: string | InventoryStockLocation,
+    params?: QueryParamsRetrieve<InventoryModel>,
+    options?: ResourcesConfig,
+  ): Promise<InventoryModel> {
+    const _inventoryStockLocationId =
+      (inventoryStockLocationId as InventoryStockLocation).id || (inventoryStockLocationId as string)
+    return this.resources.fetch<InventoryModel>(
+      { type: 'inventory_models' },
+      `inventory_stock_locations/${_inventoryStockLocationId}/inventory_model`,
+      params,
+      options,
+    ) as unknown as InventoryModel
+  }
 
-	async inventory_model(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsRetrieve<InventoryModel>, options?: ResourcesConfig): Promise<InventoryModel> {
-		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
-		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `inventory_stock_locations/${_inventoryStockLocationId}/inventory_model`, params, options) as unknown as InventoryModel
-	}
+  async event_stores(
+    inventoryStockLocationId: string | InventoryStockLocation,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _inventoryStockLocationId =
+      (inventoryStockLocationId as InventoryStockLocation).id || (inventoryStockLocationId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `inventory_stock_locations/${_inventoryStockLocationId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(inventoryStockLocationId: string | InventoryStockLocation, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _inventoryStockLocationId = (inventoryStockLocationId as InventoryStockLocation).id || inventoryStockLocationId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `inventory_stock_locations/${_inventoryStockLocationId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isInventoryStockLocation(resource: any): resource is InventoryStockLocation {
+    return resource.type && resource.type === InventoryStockLocations.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): InventoryStockLocationRel {
+    return super.relationshipOneToOne<InventoryStockLocationRel>(id)
+  }
 
-	isInventoryStockLocation(resource: any): resource is InventoryStockLocation {
-		return resource.type && (resource.type === InventoryStockLocations.TYPE)
-	}
+  relationshipToMany(...ids: string[]): InventoryStockLocationRel[] {
+    return super.relationshipOneToMany<InventoryStockLocationRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): InventoryStockLocationRel {
-		return super.relationshipOneToOne<InventoryStockLocationRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): InventoryStockLocationRel[] {
-		return super.relationshipOneToMany<InventoryStockLocationRel>(...ids)
-	}
-
-
-	type(): InventoryStockLocationType {
-		return InventoryStockLocations.TYPE
-	}
-
+  type(): InventoryStockLocationType {
+    return InventoryStockLocations.TYPE
+  }
 }
-
 
 const instance = new InventoryStockLocations()
 export default instance
 
-export type { InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocations, InventoryStockLocationType, InventoryStockLocationUpdate }
+export type {
+  InventoryStockLocation,
+  InventoryStockLocationCreate,
+  InventoryStockLocations,
+  InventoryStockLocationType,
+  InventoryStockLocationUpdate,
+}

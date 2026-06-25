@@ -1,5 +1,3 @@
-
-
 // Resource adapters
 export * from './api'
 // SDK
@@ -7,7 +5,6 @@ export { CommerceLayer, default } from './commercelayer'
 
 // Commerce Layer static functions
 export { CommerceLayerStatic } from './static'
-
 
 /** ** TYPES ** **/
 
@@ -29,7 +26,7 @@ export type {
   TaggableResource,
   TaggableResourceType,
   UpdatableResource,
-  UpdatableResourceType
+  UpdatableResourceType,
 } from './enum'
 // Error types
 export type { ApiError, SdkError } from './error'
@@ -40,14 +37,14 @@ export type * from './model'
 // Query filter types
 export type {
   QueryFields,
-  QueryFilter, 
+  QueryFilter,
   QueryInclude,
   QueryPageNumber,
   QueryPageSize,
   QueryParams,
   QueryParamsList,
   QueryParamsRetrieve,
-  QuerySort
+  QuerySort,
 } from './query'
 // Resource types
 export type {
@@ -63,7 +60,7 @@ export type {
   ResourceRel,
   ResourceSort,
   ResourcesConfig,
-  ResourcesInitConfig, 
+  ResourcesInitConfig,
   ResourceType,
-  ResourceUpdate
+  ResourceUpdate,
 } from './resource'

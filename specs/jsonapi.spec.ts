@@ -1,107 +1,96 @@
-
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
 import { type CommerceLayerClient, customer_subscriptions, customers, orders, type ResourceTypeLock } from '../src'
 import { denormalize, normalize } from '../src/jsonapi'
 import { getClient, TestData } from '../test/common'
 
-
 let cl: CommerceLayerClient
 
-
 beforeAll(async () => {
-	cl = await getClient()
-	const _version = cl.apiSchemaVersion	// avoid not used var issue
+  cl = await getClient()
+  const _version = cl.apiSchemaVersion // avoid not used var issue
 })
 
-
 describe('SDK:jsonapi suite', () => {
+  test('jsonapi.normalize', async () => {
+    const type: ResourceTypeLock = 'customers'
 
-	test('jsonapi.normalize', async () => {
+    const resource = {
+      id: TestData.id,
+      type,
+      reference: TestData.reference,
+      reference_origin: TestData.reference_origin,
+      metadata: TestData.metadata,
+      customer_group: customers.relationship(TestData.id),
+      order: orders.relationship(TestData.id),
+      customer_subscriptions: customer_subscriptions.relationship(null),
+    }
 
-		const type: ResourceTypeLock = 'customers'
+    const expected = {
+      id: resource.id,
+      type,
+      attributes: {
+        reference: resource.reference,
+        reference_origin: resource.reference_origin,
+        metadata: resource.metadata,
+      },
+      relationships: {
+        customer_group: {
+          data: resource.customer_group,
+        },
+        order: {
+          data: resource.order,
+        },
+        customer_subscriptions: {
+          data: null,
+        },
+      },
+    }
 
-		const resource = {
-			id: TestData.id,
-			type,
-			reference: TestData.reference,
-			reference_origin: TestData.reference_origin,
-			metadata: TestData.metadata,
-			customer_group: customers.relationship(TestData.id),
-			order: orders.relationship(TestData.id),
-			customer_subscriptions: customer_subscriptions.relationship(null)
-		}
+    const normalized = normalize(resource)
 
-		const expected = {
-			id: resource.id,
-			type,
-			attributes: {
-				reference: resource.reference,
-				reference_origin: resource.reference_origin,
-				metadata: resource.metadata
-			},
-			relationships: {
-				customer_group: {
-					data: resource.customer_group
-				},
-				order: {
-					data: resource.order
-				},
-				customer_subscriptions: {
-					data: null
-				}
-			}
-		}
+    expect(isDeepStrictEqual(normalized, expected)).toBeTruthy()
+  })
 
-		const normalized = normalize(resource)
+  test('jsonapi.denormalize', async () => {
+    const jsonApi = {
+      data: {
+        id: TestData.id + '00',
+        type: 'customers',
+        attributes: {
+          email: 'customer@sdk-test.org',
+          status: 'prospect',
+          reference: TestData.reference,
+          reference_origin: TestData.reference_origin,
+          metadata: TestData.metadata,
+        },
+        relationships: {
+          customer_group: { data: { type: 'customer_groups', id: TestData.id } },
+          customer_address: { data: null },
+          addresses: { data: [] },
+          customer_subscriptions: { data: null },
+        },
+      },
+      included: [{ id: TestData.id, type: 'customer_groups', attributes: { name: 'CG_Name' } }],
+      links: { self: 'link' },
+    }
 
-		expect(isDeepStrictEqual(normalized, expected)).toBeTruthy()
+    const expected = {
+      id: TestData.id + '00',
+      type: 'customers',
+      email: 'customer@sdk-test.org',
+      status: 'prospect',
+      reference: TestData.reference,
+      reference_origin: TestData.reference_origin,
+      metadata: TestData.metadata,
+      customer_group: { type: 'customer_groups', id: TestData.id, name: 'CG_Name' },
+      customer_address: null,
+      addresses: [],
+      customer_subscriptions: null,
+    }
 
-	})
+    const denormalized = denormalize(jsonApi)
 
-
-	test('jsonapi.denormalize', async () => {
-
-		const jsonApi = {
-			data: {
-				id: TestData.id + '00',
-				type: 'customers',
-				attributes: {
-					email: 'customer@sdk-test.org',
-					status: 'prospect',
-					reference: TestData.reference,
-					reference_origin: TestData.reference_origin,
-					metadata: TestData.metadata
-				},
-				relationships: {
-					customer_group: { data: { type: 'customer_groups', id: TestData.id } },
-					customer_address: { data: null },
-					addresses: { data: [] },
-					customer_subscriptions: { data: null }
-				},
-			},
-			included: [{ id: TestData.id, type: 'customer_groups', attributes: { name: 'CG_Name' } }],
-			links: { self: 'link' },
-		}
-
-		const expected = {
-			id: TestData.id + '00',
-			type: 'customers',
-			email: 'customer@sdk-test.org',
-			status: 'prospect',
-			reference: TestData.reference,
-			reference_origin: TestData.reference_origin,
-			metadata: TestData.metadata,
-			customer_group: { type: 'customer_groups', id: TestData.id, name: 'CG_Name' },
-			customer_address: null,
-			addresses: [],
-			customer_subscriptions: null,
-		}
-
-		const denormalized = denormalize(jsonApi)
-
-		expect(isDeepStrictEqual(expected, denormalized)).toBeTruthy()
-
-	})
-
+    expect(isDeepStrictEqual(expected, denormalized)).toBeTruthy()
+  })
 })

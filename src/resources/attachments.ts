@@ -1,5 +1,14 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { Bundle, BundleType } from './bundles'
 import type { CarrierAccount, CarrierAccountType } from './carrier_accounts'
@@ -40,7 +49,6 @@ import type { SubscriptionModel, SubscriptionModelType } from './subscription_mo
 import type { TaxCalculator, TaxCalculatorType } from './tax_calculators'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
 import type { Transaction, TransactionType } from './transactions'
-
 
 type AttachmentType = 'attachments'
 type AttachmentRel = ResourceRel & { type: AttachmentType }
@@ -83,125 +91,241 @@ type PriceTierRel = ResourceRel & { type: PriceTierType }
 type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
 
-
 export type AttachmentSort = Pick<Attachment, 'id' | 'name'> & ResourceSort
 // export type AttachmentFilter = Pick<Attachment, 'id' | 'name' | 'description'> & ResourceFilter
 
-
 interface Attachment extends Resource {
-	
-	readonly type: AttachmentType
+  readonly type: AttachmentType
 
-	/** 
-	 * The internal name of the attachment.
-	 * @example ```"DDT transport document"```
-	 */
-	name: string
-	/** 
-	 * An internal description of the attachment.
-	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
-	 */
-	description?: string | null
-	/** 
-	 * The attachment URL.
-	 * @example ```"https://s3.yourdomain.com/attachment.pdf"```
-	 */
-	url?: string | null
+  /**
+   * The internal name of the attachment.
+   * @example ```"DDT transport document"```
+   */
+  name: string
+  /**
+   * An internal description of the attachment.
+   * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+   */
+  description?: string | null
+  /**
+   * The attachment URL.
+   * @example ```"https://s3.yourdomain.com/attachment.pdf"```
+   */
+  url?: string | null
 
-	attachable?: Geocoder | PriceList | PaymentMethod | Market | CustomerGroup | Promotion | Order | Transaction | TaxCalculator | TaxCategory | Sku | ShippingCategory | Bundle | SkuList | StockItem | StockLocation | Return | CarrierAccount | CouponRecipient | Customer | DeliveryLeadTime | ShippingMethod | Shipment | DiscountEngine | Parcel | GiftCardRecipient | GiftCard | InventoryModel | StockTransfer | SkuOption | Merchant | SubscriptionModel | PaymentOption | Package | Price | PriceTier | ShippingMethodTier | ShippingZone | null
-	event_stores?: EventStore[] | null
-
+  attachable?:
+    | Geocoder
+    | PriceList
+    | PaymentMethod
+    | Market
+    | CustomerGroup
+    | Promotion
+    | Order
+    | Transaction
+    | TaxCalculator
+    | TaxCategory
+    | Sku
+    | ShippingCategory
+    | Bundle
+    | SkuList
+    | StockItem
+    | StockLocation
+    | Return
+    | CarrierAccount
+    | CouponRecipient
+    | Customer
+    | DeliveryLeadTime
+    | ShippingMethod
+    | Shipment
+    | DiscountEngine
+    | Parcel
+    | GiftCardRecipient
+    | GiftCard
+    | InventoryModel
+    | StockTransfer
+    | SkuOption
+    | Merchant
+    | SubscriptionModel
+    | PaymentOption
+    | Package
+    | Price
+    | PriceTier
+    | ShippingMethodTier
+    | ShippingZone
+    | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface AttachmentCreate extends ResourceCreate {
-	
-	/** 
-	 * The internal name of the attachment.
-	 * @example ```"DDT transport document"```
-	 */
-	name: string
-	/** 
-	 * An internal description of the attachment.
-	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
-	 */
-	description?: string | null
-	/** 
-	 * The attachment URL.
-	 * @example ```"https://s3.yourdomain.com/attachment.pdf"```
-	 */
-	url?: string | null
+  /**
+   * The internal name of the attachment.
+   * @example ```"DDT transport document"```
+   */
+  name: string
+  /**
+   * An internal description of the attachment.
+   * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+   */
+  description?: string | null
+  /**
+   * The attachment URL.
+   * @example ```"https://s3.yourdomain.com/attachment.pdf"```
+   */
+  url?: string | null
 
-	attachable: GeocoderRel | PriceListRel | PaymentMethodRel | MarketRel | CustomerGroupRel | PromotionRel | OrderRel | TransactionRel | TaxCalculatorRel | TaxCategoryRel | SkuRel | ShippingCategoryRel | BundleRel | SkuListRel | StockItemRel | StockLocationRel | ReturnRel | CarrierAccountRel | CouponRecipientRel | CustomerRel | DeliveryLeadTimeRel | ShippingMethodRel | ShipmentRel | DiscountEngineRel | ParcelRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | StockTransferRel | SkuOptionRel | MerchantRel | SubscriptionModelRel | PaymentOptionRel | PackageRel | PriceRel | PriceTierRel | ShippingMethodTierRel | ShippingZoneRel
-
+  attachable:
+    | GeocoderRel
+    | PriceListRel
+    | PaymentMethodRel
+    | MarketRel
+    | CustomerGroupRel
+    | PromotionRel
+    | OrderRel
+    | TransactionRel
+    | TaxCalculatorRel
+    | TaxCategoryRel
+    | SkuRel
+    | ShippingCategoryRel
+    | BundleRel
+    | SkuListRel
+    | StockItemRel
+    | StockLocationRel
+    | ReturnRel
+    | CarrierAccountRel
+    | CouponRecipientRel
+    | CustomerRel
+    | DeliveryLeadTimeRel
+    | ShippingMethodRel
+    | ShipmentRel
+    | DiscountEngineRel
+    | ParcelRel
+    | GiftCardRecipientRel
+    | GiftCardRel
+    | InventoryModelRel
+    | StockTransferRel
+    | SkuOptionRel
+    | MerchantRel
+    | SubscriptionModelRel
+    | PaymentOptionRel
+    | PackageRel
+    | PriceRel
+    | PriceTierRel
+    | ShippingMethodTierRel
+    | ShippingZoneRel
 }
-
 
 interface AttachmentUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The internal name of the attachment.
-	 * @example ```"DDT transport document"```
-	 */
-	name?: string | null
-	/** 
-	 * An internal description of the attachment.
-	 * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
-	 */
-	description?: string | null
-	/** 
-	 * The attachment URL.
-	 * @example ```"https://s3.yourdomain.com/attachment.pdf"```
-	 */
-	url?: string | null
+  /**
+   * The internal name of the attachment.
+   * @example ```"DDT transport document"```
+   */
+  name?: string | null
+  /**
+   * An internal description of the attachment.
+   * @example ```"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."```
+   */
+  description?: string | null
+  /**
+   * The attachment URL.
+   * @example ```"https://s3.yourdomain.com/attachment.pdf"```
+   */
+  url?: string | null
 
-	attachable?: GeocoderRel | PriceListRel | PaymentMethodRel | MarketRel | CustomerGroupRel | PromotionRel | OrderRel | TransactionRel | TaxCalculatorRel | TaxCategoryRel | SkuRel | ShippingCategoryRel | BundleRel | SkuListRel | StockItemRel | StockLocationRel | ReturnRel | CarrierAccountRel | CouponRecipientRel | CustomerRel | DeliveryLeadTimeRel | ShippingMethodRel | ShipmentRel | DiscountEngineRel | ParcelRel | GiftCardRecipientRel | GiftCardRel | InventoryModelRel | StockTransferRel | SkuOptionRel | MerchantRel | SubscriptionModelRel | PaymentOptionRel | PackageRel | PriceRel | PriceTierRel | ShippingMethodTierRel | ShippingZoneRel | null
-
+  attachable?:
+    | GeocoderRel
+    | PriceListRel
+    | PaymentMethodRel
+    | MarketRel
+    | CustomerGroupRel
+    | PromotionRel
+    | OrderRel
+    | TransactionRel
+    | TaxCalculatorRel
+    | TaxCategoryRel
+    | SkuRel
+    | ShippingCategoryRel
+    | BundleRel
+    | SkuListRel
+    | StockItemRel
+    | StockLocationRel
+    | ReturnRel
+    | CarrierAccountRel
+    | CouponRecipientRel
+    | CustomerRel
+    | DeliveryLeadTimeRel
+    | ShippingMethodRel
+    | ShipmentRel
+    | DiscountEngineRel
+    | ParcelRel
+    | GiftCardRecipientRel
+    | GiftCardRel
+    | InventoryModelRel
+    | StockTransferRel
+    | SkuOptionRel
+    | MerchantRel
+    | SubscriptionModelRel
+    | PaymentOptionRel
+    | PackageRel
+    | PriceRel
+    | PriceTierRel
+    | ShippingMethodTierRel
+    | ShippingZoneRel
+    | null
 }
-
 
 class Attachments extends ApiResource<Attachment> {
+  static readonly TYPE: AttachmentType = 'attachments' as const
 
-	static readonly TYPE: AttachmentType = 'attachments' as const
+  async create(
+    resource: AttachmentCreate,
+    params?: QueryParamsRetrieve<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<Attachment> {
+    return this.resources.create<AttachmentCreate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
+  }
 
-	async create(resource: AttachmentCreate, params?: QueryParamsRetrieve<Attachment>, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.create<AttachmentCreate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
-	}
+  async update(
+    resource: AttachmentUpdate,
+    params?: QueryParamsRetrieve<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<Attachment> {
+    return this.resources.update<AttachmentUpdate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
+  }
 
-	async update(resource: AttachmentUpdate, params?: QueryParamsRetrieve<Attachment>, options?: ResourcesConfig): Promise<Attachment> {
-		return this.resources.update<AttachmentUpdate, Attachment>({ ...resource, type: Attachments.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: Attachments.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: Attachments.TYPE } : id, options)
-	}
+  async event_stores(
+    attachmentId: string | Attachment,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _attachmentId = (attachmentId as Attachment).id || (attachmentId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `attachments/${_attachmentId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(attachmentId: string | Attachment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _attachmentId = (attachmentId as Attachment).id || attachmentId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `attachments/${_attachmentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isAttachment(resource: any): resource is Attachment {
+    return resource.type && resource.type === Attachments.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): AttachmentRel {
+    return super.relationshipOneToOne<AttachmentRel>(id)
+  }
 
-	isAttachment(resource: any): resource is Attachment {
-		return resource.type && (resource.type === Attachments.TYPE)
-	}
+  relationshipToMany(...ids: string[]): AttachmentRel[] {
+    return super.relationshipOneToMany<AttachmentRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): AttachmentRel {
-		return super.relationshipOneToOne<AttachmentRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): AttachmentRel[] {
-		return super.relationshipOneToMany<AttachmentRel>(...ids)
-	}
-
-
-	type(): AttachmentType {
-		return Attachments.TYPE
-	}
-
+  type(): AttachmentType {
+    return Attachments.TYPE
+  }
 }
-
 
 const instance = new Attachments()
 export default instance
