@@ -142,6 +142,11 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	 * @example ```"pk_test_xxxx-yyyy-zzzz"```
 	 */
 	public_key?: string | null
+	/** 
+	 * Send this attribute if you want to sync the gateway webhook endpoint with the Checkout.com workflow.
+	 * @example ```true```
+	 */
+	_update_webhooks?: boolean | null
 
 	checkout_com_payments?: CheckoutComPaymentRel[] | null
 
@@ -189,6 +194,10 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 
 	async _check(id: string | CheckoutComGateway, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComGateways.TYPE, _check: true }, params, options)
+	}
+
+	async _update_webhooks(id: string | CheckoutComGateway, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComGateways.TYPE, _update_webhooks: true }, params, options)
 	}
 
 

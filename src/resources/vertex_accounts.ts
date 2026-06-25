@@ -35,6 +35,11 @@ interface VertexAccount extends Resource {
 	 */
 	baseurl?: string | null
 	/** 
+	 * The OAuth audience sent with the token request, when required by the deployment.
+	 * @example ```"verx://xyz"```
+	 */
+	audience?: string | null
+	/** 
 	 * The API endpoint as computed by specified kind and baseurl.
 	 * @example ```"https://my_baseurl.ondemand.vertexinc.com"```
 	 */
@@ -76,6 +81,11 @@ interface VertexAccountCreate extends ResourceCreate {
 	 */
 	baseurl?: string | null
 	/** 
+	 * The OAuth audience sent with the token request, when required by the deployment.
+	 * @example ```"verx://xyz"```
+	 */
+	audience?: string | null
+	/** 
 	 * The Vertex account client ID.
 	 * @example ```"xxx-yyy-zzz"```
 	 */
@@ -111,6 +121,11 @@ interface VertexAccountUpdate extends ResourceUpdate {
 	 * @example ```"yourbaseurl"```
 	 */
 	baseurl?: string | null
+	/** 
+	 * The OAuth audience sent with the token request, when required by the deployment.
+	 * @example ```"verx://xyz"```
+	 */
+	audience?: string | null
 	/** 
 	 * The Vertex account client ID.
 	 * @example ```"xxx-yyy-zzz"```

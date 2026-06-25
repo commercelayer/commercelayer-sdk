@@ -16,10 +16,8 @@ import {
 
 const RESOURCES_LOCAL_PATH = resolve('./gen/public_resources.json')
 const DEFAULT_API_HOST = 'core.commercelayer.io'
-// Empty default → unversioned production endpoint (`/api/public/resources`).
-// Set a YYYY-MM string (e.g. via `--api-version=2026-05`) to target a specific
-// dated schema (typically against the staging host).
-const DEFAULT_API_VERSION = ''
+// No api-version → unversioned endpoint (`/api/public/resources`). Pass
+// `--api-version=YYYY-MM` to target a specific dated schema.
 
 
 type PublicFieldType = 'string' | 'boolean' | 'integer' | 'float' | 'object' | 'array'
@@ -123,13 +121,35 @@ const ARRAY_ITEM_TYPES: Record<string, 'string' | 'object'> = {
 
 const remoteUrlFor = (opts: GeneratorOptions): string => {
 	const host = opts.apiHost || DEFAULT_API_HOST
-	const version = opts.apiVersion ?? DEFAULT_API_VERSION
-	const versionSegment = version ? `${version}/` : ''
-	return `https://${host}/api/public/${versionSegment}resources`
+	const segment = opts.apiVersion ? `${opts.apiVersion}/` : ''
+	return `https://${host}/api/public/${segment}resources`
 }
 
 
 const versionLabel = (opts: GeneratorOptions): string => opts.apiVersion || 'latest'
+
+
+type ResourceContext = {
+	res: PublicResource
+	singular: string
+	plural: string
+	cam: string
+	idVar: string
+	singleton: boolean
+}
+
+
+const resourceContext = (res: PublicResource): ResourceContext => {
+	const singular = res.id
+	return {
+		res,
+		singular,
+		plural: Inflector.pluralize(singular),
+		cam: Inflector.camelize(singular),
+		idVar: `${singular}Id`,
+		singleton: res.attributes.singleton === true,
+	}
+}
 
 
 const downloadResources = async (opts: GeneratorOptions = {}): Promise<SchemaInfo> => {
@@ -310,71 +330,64 @@ const buildRelationship = (
 
 type ComponentVariant = 'read' | 'create' | 'update'
 
+type VariantRule = {
+	includeField: (f: PublicField) => boolean
+	includeRel: (r: PublicRelationship) => boolean
+	fieldRequired: (f: PublicField) => boolean
+	relRequired: (r: PublicRelationship) => boolean
+}
+
+// Per-variant inclusion + required-ness rules. Replaces three parallel switch
+// statements that each had to be kept in sync.
+const VARIANT_RULES: Record<ComponentVariant, VariantRule> = {
+	read: {
+		includeField: f => f.fetchable === true,
+		includeRel: () => true,
+		// aasm state-machine fields are always populated in responses (OpenAPI
+		// renders them nullable:false; the OpenAPI parser promotes
+		// `fetchable && !nullable` to required).
+		fieldRequired: f => readRequired(f.required) || f.aasm === true,
+		// OpenAPI's read schema lists no required relationships — match that.
+		relRequired: () => false,
+	},
+	create: {
+		includeField: f => f.creatable === true,
+		includeRel: r => r.creatable === true,
+		fieldRequired: f => readRequired(f.required),
+		relRequired: r => readRequired(r.required),
+	},
+	update: {
+		includeField: f => f.updatable === true,
+		includeRel: r => r.updatable === true,
+		// Update is partial.
+		fieldRequired: () => false,
+		relRequired: () => false,
+	},
+}
+
 
 const buildComponent = (
-	res: PublicResource,
+	ctx: ResourceContext,
 	variant: ComponentVariant,
-	parentCam: string,
 	deprecatedClassNames: ReadonlySet<string>,
 ): Component => {
 
+	const rule = VARIANT_RULES[variant]
 	const attributes: Record<string, Attribute> = {}
 	const relationships: Record<string, Relationship> = {}
 
-	const fields = res.attributes.fields
-	const rels = res.attributes.relationships || {}
-
-	for (const [name, field] of Object.entries(fields)) {
-
+	for (const [name, field] of Object.entries(ctx.res.attributes.fields)) {
 		if (name === 'id' || name === 'type') continue
-
-		let include = false
-		let required = false
-		switch (variant) {
-			case 'read':
-				include = field.fetchable === true
-				// aasm state-machine fields are always populated in responses
-				// (OpenAPI marks them nullable:false; the read rule promotes
-				// `fetchable && !nullable` to required).
-				required = readRequired(field.required) || field.aasm === true
-				break
-			case 'create':
-				include = field.creatable === true
-				required = readRequired(field.required)
-				break
-			case 'update':
-				include = field.updatable === true
-				required = false
-				break
-		}
-
-		if (include) attributes[name] = buildAttribute(res.id, name, field, required)
-
+		if (!rule.includeField(field)) continue
+		attributes[name] = buildAttribute(ctx.singular, name, field, rule.fieldRequired(field))
 	}
 
-	for (const [name, rel] of Object.entries(rels)) {
-
-		let include = false
-		switch (variant) {
-			case 'read':
-				include = true
-				break
-			case 'create':
-				include = rel.creatable === true
-				break
-			case 'update':
-				include = rel.updatable === true
-				break
+	for (const [name, rel] of Object.entries(ctx.res.attributes.relationships || {})) {
+		if (!rule.includeRel(rel)) continue
+		relationships[name] = {
+			...buildRelationship(name, rel, ctx.cam, deprecatedClassNames),
+			required: rule.relRequired(rel),
 		}
-
-		if (include) {
-			const built = buildRelationship(name, rel, parentCam, deprecatedClassNames)
-			// OpenAPI's read schema lists no required relationships — match that.
-			// Update is partial, so also force optional.
-			if (variant === 'read' || variant === 'update') built.required = false
-			relationships[name] = built
-		}
-
 	}
 
 	return { attributes, relationships }
@@ -382,106 +395,58 @@ const buildComponent = (
 }
 
 
-const buildOperations = (res: PublicResource): Record<string, Operation> => {
+const buildOperations = (ctx: ResourceContext): Record<string, Operation> => {
 
+	const { singular, plural, cam, idVar, singleton } = ctx
 	const operations: Record<string, Operation> = {}
-
-	const singular = res.id
-	const plural = Inflector.pluralize(singular)
-	const cam = Inflector.camelize(singular)
-	const idVar = `${singular}Id`
-	const singleton = res.attributes.singleton === true
 
 	const basePath = singleton ? `/${singular}` : `/${plural}`
 	const idPath = singleton ? `/${singular}` : `/${plural}/{${idVar}}`
 	// Even for singleton resources, OpenAPI exposes relationship sub-paths
 	// under `/<singular>/{<singular>Id}/<rel>`. Match that.
 	const relParentPath = singleton ? `/${singular}/{${idVar}}` : idPath
+	const opId = singleton ? undefined : idVar
 
-	for (const action of res.attributes.actions) {
+	// Singleton resources only declare a 'retrieve' action; OpenAPI's path-based
+	// parser names that 'list' (no id segment), and the renderer's spec template
+	// detects singletons via `op.name === 'list' && op.singleton`. Normalise upfront.
+	const actions = singleton
+		? ctx.res.attributes.actions.map(a => a === 'retrieve' ? 'list' : a)
+		: ctx.res.attributes.actions
+
+	for (const action of actions) {
 		switch (action) {
 			case 'list':
-				operations.list = {
-					path: basePath,
-					type: 'get',
-					name: singleton ? 'list' : 'list',
-					singleton,
-					responseType: cam,
-				}
+				operations.list = { path: basePath, type: 'get', name: 'list', singleton, responseType: cam }
 				break
 			case 'retrieve':
-				// For singletons OpenAPI's path-based parser names this 'list'
-				// (no id segment → list), and the renderer's spec template
-				// detects singleton via `name === 'list' && singleton`. Match that.
-				if (singleton) {
-					operations.list = {
-						path: basePath,
-						type: 'get',
-						name: 'list',
-						singleton: true,
-						responseType: cam,
-					}
-				} else {
-					operations.retrieve = {
-						path: idPath,
-						type: 'get',
-						name: 'retrieve',
-						singleton: false,
-						id: idVar,
-						responseType: cam,
-					}
-				}
+				operations.retrieve = { path: idPath, type: 'get', name: 'retrieve', singleton: false, id: idVar, responseType: cam }
 				break
 			case 'create':
-				operations.create = {
-					path: basePath,
-					type: 'post',
-					name: 'create',
-					singleton,
-					requestType: `${cam}Create`,
-					responseType: cam,
-				}
+				operations.create = { path: basePath, type: 'post', name: 'create', singleton, requestType: `${cam}Create`, responseType: cam }
 				break
 			case 'update':
-				operations.update = {
-					path: idPath,
-					type: 'patch',
-					name: 'update',
-					singleton,
-					id: singleton ? undefined : idVar,
-					requestType: `${cam}Update`,
-					responseType: cam,
-				}
+				operations.update = { path: idPath, type: 'patch', name: 'update', singleton, id: opId, requestType: `${cam}Update`, responseType: cam }
 				break
 			case 'delete':
-				operations.delete = {
-					path: idPath,
-					type: 'delete',
-					name: 'delete',
-					singleton,
-					id: singleton ? undefined : idVar,
-				}
+				operations.delete = { path: idPath, type: 'delete', name: 'delete', singleton, id: opId }
 				break
 		}
 	}
 
-	const rels = res.attributes.relationships || {}
-	for (const [relName, rel] of Object.entries(rels)) {
-		// Polymorphic relationships don't expose a dedicated sub-path; the renderer
-		// handles them inline via oneOf on the read model.
-		if (rel.polymorphic === true) continue
-		// Deprecated relationships are rendered inline as `object[]` with a
-		// @deprecated JSDoc and don't expose a sub-path operation.
-		if (rel.deprecated === true) continue
+	for (const [relName, rel] of Object.entries(ctx.res.attributes.relationships || {})) {
+		// Polymorphic relationships handle their union inline in the read model;
+		// deprecated relationships render as `object[]` with @deprecated. Neither
+		// gets a dedicated sub-path operation.
+		if (rel.polymorphic === true || rel.deprecated === true) continue
 		const relationship = buildRelationship(relName, rel)
-		const responseType = Inflector.camelize(Inflector.singularize(relationship.type))
 		operations[relName] = {
 			path: `${relParentPath}/${relName}`,
 			type: 'get',
 			name: relName,
 			singleton: false,
 			id: idVar,
-			responseType,
+			responseType: Inflector.camelize(Inflector.singularize(relationship.type)),
 			relationship,
 		}
 	}
@@ -519,20 +484,15 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
 		// @deprecated and typed as `object` by the renderer.
 		if (res.attributes.deprecated === true) continue
 
-		const plural = Inflector.pluralize(res.id)
-		const cam = Inflector.camelize(res.id)
-		const singleton = res.attributes.singleton === true
+		const ctx = resourceContext(res)
+		const { plural, cam } = ctx
 
-		const readComp = buildComponent(res, 'read', cam, deprecatedClassNames)
-		const createComp = buildComponent(res, 'create', cam, deprecatedClassNames)
-		const updateComp = buildComponent(res, 'update', cam, deprecatedClassNames)
+		const operations = buildOperations(ctx)
+		const readComp = buildComponent(ctx, 'read', deprecatedClassNames)
 
-		const resComponents: ComponentMap = {}
-		resComponents[cam] = readComp
-		if (!singleton && res.attributes.actions.includes('create')) resComponents[`${cam}Create`] = createComp
-		if (!singleton && res.attributes.actions.includes('update')) resComponents[`${cam}Update`] = updateComp
-
-		const operations = buildOperations(res)
+		const resComponents: ComponentMap = { [cam]: readComp }
+		if (operations.create) resComponents[`${cam}Create`] = buildComponent(ctx, 'create', deprecatedClassNames)
+		if (operations.update) resComponents[`${cam}Update`] = buildComponent(ctx, 'update', deprecatedClassNames)
 
 		resources[plural] = {
 			components: sortObjectFields(resComponents),
