@@ -78,6 +78,10 @@ interface Organization extends Resource {
 	 */
 	api_auth_redirect?: boolean | null
 	/** 
+	 * Enables fragment caching for resources with related directive.
+	 */
+	api_fragment_caching_enabled?: boolean | null
+	/** 
 	 * Enables the rules engine for flex promotions and price list rules.
 	 */
 	api_rules_engine?: boolean | null
@@ -250,6 +254,7 @@ interface Organization extends Resource {
 	price_lists_max_rules_size?: number | null
 	/** 
 	 * Enables triggering of webhooks during imports, default is false.
+	 * @example ```"false"```
 	 */
 	imports_trigger_webhooks?: number | null
 	/** 
@@ -283,6 +288,14 @@ interface Organization extends Resource {
 	 * @example ```true```
 	 */
 	external_prices_errors?: boolean | null
+	/** 
+	 * Enables the Sku discovery by similarity search.
+	 */
+	skus_discovery?: boolean | null
+	/** 
+	 * Enables the creation of the authorization when the gateway event is received, even if there is no reference on Commerce Layer.
+	 */
+	payment_gateways_transaction_on_event?: boolean | null
 
 	event_stores?: EventStore[] | null
 

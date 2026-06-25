@@ -18,15 +18,15 @@ interface Export extends Resource {
 	readonly type: ExportType
 
 	/** 
-	 * The type of resource being exported.
+	 * The type of resource being exported. One of 'applications', 'event_stores', 'organizations', 'addresses', 'geocoders', 'events', 'tags', 'adjustments', 'price_lists', 'payment_gateways', 'payment_methods', 'markets', 'customer_groups', 'line_items', 'discount_engine_items', 'promotions', 'adyen_payments', 'orders', 'transactions', 'order_factories', 'attachments', 'tax_calculators', 'tax_categories', 'skus', 'shipping_categories', 'axerve_payments', 'order_validation_rules', 'braintree_payments', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'promotion_rules', 'coupons', 'returns', 'carrier_accounts', 'checkout_com_payments', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'order_subscriptions', 'customer_password_resets', 'delivery_lead_times', 'shipping_methods', 'shipments', 'discount_engines', 'pickups', 'parcels', 'webhooks', 'event_callbacks', 'external_payments', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_stock_locations', 'inventory_return_locations', 'klarna_payments', 'line_item_options', 'return_line_items', 'stock_line_items', 'stock_reservations', 'stock_transfers', 'notifications', 'sku_options', 'links', 'tax_rules', 'merchants', 'subscription_models', 'stores', 'price_list_schedulers', 'order_subscription_items', 'payment_options', 'resource_errors', 'paypal_payments', 'packages', 'parcel_line_items', 'prices', 'price_tiers', 'reserved_stocks', 'satispay_payments', 'shipping_method_tiers', 'shipping_zones', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'applications' | 'event_stores' | 'organizations' | 'addresses' | 'geocoders' | 'events' | 'tags' | 'adjustments' | 'price_lists' | 'payment_gateways' | 'payment_methods' | 'markets' | 'customer_groups' | 'line_items' | 'discount_engine_items' | 'promotions' | 'adyen_payments' | 'orders' | 'transactions' | 'order_factories' | 'attachments' | 'tax_calculators' | 'tax_categories' | 'skus' | 'shipping_categories' | 'axerve_payments' | 'order_validation_rules' | 'braintree_payments' | 'bundles' | 'sku_lists' | 'sku_list_items' | 'stock_items' | 'stock_locations' | 'promotion_rules' | 'coupons' | 'returns' | 'carrier_accounts' | 'checkout_com_payments' | 'customers' | 'customer_addresses' | 'customer_payment_sources' | 'customer_subscriptions' | 'order_subscriptions' | 'customer_password_resets' | 'delivery_lead_times' | 'shipping_methods' | 'shipments' | 'discount_engines' | 'pickups' | 'parcels' | 'webhooks' | 'event_callbacks' | 'external_payments' | 'gift_cards' | 'in_stock_subscriptions' | 'inventory_models' | 'inventory_stock_locations' | 'inventory_return_locations' | 'klarna_payments' | 'line_item_options' | 'return_line_items' | 'stock_line_items' | 'stock_reservations' | 'stock_transfers' | 'notifications' | 'sku_options' | 'links' | 'tax_rules' | 'merchants' | 'subscription_models' | 'stores' | 'price_list_schedulers' | 'order_subscription_items' | 'payment_options' | 'resource_errors' | 'paypal_payments' | 'packages' | 'parcel_line_items' | 'prices' | 'price_tiers' | 'reserved_stocks' | 'satispay_payments' | 'shipping_method_tiers' | 'shipping_zones' | 'stripe_payments' | 'wire_transfers'
 	/** 
-	 * The format of the export one of 'json' (default) or 'csv'.
+	 * The format of the export. One of 'csv', or 'json' (default).
 	 * @example ```"json"```
 	 */
-	format?: string | null
+	format?: 'csv' | 'json' | null
 	/** 
 	 * The export job status. One of 'pending' (default), 'in_progress', 'interrupted', 'completed', or 'failed'.
 	 * @example ```"in_progress"```
@@ -111,15 +111,15 @@ interface Export extends Resource {
 interface ExportCreate extends ResourceCreate {
 	
 	/** 
-	 * The type of resource being exported.
+	 * The type of resource being exported. One of 'applications', 'event_stores', 'organizations', 'addresses', 'geocoders', 'events', 'tags', 'adjustments', 'price_lists', 'payment_gateways', 'payment_methods', 'markets', 'customer_groups', 'line_items', 'discount_engine_items', 'promotions', 'adyen_payments', 'orders', 'transactions', 'order_factories', 'attachments', 'tax_calculators', 'tax_categories', 'skus', 'shipping_categories', 'axerve_payments', 'order_validation_rules', 'braintree_payments', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'promotion_rules', 'coupons', 'returns', 'carrier_accounts', 'checkout_com_payments', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'order_subscriptions', 'customer_password_resets', 'delivery_lead_times', 'shipping_methods', 'shipments', 'discount_engines', 'pickups', 'parcels', 'webhooks', 'event_callbacks', 'external_payments', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_stock_locations', 'inventory_return_locations', 'klarna_payments', 'line_item_options', 'return_line_items', 'stock_line_items', 'stock_reservations', 'stock_transfers', 'notifications', 'sku_options', 'links', 'tax_rules', 'merchants', 'subscription_models', 'stores', 'price_list_schedulers', 'order_subscription_items', 'payment_options', 'resource_errors', 'paypal_payments', 'packages', 'parcel_line_items', 'prices', 'price_tiers', 'reserved_stocks', 'satispay_payments', 'shipping_method_tiers', 'shipping_zones', 'stripe_payments', or 'wire_transfers'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'applications' | 'event_stores' | 'organizations' | 'addresses' | 'geocoders' | 'events' | 'tags' | 'adjustments' | 'price_lists' | 'payment_gateways' | 'payment_methods' | 'markets' | 'customer_groups' | 'line_items' | 'discount_engine_items' | 'promotions' | 'adyen_payments' | 'orders' | 'transactions' | 'order_factories' | 'attachments' | 'tax_calculators' | 'tax_categories' | 'skus' | 'shipping_categories' | 'axerve_payments' | 'order_validation_rules' | 'braintree_payments' | 'bundles' | 'sku_lists' | 'sku_list_items' | 'stock_items' | 'stock_locations' | 'promotion_rules' | 'coupons' | 'returns' | 'carrier_accounts' | 'checkout_com_payments' | 'customers' | 'customer_addresses' | 'customer_payment_sources' | 'customer_subscriptions' | 'order_subscriptions' | 'customer_password_resets' | 'delivery_lead_times' | 'shipping_methods' | 'shipments' | 'discount_engines' | 'pickups' | 'parcels' | 'webhooks' | 'event_callbacks' | 'external_payments' | 'gift_cards' | 'in_stock_subscriptions' | 'inventory_models' | 'inventory_stock_locations' | 'inventory_return_locations' | 'klarna_payments' | 'line_item_options' | 'return_line_items' | 'stock_line_items' | 'stock_reservations' | 'stock_transfers' | 'notifications' | 'sku_options' | 'links' | 'tax_rules' | 'merchants' | 'subscription_models' | 'stores' | 'price_list_schedulers' | 'order_subscription_items' | 'payment_options' | 'resource_errors' | 'paypal_payments' | 'packages' | 'parcel_line_items' | 'prices' | 'price_tiers' | 'reserved_stocks' | 'satispay_payments' | 'shipping_method_tiers' | 'shipping_zones' | 'stripe_payments' | 'wire_transfers'
 	/** 
-	 * The format of the export one of 'json' (default) or 'csv'.
+	 * The format of the export. One of 'csv', or 'json' (default).
 	 * @example ```"json"```
 	 */
-	format?: string | null
+	format?: 'csv' | 'json' | null
 	/** 
 	 * List of related resources that should be included in the export (redundant when 'fields' are specified).
 	 * @example ```["prices.price_tiers"]```

@@ -112,6 +112,11 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
 	 */
 	token?: string | null
 	/** 
+	 * Send this attribute if you want to authorize the payment.
+	 * @example ```true```
+	 */
+	_authorize?: boolean | null
+	/** 
 	 * Send this attribute if you want to send additional details the payment request (i.e. upon 3DS check).
 	 * @example ```true```
 	 */
@@ -156,6 +161,10 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 	async event_stores(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
 		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
 		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `checkout_com_payments/${_checkoutComPaymentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
+	}
+
+	async _authorize(id: string | CheckoutComPayment, params?: QueryParamsRetrieve<CheckoutComPayment>, options?: ResourcesConfig): Promise<CheckoutComPayment> {
+		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComPayments.TYPE, _authorize: true }, params, options)
 	}
 
 	async _details(id: string | CheckoutComPayment, params?: QueryParamsRetrieve<CheckoutComPayment>, options?: ResourcesConfig): Promise<CheckoutComPayment> {

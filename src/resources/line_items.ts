@@ -238,6 +238,10 @@ interface LineItem extends Resource {
 	payment_method?: PaymentMethod | null
 	line_item_options?: LineItemOption[] | null
 	return_line_items?: ReturnLineItem[] | null
+	/**
+	* @deprecated This field should not be used as it may be removed in the future without notice
+	*/
+	shipment_line_items?: object[]
 	stock_reservations?: StockReservation[] | null
 	stock_line_items?: StockLineItem[] | null
 	stock_transfers?: StockTransfer[] | null

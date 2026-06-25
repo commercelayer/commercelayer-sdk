@@ -123,6 +123,10 @@ interface Market extends Resource {
 	default_payment_method?: PaymentMethod | null
 	stores?: Store[] | null
 	price_list_schedulers?: PriceListScheduler[] | null
+	/**
+	* @deprecated This field should not be used as it may be removed in the future without notice
+	*/
+	order_validation_rules?: object[]
 	attachments?: Attachment[] | null
 	event_stores?: EventStore[] | null
 
@@ -244,6 +248,11 @@ interface MarketUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to regenerate the shared secret.
+	 * @example ```true```
+	 */
+	_regenerate_shared_secret?: boolean | null
+	/** 
 	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
 	 * @example ```["order.line_item_options"]```
 	 */
@@ -355,6 +364,10 @@ class Markets extends ApiResource<Market> {
 
 	async _enable(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
 		return this.resources.update<MarketUpdate, Market>({ id: (typeof id === 'string')? id: id.id, type: Markets.TYPE, _enable: true }, params, options)
+	}
+
+	async _regenerate_shared_secret(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
+		return this.resources.update<MarketUpdate, Market>({ id: (typeof id === 'string')? id: id.id, type: Markets.TYPE, _regenerate_shared_secret: true }, params, options)
 	}
 
 

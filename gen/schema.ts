@@ -16,8 +16,9 @@ type SchemaInfo = {
 }
 
 
-const downloadSchema = async (url?: string): Promise<SchemaInfo> => {
+const downloadSchema = async (opts?: { apiHost?: string, apiVersion?: string } | string): Promise<SchemaInfo> => {
 
+	const url = typeof opts === 'string' ? opts : undefined
 	const schemaUrl = url || SCHEMA_REMOTE_URL
 	const schemaOutPath = SCHEMA_LOCAL_PATH
 
@@ -43,17 +44,19 @@ const downloadSchema = async (url?: string): Promise<SchemaInfo> => {
 }
 
 
-const currentSchema = (): any => {
+const currentSchema = (): { info: { version: string } } | undefined => {
 
-	const currentSchema = readFileSync(SCHEMA_LOCAL_PATH, { encoding: 'utf-8' })
-	const schema = JSON.parse(currentSchema)
-
-	return schema
+	try {
+		const raw = readFileSync(SCHEMA_LOCAL_PATH, { encoding: 'utf-8' })
+		return JSON.parse(raw) as { info: { version: string } }
+	} catch {
+		return undefined
+	}
 
 }
 
 
-const parseSchema = (path: string): ApiSchema => {
+const parseSchema = (path: string, _opts?: { apiHost?: string, apiVersion?: string }): ApiSchema => {
 
 	console.log('Parsing OpenAPI schema ...')
 
@@ -351,8 +354,8 @@ type Operation = {
 	type: string
 	id?: string
 	name: string
-	requestType?: any
-	responseType?: any
+	requestType?: string
+	responseType?: string
 	singleton: boolean
 	relationship?: Relationship
 	trigger?: boolean

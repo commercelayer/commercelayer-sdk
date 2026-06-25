@@ -1,7 +1,7 @@
 
 import { beforeAll, describe, expect, test } from 'vitest'
 import { type CommerceLayerClient, CommerceLayerStatic } from '../src'
-import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
+import { API_SCHEMA_VERSION } from '../src/commercelayer'
 import { getClient } from '../test/common'
 
 
@@ -10,7 +10,7 @@ let cl: CommerceLayerClient
 
 beforeAll(async () => {
 	cl = await getClient()
-	const _version = cl.openApiSchemaVersion	// avoid not used var issue
+	const _version = cl.apiSchemaVersion	// avoid not used var issue
 })
 
 
@@ -44,7 +44,7 @@ describe('SDK:static suite', () => {
 
 	test('static.schema', async () => {
 		const sver = CommerceLayerStatic.schemaVersion
-		expect(sver).toBe(OPEN_API_SCHEMA_VERSION)
+		expect(sver).toBe(API_SCHEMA_VERSION)
 	})
 
 	test('static.creatable', async () => {

@@ -18,10 +18,10 @@ interface Cleanup extends Resource {
 	readonly type: CleanupType
 
 	/** 
-	 * The type of resource being cleaned.
+	 * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'gift_cards', 'sku_options', or 'prices'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'promotions' | 'skus' | 'bundles' | 'sku_lists' | 'stock_items' | 'gift_cards' | 'sku_options' | 'prices'
 	/** 
 	 * The cleanup job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.
 	 * @example ```"in_progress"```
@@ -67,6 +67,10 @@ interface Cleanup extends Resource {
 	 * @example ```{"ABC":{"name":["has already been taken"]}}```
 	 */
 	errors_log?: Record<string, any> | null
+	/** 
+	 * When true, evaluates filters and populates records_count without performing any deletion.
+	 */
+	dry_run?: boolean | null
 
 	events?: Event[] | null
 	event_stores?: EventStore[] | null
@@ -77,15 +81,19 @@ interface Cleanup extends Resource {
 interface CleanupCreate extends ResourceCreate {
 	
 	/** 
-	 * The type of resource being cleaned.
+	 * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'gift_cards', 'sku_options', or 'prices'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'promotions' | 'skus' | 'bundles' | 'sku_lists' | 'stock_items' | 'gift_cards' | 'sku_options' | 'prices'
 	/** 
 	 * The filters used to select the records to be cleaned.
 	 * @example ```{"code_eq":"AAA"}```
 	 */
 	filters?: Record<string, any> | null
+	/** 
+	 * When true, evaluates filters and populates records_count without performing any deletion.
+	 */
+	dry_run?: boolean | null
 	
 }
 

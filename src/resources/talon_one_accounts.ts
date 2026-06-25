@@ -26,6 +26,7 @@ interface TalonOneAccount extends Resource {
 	name: string
 	/** 
 	 * Indicates if the discount engine manages both promotions and gift cards application at once.
+	 * @example ```true```
 	 */
 	manage_gift_cards?: boolean | null
 	/** 
@@ -51,6 +52,7 @@ interface TalonOneAccountCreate extends ResourceCreate {
 	name: string
 	/** 
 	 * Indicates if the discount engine manages both promotions and gift cards application at once.
+	 * @example ```true```
 	 */
 	manage_gift_cards?: boolean | null
 	/** 
@@ -76,6 +78,7 @@ interface TalonOneAccountUpdate extends ResourceUpdate {
 	name?: string | null
 	/** 
 	 * Indicates if the discount engine manages both promotions and gift cards application at once.
+	 * @example ```true```
 	 */
 	manage_gift_cards?: boolean | null
 	/** 

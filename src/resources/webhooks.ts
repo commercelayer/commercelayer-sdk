@@ -138,6 +138,11 @@ interface WebhookUpdate extends ResourceUpdate {
 	 * @example ```true```
 	 */
 	_reset_circuit?: boolean | null
+	/** 
+	 * Send this attribute if you want to regenerate the shared secret.
+	 * @example ```true```
+	 */
+	_regenerate_shared_secret?: boolean | null
 	
 }
 
@@ -178,6 +183,10 @@ class Webhooks extends ApiResource<Webhook> {
 
 	async _reset_circuit(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
 		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _reset_circuit: true }, params, options)
+	}
+
+	async _regenerate_shared_secret(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
+		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _regenerate_shared_secret: true }, params, options)
 	}
 
 

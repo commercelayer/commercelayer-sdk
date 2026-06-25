@@ -1,5 +1,5 @@
 
-import { OPEN_API_SCHEMA_VERSION } from './commercelayer'
+import { API_SCHEMA_VERSION } from './commercelayer'
 import type { ResourceTypeLock } from './enum'
 import { getResources, getSingletons, isCreatable, isDeletable, isSingleton, isTaggable, isUpdatable } from './enum'
 import { type ApiError, isApiError, isSdkError, type SdkError } from './error'
@@ -49,6 +49,6 @@ export const CommerceLayerStatic = {
 		return isTokenExpired(token)
 	},
 
-	get schemaVersion(): string { return OPEN_API_SCHEMA_VERSION }
+	get schemaVersion(): string { return API_SCHEMA_VERSION }
 
 }

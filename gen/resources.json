@@ -448,7 +448,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -641,7 +642,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -998,7 +1000,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -1154,6 +1157,18 @@
                     "example": "2018-01-02T12:00:00.000Z",
                     "format": "datetime"
                 },
+                "closed_at": {
+                    "type": "string",
+                    "desc": "The date/time when the Adyen order was closed, meaning all partial payments have been completed (valid for partial payments only).",
+                    "delegate": "order_closed_at",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "2018-01-02T12:00:00.000Z",
+                    "format": "datetime"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -1289,11 +1304,14 @@
                 "ids",
                 "expires_at_from",
                 "expires_at_to",
+                "closed_at_from",
+                "closed_at_to",
                 "created_at_from",
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -1488,7 +1506,8 @@
             "relationships": {},
             "filters": [
                 "id"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -1699,7 +1718,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -2256,7 +2276,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "transaction"
         }
     },
     {
@@ -2500,7 +2521,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "tax_calculator"
         }
     },
     {
@@ -2752,7 +2774,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -3008,7 +3031,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -3166,7 +3190,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "order_validation_rule"
         }
     },
     {
@@ -3348,7 +3373,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "geocoder"
         }
     },
     {
@@ -3668,7 +3694,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -3883,7 +3910,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -4269,7 +4297,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -4807,7 +4836,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion"
         }
     },
     {
@@ -5290,7 +5320,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "transaction"
         }
     },
     {
@@ -5478,7 +5509,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -5763,7 +5795,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -6076,7 +6109,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -6099,14 +6133,24 @@
             "fields": {
                 "resource_type": {
                     "type": "string",
-                    "desc": "The type of resource being cleaned.",
+                    "desc": "The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'gift_cards', 'sku_options', or 'prices'.",
                     "required": "required",
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
-                    "example": "skus"
+                    "example": "skus",
+                    "enum": [
+                        "promotions",
+                        "skus",
+                        "bundles",
+                        "sku_lists",
+                        "stock_items",
+                        "gift_cards",
+                        "sku_options",
+                        "prices"
+                    ]
                 },
                 "status": {
                     "type": "string",
@@ -6215,6 +6259,17 @@
                             ]
                         }
                     }
+                },
+                "dry_run": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "When true, evaluates filters and populates records_count without performing any deletion.",
+                    "creatable": true,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
                 },
                 "id": {
                     "format": "id",
@@ -6351,7 +6406,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -6611,7 +6667,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -6785,7 +6842,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion_rule"
         }
     },
     {
@@ -6963,7 +7021,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "email_recipient"
         }
     },
     {
@@ -7151,7 +7210,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion_rule"
         }
     },
     {
@@ -7674,7 +7734,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -7850,7 +7911,8 @@
                 "updated_at_from",
                 "updated_at_to",
                 "country_code"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -8016,7 +8078,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -8223,7 +8286,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -8426,7 +8490,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -8579,7 +8644,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -8779,7 +8845,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -8957,7 +9024,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -9113,7 +9181,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -9411,7 +9480,8 @@
                 "purchase_started_at_to",
                 "purchase_completed_at_from",
                 "purchase_completed_at_to"
-            ]
+            ],
+            "parent_resource": "pickup"
         }
     },
     {
@@ -9570,7 +9640,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -9762,7 +9833,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -9793,7 +9865,7 @@
                 },
                 "resource_type": {
                     "type": "string",
-                    "desc": "The type of the affected resource.",
+                    "desc": "The type of the affected resource. One of 'applications', 'event_stores', 'organizations', 'addresses', 'geocoders', 'events', 'tags', 'adjustments', 'price_lists', 'payment_gateways', 'payment_methods', 'markets', 'customer_groups', 'line_items', 'discount_engine_items', 'promotions', 'adyen_payments', 'orders', 'transactions', 'order_factories', 'attachments', 'tax_calculators', 'tax_categories', 'skus', 'shipping_categories', 'axerve_payments', 'order_validation_rules', 'braintree_payments', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'promotion_rules', 'coupons', 'returns', 'carrier_accounts', 'checkout_com_payments', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'order_subscriptions', 'customer_password_resets', 'delivery_lead_times', 'shipping_methods', 'shipments', 'discount_engines', 'pickups', 'parcels', 'webhooks', 'event_callbacks', 'external_payments', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_stock_locations', 'inventory_return_locations', 'klarna_payments', 'line_item_options', 'return_line_items', 'stock_line_items', 'stock_reservations', 'stock_transfers', 'notifications', 'sku_options', 'links', 'tax_rules', 'merchants', 'subscription_models', 'stores', 'price_list_schedulers', 'order_subscription_items', 'payment_options', 'resource_errors', 'paypal_payments', 'packages', 'parcel_line_items', 'prices', 'price_tiers', 'reserved_stocks', 'satispay_payments', 'shipping_method_tiers', 'shipping_zones', 'stripe_payments', or 'wire_transfers'.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -9803,7 +9875,95 @@
                         "in"
                     ],
                     "sortable": false,
-                    "example": "orders"
+                    "example": "orders",
+                    "enum": [
+                        "applications",
+                        "event_stores",
+                        "organizations",
+                        "addresses",
+                        "geocoders",
+                        "events",
+                        "tags",
+                        "adjustments",
+                        "price_lists",
+                        "payment_gateways",
+                        "payment_methods",
+                        "markets",
+                        "customer_groups",
+                        "line_items",
+                        "discount_engine_items",
+                        "promotions",
+                        "adyen_payments",
+                        "orders",
+                        "transactions",
+                        "order_factories",
+                        "attachments",
+                        "tax_calculators",
+                        "tax_categories",
+                        "skus",
+                        "shipping_categories",
+                        "axerve_payments",
+                        "order_validation_rules",
+                        "braintree_payments",
+                        "bundles",
+                        "sku_lists",
+                        "sku_list_items",
+                        "stock_items",
+                        "stock_locations",
+                        "promotion_rules",
+                        "coupons",
+                        "returns",
+                        "carrier_accounts",
+                        "checkout_com_payments",
+                        "customers",
+                        "customer_addresses",
+                        "customer_payment_sources",
+                        "customer_subscriptions",
+                        "order_subscriptions",
+                        "customer_password_resets",
+                        "delivery_lead_times",
+                        "shipping_methods",
+                        "shipments",
+                        "discount_engines",
+                        "pickups",
+                        "parcels",
+                        "webhooks",
+                        "event_callbacks",
+                        "external_payments",
+                        "gift_cards",
+                        "in_stock_subscriptions",
+                        "inventory_models",
+                        "inventory_stock_locations",
+                        "inventory_return_locations",
+                        "klarna_payments",
+                        "line_item_options",
+                        "return_line_items",
+                        "stock_line_items",
+                        "stock_reservations",
+                        "stock_transfers",
+                        "notifications",
+                        "sku_options",
+                        "links",
+                        "tax_rules",
+                        "merchants",
+                        "subscription_models",
+                        "stores",
+                        "price_list_schedulers",
+                        "order_subscription_items",
+                        "payment_options",
+                        "resource_errors",
+                        "paypal_payments",
+                        "packages",
+                        "parcel_line_items",
+                        "prices",
+                        "price_tiers",
+                        "reserved_stocks",
+                        "satispay_payments",
+                        "shipping_method_tiers",
+                        "shipping_zones",
+                        "stripe_payments",
+                        "wire_transfers"
+                    ]
                 },
                 "resource_id": {
                     "type": "string",
@@ -9938,7 +10098,8 @@
             "relationships": {},
             "filters": [
                 "id"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -9961,25 +10122,118 @@
             "fields": {
                 "resource_type": {
                     "type": "string",
-                    "desc": "The type of resource being exported.",
+                    "desc": "The type of resource being exported. One of 'applications', 'event_stores', 'organizations', 'addresses', 'geocoders', 'events', 'tags', 'adjustments', 'price_lists', 'payment_gateways', 'payment_methods', 'markets', 'customer_groups', 'line_items', 'discount_engine_items', 'promotions', 'adyen_payments', 'orders', 'transactions', 'order_factories', 'attachments', 'tax_calculators', 'tax_categories', 'skus', 'shipping_categories', 'axerve_payments', 'order_validation_rules', 'braintree_payments', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'promotion_rules', 'coupons', 'returns', 'carrier_accounts', 'checkout_com_payments', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'order_subscriptions', 'customer_password_resets', 'delivery_lead_times', 'shipping_methods', 'shipments', 'discount_engines', 'pickups', 'parcels', 'webhooks', 'event_callbacks', 'external_payments', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_stock_locations', 'inventory_return_locations', 'klarna_payments', 'line_item_options', 'return_line_items', 'stock_line_items', 'stock_reservations', 'stock_transfers', 'notifications', 'sku_options', 'links', 'tax_rules', 'merchants', 'subscription_models', 'stores', 'price_list_schedulers', 'order_subscription_items', 'payment_options', 'resource_errors', 'paypal_payments', 'packages', 'parcel_line_items', 'prices', 'price_tiers', 'reserved_stocks', 'satispay_payments', 'shipping_method_tiers', 'shipping_zones', 'stripe_payments', or 'wire_transfers'.",
                     "required": "required",
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
-                    "example": "skus"
+                    "example": "skus",
+                    "enum": [
+                        "applications",
+                        "event_stores",
+                        "organizations",
+                        "addresses",
+                        "geocoders",
+                        "events",
+                        "tags",
+                        "adjustments",
+                        "price_lists",
+                        "payment_gateways",
+                        "payment_methods",
+                        "markets",
+                        "customer_groups",
+                        "line_items",
+                        "discount_engine_items",
+                        "promotions",
+                        "adyen_payments",
+                        "orders",
+                        "transactions",
+                        "order_factories",
+                        "attachments",
+                        "tax_calculators",
+                        "tax_categories",
+                        "skus",
+                        "shipping_categories",
+                        "axerve_payments",
+                        "order_validation_rules",
+                        "braintree_payments",
+                        "bundles",
+                        "sku_lists",
+                        "sku_list_items",
+                        "stock_items",
+                        "stock_locations",
+                        "promotion_rules",
+                        "coupons",
+                        "returns",
+                        "carrier_accounts",
+                        "checkout_com_payments",
+                        "customers",
+                        "customer_addresses",
+                        "customer_payment_sources",
+                        "customer_subscriptions",
+                        "order_subscriptions",
+                        "customer_password_resets",
+                        "delivery_lead_times",
+                        "shipping_methods",
+                        "shipments",
+                        "discount_engines",
+                        "pickups",
+                        "parcels",
+                        "webhooks",
+                        "event_callbacks",
+                        "external_payments",
+                        "gift_cards",
+                        "in_stock_subscriptions",
+                        "inventory_models",
+                        "inventory_stock_locations",
+                        "inventory_return_locations",
+                        "klarna_payments",
+                        "line_item_options",
+                        "return_line_items",
+                        "stock_line_items",
+                        "stock_reservations",
+                        "stock_transfers",
+                        "notifications",
+                        "sku_options",
+                        "links",
+                        "tax_rules",
+                        "merchants",
+                        "subscription_models",
+                        "stores",
+                        "price_list_schedulers",
+                        "order_subscription_items",
+                        "payment_options",
+                        "resource_errors",
+                        "paypal_payments",
+                        "packages",
+                        "parcel_line_items",
+                        "prices",
+                        "price_tiers",
+                        "reserved_stocks",
+                        "satispay_payments",
+                        "shipping_method_tiers",
+                        "shipping_zones",
+                        "stripe_payments",
+                        "wire_transfers"
+                    ]
                 },
                 "format": {
                     "type": "string",
-                    "desc": "The format of the export one of 'json' (default) or 'csv'.",
-                    "required": "optional",
+                    "desc": "The format of the export. One of 'csv', or 'json' (default).",
+                    "default": "json",
+                    "required": "optional, default is \"json\"",
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
-                    "example": "json"
+                    "example": "json",
+                    "enum": [
+                        "csv",
+                        "json"
+                    ]
                 },
                 "status": {
                     "type": "string",
@@ -10303,7 +10557,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -10652,7 +10907,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -10844,7 +11100,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -11434,7 +11691,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion"
         }
     },
     {
@@ -11698,7 +11956,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "tax_calculator"
         }
     },
     {
@@ -12234,7 +12493,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion"
         }
     },
     {
@@ -12770,7 +13030,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion"
         }
     },
     {
@@ -13191,7 +13452,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion"
         }
     },
     {
@@ -13706,7 +13968,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion"
         }
     },
     {
@@ -14201,7 +14464,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion"
         }
     },
     {
@@ -14368,7 +14632,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -14871,7 +15136,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -15049,7 +15315,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "email_recipient"
         }
     },
     {
@@ -15231,7 +15498,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "geocoder"
         }
     },
     {
@@ -15254,25 +15522,56 @@
             "fields": {
                 "resource_type": {
                     "type": "string",
-                    "desc": "The type of resource being imported.",
+                    "desc": "The type of resource being imported. One of 'addresses', 'tags', 'price_lists', 'line_items', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.",
                     "required": "required",
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
-                    "example": "skus"
+                    "example": "skus",
+                    "enum": [
+                        "addresses",
+                        "tags",
+                        "price_lists",
+                        "line_items",
+                        "orders",
+                        "tax_categories",
+                        "skus",
+                        "shipping_categories",
+                        "bundles",
+                        "sku_lists",
+                        "sku_list_items",
+                        "stock_items",
+                        "stock_locations",
+                        "coupons",
+                        "customers",
+                        "customer_addresses",
+                        "customer_payment_sources",
+                        "customer_subscriptions",
+                        "gift_cards",
+                        "line_item_options",
+                        "stock_transfers",
+                        "sku_options",
+                        "prices",
+                        "price_tiers"
+                    ]
                 },
                 "format": {
                     "type": "string",
-                    "desc": "The format of the import inputs one of 'json' (default) or 'csv'.",
-                    "required": "optional",
+                    "desc": "The format of the import. One of 'csv', or 'json' (default).",
+                    "default": "json",
+                    "required": "optional, default is \"json\"",
                     "creatable": true,
                     "updatable": false,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": true,
-                    "example": "json"
+                    "example": "json",
+                    "enum": [
+                        "csv",
+                        "json"
+                    ]
                 },
                 "parent_resource_id": {
                     "type": "string",
@@ -15610,7 +15909,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -15849,7 +16149,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -16067,7 +16368,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -16224,7 +16526,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -16393,7 +16696,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -16646,7 +16950,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -16873,7 +17178,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -17713,7 +18019,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -18037,7 +18344,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -18371,7 +18679,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -18578,7 +18887,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -18766,7 +19076,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "tax_calculator"
         }
     },
     {
@@ -19244,7 +19555,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -19398,7 +19710,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -19576,7 +19889,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -21820,7 +22134,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -22027,7 +22342,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion_rule"
         }
     },
     {
@@ -22361,7 +22677,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "order_factory"
         }
     },
     {
@@ -22635,7 +22952,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -23134,7 +23452,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -23440,7 +23759,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -23595,7 +23915,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -23836,6 +24157,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "api_fragment_caching_enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables fragment caching for resources with related directive.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
                 },
                 "api_rules_engine": {
                     "type": "boolean",
@@ -24322,6 +24654,28 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "skus_discovery": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables the Sku discovery by similarity search.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "payment_gateways_transaction_on_event": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables the creation of the authorization when the gateway event is received, even if there is no reference on Commerce Layer.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -24411,7 +24765,8 @@
             },
             "filters": [
                 "id"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -24635,7 +24990,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -25113,7 +25469,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -25325,7 +25682,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -25529,7 +25887,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -25893,7 +26252,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -26086,7 +26446,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -26340,7 +26701,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -26597,7 +26959,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -27111,7 +27474,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion"
         }
     },
     {
@@ -27297,7 +27661,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -27689,7 +28054,8 @@
                 "updated_at_to",
                 "sku_codes",
                 "sku_ids"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -27914,7 +28280,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "price_tier"
         }
     },
     {
@@ -28155,7 +28522,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -28417,7 +28785,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -28630,7 +28999,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -28855,7 +29225,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "price_tier"
         }
     },
     {
@@ -29347,7 +29718,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -29507,7 +29879,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -29796,7 +30169,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "order_factory"
         }
     },
     {
@@ -30169,7 +30543,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "transaction"
         }
     },
     {
@@ -30330,7 +30705,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -30502,7 +30878,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -31084,7 +31461,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -31359,7 +31737,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -31635,7 +32014,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -31876,7 +32256,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -32671,7 +33052,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -32943,7 +33325,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "stock_line_item"
         }
     },
     {
@@ -33106,7 +33489,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -33694,7 +34078,8 @@
                 "updated_at_from",
                 "updated_at_to",
                 "shipment_id"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -33906,7 +34291,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -34130,7 +34516,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "shipping_method_tier"
         }
     },
     {
@@ -34338,7 +34725,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -34851,7 +35239,8 @@
                 "updated_at_from",
                 "updated_at_to",
                 "codes"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -35102,7 +35491,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -35282,7 +35672,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -35486,7 +35877,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "promotion_rule"
         }
     },
     {
@@ -35774,7 +36166,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -35987,7 +36380,8 @@
                 "updated_at_to",
                 "sku_codes",
                 "sku_ids"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -36262,7 +36656,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -36502,7 +36897,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -36764,7 +37160,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -37173,7 +37570,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -37375,7 +37773,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -37679,7 +38078,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_gateway"
         }
     },
     {
@@ -37994,7 +38394,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     },
     {
@@ -38202,7 +38603,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "tax_calculator"
         }
     },
     {
@@ -38409,7 +38811,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -38542,7 +38945,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -38755,7 +39159,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "discount_engine"
         }
     },
     {
@@ -38929,7 +39334,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -39116,7 +39522,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -39402,7 +39809,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -39600,7 +40008,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "tax_calculator"
         }
     },
     {
@@ -39946,7 +40355,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -40070,7 +40480,7 @@
                 },
                 "kind": {
                     "type": "string",
-                    "desc": "The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.",
+                    "desc": "The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.",
                     "required": "optional, default is 'cloud'",
                     "default": "cloud",
                     "creatable": true,
@@ -40218,7 +40628,8 @@
                 "updated_at_to",
                 "token_expires_at_from",
                 "token_expires_at_to"
-            ]
+            ],
+            "parent_resource": "tax_calculator"
         }
     },
     {
@@ -40578,7 +40989,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "transaction"
         }
     },
     {
@@ -40857,7 +41269,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": null
         }
     },
     {
@@ -41003,7 +41416,8 @@
                 "created_at_to",
                 "updated_at_from",
                 "updated_at_to"
-            ]
+            ],
+            "parent_resource": "payment_source"
         }
     }
 ]

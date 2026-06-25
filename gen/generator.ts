@@ -5,7 +5,8 @@ import { basename } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
 import { updateLicense } from './license'
-import apiSchema, { type Attribute, Cardinality, type Component, type Operation, type Resource } from './schema'
+import openApiSchema, { type Attribute, Cardinality, type Component, type Operation, type Resource } from './schema'
+import publicSchema from './schema-public'
 
 
 type ConfigType = {
@@ -33,7 +34,7 @@ CONFIG.RESOURCES_ACCESSORS_ONLY = (CONFIG.RESOURCES_INSTANCE_STYLE === 'accessor
 /**** **** **** **** **** **** **** **** ****/
 
 
-const SCHEMA_VERSION_CONST = 'OPEN_API_SCHEMA_VERSION'
+const SCHEMA_VERSION_CONST = 'API_SCHEMA_VERSION'
 // const SDK_VERSION_CONST = 'SDK_VERSION'
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
@@ -79,10 +80,46 @@ function formatCode(sourcePath: string): void {
 }
 
 
-const generate = async (localSchema?: boolean) => {
+type CliOptions = {
+	source: 'openapi' | 'public'
+	localSchema: boolean
+	apiHost?: string
+	apiVersion?: string
+	output?: string
+}
 
-	console.log('>> Local schema: ' + (localSchema || false) + '\n')
-	CONFIG.LOCAL_SCHEMA = localSchema || false
+
+const parseCliOptions = (argv: string[]): CliOptions => {
+	const get = (name: string): string | undefined => {
+		const eq = argv.find(a => a.startsWith(`--${name}=`))
+		if (eq) return eq.substring(name.length + 3)
+		const idx = argv.indexOf(`--${name}`)
+		if (idx >= 0 && idx + 1 < argv.length) return argv[idx + 1]
+		return undefined
+	}
+	const sourceRaw = get('source')
+	const source = sourceRaw === 'openapi' ? 'openapi' : 'public'
+	return {
+		source,
+		localSchema: argv.indexOf('--local') > -1,
+		apiHost: get('api-host'),
+		apiVersion: get('api-version'),
+		output: get('output'),
+	}
+}
+
+
+const generate = async (cli: CliOptions) => {
+
+	const { source, localSchema, apiHost, apiVersion, output } = cli
+
+	const apiSchema = source === 'openapi' ? openApiSchema : publicSchema
+
+	console.log(`>> Source: ${source}`)
+	console.log(`>> Local schema: ${localSchema}\n`)
+	CONFIG.LOCAL_SCHEMA = localSchema
+
+	const isDiffMode = output !== undefined
 
 	if (!localSchema) {
 
@@ -90,26 +127,26 @@ const generate = async (localSchema?: boolean) => {
 
 		try {
 			const currentSchema = apiSchema.current()
-			currentVersion = currentSchema.info.version
+			if (currentSchema?.info?.version) currentVersion = currentSchema.info.version
 		} catch (_err) {
 			console.log('No current local schema available')
 		}
 
-		const schemaInfo = await apiSchema.download().catch((error) => {
+		const schemaInfo = await apiSchema.download({ apiHost, apiVersion }).catch((error: Error) => {
 			console.log(error.message)
 			return undefined
 		})
 
 		if (!schemaInfo) {
-			console.log('Unable to download OpenAPI schema')
+			console.log(`Unable to download ${source} schema`)
 			return
 		}
 		else
-			if (schemaInfo.version === currentVersion) {
-				console.log('No new OpenAPI schema version: ' + currentVersion)
+			if (schemaInfo.version === currentVersion && !isDiffMode) {
+				console.log(`No new ${source} schema version: ` + currentVersion)
 				return
 			}
-			else console.log(`New OpenAPI schema version: ${currentVersion} --> ${schemaInfo.version}`)
+			else console.log(`New ${source} schema version: ${currentVersion} --> ${schemaInfo.version}`)
 
 	}
 
@@ -122,23 +159,25 @@ const generate = async (localSchema?: boolean) => {
 
 	console.log('Generating SDK resources from schema ' + schemaPath)
 
-	const schema = apiSchema.parse(schemaPath)
+	const schema = apiSchema.parse(schemaPath, { apiHost, apiVersion })
 	global.version = schema.version
 
 
-	// Remove redundant components and force usage of global resource component
-	const fixedSchema = await Fixer.fixSchema(schema)
+	// Public source is already in the final shape — skip the OpenAPI-specific fixer.
+	const fixedSchema = source === 'openapi' ? await Fixer.fixSchema(schema) : schema
 
 
 	loadTemplates()
 
 	// Initialize source dir
-	const resDir = 'src/resources'
+	const resDir = output || 'src/resources'
 	if (existsSync(resDir)) rmSync(resDir, { recursive: true })
 	mkdirSync(resDir, { recursive: true })
 
-	// Initialize test dir
-	const testDir = 'specs/resources'
+	// Initialize test dir (mirror the output dir suffix when in diff mode)
+	const testDir = isDiffMode
+		? `specs/${resDir.replace(/^src\//, '')}`
+		: 'specs/resources'
 	if (existsSync(testDir)) rmSync(testDir, { recursive: true })
 	mkdirSync(testDir, { recursive: true })
 
@@ -175,13 +214,15 @@ const generate = async (localSchema?: boolean) => {
 	})
 
 
-	updateApiResources(resources)
-	updateAdapters(resources)
-	updateModelTypes(resources)
-	updateSdkBundle(resources)
+	if (!isDiffMode) {
+		updateApiResources(resources)
+		updateAdapters(resources)
+		updateModelTypes(resources)
+		updateSdkBundle(resources)
 
-	updateSdkVersion()
-	updateLicense()
+		updateSdkVersion()
+		updateLicense()
+	}
 
 	formatCode(resDir)
 	formatCode(testDir)
@@ -819,8 +860,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__MODEL_FILTERABLE_FIELDS__##/g, filterableFields.map(f => { return `'${f}'` }).join(' | '))
 
 
-	// Relationships definition
-	const relTypesArray = Array.from(relationshipTypes).map(i => `type ${i}Rel = ResourceRel & { type: ${i}Type }`)
+	// Relationships definition — exclude the resource's own type, which is already
+	// declared by the resource template (`<Self>Rel = ResourceRel & { type: <Self>Type }`).
+	const relTypesArray = Array.from(relationshipTypes).filter(i => i !== resModelInterface).map(i => `type ${i}Rel = ResourceRel & { type: ${i}Type }`)
 	res = res.replace(/##__RELATIONSHIP_TYPES__##/g, relTypesArray.length ? (relTypesArray.join('\n') + '\n') : '')
 
 	// Resources import
@@ -1003,4 +1045,4 @@ const templatedComponent = (_res: string, name: string, cmp: Component): { compo
 
 
 
-generate(process.argv.indexOf('--local') > -1)
+generate(parseCliOptions(process.argv.slice(2)))

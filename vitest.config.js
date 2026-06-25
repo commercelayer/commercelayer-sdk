@@ -6,6 +6,7 @@ export default defineConfig({
   test: {
     testTimeout: GLOBAL_TIMEOUT,
     include: ['specs/**/*.spec.ts'],
+    exclude: ['specs/resources-openapi/**', 'specs/resources-public/**', '**/node_modules/**'],
     globals: true,
     coverage: {
       reporter: ['text', 'json', 'html'],

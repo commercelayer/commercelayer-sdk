@@ -65,6 +65,8 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/resources-openapi",
+    "src/resources-public"
   ]
 }

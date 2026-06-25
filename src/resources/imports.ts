@@ -9,8 +9,8 @@ type ImportType = 'imports'
 type ImportRel = ResourceRel & { type: ImportType }
 
 
-export type ImportSort = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'attachment_url'> & ResourceSort
-// export type ImportFilter = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'processed_count' | 'errors_log' | 'warnings_log' | 'attachment_url'> & ResourceFilter
+export type ImportSort = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'destroyed_count' | 'processed_count' | 'attachment_url'> & ResourceSort
+// export type ImportFilter = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'destroyed_count' | 'processed_count' | 'errors_log' | 'warnings_log' | 'attachment_url'> & ResourceFilter
 
 
 interface Import extends Resource {
@@ -18,15 +18,15 @@ interface Import extends Resource {
 	readonly type: ImportType
 
 	/** 
-	 * The type of resource being imported.
+	 * The type of resource being imported. One of 'addresses', 'tags', 'price_lists', 'line_items', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'addresses' | 'tags' | 'price_lists' | 'line_items' | 'orders' | 'tax_categories' | 'skus' | 'shipping_categories' | 'bundles' | 'sku_lists' | 'sku_list_items' | 'stock_items' | 'stock_locations' | 'coupons' | 'customers' | 'customer_addresses' | 'customer_payment_sources' | 'customer_subscriptions' | 'gift_cards' | 'line_item_options' | 'stock_transfers' | 'sku_options' | 'prices' | 'price_tiers'
 	/** 
-	 * The format of the import inputs one of 'json' (default) or 'csv'.
+	 * The format of the import. One of 'csv', or 'json' (default).
 	 * @example ```"json"```
 	 */
-	format?: string | null
+	format?: 'csv' | 'json' | null
 	/** 
 	 * The ID of the parent resource to be associated with imported data.
 	 * @example ```"1234"```
@@ -73,6 +73,11 @@ interface Import extends Resource {
 	 */
 	warnings_count?: number | null
 	/** 
+	 * Indicates the number of records that have been destroyed, if any.
+	 * @example ```99```
+	 */
+	destroyed_count?: number | null
+	/** 
 	 * Indicates the number of records that have been processed (created or updated).
 	 * @example ```270```
 	 */
@@ -87,6 +92,11 @@ interface Import extends Resource {
 	 * @example ```{"ABC":["could not be deleted"]}```
 	 */
 	warnings_log?: Record<string, any> | null
+	/** 
+	 * Indicates if the import should cleanup records that are not included in the inputs array.
+	 * @example ```true```
+	 */
+	cleanup_records?: boolean | null
 	/** 
 	 * Disables the interruption of the import in case its errors exceeds the 10% threshold.
 	 * @example ```true```
@@ -107,15 +117,15 @@ interface Import extends Resource {
 interface ImportCreate extends ResourceCreate {
 	
 	/** 
-	 * The type of resource being imported.
+	 * The type of resource being imported. One of 'addresses', 'tags', 'price_lists', 'line_items', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'addresses' | 'tags' | 'price_lists' | 'line_items' | 'orders' | 'tax_categories' | 'skus' | 'shipping_categories' | 'bundles' | 'sku_lists' | 'sku_list_items' | 'stock_items' | 'stock_locations' | 'coupons' | 'customers' | 'customer_addresses' | 'customer_payment_sources' | 'customer_subscriptions' | 'gift_cards' | 'line_item_options' | 'stock_transfers' | 'sku_options' | 'prices' | 'price_tiers'
 	/** 
-	 * The format of the import inputs one of 'json' (default) or 'csv'.
+	 * The format of the import. One of 'csv', or 'json' (default).
 	 * @example ```"json"```
 	 */
-	format?: string | null
+	format?: 'csv' | 'json' | null
 	/** 
 	 * The ID of the parent resource to be associated with imported data.
 	 * @example ```"1234"```
@@ -126,6 +136,11 @@ interface ImportCreate extends ResourceCreate {
 	 * @example ```[{"code":"ABC","name":"Foo"},{"code":"DEF","name":"Bar"}]```
 	 */
 	inputs: Array<Record<string, any>>
+	/** 
+	 * Indicates if the import should cleanup records that are not included in the inputs array.
+	 * @example ```true```
+	 */
+	cleanup_records?: boolean | null
 	/** 
 	 * Disables the interruption of the import in case its errors exceeds the 10% threshold.
 	 * @example ```true```
