@@ -19,7 +19,7 @@ export default defineConfig(() => ({
   treeshake: true,
   watch,
   target: 'es2024',
-  entry: ['src/**/*.ts', '!src/resources-openapi/**', '!src/resources-public/**'],
+  entry: ['src/**/*.ts'],
   outDir: 'lib',
   splitting: true,
   shims: true,

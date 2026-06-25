@@ -1,11 +1,9 @@
 import { execSync } from 'node:child_process'
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { basename } from 'node:path'
-import Fixer from './fixer'
 import Inflector from './inflector'
 import { updateLicense } from './license'
-import openApiSchema, { type Attribute, Cardinality, type Component, type Operation, type Resource } from './schema'
-import publicSchema from './schema-public'
+import apiSchema, { type Attribute, Cardinality, type Component, type Operation, type Resource } from './schema'
 
 type ConfigType = {
   LOCAL_SCHEMA: boolean
@@ -72,7 +70,6 @@ function formatCode(sourcePath: string): void {
 }
 
 type CliOptions = {
-  source: 'openapi' | 'public'
   localSchema: boolean
   apiHost?: string
   apiVersion?: string
@@ -87,10 +84,7 @@ const parseCliOptions = (argv: string[]): CliOptions => {
     if (idx >= 0 && idx + 1 < argv.length) return argv[idx + 1]
     return undefined
   }
-  const sourceRaw = get('source')
-  const source = sourceRaw === 'openapi' ? 'openapi' : 'public'
   return {
-    source,
     localSchema: argv.indexOf('--local') > -1,
     apiHost: get('api-host'),
     apiVersion: get('api-version'),
@@ -99,11 +93,8 @@ const parseCliOptions = (argv: string[]): CliOptions => {
 }
 
 const generate = async (cli: CliOptions) => {
-  const { source, localSchema, apiHost, apiVersion, output } = cli
+  const { localSchema, apiHost, apiVersion, output } = cli
 
-  const apiSchema = source === 'openapi' ? openApiSchema : publicSchema
-
-  console.log(`>> Source: ${source}`)
   console.log(`>> Local schema: ${localSchema}\n`)
   CONFIG.LOCAL_SCHEMA = localSchema
 
@@ -125,12 +116,12 @@ const generate = async (cli: CliOptions) => {
     })
 
     if (!schemaInfo) {
-      console.log(`Unable to download ${source} schema`)
+      console.log('Unable to download schema')
       return
     } else if (schemaInfo.version === currentVersion && !isDiffMode) {
-      console.log(`No new ${source} schema version: ` + currentVersion)
+      console.log('No new schema version: ' + currentVersion)
       return
-    } else console.log(`New ${source} schema version: ${currentVersion} --> ${schemaInfo.version}`)
+    } else console.log(`New schema version: ${currentVersion} --> ${schemaInfo.version}`)
   }
 
   const schemaPath = apiSchema.localPath
@@ -143,9 +134,6 @@ const generate = async (cli: CliOptions) => {
 
   const schema = apiSchema.parse(schemaPath, { apiHost, apiVersion })
   global.version = schema.version
-
-  // Public source is already in the final shape — skip the OpenAPI-specific fixer.
-  const fixedSchema = source === 'openapi' ? await Fixer.fixSchema(schema) : schema
 
   loadTemplates()
 
@@ -161,7 +149,7 @@ const generate = async (cli: CliOptions) => {
 
   const resources: Record<string, ApiRes> = {}
 
-  Object.entries(fixedSchema.resources).forEach(([type, res]) => {
+  Object.entries(schema.resources).forEach(([type, res]) => {
     const name = Inflector.pluralize(Inflector.camelize(type)) as string
 
     const tplRes = generateResource(type, name, res)

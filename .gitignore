@@ -1,11 +1,6 @@
 build/
 dist/
 
-# Transient outputs from `pnpm generate-diff`
-src/resources-openapi/
-src/resources-public/
-specs/resources-openapi/
-specs/resources-public/
 gen/public_resources.json
 
 

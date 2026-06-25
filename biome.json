@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["./src/**", "./test/**", "./specs/**", "./gen/**", "!gen/openapi.json", "!gen/resources.json"]
+    "includes": ["./src/**", "./test/**", "./specs/**", "./gen/**", "!gen/public_resources.json"]
   },
   "formatter": {
     "indentStyle": "space",
