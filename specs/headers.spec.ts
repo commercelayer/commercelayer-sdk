@@ -1,60 +1,51 @@
-
 import { beforeAll, describe, expect, test } from 'vitest'
 import { application, type CommerceLayerClient } from '../src'
 import { CommonData, getClient, handleError, interceptRequest } from '../test/common'
 
-
-
 let cl: CommerceLayerClient
 
-
-beforeAll(async () => { cl = await getClient({ timeout: 15000 }) })
-
+beforeAll(async () => {
+  cl = await getClient({ timeout: 15000 })
+})
 
 describe('Test headers', () => {
+  test('Request headers', async () => {
+    const testHeaderValue = 'test-value'
+    const params = { fields: { addresses: CommonData.paramsFields } }
+    const options = {
+      ...CommonData.options,
+      headers: {
+        'test-header': testHeaderValue,
+        'Content-Type': 'application/json',
+      },
+    }
 
-	test('Request headers', async () => {
+    const _intId = cl.addRequestInterceptor((request) => {
+      const requestOptionsHeaders = request.options.headers as Record<string, string>
+      expect(requestOptionsHeaders).toBeDefined()
+      if (requestOptionsHeaders) {
+        expect(requestOptionsHeaders['test-header']).toBe(testHeaderValue)
+        expect(requestOptionsHeaders['Content-Type']).toBe('application/vnd.api+json')
+      }
+      return interceptRequest()
+    })
 
-		const testHeaderValue = 'test-value'
-		const params = { fields: { addresses: CommonData.paramsFields } }
-		const options = {
-			...CommonData.options,
-			headers: {
-				'test-header': testHeaderValue,
-				'Content-Type': 'application/json'
-			}
-		}
+    await application
+      .retrieve(params, options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
 
-		const _intId = cl.addRequestInterceptor((request) => {
-			const requestOptionsHeaders = request.options.headers as Record<string, string>
-			expect(requestOptionsHeaders).toBeDefined()
-			if (requestOptionsHeaders) {
-				expect(requestOptionsHeaders['test-header']).toBe(testHeaderValue)
-				expect(requestOptionsHeaders['Content-Type']).toBe('application/vnd.api+json')
-			}
-			return interceptRequest()
-		})
+  test('Response headers', async () => {
+    const params = { fields: { addresses: CommonData.paramsFields } }
 
-		await application.retrieve(params, options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
+    const reader = cl.addRawResponseReader({ headers: true })
 
-	})
+    await application.retrieve(params, CommonData.options)
 
+    expect(reader.headers).not.toBeUndefined()
+    expect(reader.headers?.['x-ratelimit-limit']).not.toBeUndefined()
 
-	test('Response headers', async () => {
-
-		const params = { fields: { addresses: CommonData.paramsFields } }
-
-		const reader = cl.addRawResponseReader({ headers: true })
-
-		await application.retrieve(params, CommonData.options)
-
-		expect(reader.headers).not.toBeUndefined()
-		expect(reader.headers?.['x-ratelimit-limit']).not.toBeUndefined()
-
-		cl.removeRawResponseReader()
-
-	})
-
+    cl.removeRawResponseReader()
+  })
 })

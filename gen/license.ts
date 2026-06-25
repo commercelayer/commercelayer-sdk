@@ -1,9 +1,7 @@
-import { readFileSync, writeFileSync } from "node:fs"
-import { resolve } from "node:path"
-
+import { readFileSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 export const updateLicense = () => {
-
   const encoding = 'utf-8'
   const licenseFile = resolve('LICENSE')
 
@@ -13,5 +11,4 @@ export const updateLicense = () => {
   const updatedLicense = license.replace(/\[\d{4}\]/, `[${currentYear}]`)
 
   writeFileSync(licenseFile, updatedLicense, { encoding })
-
 }

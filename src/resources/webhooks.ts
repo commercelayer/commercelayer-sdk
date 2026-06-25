@@ -1,215 +1,264 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 
 import type { EventCallback } from './event_callbacks'
 import type { EventStore } from './event_stores'
 
-
 type WebhookType = 'webhooks'
 type WebhookRel = ResourceRel & { type: WebhookType }
-
 
 export type WebhookSort = Pick<Webhook, 'id' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
 // export type WebhookFilter = Pick<Webhook, 'id' | 'name' | 'topic' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
-
 interface Webhook extends Resource {
-	
-	readonly type: WebhookType
+  readonly type: WebhookType
 
-	/** 
-	 * Unique name for the webhook.
-	 * @example ```"myorg-orders.place"```
-	 */
-	name?: string | null
-	/** 
-	 * The identifier of the resource/event that will trigger the webhook.
-	 * @example ```"orders.place"```
-	 */
-	topic: string
-	/** 
-	 * URI where the webhook subscription should send the POST request when the event occurs.
-	 * @example ```"https://yourapp.com/webhooks"```
-	 */
-	callback_url: string
-	/** 
-	 * List of related resources that should be included in the webhook body.
-	 * @example ```["customer","shipping_address","billing_address"]```
-	 */
-	include_resources?: string[] | null
-	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
-	/** 
-	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
-	 * @example ```"closed"```
-	 */
-	circuit_state?: string | null
-	/** 
-	 * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
-	 * @example ```5```
-	 */
-	circuit_failure_count?: number | null
-	/** 
-	 * The shared secret used to sign the external request payload.
-	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
-	 */
-	shared_secret: string
+  /**
+   * Unique name for the webhook.
+   * @example ```"myorg-orders.place"```
+   */
+  name?: string | null
+  /**
+   * The identifier of the resource/event that will trigger the webhook.
+   * @example ```"orders.place"```
+   */
+  topic: string
+  /**
+   * URI where the webhook subscription should send the POST request when the event occurs.
+   * @example ```"https://yourapp.com/webhooks"```
+   */
+  callback_url: string
+  /**
+   * List of related resources that should be included in the webhook body.
+   * @example ```["customer","shipping_address","billing_address"]```
+   */
+  include_resources?: string[] | null
+  /**
+   * Time at which this resource was disabled.
+   * @example ```"2018-01-01T12:00:00.000Z"```
+   */
+  disabled_at?: string | null
+  /**
+   * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
+   * @example ```"closed"```
+   */
+  circuit_state?: string | null
+  /**
+   * The number of consecutive failures recorded by the circuit breaker associated to this resource, will be reset on first successful call to callback.
+   * @example ```5```
+   */
+  circuit_failure_count?: number | null
+  /**
+   * The shared secret used to sign the external request payload.
+   * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+   */
+  shared_secret: string
 
-	last_event_callbacks?: EventCallback[] | null
-	event_stores?: EventStore[] | null
-
+  last_event_callbacks?: EventCallback[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface WebhookCreate extends ResourceCreate {
-	
-	/** 
-	 * Unique name for the webhook.
-	 * @example ```"myorg-orders.place"```
-	 */
-	name?: string | null
-	/** 
-	 * The identifier of the resource/event that will trigger the webhook.
-	 * @example ```"orders.place"```
-	 */
-	topic: string
-	/** 
-	 * URI where the webhook subscription should send the POST request when the event occurs.
-	 * @example ```"https://yourapp.com/webhooks"```
-	 */
-	callback_url: string
-	/** 
-	 * List of related resources that should be included in the webhook body.
-	 * @example ```["customer","shipping_address","billing_address"]```
-	 */
-	include_resources?: string[] | null
-	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```true```
-	 */
-	_disable?: boolean | null
-	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```true```
-	 */
-	_enable?: boolean | null
-	
+  /**
+   * Unique name for the webhook.
+   * @example ```"myorg-orders.place"```
+   */
+  name?: string | null
+  /**
+   * The identifier of the resource/event that will trigger the webhook.
+   * @example ```"orders.place"```
+   */
+  topic: string
+  /**
+   * URI where the webhook subscription should send the POST request when the event occurs.
+   * @example ```"https://yourapp.com/webhooks"```
+   */
+  callback_url: string
+  /**
+   * List of related resources that should be included in the webhook body.
+   * @example ```["customer","shipping_address","billing_address"]```
+   */
+  include_resources?: string[] | null
+  /**
+   * Send this attribute if you want to mark this resource as disabled.
+   * @example ```true```
+   */
+  _disable?: boolean | null
+  /**
+   * Send this attribute if you want to mark this resource as enabled.
+   * @example ```true```
+   */
+  _enable?: boolean | null
 }
-
 
 interface WebhookUpdate extends ResourceUpdate {
-	
-	/** 
-	 * Unique name for the webhook.
-	 * @example ```"myorg-orders.place"```
-	 */
-	name?: string | null
-	/** 
-	 * The identifier of the resource/event that will trigger the webhook.
-	 * @example ```"orders.place"```
-	 */
-	topic?: string | null
-	/** 
-	 * URI where the webhook subscription should send the POST request when the event occurs.
-	 * @example ```"https://yourapp.com/webhooks"```
-	 */
-	callback_url?: string | null
-	/** 
-	 * List of related resources that should be included in the webhook body.
-	 * @example ```["customer","shipping_address","billing_address"]```
-	 */
-	include_resources?: string[] | null
-	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```true```
-	 */
-	_disable?: boolean | null
-	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```true```
-	 */
-	_enable?: boolean | null
-	/** 
-	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
-	 * @example ```true```
-	 */
-	_reset_circuit?: boolean | null
-	/** 
-	 * Send this attribute if you want to regenerate the shared secret.
-	 * @example ```true```
-	 */
-	_regenerate_shared_secret?: boolean | null
-	
+  /**
+   * Unique name for the webhook.
+   * @example ```"myorg-orders.place"```
+   */
+  name?: string | null
+  /**
+   * The identifier of the resource/event that will trigger the webhook.
+   * @example ```"orders.place"```
+   */
+  topic?: string | null
+  /**
+   * URI where the webhook subscription should send the POST request when the event occurs.
+   * @example ```"https://yourapp.com/webhooks"```
+   */
+  callback_url?: string | null
+  /**
+   * List of related resources that should be included in the webhook body.
+   * @example ```["customer","shipping_address","billing_address"]```
+   */
+  include_resources?: string[] | null
+  /**
+   * Send this attribute if you want to mark this resource as disabled.
+   * @example ```true```
+   */
+  _disable?: boolean | null
+  /**
+   * Send this attribute if you want to mark this resource as enabled.
+   * @example ```true```
+   */
+  _enable?: boolean | null
+  /**
+   * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
+   * @example ```true```
+   */
+  _reset_circuit?: boolean | null
+  /**
+   * Send this attribute if you want to regenerate the shared secret.
+   * @example ```true```
+   */
+  _regenerate_shared_secret?: boolean | null
 }
-
 
 class Webhooks extends ApiResource<Webhook> {
+  static readonly TYPE: WebhookType = 'webhooks' as const
 
-	static readonly TYPE: WebhookType = 'webhooks' as const
+  async create(
+    resource: WebhookCreate,
+    params?: QueryParamsRetrieve<Webhook>,
+    options?: ResourcesConfig,
+  ): Promise<Webhook> {
+    return this.resources.create<WebhookCreate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
+  }
 
-	async create(resource: WebhookCreate, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.create<WebhookCreate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
-	}
+  async update(
+    resource: WebhookUpdate,
+    params?: QueryParamsRetrieve<Webhook>,
+    options?: ResourcesConfig,
+  ): Promise<Webhook> {
+    return this.resources.update<WebhookUpdate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
+  }
 
-	async update(resource: WebhookUpdate, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.update<WebhookUpdate, Webhook>({ ...resource, type: Webhooks.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: Webhooks.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: Webhooks.TYPE } : id, options)
-	}
+  async last_event_callbacks(
+    webhookId: string | Webhook,
+    params?: QueryParamsList<EventCallback>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventCallback>> {
+    const _webhookId = (webhookId as Webhook).id || (webhookId as string)
+    return this.resources.fetch<EventCallback>(
+      { type: 'event_callbacks' },
+      `webhooks/${_webhookId}/last_event_callbacks`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventCallback>
+  }
 
-	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList<EventCallback>, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
-		const _webhookId = (webhookId as Webhook).id || webhookId as string
-		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
-	}
+  async event_stores(
+    webhookId: string | Webhook,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _webhookId = (webhookId as Webhook).id || (webhookId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `webhooks/${_webhookId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(webhookId: string | Webhook, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _webhookId = (webhookId as Webhook).id || webhookId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `webhooks/${_webhookId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  async _disable(
+    id: string | Webhook,
+    params?: QueryParamsRetrieve<Webhook>,
+    options?: ResourcesConfig,
+  ): Promise<Webhook> {
+    return this.resources.update<WebhookUpdate, Webhook>(
+      { id: typeof id === 'string' ? id : id.id, type: Webhooks.TYPE, _disable: true },
+      params,
+      options,
+    )
+  }
 
-	async _disable(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _disable: true }, params, options)
-	}
+  async _enable(
+    id: string | Webhook,
+    params?: QueryParamsRetrieve<Webhook>,
+    options?: ResourcesConfig,
+  ): Promise<Webhook> {
+    return this.resources.update<WebhookUpdate, Webhook>(
+      { id: typeof id === 'string' ? id : id.id, type: Webhooks.TYPE, _enable: true },
+      params,
+      options,
+    )
+  }
 
-	async _enable(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _enable: true }, params, options)
-	}
+  async _reset_circuit(
+    id: string | Webhook,
+    params?: QueryParamsRetrieve<Webhook>,
+    options?: ResourcesConfig,
+  ): Promise<Webhook> {
+    return this.resources.update<WebhookUpdate, Webhook>(
+      { id: typeof id === 'string' ? id : id.id, type: Webhooks.TYPE, _reset_circuit: true },
+      params,
+      options,
+    )
+  }
 
-	async _reset_circuit(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _reset_circuit: true }, params, options)
-	}
+  async _regenerate_shared_secret(
+    id: string | Webhook,
+    params?: QueryParamsRetrieve<Webhook>,
+    options?: ResourcesConfig,
+  ): Promise<Webhook> {
+    return this.resources.update<WebhookUpdate, Webhook>(
+      { id: typeof id === 'string' ? id : id.id, type: Webhooks.TYPE, _regenerate_shared_secret: true },
+      params,
+      options,
+    )
+  }
 
-	async _regenerate_shared_secret(id: string | Webhook, params?: QueryParamsRetrieve<Webhook>, options?: ResourcesConfig): Promise<Webhook> {
-		return this.resources.update<WebhookUpdate, Webhook>({ id: (typeof id === 'string')? id: id.id, type: Webhooks.TYPE, _regenerate_shared_secret: true }, params, options)
-	}
+  isWebhook(resource: any): resource is Webhook {
+    return resource.type && resource.type === Webhooks.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): WebhookRel {
+    return super.relationshipOneToOne<WebhookRel>(id)
+  }
 
-	isWebhook(resource: any): resource is Webhook {
-		return resource.type && (resource.type === Webhooks.TYPE)
-	}
+  relationshipToMany(...ids: string[]): WebhookRel[] {
+    return super.relationshipOneToMany<WebhookRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): WebhookRel {
-		return super.relationshipOneToOne<WebhookRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): WebhookRel[] {
-		return super.relationshipOneToMany<WebhookRel>(...ids)
-	}
-
-
-	type(): WebhookType {
-		return Webhooks.TYPE
-	}
-
+  type(): WebhookType {
+    return Webhooks.TYPE
+  }
 }
-
 
 const instance = new Webhooks()
 export default instance

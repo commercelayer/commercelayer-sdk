@@ -1,5 +1,14 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
 import type { EventStore } from './event_stores'
@@ -13,7 +22,6 @@ import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } fro
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 
-
 type SkuListPromotionRuleType = 'sku_list_promotion_rules'
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type PercentageDiscountPromotionRel = ResourceRel & { type: PercentageDiscountPromotionType }
@@ -26,126 +34,187 @@ type FixedAmountPromotionRel = ResourceRel & { type: FixedAmountPromotionType }
 type FlexPromotionRel = ResourceRel & { type: FlexPromotionType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 
-
 export type SkuListPromotionRuleSort = Pick<SkuListPromotionRule, 'id'> & ResourceSort
 // export type SkuListPromotionRuleFilter = Pick<SkuListPromotionRule, 'id'> & ResourceFilter
 
-
 interface SkuListPromotionRule extends Resource {
-	
-	readonly type: SkuListPromotionRuleType
+  readonly type: SkuListPromotionRuleType
 
-	/** 
-	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
-	 * @example ```true```
-	 */
-	all_skus?: boolean | null
-	/** 
-	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
-	 * @example ```3```
-	 */
-	min_quantity?: number | null
+  /**
+   * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
+   * @example ```true```
+   */
+  all_skus?: boolean | null
+  /**
+   * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
+   * @example ```3```
+   */
+  min_quantity?: number | null
 
-	promotion?: PercentageDiscountPromotion | FreeShippingPromotion | BuyXPayYPromotion | FreeGiftPromotion | FixedPricePromotion | ExternalPromotion | FixedAmountPromotion | FlexPromotion | null
-	event_stores?: EventStore[] | null
-	sku_list?: SkuList | null
-	skus?: Sku[] | null
-
+  promotion?:
+    | PercentageDiscountPromotion
+    | FreeShippingPromotion
+    | BuyXPayYPromotion
+    | FreeGiftPromotion
+    | FixedPricePromotion
+    | ExternalPromotion
+    | FixedAmountPromotion
+    | FlexPromotion
+    | null
+  event_stores?: EventStore[] | null
+  sku_list?: SkuList | null
+  skus?: Sku[] | null
 }
-
 
 interface SkuListPromotionRuleCreate extends ResourceCreate {
-	
-	/** 
-	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
-	 * @example ```true```
-	 */
-	all_skus?: boolean | null
-	/** 
-	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
-	 * @example ```3```
-	 */
-	min_quantity?: number | null
+  /**
+   * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
+   * @example ```true```
+   */
+  all_skus?: boolean | null
+  /**
+   * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
+   * @example ```3```
+   */
+  min_quantity?: number | null
 
-	promotion: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel
-	sku_list?: SkuListRel | null
-
+  promotion:
+    | PercentageDiscountPromotionRel
+    | FreeShippingPromotionRel
+    | BuyXPayYPromotionRel
+    | FreeGiftPromotionRel
+    | FixedPricePromotionRel
+    | ExternalPromotionRel
+    | FixedAmountPromotionRel
+    | FlexPromotionRel
+  sku_list?: SkuListRel | null
 }
-
 
 interface SkuListPromotionRuleUpdate extends ResourceUpdate {
-	
-	/** 
-	 * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
-	 * @example ```true```
-	 */
-	all_skus?: boolean | null
-	/** 
-	 * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
-	 * @example ```3```
-	 */
-	min_quantity?: number | null
+  /**
+   * Indicates if the rule is activated only when all of the SKUs of the list is also part of the order.
+   * @example ```true```
+   */
+  all_skus?: boolean | null
+  /**
+   * The min quantity of SKUs of the list that must be also part of the order. If positive, overwrites the 'all_skus' option. When the SKU list is manual, its items quantities are honoured.
+   * @example ```3```
+   */
+  min_quantity?: number | null
 
-	promotion?: PercentageDiscountPromotionRel | FreeShippingPromotionRel | BuyXPayYPromotionRel | FreeGiftPromotionRel | FixedPricePromotionRel | ExternalPromotionRel | FixedAmountPromotionRel | FlexPromotionRel | null
-	sku_list?: SkuListRel | null
-
+  promotion?:
+    | PercentageDiscountPromotionRel
+    | FreeShippingPromotionRel
+    | BuyXPayYPromotionRel
+    | FreeGiftPromotionRel
+    | FixedPricePromotionRel
+    | ExternalPromotionRel
+    | FixedAmountPromotionRel
+    | FlexPromotionRel
+    | null
+  sku_list?: SkuListRel | null
 }
-
 
 class SkuListPromotionRules extends ApiResource<SkuListPromotionRule> {
+  static readonly TYPE: SkuListPromotionRuleType = 'sku_list_promotion_rules' as const
 
-	static readonly TYPE: SkuListPromotionRuleType = 'sku_list_promotion_rules' as const
+  async create(
+    resource: SkuListPromotionRuleCreate,
+    params?: QueryParamsRetrieve<SkuListPromotionRule>,
+    options?: ResourcesConfig,
+  ): Promise<SkuListPromotionRule> {
+    return this.resources.create<SkuListPromotionRuleCreate, SkuListPromotionRule>(
+      { ...resource, type: SkuListPromotionRules.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: SkuListPromotionRuleCreate, params?: QueryParamsRetrieve<SkuListPromotionRule>, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
-		return this.resources.create<SkuListPromotionRuleCreate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
-	}
+  async update(
+    resource: SkuListPromotionRuleUpdate,
+    params?: QueryParamsRetrieve<SkuListPromotionRule>,
+    options?: ResourcesConfig,
+  ): Promise<SkuListPromotionRule> {
+    return this.resources.update<SkuListPromotionRuleUpdate, SkuListPromotionRule>(
+      { ...resource, type: SkuListPromotionRules.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: SkuListPromotionRuleUpdate, params?: QueryParamsRetrieve<SkuListPromotionRule>, options?: ResourcesConfig): Promise<SkuListPromotionRule> {
-		return this.resources.update<SkuListPromotionRuleUpdate, SkuListPromotionRule>({ ...resource, type: SkuListPromotionRules.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: SkuListPromotionRules.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: SkuListPromotionRules.TYPE } : id, options)
-	}
+  async event_stores(
+    skuListPromotionRuleId: string | SkuListPromotionRule,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _skuListPromotionRuleId =
+      (skuListPromotionRuleId as SkuListPromotionRule).id || (skuListPromotionRuleId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `sku_list_promotion_rules/${_skuListPromotionRuleId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  async sku_list(
+    skuListPromotionRuleId: string | SkuListPromotionRule,
+    params?: QueryParamsRetrieve<SkuList>,
+    options?: ResourcesConfig,
+  ): Promise<SkuList> {
+    const _skuListPromotionRuleId =
+      (skuListPromotionRuleId as SkuListPromotionRule).id || (skuListPromotionRuleId as string)
+    return this.resources.fetch<SkuList>(
+      { type: 'sku_lists' },
+      `sku_list_promotion_rules/${_skuListPromotionRuleId}/sku_list`,
+      params,
+      options,
+    ) as unknown as SkuList
+  }
 
-	async sku_list(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
-		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/sku_list`, params, options) as unknown as SkuList
-	}
+  async skus(
+    skuListPromotionRuleId: string | SkuListPromotionRule,
+    params?: QueryParamsList<Sku>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Sku>> {
+    const _skuListPromotionRuleId =
+      (skuListPromotionRuleId as SkuListPromotionRule).id || (skuListPromotionRuleId as string)
+    return this.resources.fetch<Sku>(
+      { type: 'skus' },
+      `sku_list_promotion_rules/${_skuListPromotionRuleId}/skus`,
+      params,
+      options,
+    ) as unknown as ListResponse<Sku>
+  }
 
-	async skus(skuListPromotionRuleId: string | SkuListPromotionRule, params?: QueryParamsList<Sku>, options?: ResourcesConfig): Promise<ListResponse<Sku>> {
-		const _skuListPromotionRuleId = (skuListPromotionRuleId as SkuListPromotionRule).id || skuListPromotionRuleId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_promotion_rules/${_skuListPromotionRuleId}/skus`, params, options) as unknown as ListResponse<Sku>
-	}
+  isSkuListPromotionRule(resource: any): resource is SkuListPromotionRule {
+    return resource.type && resource.type === SkuListPromotionRules.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): SkuListPromotionRuleRel {
+    return super.relationshipOneToOne<SkuListPromotionRuleRel>(id)
+  }
 
-	isSkuListPromotionRule(resource: any): resource is SkuListPromotionRule {
-		return resource.type && (resource.type === SkuListPromotionRules.TYPE)
-	}
+  relationshipToMany(...ids: string[]): SkuListPromotionRuleRel[] {
+    return super.relationshipOneToMany<SkuListPromotionRuleRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): SkuListPromotionRuleRel {
-		return super.relationshipOneToOne<SkuListPromotionRuleRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): SkuListPromotionRuleRel[] {
-		return super.relationshipOneToMany<SkuListPromotionRuleRel>(...ids)
-	}
-
-
-	type(): SkuListPromotionRuleType {
-		return SkuListPromotionRules.TYPE
-	}
-
+  type(): SkuListPromotionRuleType {
+    return SkuListPromotionRules.TYPE
+  }
 }
-
 
 const instance = new SkuListPromotionRules()
 export default instance
 
-export type { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRules, SkuListPromotionRuleType, SkuListPromotionRuleUpdate }
+export type {
+  SkuListPromotionRule,
+  SkuListPromotionRuleCreate,
+  SkuListPromotionRules,
+  SkuListPromotionRuleType,
+  SkuListPromotionRuleUpdate,
+}

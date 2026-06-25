@@ -1,5 +1,14 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 import type { AxervePayment, AxervePaymentType } from './axerve_payments'
@@ -14,7 +23,6 @@ import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
 import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
 import type { StripePayment, StripePaymentType } from './stripe_payments'
 import type { WireTransfer, WireTransferType } from './wire_transfers'
-
 
 type CustomerPaymentSourceType = 'customer_payment_sources'
 type CustomerPaymentSourceRel = ResourceRel & { type: CustomerPaymentSourceType }
@@ -31,133 +39,201 @@ type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
 type StripePaymentRel = ResourceRel & { type: StripePaymentType }
 type WireTransferRel = ResourceRel & { type: WireTransferType }
 
-
 export type CustomerPaymentSourceSort = Pick<CustomerPaymentSource, 'id'> & ResourceSort
 // export type CustomerPaymentSourceFilter = Pick<CustomerPaymentSource, 'id' | 'name' | 'payment_source_token'> & ResourceFilter
 
-
 interface CustomerPaymentSource extends Resource {
-	
-	readonly type: CustomerPaymentSourceType
+  readonly type: CustomerPaymentSourceType
 
-	/** 
-	 * Returns the associated payment source's name.
-	 * @example ```"XXXX-XXXX-XXXX-1111"```
-	 */
-	name?: string | null
-	/** 
-	 * Returns the customer gateway token stored in the gateway.
-	 * @example ```"cus_xxxyyyzzz"```
-	 */
-	customer_token?: string | null
-	/** 
-	 * Returns the payment source token stored in the gateway.
-	 * @example ```"pm_xxxyyyzzz"```
-	 */
-	payment_source_token?: string | null
+  /**
+   * Returns the associated payment source's name.
+   * @example ```"XXXX-XXXX-XXXX-1111"```
+   */
+  name?: string | null
+  /**
+   * Returns the customer gateway token stored in the gateway.
+   * @example ```"cus_xxxyyyzzz"```
+   */
+  customer_token?: string | null
+  /**
+   * Returns the payment source token stored in the gateway.
+   * @example ```"pm_xxxyyyzzz"```
+   */
+  payment_source_token?: string | null
 
-	customer?: Customer | null
-	payment_method?: PaymentMethod | null
-	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
-	event_stores?: EventStore[] | null
-
+  customer?: Customer | null
+  payment_method?: PaymentMethod | null
+  payment_source?:
+    | AdyenPayment
+    | AxervePayment
+    | BraintreePayment
+    | CheckoutComPayment
+    | ExternalPayment
+    | KlarnaPayment
+    | PaypalPayment
+    | SatispayPayment
+    | StripePayment
+    | WireTransfer
+    | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface CustomerPaymentSourceCreate extends ResourceCreate {
-	
-	/** 
-	 * Returns the customer gateway token stored in the gateway.
-	 * @example ```"cus_xxxyyyzzz"```
-	 */
-	customer_token?: string | null
-	/** 
-	 * Returns the payment source token stored in the gateway.
-	 * @example ```"pm_xxxyyyzzz"```
-	 */
-	payment_source_token?: string | null
+  /**
+   * Returns the customer gateway token stored in the gateway.
+   * @example ```"cus_xxxyyyzzz"```
+   */
+  customer_token?: string | null
+  /**
+   * Returns the payment source token stored in the gateway.
+   * @example ```"pm_xxxyyyzzz"```
+   */
+  payment_source_token?: string | null
 
-	customer: CustomerRel
-	payment_method?: PaymentMethodRel | null
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
-
+  customer: CustomerRel
+  payment_method?: PaymentMethodRel | null
+  payment_source?:
+    | AdyenPaymentRel
+    | AxervePaymentRel
+    | BraintreePaymentRel
+    | CheckoutComPaymentRel
+    | ExternalPaymentRel
+    | KlarnaPaymentRel
+    | PaypalPaymentRel
+    | SatispayPaymentRel
+    | StripePaymentRel
+    | WireTransferRel
+    | null
 }
-
 
 interface CustomerPaymentSourceUpdate extends ResourceUpdate {
-	
-	/** 
-	 * Returns the customer gateway token stored in the gateway.
-	 * @example ```"cus_xxxyyyzzz"```
-	 */
-	customer_token?: string | null
-	/** 
-	 * Returns the payment source token stored in the gateway.
-	 * @example ```"pm_xxxyyyzzz"```
-	 */
-	payment_source_token?: string | null
+  /**
+   * Returns the customer gateway token stored in the gateway.
+   * @example ```"cus_xxxyyyzzz"```
+   */
+  customer_token?: string | null
+  /**
+   * Returns the payment source token stored in the gateway.
+   * @example ```"pm_xxxyyyzzz"```
+   */
+  payment_source_token?: string | null
 
-	customer?: CustomerRel | null
-	payment_method?: PaymentMethodRel | null
-	payment_source?: AdyenPaymentRel | AxervePaymentRel | BraintreePaymentRel | CheckoutComPaymentRel | ExternalPaymentRel | KlarnaPaymentRel | PaypalPaymentRel | SatispayPaymentRel | StripePaymentRel | WireTransferRel | null
-
+  customer?: CustomerRel | null
+  payment_method?: PaymentMethodRel | null
+  payment_source?:
+    | AdyenPaymentRel
+    | AxervePaymentRel
+    | BraintreePaymentRel
+    | CheckoutComPaymentRel
+    | ExternalPaymentRel
+    | KlarnaPaymentRel
+    | PaypalPaymentRel
+    | SatispayPaymentRel
+    | StripePaymentRel
+    | WireTransferRel
+    | null
 }
-
 
 class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
+  static readonly TYPE: CustomerPaymentSourceType = 'customer_payment_sources' as const
 
-	static readonly TYPE: CustomerPaymentSourceType = 'customer_payment_sources' as const
+  async create(
+    resource: CustomerPaymentSourceCreate,
+    params?: QueryParamsRetrieve<CustomerPaymentSource>,
+    options?: ResourcesConfig,
+  ): Promise<CustomerPaymentSource> {
+    return this.resources.create<CustomerPaymentSourceCreate, CustomerPaymentSource>(
+      { ...resource, type: CustomerPaymentSources.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: CustomerPaymentSourceCreate, params?: QueryParamsRetrieve<CustomerPaymentSource>, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		return this.resources.create<CustomerPaymentSourceCreate, CustomerPaymentSource>({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
-	}
+  async update(
+    resource: CustomerPaymentSourceUpdate,
+    params?: QueryParamsRetrieve<CustomerPaymentSource>,
+    options?: ResourcesConfig,
+  ): Promise<CustomerPaymentSource> {
+    return this.resources.update<CustomerPaymentSourceUpdate, CustomerPaymentSource>(
+      { ...resource, type: CustomerPaymentSources.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: CustomerPaymentSourceUpdate, params?: QueryParamsRetrieve<CustomerPaymentSource>, options?: ResourcesConfig): Promise<CustomerPaymentSource> {
-		return this.resources.update<CustomerPaymentSourceUpdate, CustomerPaymentSource>({ ...resource, type: CustomerPaymentSources.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: CustomerPaymentSources.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: CustomerPaymentSources.TYPE } : id, options)
-	}
+  async customer(
+    customerPaymentSourceId: string | CustomerPaymentSource,
+    params?: QueryParamsRetrieve<Customer>,
+    options?: ResourcesConfig,
+  ): Promise<Customer> {
+    const _customerPaymentSourceId =
+      (customerPaymentSourceId as CustomerPaymentSource).id || (customerPaymentSourceId as string)
+    return this.resources.fetch<Customer>(
+      { type: 'customers' },
+      `customer_payment_sources/${_customerPaymentSourceId}/customer`,
+      params,
+      options,
+    ) as unknown as Customer
+  }
 
-	async customer(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
-		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
-		return this.resources.fetch<Customer>({ type: 'customers' }, `customer_payment_sources/${_customerPaymentSourceId}/customer`, params, options) as unknown as Customer
-	}
+  async payment_method(
+    customerPaymentSourceId: string | CustomerPaymentSource,
+    params?: QueryParamsRetrieve<PaymentMethod>,
+    options?: ResourcesConfig,
+  ): Promise<PaymentMethod> {
+    const _customerPaymentSourceId =
+      (customerPaymentSourceId as CustomerPaymentSource).id || (customerPaymentSourceId as string)
+    return this.resources.fetch<PaymentMethod>(
+      { type: 'payment_methods' },
+      `customer_payment_sources/${_customerPaymentSourceId}/payment_method`,
+      params,
+      options,
+    ) as unknown as PaymentMethod
+  }
 
-	async payment_method(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
-		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `customer_payment_sources/${_customerPaymentSourceId}/payment_method`, params, options) as unknown as PaymentMethod
-	}
+  async event_stores(
+    customerPaymentSourceId: string | CustomerPaymentSource,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _customerPaymentSourceId =
+      (customerPaymentSourceId as CustomerPaymentSource).id || (customerPaymentSourceId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `customer_payment_sources/${_customerPaymentSourceId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `customer_payment_sources/${_customerPaymentSourceId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isCustomerPaymentSource(resource: any): resource is CustomerPaymentSource {
+    return resource.type && resource.type === CustomerPaymentSources.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): CustomerPaymentSourceRel {
+    return super.relationshipOneToOne<CustomerPaymentSourceRel>(id)
+  }
 
-	isCustomerPaymentSource(resource: any): resource is CustomerPaymentSource {
-		return resource.type && (resource.type === CustomerPaymentSources.TYPE)
-	}
+  relationshipToMany(...ids: string[]): CustomerPaymentSourceRel[] {
+    return super.relationshipOneToMany<CustomerPaymentSourceRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): CustomerPaymentSourceRel {
-		return super.relationshipOneToOne<CustomerPaymentSourceRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): CustomerPaymentSourceRel[] {
-		return super.relationshipOneToMany<CustomerPaymentSourceRel>(...ids)
-	}
-
-
-	type(): CustomerPaymentSourceType {
-		return CustomerPaymentSources.TYPE
-	}
-
+  type(): CustomerPaymentSourceType {
+    return CustomerPaymentSources.TYPE
+  }
 }
-
 
 const instance = new CustomerPaymentSources()
 export default instance
 
-export type { CustomerPaymentSource, CustomerPaymentSourceCreate, CustomerPaymentSources, CustomerPaymentSourceType, CustomerPaymentSourceUpdate }
+export type {
+  CustomerPaymentSource,
+  CustomerPaymentSourceCreate,
+  CustomerPaymentSources,
+  CustomerPaymentSourceType,
+  CustomerPaymentSourceUpdate,
+}

@@ -1,187 +1,222 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { Price } from './prices'
 
-
 type PriceListType = 'price_lists'
 type PriceListRel = ResourceRel & { type: PriceListType }
-
 
 export type PriceListSort = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceSort
 // export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included' | 'rules'> & ResourceFilter
 
-
 interface PriceList extends Resource {
-	
-	readonly type: PriceListType
+  readonly type: PriceListType
 
-	/** 
-	 * The price list's internal name.
-	 * @example ```"EU Price list"```
-	 */
-	name: string
-	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment).
-	 * @example ```"europe1"```
-	 */
-	code?: string | null
-	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
-	 */
-	currency_code: string
-	/** 
-	 * Indicates if the associated prices include taxes.
-	 * @example ```true```
-	 */
-	tax_included?: boolean | null
-	/** 
-	 * The rule outcomes.
-	 * @example ```[]```
-	 */
-	rule_outcomes?: Record<string, any> | null
-	/** 
-	 * The rules (using Rules Engine) to be applied.
-	 * @example ```{}```
-	 */
-	rules?: Record<string, any> | null
-	/** 
-	 * The payload used to evaluate the rules.
-	 * @example ```{}```
-	 */
-	resource_payload?: Record<string, any> | null
+  /**
+   * The price list's internal name.
+   * @example ```"EU Price list"```
+   */
+  name: string
+  /**
+   * A string that you can use to identify the price list (must be unique within the environment).
+   * @example ```"europe1"```
+   */
+  code?: string | null
+  /**
+   * The international 3-letter currency code as defined by the ISO 4217 standard.
+   * @example ```"EUR"```
+   */
+  currency_code: string
+  /**
+   * Indicates if the associated prices include taxes.
+   * @example ```true```
+   */
+  tax_included?: boolean | null
+  /**
+   * The rule outcomes.
+   * @example ```[]```
+   */
+  rule_outcomes?: Record<string, any> | null
+  /**
+   * The rules (using Rules Engine) to be applied.
+   * @example ```{}```
+   */
+  rules?: Record<string, any> | null
+  /**
+   * The payload used to evaluate the rules.
+   * @example ```{}```
+   */
+  resource_payload?: Record<string, any> | null
 
-	prices?: Price[] | null
-	price_list_schedulers?: PriceListScheduler[] | null
-	attachments?: Attachment[] | null
-	event_stores?: EventStore[] | null
-
+  prices?: Price[] | null
+  price_list_schedulers?: PriceListScheduler[] | null
+  attachments?: Attachment[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface PriceListCreate extends ResourceCreate {
-	
-	/** 
-	 * The price list's internal name.
-	 * @example ```"EU Price list"```
-	 */
-	name: string
-	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment).
-	 * @example ```"europe1"```
-	 */
-	code?: string | null
-	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
-	 */
-	currency_code: string
-	/** 
-	 * Indicates if the associated prices include taxes.
-	 * @example ```true```
-	 */
-	tax_included?: boolean | null
-	/** 
-	 * The rules (using Rules Engine) to be applied.
-	 * @example ```{}```
-	 */
-	rules?: Record<string, any> | null
-	
+  /**
+   * The price list's internal name.
+   * @example ```"EU Price list"```
+   */
+  name: string
+  /**
+   * A string that you can use to identify the price list (must be unique within the environment).
+   * @example ```"europe1"```
+   */
+  code?: string | null
+  /**
+   * The international 3-letter currency code as defined by the ISO 4217 standard.
+   * @example ```"EUR"```
+   */
+  currency_code: string
+  /**
+   * Indicates if the associated prices include taxes.
+   * @example ```true```
+   */
+  tax_included?: boolean | null
+  /**
+   * The rules (using Rules Engine) to be applied.
+   * @example ```{}```
+   */
+  rules?: Record<string, any> | null
 }
-
 
 interface PriceListUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The price list's internal name.
-	 * @example ```"EU Price list"```
-	 */
-	name?: string | null
-	/** 
-	 * A string that you can use to identify the price list (must be unique within the environment).
-	 * @example ```"europe1"```
-	 */
-	code?: string | null
-	/** 
-	 * The international 3-letter currency code as defined by the ISO 4217 standard.
-	 * @example ```"EUR"```
-	 */
-	currency_code?: string | null
-	/** 
-	 * Indicates if the associated prices include taxes.
-	 * @example ```true```
-	 */
-	tax_included?: boolean | null
-	/** 
-	 * The rules (using Rules Engine) to be applied.
-	 * @example ```{}```
-	 */
-	rules?: Record<string, any> | null
-	
+  /**
+   * The price list's internal name.
+   * @example ```"EU Price list"```
+   */
+  name?: string | null
+  /**
+   * A string that you can use to identify the price list (must be unique within the environment).
+   * @example ```"europe1"```
+   */
+  code?: string | null
+  /**
+   * The international 3-letter currency code as defined by the ISO 4217 standard.
+   * @example ```"EUR"```
+   */
+  currency_code?: string | null
+  /**
+   * Indicates if the associated prices include taxes.
+   * @example ```true```
+   */
+  tax_included?: boolean | null
+  /**
+   * The rules (using Rules Engine) to be applied.
+   * @example ```{}```
+   */
+  rules?: Record<string, any> | null
 }
-
 
 class PriceLists extends ApiResource<PriceList> {
+  static readonly TYPE: PriceListType = 'price_lists' as const
 
-	static readonly TYPE: PriceListType = 'price_lists' as const
+  async create(
+    resource: PriceListCreate,
+    params?: QueryParamsRetrieve<PriceList>,
+    options?: ResourcesConfig,
+  ): Promise<PriceList> {
+    return this.resources.create<PriceListCreate, PriceList>({ ...resource, type: PriceLists.TYPE }, params, options)
+  }
 
-	async create(resource: PriceListCreate, params?: QueryParamsRetrieve<PriceList>, options?: ResourcesConfig): Promise<PriceList> {
-		return this.resources.create<PriceListCreate, PriceList>({ ...resource, type: PriceLists.TYPE }, params, options)
-	}
+  async update(
+    resource: PriceListUpdate,
+    params?: QueryParamsRetrieve<PriceList>,
+    options?: ResourcesConfig,
+  ): Promise<PriceList> {
+    return this.resources.update<PriceListUpdate, PriceList>({ ...resource, type: PriceLists.TYPE }, params, options)
+  }
 
-	async update(resource: PriceListUpdate, params?: QueryParamsRetrieve<PriceList>, options?: ResourcesConfig): Promise<PriceList> {
-		return this.resources.update<PriceListUpdate, PriceList>({ ...resource, type: PriceLists.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: PriceLists.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: PriceLists.TYPE } : id, options)
-	}
+  async prices(
+    priceListId: string | PriceList,
+    params?: QueryParamsList<Price>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Price>> {
+    const _priceListId = (priceListId as PriceList).id || (priceListId as string)
+    return this.resources.fetch<Price>(
+      { type: 'prices' },
+      `price_lists/${_priceListId}/prices`,
+      params,
+      options,
+    ) as unknown as ListResponse<Price>
+  }
 
-	async prices(priceListId: string | PriceList, params?: QueryParamsList<Price>, options?: ResourcesConfig): Promise<ListResponse<Price>> {
-		const _priceListId = (priceListId as PriceList).id || priceListId as string
-		return this.resources.fetch<Price>({ type: 'prices' }, `price_lists/${_priceListId}/prices`, params, options) as unknown as ListResponse<Price>
-	}
+  async price_list_schedulers(
+    priceListId: string | PriceList,
+    params?: QueryParamsList<PriceListScheduler>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PriceListScheduler>> {
+    const _priceListId = (priceListId as PriceList).id || (priceListId as string)
+    return this.resources.fetch<PriceListScheduler>(
+      { type: 'price_list_schedulers' },
+      `price_lists/${_priceListId}/price_list_schedulers`,
+      params,
+      options,
+    ) as unknown as ListResponse<PriceListScheduler>
+  }
 
-	async price_list_schedulers(priceListId: string | PriceList, params?: QueryParamsList<PriceListScheduler>, options?: ResourcesConfig): Promise<ListResponse<PriceListScheduler>> {
-		const _priceListId = (priceListId as PriceList).id || priceListId as string
-		return this.resources.fetch<PriceListScheduler>({ type: 'price_list_schedulers' }, `price_lists/${_priceListId}/price_list_schedulers`, params, options) as unknown as ListResponse<PriceListScheduler>
-	}
+  async attachments(
+    priceListId: string | PriceList,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _priceListId = (priceListId as PriceList).id || (priceListId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `price_lists/${_priceListId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
+  }
 
-	async attachments(priceListId: string | PriceList, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _priceListId = (priceListId as PriceList).id || priceListId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `price_lists/${_priceListId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
+  async event_stores(
+    priceListId: string | PriceList,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _priceListId = (priceListId as PriceList).id || (priceListId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `price_lists/${_priceListId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(priceListId: string | PriceList, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _priceListId = (priceListId as PriceList).id || priceListId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `price_lists/${_priceListId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isPriceList(resource: any): resource is PriceList {
+    return resource.type && resource.type === PriceLists.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): PriceListRel {
+    return super.relationshipOneToOne<PriceListRel>(id)
+  }
 
-	isPriceList(resource: any): resource is PriceList {
-		return resource.type && (resource.type === PriceLists.TYPE)
-	}
+  relationshipToMany(...ids: string[]): PriceListRel[] {
+    return super.relationshipOneToMany<PriceListRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): PriceListRel {
-		return super.relationshipOneToOne<PriceListRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): PriceListRel[] {
-		return super.relationshipOneToMany<PriceListRel>(...ids)
-	}
-
-
-	type(): PriceListType {
-		return PriceLists.TYPE
-	}
-
+  type(): PriceListType {
+    return PriceLists.TYPE
+  }
 }
-
 
 const instance = new PriceLists()
 export default instance

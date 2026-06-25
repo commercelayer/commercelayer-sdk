@@ -1,5 +1,14 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
@@ -21,7 +30,6 @@ import type { SubscriptionModel, SubscriptionModelType } from './subscription_mo
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
 import type { VertexAccount, VertexAccountType } from './vertex_accounts'
 
-
 type MarketType = 'markets'
 type MarketRel = ResourceRel & { type: MarketType }
 type MerchantRel = ResourceRel & { type: MerchantType }
@@ -40,357 +48,515 @@ type GeocoderRel = ResourceRel & { type: GeocoderType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 
-
 export type MarketSort = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceSort
 // export type MarketFilter = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceFilter
 
-
 interface Market extends Resource {
-	
-	readonly type: MarketType
+  readonly type: MarketType
 
-	/** 
-	 * Unique identifier for the market (numeric).
-	 * @example ```1234```
-	 */
-	number?: number | null
-	/** 
-	 * The market's internal name.
-	 * @example ```"EU Market"```
-	 */
-	name: string
-	/** 
-	 * A string that you can use to identify the market (must be unique within the environment).
-	 * @example ```"europe1"```
-	 */
-	code?: string | null
-	/** 
-	 * The Facebook Pixed ID.
-	 * @example ```"1234567890"```
-	 */
-	facebook_pixel_id?: string | null
-	/** 
-	 * The checkout URL for this market.
-	 * @example ```"https://checkout.yourbrand.com/:order_id"```
-	 */
-	checkout_url?: string | null
-	/** 
-	 * The URL used to overwrite prices by an external source.
-	 * @example ```"https://external_prices.yourbrand.com"```
-	 */
-	external_prices_url?: string | null
-	/** 
-	 * The URL used to validate orders by an external source.
-	 * @example ```"https://external_validation.yourbrand.com"```
-	 */
-	external_order_validation_url?: string | null
-	/** 
-	 * Indicates if market belongs to a customer_group.
-	 * @example ```true```
-	 */
-	private?: boolean | null
-	/** 
-	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
-	 * @example ```3```
-	 */
-	shipping_cost_cutoff?: number | null
-	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
-	/** 
-	 * The shared secret used to sign the external request payload.
-	 * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
-	 */
-	shared_secret: string
-	/** 
-	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
-	 * @example ```["order.line_item_options"]```
-	 */
-	external_includes?: string[] | null
+  /**
+   * Unique identifier for the market (numeric).
+   * @example ```1234```
+   */
+  number?: number | null
+  /**
+   * The market's internal name.
+   * @example ```"EU Market"```
+   */
+  name: string
+  /**
+   * A string that you can use to identify the market (must be unique within the environment).
+   * @example ```"europe1"```
+   */
+  code?: string | null
+  /**
+   * The Facebook Pixed ID.
+   * @example ```"1234567890"```
+   */
+  facebook_pixel_id?: string | null
+  /**
+   * The checkout URL for this market.
+   * @example ```"https://checkout.yourbrand.com/:order_id"```
+   */
+  checkout_url?: string | null
+  /**
+   * The URL used to overwrite prices by an external source.
+   * @example ```"https://external_prices.yourbrand.com"```
+   */
+  external_prices_url?: string | null
+  /**
+   * The URL used to validate orders by an external source.
+   * @example ```"https://external_validation.yourbrand.com"```
+   */
+  external_order_validation_url?: string | null
+  /**
+   * Indicates if market belongs to a customer_group.
+   * @example ```true```
+   */
+  private?: boolean | null
+  /**
+   * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+   * @example ```3```
+   */
+  shipping_cost_cutoff?: number | null
+  /**
+   * Time at which this resource was disabled.
+   * @example ```"2018-01-01T12:00:00.000Z"```
+   */
+  disabled_at?: string | null
+  /**
+   * The shared secret used to sign the external request payload.
+   * @example ```"1c0994cc4e996e8c6ee56a2198f66f3c"```
+   */
+  shared_secret: string
+  /**
+   * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+   * @example ```["order.line_item_options"]```
+   */
+  external_includes?: string[] | null
 
-	merchant?: Merchant | null
-	price_list?: PriceList | null
-	base_price_list?: PriceList | null
-	inventory_model?: InventoryModel | null
-	subscription_model?: SubscriptionModel | null
-	discount_engine?: DiscountEngine | null
-	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
-	customer_group?: CustomerGroup | null
-	geocoder?: Geocoder | null
-	default_shipping_method?: ShippingMethod | null
-	default_payment_method?: PaymentMethod | null
-	stores?: Store[] | null
-	price_list_schedulers?: PriceListScheduler[] | null
-	/**
-	* @deprecated This field should not be used as it may be removed in the future without notice
-	*/
-	order_validation_rules?: object[]
-	attachments?: Attachment[] | null
-	event_stores?: EventStore[] | null
-
+  merchant?: Merchant | null
+  price_list?: PriceList | null
+  base_price_list?: PriceList | null
+  inventory_model?: InventoryModel | null
+  subscription_model?: SubscriptionModel | null
+  discount_engine?: DiscountEngine | null
+  tax_calculator?:
+    | AvalaraAccount
+    | StripeTaxAccount
+    | VertexAccount
+    | TaxjarAccount
+    | ManualTaxCalculator
+    | ExternalTaxCalculator
+    | null
+  customer_group?: CustomerGroup | null
+  geocoder?: Geocoder | null
+  default_shipping_method?: ShippingMethod | null
+  default_payment_method?: PaymentMethod | null
+  stores?: Store[] | null
+  price_list_schedulers?: PriceListScheduler[] | null
+  /**
+   * @deprecated This field should not be used as it may be removed in the future without notice
+   */
+  order_validation_rules?: object[]
+  attachments?: Attachment[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface MarketCreate extends ResourceCreate {
-	
-	/** 
-	 * The market's internal name.
-	 * @example ```"EU Market"```
-	 */
-	name: string
-	/** 
-	 * A string that you can use to identify the market (must be unique within the environment).
-	 * @example ```"europe1"```
-	 */
-	code?: string | null
-	/** 
-	 * The Facebook Pixed ID.
-	 * @example ```"1234567890"```
-	 */
-	facebook_pixel_id?: string | null
-	/** 
-	 * The checkout URL for this market.
-	 * @example ```"https://checkout.yourbrand.com/:order_id"```
-	 */
-	checkout_url?: string | null
-	/** 
-	 * The URL used to overwrite prices by an external source.
-	 * @example ```"https://external_prices.yourbrand.com"```
-	 */
-	external_prices_url?: string | null
-	/** 
-	 * The URL used to validate orders by an external source.
-	 * @example ```"https://external_validation.yourbrand.com"```
-	 */
-	external_order_validation_url?: string | null
-	/** 
-	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
-	 * @example ```3```
-	 */
-	shipping_cost_cutoff?: number | null
-	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```true```
-	 */
-	_disable?: boolean | null
-	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```true```
-	 */
-	_enable?: boolean | null
-	/** 
-	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
-	 * @example ```["order.line_item_options"]```
-	 */
-	external_includes?: string[] | null
+  /**
+   * The market's internal name.
+   * @example ```"EU Market"```
+   */
+  name: string
+  /**
+   * A string that you can use to identify the market (must be unique within the environment).
+   * @example ```"europe1"```
+   */
+  code?: string | null
+  /**
+   * The Facebook Pixed ID.
+   * @example ```"1234567890"```
+   */
+  facebook_pixel_id?: string | null
+  /**
+   * The checkout URL for this market.
+   * @example ```"https://checkout.yourbrand.com/:order_id"```
+   */
+  checkout_url?: string | null
+  /**
+   * The URL used to overwrite prices by an external source.
+   * @example ```"https://external_prices.yourbrand.com"```
+   */
+  external_prices_url?: string | null
+  /**
+   * The URL used to validate orders by an external source.
+   * @example ```"https://external_validation.yourbrand.com"```
+   */
+  external_order_validation_url?: string | null
+  /**
+   * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+   * @example ```3```
+   */
+  shipping_cost_cutoff?: number | null
+  /**
+   * Send this attribute if you want to mark this resource as disabled.
+   * @example ```true```
+   */
+  _disable?: boolean | null
+  /**
+   * Send this attribute if you want to mark this resource as enabled.
+   * @example ```true```
+   */
+  _enable?: boolean | null
+  /**
+   * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+   * @example ```["order.line_item_options"]```
+   */
+  external_includes?: string[] | null
 
-	merchant: MerchantRel
-	price_list: PriceListRel
-	inventory_model: InventoryModelRel
-	subscription_model?: SubscriptionModelRel | null
-	discount_engine?: DiscountEngineRel | null
-	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
-	customer_group?: CustomerGroupRel | null
-	geocoder?: GeocoderRel | null
-	default_shipping_method?: ShippingMethodRel | null
-	default_payment_method?: PaymentMethodRel | null
-
+  merchant: MerchantRel
+  price_list: PriceListRel
+  inventory_model: InventoryModelRel
+  subscription_model?: SubscriptionModelRel | null
+  discount_engine?: DiscountEngineRel | null
+  tax_calculator?:
+    | AvalaraAccountRel
+    | StripeTaxAccountRel
+    | VertexAccountRel
+    | TaxjarAccountRel
+    | ManualTaxCalculatorRel
+    | ExternalTaxCalculatorRel
+    | null
+  customer_group?: CustomerGroupRel | null
+  geocoder?: GeocoderRel | null
+  default_shipping_method?: ShippingMethodRel | null
+  default_payment_method?: PaymentMethodRel | null
 }
-
 
 interface MarketUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The market's internal name.
-	 * @example ```"EU Market"```
-	 */
-	name?: string | null
-	/** 
-	 * A string that you can use to identify the market (must be unique within the environment).
-	 * @example ```"europe1"```
-	 */
-	code?: string | null
-	/** 
-	 * The Facebook Pixed ID.
-	 * @example ```"1234567890"```
-	 */
-	facebook_pixel_id?: string | null
-	/** 
-	 * The checkout URL for this market.
-	 * @example ```"https://checkout.yourbrand.com/:order_id"```
-	 */
-	checkout_url?: string | null
-	/** 
-	 * The URL used to overwrite prices by an external source.
-	 * @example ```"https://external_prices.yourbrand.com"```
-	 */
-	external_prices_url?: string | null
-	/** 
-	 * The URL used to validate orders by an external source.
-	 * @example ```"https://external_validation.yourbrand.com"```
-	 */
-	external_order_validation_url?: string | null
-	/** 
-	 * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
-	 * @example ```3```
-	 */
-	shipping_cost_cutoff?: number | null
-	/** 
-	 * Send this attribute if you want to mark this resource as disabled.
-	 * @example ```true```
-	 */
-	_disable?: boolean | null
-	/** 
-	 * Send this attribute if you want to mark this resource as enabled.
-	 * @example ```true```
-	 */
-	_enable?: boolean | null
-	/** 
-	 * Send this attribute if you want to regenerate the shared secret.
-	 * @example ```true```
-	 */
-	_regenerate_shared_secret?: boolean | null
-	/** 
-	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
-	 * @example ```["order.line_item_options"]```
-	 */
-	external_includes?: string[] | null
+  /**
+   * The market's internal name.
+   * @example ```"EU Market"```
+   */
+  name?: string | null
+  /**
+   * A string that you can use to identify the market (must be unique within the environment).
+   * @example ```"europe1"```
+   */
+  code?: string | null
+  /**
+   * The Facebook Pixed ID.
+   * @example ```"1234567890"```
+   */
+  facebook_pixel_id?: string | null
+  /**
+   * The checkout URL for this market.
+   * @example ```"https://checkout.yourbrand.com/:order_id"```
+   */
+  checkout_url?: string | null
+  /**
+   * The URL used to overwrite prices by an external source.
+   * @example ```"https://external_prices.yourbrand.com"```
+   */
+  external_prices_url?: string | null
+  /**
+   * The URL used to validate orders by an external source.
+   * @example ```"https://external_validation.yourbrand.com"```
+   */
+  external_order_validation_url?: string | null
+  /**
+   * When specified indicates the maximum number of shipping line items with cost that will be added to an order.
+   * @example ```3```
+   */
+  shipping_cost_cutoff?: number | null
+  /**
+   * Send this attribute if you want to mark this resource as disabled.
+   * @example ```true```
+   */
+  _disable?: boolean | null
+  /**
+   * Send this attribute if you want to mark this resource as enabled.
+   * @example ```true```
+   */
+  _enable?: boolean | null
+  /**
+   * Send this attribute if you want to regenerate the shared secret.
+   * @example ```true```
+   */
+  _regenerate_shared_secret?: boolean | null
+  /**
+   * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
+   * @example ```["order.line_item_options"]```
+   */
+  external_includes?: string[] | null
 
-	merchant?: MerchantRel | null
-	price_list?: PriceListRel | null
-	inventory_model?: InventoryModelRel | null
-	subscription_model?: SubscriptionModelRel | null
-	discount_engine?: DiscountEngineRel | null
-	tax_calculator?: AvalaraAccountRel | StripeTaxAccountRel | VertexAccountRel | TaxjarAccountRel | ManualTaxCalculatorRel | ExternalTaxCalculatorRel | null
-	customer_group?: CustomerGroupRel | null
-	geocoder?: GeocoderRel | null
-	default_shipping_method?: ShippingMethodRel | null
-	default_payment_method?: PaymentMethodRel | null
-
+  merchant?: MerchantRel | null
+  price_list?: PriceListRel | null
+  inventory_model?: InventoryModelRel | null
+  subscription_model?: SubscriptionModelRel | null
+  discount_engine?: DiscountEngineRel | null
+  tax_calculator?:
+    | AvalaraAccountRel
+    | StripeTaxAccountRel
+    | VertexAccountRel
+    | TaxjarAccountRel
+    | ManualTaxCalculatorRel
+    | ExternalTaxCalculatorRel
+    | null
+  customer_group?: CustomerGroupRel | null
+  geocoder?: GeocoderRel | null
+  default_shipping_method?: ShippingMethodRel | null
+  default_payment_method?: PaymentMethodRel | null
 }
-
 
 class Markets extends ApiResource<Market> {
+  static readonly TYPE: MarketType = 'markets' as const
 
-	static readonly TYPE: MarketType = 'markets' as const
+  async create(
+    resource: MarketCreate,
+    params?: QueryParamsRetrieve<Market>,
+    options?: ResourcesConfig,
+  ): Promise<Market> {
+    return this.resources.create<MarketCreate, Market>({ ...resource, type: Markets.TYPE }, params, options)
+  }
 
-	async create(resource: MarketCreate, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.create<MarketCreate, Market>({ ...resource, type: Markets.TYPE }, params, options)
-	}
+  async update(
+    resource: MarketUpdate,
+    params?: QueryParamsRetrieve<Market>,
+    options?: ResourcesConfig,
+  ): Promise<Market> {
+    return this.resources.update<MarketUpdate, Market>({ ...resource, type: Markets.TYPE }, params, options)
+  }
 
-	async update(resource: MarketUpdate, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.update<MarketUpdate, Market>({ ...resource, type: Markets.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: Markets.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: Markets.TYPE } : id, options)
-	}
+  async merchant(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<Merchant>,
+    options?: ResourcesConfig,
+  ): Promise<Merchant> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<Merchant>(
+      { type: 'merchants' },
+      `markets/${_marketId}/merchant`,
+      params,
+      options,
+    ) as unknown as Merchant
+  }
 
-	async merchant(marketId: string | Market, params?: QueryParamsRetrieve<Merchant>, options?: ResourcesConfig): Promise<Merchant> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<Merchant>({ type: 'merchants' }, `markets/${_marketId}/merchant`, params, options) as unknown as Merchant
-	}
+  async price_list(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<PriceList>,
+    options?: ResourcesConfig,
+  ): Promise<PriceList> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<PriceList>(
+      { type: 'price_lists' },
+      `markets/${_marketId}/price_list`,
+      params,
+      options,
+    ) as unknown as PriceList
+  }
 
-	async price_list(marketId: string | Market, params?: QueryParamsRetrieve<PriceList>, options?: ResourcesConfig): Promise<PriceList> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${_marketId}/price_list`, params, options) as unknown as PriceList
-	}
+  async base_price_list(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<PriceList>,
+    options?: ResourcesConfig,
+  ): Promise<PriceList> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<PriceList>(
+      { type: 'price_lists' },
+      `markets/${_marketId}/base_price_list`,
+      params,
+      options,
+    ) as unknown as PriceList
+  }
 
-	async base_price_list(marketId: string | Market, params?: QueryParamsRetrieve<PriceList>, options?: ResourcesConfig): Promise<PriceList> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<PriceList>({ type: 'price_lists' }, `markets/${_marketId}/base_price_list`, params, options) as unknown as PriceList
-	}
+  async inventory_model(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<InventoryModel>,
+    options?: ResourcesConfig,
+  ): Promise<InventoryModel> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<InventoryModel>(
+      { type: 'inventory_models' },
+      `markets/${_marketId}/inventory_model`,
+      params,
+      options,
+    ) as unknown as InventoryModel
+  }
 
-	async inventory_model(marketId: string | Market, params?: QueryParamsRetrieve<InventoryModel>, options?: ResourcesConfig): Promise<InventoryModel> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<InventoryModel>({ type: 'inventory_models' }, `markets/${_marketId}/inventory_model`, params, options) as unknown as InventoryModel
-	}
+  async subscription_model(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<SubscriptionModel>,
+    options?: ResourcesConfig,
+  ): Promise<SubscriptionModel> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<SubscriptionModel>(
+      { type: 'subscription_models' },
+      `markets/${_marketId}/subscription_model`,
+      params,
+      options,
+    ) as unknown as SubscriptionModel
+  }
 
-	async subscription_model(marketId: string | Market, params?: QueryParamsRetrieve<SubscriptionModel>, options?: ResourcesConfig): Promise<SubscriptionModel> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<SubscriptionModel>({ type: 'subscription_models' }, `markets/${_marketId}/subscription_model`, params, options) as unknown as SubscriptionModel
-	}
+  async discount_engine(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<DiscountEngine>,
+    options?: ResourcesConfig,
+  ): Promise<DiscountEngine> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<DiscountEngine>(
+      { type: 'discount_engines' },
+      `markets/${_marketId}/discount_engine`,
+      params,
+      options,
+    ) as unknown as DiscountEngine
+  }
 
-	async discount_engine(marketId: string | Market, params?: QueryParamsRetrieve<DiscountEngine>, options?: ResourcesConfig): Promise<DiscountEngine> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<DiscountEngine>({ type: 'discount_engines' }, `markets/${_marketId}/discount_engine`, params, options) as unknown as DiscountEngine
-	}
+  async customer_group(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<CustomerGroup>,
+    options?: ResourcesConfig,
+  ): Promise<CustomerGroup> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<CustomerGroup>(
+      { type: 'customer_groups' },
+      `markets/${_marketId}/customer_group`,
+      params,
+      options,
+    ) as unknown as CustomerGroup
+  }
 
-	async customer_group(marketId: string | Market, params?: QueryParamsRetrieve<CustomerGroup>, options?: ResourcesConfig): Promise<CustomerGroup> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<CustomerGroup>({ type: 'customer_groups' }, `markets/${_marketId}/customer_group`, params, options) as unknown as CustomerGroup
-	}
+  async geocoder(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<Geocoder>,
+    options?: ResourcesConfig,
+  ): Promise<Geocoder> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<Geocoder>(
+      { type: 'geocoders' },
+      `markets/${_marketId}/geocoder`,
+      params,
+      options,
+    ) as unknown as Geocoder
+  }
 
-	async geocoder(marketId: string | Market, params?: QueryParamsRetrieve<Geocoder>, options?: ResourcesConfig): Promise<Geocoder> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<Geocoder>({ type: 'geocoders' }, `markets/${_marketId}/geocoder`, params, options) as unknown as Geocoder
-	}
+  async default_shipping_method(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<ShippingMethod>,
+    options?: ResourcesConfig,
+  ): Promise<ShippingMethod> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<ShippingMethod>(
+      { type: 'shipping_methods' },
+      `markets/${_marketId}/default_shipping_method`,
+      params,
+      options,
+    ) as unknown as ShippingMethod
+  }
 
-	async default_shipping_method(marketId: string | Market, params?: QueryParamsRetrieve<ShippingMethod>, options?: ResourcesConfig): Promise<ShippingMethod> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<ShippingMethod>({ type: 'shipping_methods' }, `markets/${_marketId}/default_shipping_method`, params, options) as unknown as ShippingMethod
-	}
+  async default_payment_method(
+    marketId: string | Market,
+    params?: QueryParamsRetrieve<PaymentMethod>,
+    options?: ResourcesConfig,
+  ): Promise<PaymentMethod> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<PaymentMethod>(
+      { type: 'payment_methods' },
+      `markets/${_marketId}/default_payment_method`,
+      params,
+      options,
+    ) as unknown as PaymentMethod
+  }
 
-	async default_payment_method(marketId: string | Market, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `markets/${_marketId}/default_payment_method`, params, options) as unknown as PaymentMethod
-	}
+  async stores(
+    marketId: string | Market,
+    params?: QueryParamsList<Store>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Store>> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<Store>(
+      { type: 'stores' },
+      `markets/${_marketId}/stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<Store>
+  }
 
-	async stores(marketId: string | Market, params?: QueryParamsList<Store>, options?: ResourcesConfig): Promise<ListResponse<Store>> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<Store>({ type: 'stores' }, `markets/${_marketId}/stores`, params, options) as unknown as ListResponse<Store>
-	}
+  async price_list_schedulers(
+    marketId: string | Market,
+    params?: QueryParamsList<PriceListScheduler>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PriceListScheduler>> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<PriceListScheduler>(
+      { type: 'price_list_schedulers' },
+      `markets/${_marketId}/price_list_schedulers`,
+      params,
+      options,
+    ) as unknown as ListResponse<PriceListScheduler>
+  }
 
-	async price_list_schedulers(marketId: string | Market, params?: QueryParamsList<PriceListScheduler>, options?: ResourcesConfig): Promise<ListResponse<PriceListScheduler>> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<PriceListScheduler>({ type: 'price_list_schedulers' }, `markets/${_marketId}/price_list_schedulers`, params, options) as unknown as ListResponse<PriceListScheduler>
-	}
+  async attachments(
+    marketId: string | Market,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `markets/${_marketId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
+  }
 
-	async attachments(marketId: string | Market, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `markets/${_marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
+  async event_stores(
+    marketId: string | Market,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `markets/${_marketId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(marketId: string | Market, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `markets/${_marketId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  async _disable(
+    id: string | Market,
+    params?: QueryParamsRetrieve<Market>,
+    options?: ResourcesConfig,
+  ): Promise<Market> {
+    return this.resources.update<MarketUpdate, Market>(
+      { id: typeof id === 'string' ? id : id.id, type: Markets.TYPE, _disable: true },
+      params,
+      options,
+    )
+  }
 
-	async _disable(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.update<MarketUpdate, Market>({ id: (typeof id === 'string')? id: id.id, type: Markets.TYPE, _disable: true }, params, options)
-	}
+  async _enable(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
+    return this.resources.update<MarketUpdate, Market>(
+      { id: typeof id === 'string' ? id : id.id, type: Markets.TYPE, _enable: true },
+      params,
+      options,
+    )
+  }
 
-	async _enable(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.update<MarketUpdate, Market>({ id: (typeof id === 'string')? id: id.id, type: Markets.TYPE, _enable: true }, params, options)
-	}
+  async _regenerate_shared_secret(
+    id: string | Market,
+    params?: QueryParamsRetrieve<Market>,
+    options?: ResourcesConfig,
+  ): Promise<Market> {
+    return this.resources.update<MarketUpdate, Market>(
+      { id: typeof id === 'string' ? id : id.id, type: Markets.TYPE, _regenerate_shared_secret: true },
+      params,
+      options,
+    )
+  }
 
-	async _regenerate_shared_secret(id: string | Market, params?: QueryParamsRetrieve<Market>, options?: ResourcesConfig): Promise<Market> {
-		return this.resources.update<MarketUpdate, Market>({ id: (typeof id === 'string')? id: id.id, type: Markets.TYPE, _regenerate_shared_secret: true }, params, options)
-	}
+  isMarket(resource: any): resource is Market {
+    return resource.type && resource.type === Markets.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): MarketRel {
+    return super.relationshipOneToOne<MarketRel>(id)
+  }
 
-	isMarket(resource: any): resource is Market {
-		return resource.type && (resource.type === Markets.TYPE)
-	}
+  relationshipToMany(...ids: string[]): MarketRel[] {
+    return super.relationshipOneToMany<MarketRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): MarketRel {
-		return super.relationshipOneToOne<MarketRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): MarketRel[] {
-		return super.relationshipOneToMany<MarketRel>(...ids)
-	}
-
-
-	type(): MarketType {
-		return Markets.TYPE
-	}
-
+  type(): MarketType {
+    return Markets.TYPE
+  }
 }
-
 
 const instance = new Markets()
 export default instance

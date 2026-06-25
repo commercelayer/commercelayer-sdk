@@ -1,116 +1,142 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 
 import type { Address, AddressType } from './addresses'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
 
-
 type MerchantType = 'merchants'
 type MerchantRel = ResourceRel & { type: MerchantType }
 type AddressRel = ResourceRel & { type: AddressType }
 
-
 export type MerchantSort = Pick<Merchant, 'id' | 'name'> & ResourceSort
 // export type MerchantFilter = Pick<Merchant, 'id' | 'name'> & ResourceFilter
 
-
 interface Merchant extends Resource {
-	
-	readonly type: MerchantType
+  readonly type: MerchantType
 
-	/** 
-	 * The merchant's internal name.
-	 * @example ```"The Brand Inc."```
-	 */
-	name: string
+  /**
+   * The merchant's internal name.
+   * @example ```"The Brand Inc."```
+   */
+  name: string
 
-	address?: Address | null
-	attachments?: Attachment[] | null
-	event_stores?: EventStore[] | null
-
+  address?: Address | null
+  attachments?: Attachment[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface MerchantCreate extends ResourceCreate {
-	
-	/** 
-	 * The merchant's internal name.
-	 * @example ```"The Brand Inc."```
-	 */
-	name: string
+  /**
+   * The merchant's internal name.
+   * @example ```"The Brand Inc."```
+   */
+  name: string
 
-	address: AddressRel
-
+  address: AddressRel
 }
-
 
 interface MerchantUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The merchant's internal name.
-	 * @example ```"The Brand Inc."```
-	 */
-	name?: string | null
+  /**
+   * The merchant's internal name.
+   * @example ```"The Brand Inc."```
+   */
+  name?: string | null
 
-	address?: AddressRel | null
-
+  address?: AddressRel | null
 }
-
 
 class Merchants extends ApiResource<Merchant> {
+  static readonly TYPE: MerchantType = 'merchants' as const
 
-	static readonly TYPE: MerchantType = 'merchants' as const
+  async create(
+    resource: MerchantCreate,
+    params?: QueryParamsRetrieve<Merchant>,
+    options?: ResourcesConfig,
+  ): Promise<Merchant> {
+    return this.resources.create<MerchantCreate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
+  }
 
-	async create(resource: MerchantCreate, params?: QueryParamsRetrieve<Merchant>, options?: ResourcesConfig): Promise<Merchant> {
-		return this.resources.create<MerchantCreate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
-	}
+  async update(
+    resource: MerchantUpdate,
+    params?: QueryParamsRetrieve<Merchant>,
+    options?: ResourcesConfig,
+  ): Promise<Merchant> {
+    return this.resources.update<MerchantUpdate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
+  }
 
-	async update(resource: MerchantUpdate, params?: QueryParamsRetrieve<Merchant>, options?: ResourcesConfig): Promise<Merchant> {
-		return this.resources.update<MerchantUpdate, Merchant>({ ...resource, type: Merchants.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: Merchants.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: Merchants.TYPE } : id, options)
-	}
+  async address(
+    merchantId: string | Merchant,
+    params?: QueryParamsRetrieve<Address>,
+    options?: ResourcesConfig,
+  ): Promise<Address> {
+    const _merchantId = (merchantId as Merchant).id || (merchantId as string)
+    return this.resources.fetch<Address>(
+      { type: 'addresses' },
+      `merchants/${_merchantId}/address`,
+      params,
+      options,
+    ) as unknown as Address
+  }
 
-	async address(merchantId: string | Merchant, params?: QueryParamsRetrieve<Address>, options?: ResourcesConfig): Promise<Address> {
-		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<Address>({ type: 'addresses' }, `merchants/${_merchantId}/address`, params, options) as unknown as Address
-	}
+  async attachments(
+    merchantId: string | Merchant,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _merchantId = (merchantId as Merchant).id || (merchantId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `merchants/${_merchantId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
+  }
 
-	async attachments(merchantId: string | Merchant, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `merchants/${_merchantId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
+  async event_stores(
+    merchantId: string | Merchant,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _merchantId = (merchantId as Merchant).id || (merchantId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `merchants/${_merchantId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(merchantId: string | Merchant, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _merchantId = (merchantId as Merchant).id || merchantId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `merchants/${_merchantId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isMerchant(resource: any): resource is Merchant {
+    return resource.type && resource.type === Merchants.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): MerchantRel {
+    return super.relationshipOneToOne<MerchantRel>(id)
+  }
 
-	isMerchant(resource: any): resource is Merchant {
-		return resource.type && (resource.type === Merchants.TYPE)
-	}
+  relationshipToMany(...ids: string[]): MerchantRel[] {
+    return super.relationshipOneToMany<MerchantRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): MerchantRel {
-		return super.relationshipOneToOne<MerchantRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): MerchantRel[] {
-		return super.relationshipOneToMany<MerchantRel>(...ids)
-	}
-
-
-	type(): MerchantType {
-		return Merchants.TYPE
-	}
-
+  type(): MerchantType {
+    return Merchants.TYPE
+  }
 }
-
 
 const instance = new Merchants()
 export default instance

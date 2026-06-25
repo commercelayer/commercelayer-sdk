@@ -1,145 +1,179 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku, SkuType } from './skus'
-
 
 type SkuListItemType = 'sku_list_items'
 type SkuListItemRel = ResourceRel & { type: SkuListItemType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 type SkuRel = ResourceRel & { type: SkuType }
 
-
 export type SkuListItemSort = Pick<SkuListItem, 'id' | 'position' | 'quantity'> & ResourceSort
 // export type SkuListItemFilter = Pick<SkuListItem, 'id' | 'position' | 'quantity'> & ResourceFilter
 
-
 interface SkuListItem extends Resource {
-	
-	readonly type: SkuListItemType
+  readonly type: SkuListItemType
 
-	/** 
-	 * The SKU list item's position.
-	 * @example ```2```
-	 */
-	position?: number | null
-	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
-	/** 
-	 * The SKU quantity for this SKU list item.
-	 * @example ```1```
-	 */
-	quantity?: number | null
+  /**
+   * The SKU list item's position.
+   * @example ```2```
+   */
+  position?: number | null
+  /**
+   * The code of the associated SKU.
+   * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+   */
+  sku_code?: string | null
+  /**
+   * The SKU quantity for this SKU list item.
+   * @example ```1```
+   */
+  quantity?: number | null
 
-	sku_list?: SkuList | null
-	sku?: Sku | null
-	event_stores?: EventStore[] | null
-
+  sku_list?: SkuList | null
+  sku?: Sku | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface SkuListItemCreate extends ResourceCreate {
-	
-	/** 
-	 * The SKU list item's position.
-	 * @example ```2```
-	 */
-	position?: number | null
-	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
-	/** 
-	 * The SKU quantity for this SKU list item.
-	 * @example ```1```
-	 */
-	quantity?: number | null
+  /**
+   * The SKU list item's position.
+   * @example ```2```
+   */
+  position?: number | null
+  /**
+   * The code of the associated SKU.
+   * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+   */
+  sku_code?: string | null
+  /**
+   * The SKU quantity for this SKU list item.
+   * @example ```1```
+   */
+  quantity?: number | null
 
-	sku_list: SkuListRel
-	sku: SkuRel
-
+  sku_list: SkuListRel
+  sku: SkuRel
 }
-
 
 interface SkuListItemUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The SKU list item's position.
-	 * @example ```2```
-	 */
-	position?: number | null
-	/** 
-	 * The code of the associated SKU.
-	 * @example ```"TSHIRTMM000000FFFFFFXLXX"```
-	 */
-	sku_code?: string | null
-	/** 
-	 * The SKU quantity for this SKU list item.
-	 * @example ```1```
-	 */
-	quantity?: number | null
-	
+  /**
+   * The SKU list item's position.
+   * @example ```2```
+   */
+  position?: number | null
+  /**
+   * The code of the associated SKU.
+   * @example ```"TSHIRTMM000000FFFFFFXLXX"```
+   */
+  sku_code?: string | null
+  /**
+   * The SKU quantity for this SKU list item.
+   * @example ```1```
+   */
+  quantity?: number | null
 }
-
 
 class SkuListItems extends ApiResource<SkuListItem> {
+  static readonly TYPE: SkuListItemType = 'sku_list_items' as const
 
-	static readonly TYPE: SkuListItemType = 'sku_list_items' as const
+  async create(
+    resource: SkuListItemCreate,
+    params?: QueryParamsRetrieve<SkuListItem>,
+    options?: ResourcesConfig,
+  ): Promise<SkuListItem> {
+    return this.resources.create<SkuListItemCreate, SkuListItem>(
+      { ...resource, type: SkuListItems.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: SkuListItemCreate, params?: QueryParamsRetrieve<SkuListItem>, options?: ResourcesConfig): Promise<SkuListItem> {
-		return this.resources.create<SkuListItemCreate, SkuListItem>({ ...resource, type: SkuListItems.TYPE }, params, options)
-	}
+  async update(
+    resource: SkuListItemUpdate,
+    params?: QueryParamsRetrieve<SkuListItem>,
+    options?: ResourcesConfig,
+  ): Promise<SkuListItem> {
+    return this.resources.update<SkuListItemUpdate, SkuListItem>(
+      { ...resource, type: SkuListItems.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: SkuListItemUpdate, params?: QueryParamsRetrieve<SkuListItem>, options?: ResourcesConfig): Promise<SkuListItem> {
-		return this.resources.update<SkuListItemUpdate, SkuListItem>({ ...resource, type: SkuListItems.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: SkuListItems.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: SkuListItems.TYPE } : id, options)
-	}
+  async sku_list(
+    skuListItemId: string | SkuListItem,
+    params?: QueryParamsRetrieve<SkuList>,
+    options?: ResourcesConfig,
+  ): Promise<SkuList> {
+    const _skuListItemId = (skuListItemId as SkuListItem).id || (skuListItemId as string)
+    return this.resources.fetch<SkuList>(
+      { type: 'sku_lists' },
+      `sku_list_items/${_skuListItemId}/sku_list`,
+      params,
+      options,
+    ) as unknown as SkuList
+  }
 
-	async sku_list(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve<SkuList>, options?: ResourcesConfig): Promise<SkuList> {
-		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
-		return this.resources.fetch<SkuList>({ type: 'sku_lists' }, `sku_list_items/${_skuListItemId}/sku_list`, params, options) as unknown as SkuList
-	}
+  async sku(
+    skuListItemId: string | SkuListItem,
+    params?: QueryParamsRetrieve<Sku>,
+    options?: ResourcesConfig,
+  ): Promise<Sku> {
+    const _skuListItemId = (skuListItemId as SkuListItem).id || (skuListItemId as string)
+    return this.resources.fetch<Sku>(
+      { type: 'skus' },
+      `sku_list_items/${_skuListItemId}/sku`,
+      params,
+      options,
+    ) as unknown as Sku
+  }
 
-	async sku(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
-		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
-		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
-	}
+  async event_stores(
+    skuListItemId: string | SkuListItem,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _skuListItemId = (skuListItemId as SkuListItem).id || (skuListItemId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `sku_list_items/${_skuListItemId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(skuListItemId: string | SkuListItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `sku_list_items/${_skuListItemId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isSkuListItem(resource: any): resource is SkuListItem {
+    return resource.type && resource.type === SkuListItems.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): SkuListItemRel {
+    return super.relationshipOneToOne<SkuListItemRel>(id)
+  }
 
-	isSkuListItem(resource: any): resource is SkuListItem {
-		return resource.type && (resource.type === SkuListItems.TYPE)
-	}
+  relationshipToMany(...ids: string[]): SkuListItemRel[] {
+    return super.relationshipOneToMany<SkuListItemRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): SkuListItemRel {
-		return super.relationshipOneToOne<SkuListItemRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): SkuListItemRel[] {
-		return super.relationshipOneToMany<SkuListItemRel>(...ids)
-	}
-
-
-	type(): SkuListItemType {
-		return SkuListItems.TYPE
-	}
-
+  type(): SkuListItemType {
+    return SkuListItems.TYPE
+  }
 }
-
 
 const instance = new SkuListItems()
 export default instance

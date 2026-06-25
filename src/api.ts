@@ -1,4 +1,3 @@
-
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_INSTANCE__##, type ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
@@ -24,7 +23,10 @@ export { type CarrierAccounts, default as carrier_accounts } from './resources/c
 export { type CheckoutComGateways, default as checkout_com_gateways } from './resources/checkout_com_gateways'
 export { type CheckoutComPayments, default as checkout_com_payments } from './resources/checkout_com_payments'
 export { type Cleanups, default as cleanups } from './resources/cleanups'
-export { type CouponCodesPromotionRules, default as coupon_codes_promotion_rules } from './resources/coupon_codes_promotion_rules'
+export {
+  type CouponCodesPromotionRules,
+  default as coupon_codes_promotion_rules,
+} from './resources/coupon_codes_promotion_rules'
 export { type CouponRecipients, default as coupon_recipients } from './resources/coupon_recipients'
 export { type Coupons, default as coupons } from './resources/coupons'
 export { type CustomPromotionRules, default as custom_promotion_rules } from './resources/custom_promotion_rules'
@@ -58,8 +60,14 @@ export { default as google_geocoders, type GoogleGeocoders } from './resources/g
 export { default as imports, type Imports } from './resources/imports'
 export { default as in_stock_subscriptions, type InStockSubscriptions } from './resources/in_stock_subscriptions'
 export { default as inventory_models, type InventoryModels } from './resources/inventory_models'
-export { default as inventory_return_locations, type InventoryReturnLocations } from './resources/inventory_return_locations'
-export { default as inventory_stock_locations, type InventoryStockLocations } from './resources/inventory_stock_locations'
+export {
+  default as inventory_return_locations,
+  type InventoryReturnLocations,
+} from './resources/inventory_return_locations'
+export {
+  default as inventory_stock_locations,
+  type InventoryStockLocations,
+} from './resources/inventory_stock_locations'
 export { default as klarna_gateways, type KlarnaGateways } from './resources/klarna_gateways'
 export { default as klarna_payments, type KlarnaPayments } from './resources/klarna_payments'
 export { default as line_item_options, type LineItemOptions } from './resources/line_item_options'
@@ -70,7 +78,10 @@ export { default as manual_tax_calculators, type ManualTaxCalculators } from './
 export { default as markets, type Markets } from './resources/markets'
 export { default as merchants, type Merchants } from './resources/merchants'
 export { default as notifications, type Notifications } from './resources/notifications'
-export { default as order_amount_promotion_rules, type OrderAmountPromotionRules } from './resources/order_amount_promotion_rules'
+export {
+  default as order_amount_promotion_rules,
+  type OrderAmountPromotionRules,
+} from './resources/order_amount_promotion_rules'
 export { default as order_copies, type OrderCopies } from './resources/order_copies'
 export { default as order_factories, type OrderFactories } from './resources/order_factories'
 export { default as order_subscription_items, type OrderSubscriptionItems } from './resources/order_subscription_items'
@@ -85,7 +96,10 @@ export { default as payment_methods, type PaymentMethods } from './resources/pay
 export { default as payment_options, type PaymentOptions } from './resources/payment_options'
 export { default as paypal_gateways, type PaypalGateways } from './resources/paypal_gateways'
 export { default as paypal_payments, type PaypalPayments } from './resources/paypal_payments'
-export { default as percentage_discount_promotions, type PercentageDiscountPromotions } from './resources/percentage_discount_promotions'
+export {
+  default as percentage_discount_promotions,
+  type PercentageDiscountPromotions,
+} from './resources/percentage_discount_promotions'
 export { default as pickups, type Pickups } from './resources/pickups'
 export { default as price_frequency_tiers, type PriceFrequencyTiers } from './resources/price_frequency_tiers'
 export { default as price_list_schedulers, type PriceListSchedulers } from './resources/price_list_schedulers'

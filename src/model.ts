@@ -1,4 +1,3 @@
-
 // ##__MODEL_TYPES_START__##
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__##, ##__RESOURCE_BASE_MODEL__##Sort } from './resources/##__RESOURCE_TYPE__##'
 /**
@@ -11,127 +10,477 @@ export type { AdyenPayment, AdyenPaymentCreate, AdyenPaymentSort, AdyenPaymentUp
 export type { Application, ApplicationSort } from './resources/applications'
 export type { Attachment, AttachmentCreate, AttachmentSort, AttachmentUpdate } from './resources/attachments'
 export type { Authorization, AuthorizationSort, AuthorizationUpdate } from './resources/authorizations'
-export type { AvalaraAccount, AvalaraAccountCreate, AvalaraAccountSort, AvalaraAccountUpdate } from './resources/avalara_accounts'
-export type { AxerveGateway, AxerveGatewayCreate, AxerveGatewaySort, AxerveGatewayUpdate } from './resources/axerve_gateways'
-export type { AxervePayment, AxervePaymentCreate, AxervePaymentSort, AxervePaymentUpdate } from './resources/axerve_payments'
+export type {
+  AvalaraAccount,
+  AvalaraAccountCreate,
+  AvalaraAccountSort,
+  AvalaraAccountUpdate,
+} from './resources/avalara_accounts'
+export type {
+  AxerveGateway,
+  AxerveGatewayCreate,
+  AxerveGatewaySort,
+  AxerveGatewayUpdate,
+} from './resources/axerve_gateways'
+export type {
+  AxervePayment,
+  AxervePaymentCreate,
+  AxervePaymentSort,
+  AxervePaymentUpdate,
+} from './resources/axerve_payments'
 export type { BingGeocoder, BingGeocoderCreate, BingGeocoderSort, BingGeocoderUpdate } from './resources/bing_geocoders'
-export type { BraintreeGateway, BraintreeGatewayCreate, BraintreeGatewaySort, BraintreeGatewayUpdate } from './resources/braintree_gateways'
-export type { BraintreePayment, BraintreePaymentCreate, BraintreePaymentSort, BraintreePaymentUpdate } from './resources/braintree_payments'
+export type {
+  BraintreeGateway,
+  BraintreeGatewayCreate,
+  BraintreeGatewaySort,
+  BraintreeGatewayUpdate,
+} from './resources/braintree_gateways'
+export type {
+  BraintreePayment,
+  BraintreePaymentCreate,
+  BraintreePaymentSort,
+  BraintreePaymentUpdate,
+} from './resources/braintree_payments'
 export type { Bundle, BundleCreate, BundleSort, BundleUpdate } from './resources/bundles'
-export type { BuyXPayYPromotion, BuyXPayYPromotionCreate, BuyXPayYPromotionSort, BuyXPayYPromotionUpdate } from './resources/buy_x_pay_y_promotions'
+export type {
+  BuyXPayYPromotion,
+  BuyXPayYPromotionCreate,
+  BuyXPayYPromotionSort,
+  BuyXPayYPromotionUpdate,
+} from './resources/buy_x_pay_y_promotions'
 export type { Capture, CaptureSort, CaptureUpdate } from './resources/captures'
-export type { CarrierAccount, CarrierAccountCreate, CarrierAccountSort, CarrierAccountUpdate } from './resources/carrier_accounts'
-export type { CheckoutComGateway, CheckoutComGatewayCreate, CheckoutComGatewaySort, CheckoutComGatewayUpdate } from './resources/checkout_com_gateways'
-export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPaymentSort, CheckoutComPaymentUpdate } from './resources/checkout_com_payments'
+export type {
+  CarrierAccount,
+  CarrierAccountCreate,
+  CarrierAccountSort,
+  CarrierAccountUpdate,
+} from './resources/carrier_accounts'
+export type {
+  CheckoutComGateway,
+  CheckoutComGatewayCreate,
+  CheckoutComGatewaySort,
+  CheckoutComGatewayUpdate,
+} from './resources/checkout_com_gateways'
+export type {
+  CheckoutComPayment,
+  CheckoutComPaymentCreate,
+  CheckoutComPaymentSort,
+  CheckoutComPaymentUpdate,
+} from './resources/checkout_com_payments'
 export type { Cleanup, CleanupCreate, CleanupSort, CleanupUpdate } from './resources/cleanups'
-export type { CouponCodesPromotionRule, CouponCodesPromotionRuleCreate, CouponCodesPromotionRuleSort, CouponCodesPromotionRuleUpdate } from './resources/coupon_codes_promotion_rules'
-export type { CouponRecipient, CouponRecipientCreate, CouponRecipientSort, CouponRecipientUpdate } from './resources/coupon_recipients'
+export type {
+  CouponCodesPromotionRule,
+  CouponCodesPromotionRuleCreate,
+  CouponCodesPromotionRuleSort,
+  CouponCodesPromotionRuleUpdate,
+} from './resources/coupon_codes_promotion_rules'
+export type {
+  CouponRecipient,
+  CouponRecipientCreate,
+  CouponRecipientSort,
+  CouponRecipientUpdate,
+} from './resources/coupon_recipients'
 export type { Coupon, CouponCreate, CouponSort, CouponUpdate } from './resources/coupons'
-export type { CustomPromotionRule, CustomPromotionRuleCreate, CustomPromotionRuleSort, CustomPromotionRuleUpdate } from './resources/custom_promotion_rules'
-export type { CustomerAddress, CustomerAddressCreate, CustomerAddressSort, CustomerAddressUpdate } from './resources/customer_addresses'
-export type { CustomerGroup, CustomerGroupCreate, CustomerGroupSort, CustomerGroupUpdate } from './resources/customer_groups'
-export type { CustomerPasswordReset, CustomerPasswordResetCreate, CustomerPasswordResetSort, CustomerPasswordResetUpdate } from './resources/customer_password_resets'
-export type { CustomerPaymentSource, CustomerPaymentSourceCreate, CustomerPaymentSourceSort, CustomerPaymentSourceUpdate } from './resources/customer_payment_sources'
-export type { CustomerSubscription, CustomerSubscriptionCreate, CustomerSubscriptionSort, CustomerSubscriptionUpdate } from './resources/customer_subscriptions'
+export type {
+  CustomPromotionRule,
+  CustomPromotionRuleCreate,
+  CustomPromotionRuleSort,
+  CustomPromotionRuleUpdate,
+} from './resources/custom_promotion_rules'
+export type {
+  CustomerAddress,
+  CustomerAddressCreate,
+  CustomerAddressSort,
+  CustomerAddressUpdate,
+} from './resources/customer_addresses'
+export type {
+  CustomerGroup,
+  CustomerGroupCreate,
+  CustomerGroupSort,
+  CustomerGroupUpdate,
+} from './resources/customer_groups'
+export type {
+  CustomerPasswordReset,
+  CustomerPasswordResetCreate,
+  CustomerPasswordResetSort,
+  CustomerPasswordResetUpdate,
+} from './resources/customer_password_resets'
+export type {
+  CustomerPaymentSource,
+  CustomerPaymentSourceCreate,
+  CustomerPaymentSourceSort,
+  CustomerPaymentSourceUpdate,
+} from './resources/customer_payment_sources'
+export type {
+  CustomerSubscription,
+  CustomerSubscriptionCreate,
+  CustomerSubscriptionSort,
+  CustomerSubscriptionUpdate,
+} from './resources/customer_subscriptions'
 export type { Customer, CustomerCreate, CustomerSort, CustomerUpdate } from './resources/customers'
-export type { DeliveryLeadTime, DeliveryLeadTimeCreate, DeliveryLeadTimeSort, DeliveryLeadTimeUpdate } from './resources/delivery_lead_times'
+export type {
+  DeliveryLeadTime,
+  DeliveryLeadTimeCreate,
+  DeliveryLeadTimeSort,
+  DeliveryLeadTimeUpdate,
+} from './resources/delivery_lead_times'
 export type { DiscountEngineItem, DiscountEngineItemSort } from './resources/discount_engine_items'
 export type { DiscountEngine, DiscountEngineSort } from './resources/discount_engines'
-export type { EasypostPickup, EasypostPickupCreate, EasypostPickupSort, EasypostPickupUpdate } from './resources/easypost_pickups'
+export type {
+  EasypostPickup,
+  EasypostPickupCreate,
+  EasypostPickupSort,
+  EasypostPickupUpdate,
+} from './resources/easypost_pickups'
 export type { EventCallback, EventCallbackSort } from './resources/event_callbacks'
 export type { EventStore, EventStoreSort } from './resources/event_stores'
 export type { Event, EventSort, EventUpdate } from './resources/events'
 export type { Export, ExportCreate, ExportSort, ExportUpdate } from './resources/exports'
-export type { ExternalGateway, ExternalGatewayCreate, ExternalGatewaySort, ExternalGatewayUpdate } from './resources/external_gateways'
-export type { ExternalPayment, ExternalPaymentCreate, ExternalPaymentSort, ExternalPaymentUpdate } from './resources/external_payments'
-export type { ExternalPromotion, ExternalPromotionCreate, ExternalPromotionSort, ExternalPromotionUpdate } from './resources/external_promotions'
-export type { ExternalTaxCalculator, ExternalTaxCalculatorCreate, ExternalTaxCalculatorSort, ExternalTaxCalculatorUpdate } from './resources/external_tax_calculators'
-export type { FixedAmountPromotion, FixedAmountPromotionCreate, FixedAmountPromotionSort, FixedAmountPromotionUpdate } from './resources/fixed_amount_promotions'
-export type { FixedPricePromotion, FixedPricePromotionCreate, FixedPricePromotionSort, FixedPricePromotionUpdate } from './resources/fixed_price_promotions'
-export type { FlexPromotion, FlexPromotionCreate, FlexPromotionSort, FlexPromotionUpdate } from './resources/flex_promotions'
-export type { FreeGiftPromotion, FreeGiftPromotionCreate, FreeGiftPromotionSort, FreeGiftPromotionUpdate } from './resources/free_gift_promotions'
-export type { FreeShippingPromotion, FreeShippingPromotionCreate, FreeShippingPromotionSort, FreeShippingPromotionUpdate } from './resources/free_shipping_promotions'
+export type {
+  ExternalGateway,
+  ExternalGatewayCreate,
+  ExternalGatewaySort,
+  ExternalGatewayUpdate,
+} from './resources/external_gateways'
+export type {
+  ExternalPayment,
+  ExternalPaymentCreate,
+  ExternalPaymentSort,
+  ExternalPaymentUpdate,
+} from './resources/external_payments'
+export type {
+  ExternalPromotion,
+  ExternalPromotionCreate,
+  ExternalPromotionSort,
+  ExternalPromotionUpdate,
+} from './resources/external_promotions'
+export type {
+  ExternalTaxCalculator,
+  ExternalTaxCalculatorCreate,
+  ExternalTaxCalculatorSort,
+  ExternalTaxCalculatorUpdate,
+} from './resources/external_tax_calculators'
+export type {
+  FixedAmountPromotion,
+  FixedAmountPromotionCreate,
+  FixedAmountPromotionSort,
+  FixedAmountPromotionUpdate,
+} from './resources/fixed_amount_promotions'
+export type {
+  FixedPricePromotion,
+  FixedPricePromotionCreate,
+  FixedPricePromotionSort,
+  FixedPricePromotionUpdate,
+} from './resources/fixed_price_promotions'
+export type {
+  FlexPromotion,
+  FlexPromotionCreate,
+  FlexPromotionSort,
+  FlexPromotionUpdate,
+} from './resources/flex_promotions'
+export type {
+  FreeGiftPromotion,
+  FreeGiftPromotionCreate,
+  FreeGiftPromotionSort,
+  FreeGiftPromotionUpdate,
+} from './resources/free_gift_promotions'
+export type {
+  FreeShippingPromotion,
+  FreeShippingPromotionCreate,
+  FreeShippingPromotionSort,
+  FreeShippingPromotionUpdate,
+} from './resources/free_shipping_promotions'
 export type { Geocoder, GeocoderSort } from './resources/geocoders'
-export type { GiftCardRecipient, GiftCardRecipientCreate, GiftCardRecipientSort, GiftCardRecipientUpdate } from './resources/gift_card_recipients'
+export type {
+  GiftCardRecipient,
+  GiftCardRecipientCreate,
+  GiftCardRecipientSort,
+  GiftCardRecipientUpdate,
+} from './resources/gift_card_recipients'
 export type { GiftCard, GiftCardCreate, GiftCardSort, GiftCardUpdate } from './resources/gift_cards'
-export type { GoogleGeocoder, GoogleGeocoderCreate, GoogleGeocoderSort, GoogleGeocoderUpdate } from './resources/google_geocoders'
+export type {
+  GoogleGeocoder,
+  GoogleGeocoderCreate,
+  GoogleGeocoderSort,
+  GoogleGeocoderUpdate,
+} from './resources/google_geocoders'
 export type { Import, ImportCreate, ImportSort, ImportUpdate } from './resources/imports'
-export type { InStockSubscription, InStockSubscriptionCreate, InStockSubscriptionSort, InStockSubscriptionUpdate } from './resources/in_stock_subscriptions'
-export type { InventoryModel, InventoryModelCreate, InventoryModelSort, InventoryModelUpdate } from './resources/inventory_models'
-export type { InventoryReturnLocation, InventoryReturnLocationCreate, InventoryReturnLocationSort, InventoryReturnLocationUpdate } from './resources/inventory_return_locations'
-export type { InventoryStockLocation, InventoryStockLocationCreate, InventoryStockLocationSort, InventoryStockLocationUpdate } from './resources/inventory_stock_locations'
-export type { KlarnaGateway, KlarnaGatewayCreate, KlarnaGatewaySort, KlarnaGatewayUpdate } from './resources/klarna_gateways'
-export type { KlarnaPayment, KlarnaPaymentCreate, KlarnaPaymentSort, KlarnaPaymentUpdate } from './resources/klarna_payments'
-export type { LineItemOption, LineItemOptionCreate, LineItemOptionSort, LineItemOptionUpdate } from './resources/line_item_options'
+export type {
+  InStockSubscription,
+  InStockSubscriptionCreate,
+  InStockSubscriptionSort,
+  InStockSubscriptionUpdate,
+} from './resources/in_stock_subscriptions'
+export type {
+  InventoryModel,
+  InventoryModelCreate,
+  InventoryModelSort,
+  InventoryModelUpdate,
+} from './resources/inventory_models'
+export type {
+  InventoryReturnLocation,
+  InventoryReturnLocationCreate,
+  InventoryReturnLocationSort,
+  InventoryReturnLocationUpdate,
+} from './resources/inventory_return_locations'
+export type {
+  InventoryStockLocation,
+  InventoryStockLocationCreate,
+  InventoryStockLocationSort,
+  InventoryStockLocationUpdate,
+} from './resources/inventory_stock_locations'
+export type {
+  KlarnaGateway,
+  KlarnaGatewayCreate,
+  KlarnaGatewaySort,
+  KlarnaGatewayUpdate,
+} from './resources/klarna_gateways'
+export type {
+  KlarnaPayment,
+  KlarnaPaymentCreate,
+  KlarnaPaymentSort,
+  KlarnaPaymentUpdate,
+} from './resources/klarna_payments'
+export type {
+  LineItemOption,
+  LineItemOptionCreate,
+  LineItemOptionSort,
+  LineItemOptionUpdate,
+} from './resources/line_item_options'
 export type { LineItem, LineItemCreate, LineItemSort, LineItemUpdate } from './resources/line_items'
 export type { Link, LinkCreate, LinkSort, LinkUpdate } from './resources/links'
-export type { ManualGateway, ManualGatewayCreate, ManualGatewaySort, ManualGatewayUpdate } from './resources/manual_gateways'
-export type { ManualTaxCalculator, ManualTaxCalculatorCreate, ManualTaxCalculatorSort, ManualTaxCalculatorUpdate } from './resources/manual_tax_calculators'
+export type {
+  ManualGateway,
+  ManualGatewayCreate,
+  ManualGatewaySort,
+  ManualGatewayUpdate,
+} from './resources/manual_gateways'
+export type {
+  ManualTaxCalculator,
+  ManualTaxCalculatorCreate,
+  ManualTaxCalculatorSort,
+  ManualTaxCalculatorUpdate,
+} from './resources/manual_tax_calculators'
 export type { Market, MarketCreate, MarketSort, MarketUpdate } from './resources/markets'
 export type { Merchant, MerchantCreate, MerchantSort, MerchantUpdate } from './resources/merchants'
 export type { Notification, NotificationCreate, NotificationSort, NotificationUpdate } from './resources/notifications'
-export type { OrderAmountPromotionRule, OrderAmountPromotionRuleCreate, OrderAmountPromotionRuleSort, OrderAmountPromotionRuleUpdate } from './resources/order_amount_promotion_rules'
+export type {
+  OrderAmountPromotionRule,
+  OrderAmountPromotionRuleCreate,
+  OrderAmountPromotionRuleSort,
+  OrderAmountPromotionRuleUpdate,
+} from './resources/order_amount_promotion_rules'
 export type { OrderCopy, OrderCopyCreate, OrderCopySort, OrderCopyUpdate } from './resources/order_copies'
 export type { OrderFactory, OrderFactorySort } from './resources/order_factories'
-export type { OrderSubscriptionItem, OrderSubscriptionItemCreate, OrderSubscriptionItemSort, OrderSubscriptionItemUpdate } from './resources/order_subscription_items'
-export type { OrderSubscription, OrderSubscriptionCreate, OrderSubscriptionSort, OrderSubscriptionUpdate } from './resources/order_subscriptions'
+export type {
+  OrderSubscriptionItem,
+  OrderSubscriptionItemCreate,
+  OrderSubscriptionItemSort,
+  OrderSubscriptionItemUpdate,
+} from './resources/order_subscription_items'
+export type {
+  OrderSubscription,
+  OrderSubscriptionCreate,
+  OrderSubscriptionSort,
+  OrderSubscriptionUpdate,
+} from './resources/order_subscriptions'
 export type { Order, OrderCreate, OrderSort, OrderUpdate } from './resources/orders'
 export type { Organization, OrganizationSort } from './resources/organizations'
 export type { Package, PackageCreate, PackageSort, PackageUpdate } from './resources/packages'
-export type { ParcelLineItem, ParcelLineItemCreate, ParcelLineItemSort, ParcelLineItemUpdate } from './resources/parcel_line_items'
+export type {
+  ParcelLineItem,
+  ParcelLineItemCreate,
+  ParcelLineItemSort,
+  ParcelLineItemUpdate,
+} from './resources/parcel_line_items'
 export type { Parcel, ParcelCreate, ParcelSort, ParcelUpdate } from './resources/parcels'
 export type { PaymentGateway, PaymentGatewaySort } from './resources/payment_gateways'
-export type { PaymentMethod, PaymentMethodCreate, PaymentMethodSort, PaymentMethodUpdate } from './resources/payment_methods'
-export type { PaymentOption, PaymentOptionCreate, PaymentOptionSort, PaymentOptionUpdate } from './resources/payment_options'
-export type { PaypalGateway, PaypalGatewayCreate, PaypalGatewaySort, PaypalGatewayUpdate } from './resources/paypal_gateways'
-export type { PaypalPayment, PaypalPaymentCreate, PaypalPaymentSort, PaypalPaymentUpdate } from './resources/paypal_payments'
-export type { PercentageDiscountPromotion, PercentageDiscountPromotionCreate, PercentageDiscountPromotionSort, PercentageDiscountPromotionUpdate } from './resources/percentage_discount_promotions'
+export type {
+  PaymentMethod,
+  PaymentMethodCreate,
+  PaymentMethodSort,
+  PaymentMethodUpdate,
+} from './resources/payment_methods'
+export type {
+  PaymentOption,
+  PaymentOptionCreate,
+  PaymentOptionSort,
+  PaymentOptionUpdate,
+} from './resources/payment_options'
+export type {
+  PaypalGateway,
+  PaypalGatewayCreate,
+  PaypalGatewaySort,
+  PaypalGatewayUpdate,
+} from './resources/paypal_gateways'
+export type {
+  PaypalPayment,
+  PaypalPaymentCreate,
+  PaypalPaymentSort,
+  PaypalPaymentUpdate,
+} from './resources/paypal_payments'
+export type {
+  PercentageDiscountPromotion,
+  PercentageDiscountPromotionCreate,
+  PercentageDiscountPromotionSort,
+  PercentageDiscountPromotionUpdate,
+} from './resources/percentage_discount_promotions'
 export type { Pickup, PickupSort } from './resources/pickups'
-export type { PriceFrequencyTier, PriceFrequencyTierCreate, PriceFrequencyTierSort, PriceFrequencyTierUpdate } from './resources/price_frequency_tiers'
-export type { PriceListScheduler, PriceListSchedulerCreate, PriceListSchedulerSort, PriceListSchedulerUpdate } from './resources/price_list_schedulers'
+export type {
+  PriceFrequencyTier,
+  PriceFrequencyTierCreate,
+  PriceFrequencyTierSort,
+  PriceFrequencyTierUpdate,
+} from './resources/price_frequency_tiers'
+export type {
+  PriceListScheduler,
+  PriceListSchedulerCreate,
+  PriceListSchedulerSort,
+  PriceListSchedulerUpdate,
+} from './resources/price_list_schedulers'
 export type { PriceList, PriceListCreate, PriceListSort, PriceListUpdate } from './resources/price_lists'
 export type { PriceTier, PriceTierSort } from './resources/price_tiers'
-export type { PriceVolumeTier, PriceVolumeTierCreate, PriceVolumeTierSort, PriceVolumeTierUpdate } from './resources/price_volume_tiers'
+export type {
+  PriceVolumeTier,
+  PriceVolumeTierCreate,
+  PriceVolumeTierSort,
+  PriceVolumeTierUpdate,
+} from './resources/price_volume_tiers'
 export type { Price, PriceCreate, PriceSort, PriceUpdate } from './resources/prices'
 export type { PromotionRule, PromotionRuleSort } from './resources/promotion_rules'
 export type { Promotion, PromotionSort } from './resources/promotions'
-export type { RecurringOrderCopy, RecurringOrderCopyCreate, RecurringOrderCopySort, RecurringOrderCopyUpdate } from './resources/recurring_order_copies'
+export type {
+  RecurringOrderCopy,
+  RecurringOrderCopyCreate,
+  RecurringOrderCopySort,
+  RecurringOrderCopyUpdate,
+} from './resources/recurring_order_copies'
 export type { Refund, RefundSort, RefundUpdate } from './resources/refunds'
 export type { ReservedStock, ReservedStockSort } from './resources/reserved_stocks'
 export type { ResourceError, ResourceErrorSort } from './resources/resource_errors'
-export type { ReturnLineItem, ReturnLineItemCreate, ReturnLineItemSort, ReturnLineItemUpdate } from './resources/return_line_items'
+export type {
+  ReturnLineItem,
+  ReturnLineItemCreate,
+  ReturnLineItemSort,
+  ReturnLineItemUpdate,
+} from './resources/return_line_items'
 export type { Return, ReturnCreate, ReturnSort, ReturnUpdate } from './resources/returns'
-export type { SatispayGateway, SatispayGatewayCreate, SatispayGatewaySort, SatispayGatewayUpdate } from './resources/satispay_gateways'
-export type { SatispayPayment, SatispayPaymentCreate, SatispayPaymentSort, SatispayPaymentUpdate } from './resources/satispay_payments'
+export type {
+  SatispayGateway,
+  SatispayGatewayCreate,
+  SatispayGatewaySort,
+  SatispayGatewayUpdate,
+} from './resources/satispay_gateways'
+export type {
+  SatispayPayment,
+  SatispayPaymentCreate,
+  SatispayPaymentSort,
+  SatispayPaymentUpdate,
+} from './resources/satispay_payments'
 export type { Shipment, ShipmentCreate, ShipmentSort, ShipmentUpdate } from './resources/shipments'
-export type { ShippingCategory, ShippingCategoryCreate, ShippingCategorySort, ShippingCategoryUpdate } from './resources/shipping_categories'
+export type {
+  ShippingCategory,
+  ShippingCategoryCreate,
+  ShippingCategorySort,
+  ShippingCategoryUpdate,
+} from './resources/shipping_categories'
 export type { ShippingMethodTier, ShippingMethodTierSort } from './resources/shipping_method_tiers'
-export type { ShippingMethod, ShippingMethodCreate, ShippingMethodSort, ShippingMethodUpdate } from './resources/shipping_methods'
-export type { ShippingWeightTier, ShippingWeightTierCreate, ShippingWeightTierSort, ShippingWeightTierUpdate } from './resources/shipping_weight_tiers'
+export type {
+  ShippingMethod,
+  ShippingMethodCreate,
+  ShippingMethodSort,
+  ShippingMethodUpdate,
+} from './resources/shipping_methods'
+export type {
+  ShippingWeightTier,
+  ShippingWeightTierCreate,
+  ShippingWeightTierSort,
+  ShippingWeightTierUpdate,
+} from './resources/shipping_weight_tiers'
 export type { ShippingZone, ShippingZoneCreate, ShippingZoneSort, ShippingZoneUpdate } from './resources/shipping_zones'
 export type { SkuListItem, SkuListItemCreate, SkuListItemSort, SkuListItemUpdate } from './resources/sku_list_items'
-export type { SkuListPromotionRule, SkuListPromotionRuleCreate, SkuListPromotionRuleSort, SkuListPromotionRuleUpdate } from './resources/sku_list_promotion_rules'
+export type {
+  SkuListPromotionRule,
+  SkuListPromotionRuleCreate,
+  SkuListPromotionRuleSort,
+  SkuListPromotionRuleUpdate,
+} from './resources/sku_list_promotion_rules'
 export type { SkuList, SkuListCreate, SkuListSort, SkuListUpdate } from './resources/sku_lists'
 export type { SkuOption, SkuOptionCreate, SkuOptionSort, SkuOptionUpdate } from './resources/sku_options'
 export type { Sku, SkuCreate, SkuSort, SkuUpdate } from './resources/skus'
 export type { StockItem, StockItemCreate, StockItemSort, StockItemUpdate } from './resources/stock_items'
-export type { StockLineItem, StockLineItemCreate, StockLineItemSort, StockLineItemUpdate } from './resources/stock_line_items'
-export type { StockLocation, StockLocationCreate, StockLocationSort, StockLocationUpdate } from './resources/stock_locations'
-export type { StockReservation, StockReservationCreate, StockReservationSort, StockReservationUpdate } from './resources/stock_reservations'
-export type { StockTransfer, StockTransferCreate, StockTransferSort, StockTransferUpdate } from './resources/stock_transfers'
+export type {
+  StockLineItem,
+  StockLineItemCreate,
+  StockLineItemSort,
+  StockLineItemUpdate,
+} from './resources/stock_line_items'
+export type {
+  StockLocation,
+  StockLocationCreate,
+  StockLocationSort,
+  StockLocationUpdate,
+} from './resources/stock_locations'
+export type {
+  StockReservation,
+  StockReservationCreate,
+  StockReservationSort,
+  StockReservationUpdate,
+} from './resources/stock_reservations'
+export type {
+  StockTransfer,
+  StockTransferCreate,
+  StockTransferSort,
+  StockTransferUpdate,
+} from './resources/stock_transfers'
 export type { Store, StoreCreate, StoreSort, StoreUpdate } from './resources/stores'
-export type { StripeGateway, StripeGatewayCreate, StripeGatewaySort, StripeGatewayUpdate } from './resources/stripe_gateways'
-export type { StripePayment, StripePaymentCreate, StripePaymentSort, StripePaymentUpdate } from './resources/stripe_payments'
-export type { StripeTaxAccount, StripeTaxAccountCreate, StripeTaxAccountSort, StripeTaxAccountUpdate } from './resources/stripe_tax_accounts'
-export type { SubscriptionModel, SubscriptionModelCreate, SubscriptionModelSort, SubscriptionModelUpdate } from './resources/subscription_models'
+export type {
+  StripeGateway,
+  StripeGatewayCreate,
+  StripeGatewaySort,
+  StripeGatewayUpdate,
+} from './resources/stripe_gateways'
+export type {
+  StripePayment,
+  StripePaymentCreate,
+  StripePaymentSort,
+  StripePaymentUpdate,
+} from './resources/stripe_payments'
+export type {
+  StripeTaxAccount,
+  StripeTaxAccountCreate,
+  StripeTaxAccountSort,
+  StripeTaxAccountUpdate,
+} from './resources/stripe_tax_accounts'
+export type {
+  SubscriptionModel,
+  SubscriptionModelCreate,
+  SubscriptionModelSort,
+  SubscriptionModelUpdate,
+} from './resources/subscription_models'
 export type { Tag, TagCreate, TagSort, TagUpdate } from './resources/tags'
-export type { TalonOneAccount, TalonOneAccountCreate, TalonOneAccountSort, TalonOneAccountUpdate } from './resources/talon_one_accounts'
+export type {
+  TalonOneAccount,
+  TalonOneAccountCreate,
+  TalonOneAccountSort,
+  TalonOneAccountUpdate,
+} from './resources/talon_one_accounts'
 export type { TaxCalculator, TaxCalculatorSort } from './resources/tax_calculators'
 export type { TaxCategory, TaxCategoryCreate, TaxCategorySort, TaxCategoryUpdate } from './resources/tax_categories'
 export type { TaxRule, TaxRuleCreate, TaxRuleSort, TaxRuleUpdate } from './resources/tax_rules'
-export type { TaxjarAccount, TaxjarAccountCreate, TaxjarAccountSort, TaxjarAccountUpdate } from './resources/taxjar_accounts'
+export type {
+  TaxjarAccount,
+  TaxjarAccountCreate,
+  TaxjarAccountSort,
+  TaxjarAccountUpdate,
+} from './resources/taxjar_accounts'
 export type { Transaction, TransactionSort } from './resources/transactions'
-export type { VertexAccount, VertexAccountCreate, VertexAccountSort, VertexAccountUpdate } from './resources/vertex_accounts'
+export type {
+  VertexAccount,
+  VertexAccountCreate,
+  VertexAccountSort,
+  VertexAccountUpdate,
+} from './resources/vertex_accounts'
 export type { Void, VoidSort, VoidUpdate } from './resources/voids'
 export type { Webhook, WebhookCreate, WebhookSort, WebhookUpdate } from './resources/webhooks'
 export type { WireTransfer, WireTransferCreate, WireTransferSort, WireTransferUpdate } from './resources/wire_transfers'

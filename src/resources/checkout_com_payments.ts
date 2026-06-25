@@ -1,203 +1,267 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
 
-
 type CheckoutComPaymentType = 'checkout_com_payments'
 type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
 type OrderRel = ResourceRel & { type: OrderType }
 
-
 export type CheckoutComPaymentSort = Pick<CheckoutComPayment, 'id'> & ResourceSort
 // export type CheckoutComPaymentFilter = Pick<CheckoutComPayment, 'id'> & ResourceFilter
 
-
 interface CheckoutComPayment extends Resource {
-	
-	readonly type: CheckoutComPaymentType
+  readonly type: CheckoutComPaymentType
 
-	/** 
-	 * The Checkout.com publishable API key.
-	 * @example ```"pk_test_xxxx-yyyy-zzzz"```
-	 */
-	public_key?: string | null
-	/** 
-	 * The Checkout.com payment or digital wallet token.
-	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
-	 */
-	token: string
-	/** 
-	 * The session object which initializes payment.
-	 * @example ```{"id":"ps_xxxx_yyyy_zzzz","payment_session_secret":"pss_xxxx_yyy_zzzz","payment_session_token":"xxxxx_yyyyy_zzzzz","_links":{"self":{"href":"https://api.sandbox.checkout.com/payment-sessions/ps_xxxx_yyyy_zzzz"}}}```
-	 */
-	payment_session: Record<string, any>
-	/** 
-	 * The URL to redirect your customer upon 3DS succeeded authentication.
-	 * @example ```"http://commercelayer.dev/checkout_com/success"```
-	 */
-	success_url: string
-	/** 
-	 * The URL to redirect your customer upon 3DS failed authentication.
-	 * @example ```"http://commercelayer.dev/checkout_com/failure"```
-	 */
-	failure_url: string
-	/** 
-	 * The payment source identifier that can be used for subsequent payments.
-	 * @example ```"src_nwd3m4in3hkuddfpjsaevunhdy"```
-	 */
-	source_id?: string | null
-	/** 
-	 * The customer's unique identifier. This can be passed as a source when making a payment.
-	 * @example ```"cus_udst2tfldj6upmye2reztkmm4i"```
-	 */
-	customer_token?: string | null
-	/** 
-	 * The URI that the customer should be redirected to in order to complete the payment.
-	 * @example ```"https://api.checkout.com/3ds/pay_mbabizu24mvu3mela5njyhpit4"```
-	 */
-	redirect_uri?: string | null
-	/** 
-	 * The Checkout.com payment response, used to fetch internal data.
-	 * @example ```{"foo":"bar"}```
-	 */
-	payment_response?: Record<string, any> | null
-	/** 
-	 * Indicates if the order current amount differs form the one of the associated authorization.
-	 */
-	mismatched_amounts?: boolean | null
-	/** 
-	 * Information about the payment instrument used in the transaction.
-	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
-	 */
-	payment_instrument?: Record<string, any> | null
+  /**
+   * The Checkout.com publishable API key.
+   * @example ```"pk_test_xxxx-yyyy-zzzz"```
+   */
+  public_key?: string | null
+  /**
+   * The Checkout.com payment or digital wallet token.
+   * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
+   */
+  token: string
+  /**
+   * The session object which initializes payment.
+   * @example ```{"id":"ps_xxxx_yyyy_zzzz","payment_session_secret":"pss_xxxx_yyy_zzzz","payment_session_token":"xxxxx_yyyyy_zzzzz","_links":{"self":{"href":"https://api.sandbox.checkout.com/payment-sessions/ps_xxxx_yyyy_zzzz"}}}```
+   */
+  payment_session: Record<string, any>
+  /**
+   * The URL to redirect your customer upon 3DS succeeded authentication.
+   * @example ```"http://commercelayer.dev/checkout_com/success"```
+   */
+  success_url: string
+  /**
+   * The URL to redirect your customer upon 3DS failed authentication.
+   * @example ```"http://commercelayer.dev/checkout_com/failure"```
+   */
+  failure_url: string
+  /**
+   * The payment source identifier that can be used for subsequent payments.
+   * @example ```"src_nwd3m4in3hkuddfpjsaevunhdy"```
+   */
+  source_id?: string | null
+  /**
+   * The customer's unique identifier. This can be passed as a source when making a payment.
+   * @example ```"cus_udst2tfldj6upmye2reztkmm4i"```
+   */
+  customer_token?: string | null
+  /**
+   * The URI that the customer should be redirected to in order to complete the payment.
+   * @example ```"https://api.checkout.com/3ds/pay_mbabizu24mvu3mela5njyhpit4"```
+   */
+  redirect_uri?: string | null
+  /**
+   * The Checkout.com payment response, used to fetch internal data.
+   * @example ```{"foo":"bar"}```
+   */
+  payment_response?: Record<string, any> | null
+  /**
+   * Indicates if the order current amount differs form the one of the associated authorization.
+   */
+  mismatched_amounts?: boolean | null
+  /**
+   * Information about the payment instrument used in the transaction.
+   * @example ```{"issuer":"cl bank","card_type":"visa"}```
+   */
+  payment_instrument?: Record<string, any> | null
 
-	order?: Order | null
-	payment_gateway?: PaymentGateway | null
-	event_stores?: EventStore[] | null
-
+  order?: Order | null
+  payment_gateway?: PaymentGateway | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface CheckoutComPaymentCreate extends ResourceCreate {
-	
-	/** 
-	 * The Checkout.com payment or digital wallet token.
-	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
-	 */
-	token: string
-	/** 
-	 * The URL to redirect your customer upon 3DS succeeded authentication.
-	 * @example ```"http://commercelayer.dev/checkout_com/success"```
-	 */
-	success_url: string
-	/** 
-	 * The URL to redirect your customer upon 3DS failed authentication.
-	 * @example ```"http://commercelayer.dev/checkout_com/failure"```
-	 */
-	failure_url: string
+  /**
+   * The Checkout.com payment or digital wallet token.
+   * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
+   */
+  token: string
+  /**
+   * The URL to redirect your customer upon 3DS succeeded authentication.
+   * @example ```"http://commercelayer.dev/checkout_com/success"```
+   */
+  success_url: string
+  /**
+   * The URL to redirect your customer upon 3DS failed authentication.
+   * @example ```"http://commercelayer.dev/checkout_com/failure"```
+   */
+  failure_url: string
 
-	order: OrderRel
-
+  order: OrderRel
 }
-
 
 interface CheckoutComPaymentUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The Checkout.com payment or digital wallet token.
-	 * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
-	 */
-	token?: string | null
-	/** 
-	 * Send this attribute if you want to authorize the payment.
-	 * @example ```true```
-	 */
-	_authorize?: boolean | null
-	/** 
-	 * Send this attribute if you want to send additional details the payment request (i.e. upon 3DS check).
-	 * @example ```true```
-	 */
-	_details?: boolean | null
-	/** 
-	 * Send this attribute if you want to refresh all the pending transactions, can be used as webhooks fallback logic.
-	 * @example ```true```
-	 */
-	_refresh?: boolean | null
+  /**
+   * The Checkout.com payment or digital wallet token.
+   * @example ```"tok_4gzeau5o2uqubbk6fufs3m7p54"```
+   */
+  token?: string | null
+  /**
+   * Send this attribute if you want to authorize the payment.
+   * @example ```true```
+   */
+  _authorize?: boolean | null
+  /**
+   * Send this attribute if you want to send additional details the payment request (i.e. upon 3DS check).
+   * @example ```true```
+   */
+  _details?: boolean | null
+  /**
+   * Send this attribute if you want to refresh all the pending transactions, can be used as webhooks fallback logic.
+   * @example ```true```
+   */
+  _refresh?: boolean | null
 
-	order?: OrderRel | null
-
+  order?: OrderRel | null
 }
-
 
 class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
+  static readonly TYPE: CheckoutComPaymentType = 'checkout_com_payments' as const
 
-	static readonly TYPE: CheckoutComPaymentType = 'checkout_com_payments' as const
+  async create(
+    resource: CheckoutComPaymentCreate,
+    params?: QueryParamsRetrieve<CheckoutComPayment>,
+    options?: ResourcesConfig,
+  ): Promise<CheckoutComPayment> {
+    return this.resources.create<CheckoutComPaymentCreate, CheckoutComPayment>(
+      { ...resource, type: CheckoutComPayments.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: CheckoutComPaymentCreate, params?: QueryParamsRetrieve<CheckoutComPayment>, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.create<CheckoutComPaymentCreate, CheckoutComPayment>({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
-	}
+  async update(
+    resource: CheckoutComPaymentUpdate,
+    params?: QueryParamsRetrieve<CheckoutComPayment>,
+    options?: ResourcesConfig,
+  ): Promise<CheckoutComPayment> {
+    return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>(
+      { ...resource, type: CheckoutComPayments.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: CheckoutComPaymentUpdate, params?: QueryParamsRetrieve<CheckoutComPayment>, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ ...resource, type: CheckoutComPayments.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: CheckoutComPayments.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: CheckoutComPayments.TYPE } : id, options)
-	}
+  async order(
+    checkoutComPaymentId: string | CheckoutComPayment,
+    params?: QueryParamsRetrieve<Order>,
+    options?: ResourcesConfig,
+  ): Promise<Order> {
+    const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || (checkoutComPaymentId as string)
+    return this.resources.fetch<Order>(
+      { type: 'orders' },
+      `checkout_com_payments/${_checkoutComPaymentId}/order`,
+      params,
+      options,
+    ) as unknown as Order
+  }
 
-	async order(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
-		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
-		return this.resources.fetch<Order>({ type: 'orders' }, `checkout_com_payments/${_checkoutComPaymentId}/order`, params, options) as unknown as Order
-	}
+  async payment_gateway(
+    checkoutComPaymentId: string | CheckoutComPayment,
+    params?: QueryParamsRetrieve<PaymentGateway>,
+    options?: ResourcesConfig,
+  ): Promise<PaymentGateway> {
+    const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || (checkoutComPaymentId as string)
+    return this.resources.fetch<PaymentGateway>(
+      { type: 'payment_gateways' },
+      `checkout_com_payments/${_checkoutComPaymentId}/payment_gateway`,
+      params,
+      options,
+    ) as unknown as PaymentGateway
+  }
 
-	async payment_gateway(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsRetrieve<PaymentGateway>, options?: ResourcesConfig): Promise<PaymentGateway> {
-		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
-		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `checkout_com_payments/${_checkoutComPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
-	}
+  async event_stores(
+    checkoutComPaymentId: string | CheckoutComPayment,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || (checkoutComPaymentId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `checkout_com_payments/${_checkoutComPaymentId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `checkout_com_payments/${_checkoutComPaymentId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  async _authorize(
+    id: string | CheckoutComPayment,
+    params?: QueryParamsRetrieve<CheckoutComPayment>,
+    options?: ResourcesConfig,
+  ): Promise<CheckoutComPayment> {
+    return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>(
+      { id: typeof id === 'string' ? id : id.id, type: CheckoutComPayments.TYPE, _authorize: true },
+      params,
+      options,
+    )
+  }
 
-	async _authorize(id: string | CheckoutComPayment, params?: QueryParamsRetrieve<CheckoutComPayment>, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComPayments.TYPE, _authorize: true }, params, options)
-	}
+  async _details(
+    id: string | CheckoutComPayment,
+    params?: QueryParamsRetrieve<CheckoutComPayment>,
+    options?: ResourcesConfig,
+  ): Promise<CheckoutComPayment> {
+    return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>(
+      { id: typeof id === 'string' ? id : id.id, type: CheckoutComPayments.TYPE, _details: true },
+      params,
+      options,
+    )
+  }
 
-	async _details(id: string | CheckoutComPayment, params?: QueryParamsRetrieve<CheckoutComPayment>, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComPayments.TYPE, _details: true }, params, options)
-	}
+  async _refresh(
+    id: string | CheckoutComPayment,
+    params?: QueryParamsRetrieve<CheckoutComPayment>,
+    options?: ResourcesConfig,
+  ): Promise<CheckoutComPayment> {
+    return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>(
+      { id: typeof id === 'string' ? id : id.id, type: CheckoutComPayments.TYPE, _refresh: true },
+      params,
+      options,
+    )
+  }
 
-	async _refresh(id: string | CheckoutComPayment, params?: QueryParamsRetrieve<CheckoutComPayment>, options?: ResourcesConfig): Promise<CheckoutComPayment> {
-		return this.resources.update<CheckoutComPaymentUpdate, CheckoutComPayment>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComPayments.TYPE, _refresh: true }, params, options)
-	}
+  isCheckoutComPayment(resource: any): resource is CheckoutComPayment {
+    return resource.type && resource.type === CheckoutComPayments.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): CheckoutComPaymentRel {
+    return super.relationshipOneToOne<CheckoutComPaymentRel>(id)
+  }
 
-	isCheckoutComPayment(resource: any): resource is CheckoutComPayment {
-		return resource.type && (resource.type === CheckoutComPayments.TYPE)
-	}
+  relationshipToMany(...ids: string[]): CheckoutComPaymentRel[] {
+    return super.relationshipOneToMany<CheckoutComPaymentRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): CheckoutComPaymentRel {
-		return super.relationshipOneToOne<CheckoutComPaymentRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): CheckoutComPaymentRel[] {
-		return super.relationshipOneToMany<CheckoutComPaymentRel>(...ids)
-	}
-
-
-	type(): CheckoutComPaymentType {
-		return CheckoutComPayments.TYPE
-	}
-
+  type(): CheckoutComPaymentType {
+    return CheckoutComPayments.TYPE
+  }
 }
-
 
 const instance = new CheckoutComPayments()
 export default instance
 
-export type { CheckoutComPayment, CheckoutComPaymentCreate, CheckoutComPayments, CheckoutComPaymentType, CheckoutComPaymentUpdate }
+export type {
+  CheckoutComPayment,
+  CheckoutComPaymentCreate,
+  CheckoutComPayments,
+  CheckoutComPaymentType,
+  CheckoutComPaymentUpdate,
+}

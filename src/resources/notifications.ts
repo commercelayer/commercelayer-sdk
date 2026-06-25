@@ -1,5 +1,14 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 
 import type { EventStore } from './event_stores'
@@ -7,129 +16,136 @@ import type { LineItem, LineItemType } from './line_items'
 import type { Order, OrderType } from './orders'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 
-
 type NotificationType = 'notifications'
 type NotificationRel = ResourceRel & { type: NotificationType }
 type LineItemRel = ResourceRel & { type: LineItemType }
 type OrderRel = ResourceRel & { type: OrderType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 
-
 export type NotificationSort = Pick<Notification, 'id' | 'name' | 'flash'> & ResourceSort
 // export type NotificationFilter = Pick<Notification, 'id' | 'name' | 'flash'> & ResourceFilter
 
-
 interface Notification extends Resource {
-	
-	readonly type: NotificationType
+  readonly type: NotificationType
 
-	/** 
-	 * The internal name of the notification.
-	 * @example ```"DDT transport document"```
-	 */
-	name: string
-	/** 
-	 * Indicates if the notification is temporary, valid for the ones created by external services.
-	 */
-	flash?: boolean | null
-	/** 
-	 * An internal body of the notification.
-	 * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
-	 */
-	body?: Record<string, any> | null
+  /**
+   * The internal name of the notification.
+   * @example ```"DDT transport document"```
+   */
+  name: string
+  /**
+   * Indicates if the notification is temporary, valid for the ones created by external services.
+   */
+  flash?: boolean | null
+  /**
+   * An internal body of the notification.
+   * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
+   */
+  body?: Record<string, any> | null
 
-	notifiable?: LineItem | Order | ShippingMethod | null
-	event_stores?: EventStore[] | null
-
+  notifiable?: LineItem | Order | ShippingMethod | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface NotificationCreate extends ResourceCreate {
-	
-	/** 
-	 * The internal name of the notification.
-	 * @example ```"DDT transport document"```
-	 */
-	name: string
-	/** 
-	 * Indicates if the notification is temporary, valid for the ones created by external services.
-	 */
-	flash?: boolean | null
-	/** 
-	 * An internal body of the notification.
-	 * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
-	 */
-	body?: Record<string, any> | null
+  /**
+   * The internal name of the notification.
+   * @example ```"DDT transport document"```
+   */
+  name: string
+  /**
+   * Indicates if the notification is temporary, valid for the ones created by external services.
+   */
+  flash?: boolean | null
+  /**
+   * An internal body of the notification.
+   * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
+   */
+  body?: Record<string, any> | null
 
-	notifiable: LineItemRel | OrderRel | ShippingMethodRel
-
+  notifiable: LineItemRel | OrderRel | ShippingMethodRel
 }
-
 
 interface NotificationUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The internal name of the notification.
-	 * @example ```"DDT transport document"```
-	 */
-	name?: string | null
-	/** 
-	 * Indicates if the notification is temporary, valid for the ones created by external services.
-	 */
-	flash?: boolean | null
-	/** 
-	 * An internal body of the notification.
-	 * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
-	 */
-	body?: Record<string, any> | null
+  /**
+   * The internal name of the notification.
+   * @example ```"DDT transport document"```
+   */
+  name?: string | null
+  /**
+   * Indicates if the notification is temporary, valid for the ones created by external services.
+   */
+  flash?: boolean | null
+  /**
+   * An internal body of the notification.
+   * @example ```{"sku":"REDHANDBAG","name":"Enjoy your free item"}```
+   */
+  body?: Record<string, any> | null
 
-	notifiable?: LineItemRel | OrderRel | ShippingMethodRel | null
-
+  notifiable?: LineItemRel | OrderRel | ShippingMethodRel | null
 }
-
 
 class Notifications extends ApiResource<Notification> {
+  static readonly TYPE: NotificationType = 'notifications' as const
 
-	static readonly TYPE: NotificationType = 'notifications' as const
+  async create(
+    resource: NotificationCreate,
+    params?: QueryParamsRetrieve<Notification>,
+    options?: ResourcesConfig,
+  ): Promise<Notification> {
+    return this.resources.create<NotificationCreate, Notification>(
+      { ...resource, type: Notifications.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: NotificationCreate, params?: QueryParamsRetrieve<Notification>, options?: ResourcesConfig): Promise<Notification> {
-		return this.resources.create<NotificationCreate, Notification>({ ...resource, type: Notifications.TYPE }, params, options)
-	}
+  async update(
+    resource: NotificationUpdate,
+    params?: QueryParamsRetrieve<Notification>,
+    options?: ResourcesConfig,
+  ): Promise<Notification> {
+    return this.resources.update<NotificationUpdate, Notification>(
+      { ...resource, type: Notifications.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: NotificationUpdate, params?: QueryParamsRetrieve<Notification>, options?: ResourcesConfig): Promise<Notification> {
-		return this.resources.update<NotificationUpdate, Notification>({ ...resource, type: Notifications.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: Notifications.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: Notifications.TYPE } : id, options)
-	}
+  async event_stores(
+    notificationId: string | Notification,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _notificationId = (notificationId as Notification).id || (notificationId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `notifications/${_notificationId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(notificationId: string | Notification, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _notificationId = (notificationId as Notification).id || notificationId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `notifications/${_notificationId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isNotification(resource: any): resource is Notification {
+    return resource.type && resource.type === Notifications.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): NotificationRel {
+    return super.relationshipOneToOne<NotificationRel>(id)
+  }
 
-	isNotification(resource: any): resource is Notification {
-		return resource.type && (resource.type === Notifications.TYPE)
-	}
+  relationshipToMany(...ids: string[]): NotificationRel[] {
+    return super.relationshipOneToMany<NotificationRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): NotificationRel {
-		return super.relationshipOneToOne<NotificationRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): NotificationRel[] {
-		return super.relationshipOneToMany<NotificationRel>(...ids)
-	}
-
-
-	type(): NotificationType {
-		return Notifications.TYPE
-	}
-
+  type(): NotificationType {
+    return Notifications.TYPE
+  }
 }
-
 
 const instance = new Notifications()
 export default instance

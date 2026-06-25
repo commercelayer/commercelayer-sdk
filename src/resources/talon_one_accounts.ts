@@ -1,157 +1,200 @@
 import type { QueryParamsList, QueryParamsRetrieve } from '../query'
-import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { DiscountEngineItem } from './discount_engine_items'
 import type { EventStore } from './event_stores'
 import type { Market } from './markets'
 
-
 type TalonOneAccountType = 'talon_one_accounts'
 type TalonOneAccountRel = ResourceRel & { type: TalonOneAccountType }
-
 
 export type TalonOneAccountSort = Pick<TalonOneAccount, 'id' | 'name'> & ResourceSort
 // export type TalonOneAccountFilter = Pick<TalonOneAccount, 'id' | 'name'> & ResourceFilter
 
-
 interface TalonOneAccount extends Resource {
-	
-	readonly type: TalonOneAccountType
+  readonly type: TalonOneAccountType
 
-	/** 
-	 * The discount engine's internal name.
-	 * @example ```"Personal discount engine"```
-	 */
-	name: string
-	/** 
-	 * Indicates if the discount engine manages both promotions and gift cards application at once.
-	 * @example ```true```
-	 */
-	manage_gift_cards?: boolean | null
-	/** 
-	 * The API endpoint as computed by specified baseurl.
-	 * @example ```"https://my_baseurl.talon.one/v2"```
-	 */
-	api_endpoint?: string | null
+  /**
+   * The discount engine's internal name.
+   * @example ```"Personal discount engine"```
+   */
+  name: string
+  /**
+   * Indicates if the discount engine manages both promotions and gift cards application at once.
+   * @example ```true```
+   */
+  manage_gift_cards?: boolean | null
+  /**
+   * The API endpoint as computed by specified baseurl.
+   * @example ```"https://my_baseurl.talon.one/v2"```
+   */
+  api_endpoint?: string | null
 
-	markets?: Market[] | null
-	discount_engine_items?: DiscountEngineItem[] | null
-	attachments?: Attachment[] | null
-	event_stores?: EventStore[] | null
-
+  markets?: Market[] | null
+  discount_engine_items?: DiscountEngineItem[] | null
+  attachments?: Attachment[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 interface TalonOneAccountCreate extends ResourceCreate {
-	
-	/** 
-	 * The discount engine's internal name.
-	 * @example ```"Personal discount engine"```
-	 */
-	name: string
-	/** 
-	 * Indicates if the discount engine manages both promotions and gift cards application at once.
-	 * @example ```true```
-	 */
-	manage_gift_cards?: boolean | null
-	/** 
-	 * The Talon.One account API key.
-	 * @example ```"TALON_ONE_API_KEY"```
-	 */
-	api_key: string
-	/** 
-	 * The Talon.One API baseurl (excluding the talon.one suffix).
-	 * @example ```"yourbaseurl"```
-	 */
-	baseurl: string
-	
+  /**
+   * The discount engine's internal name.
+   * @example ```"Personal discount engine"```
+   */
+  name: string
+  /**
+   * Indicates if the discount engine manages both promotions and gift cards application at once.
+   * @example ```true```
+   */
+  manage_gift_cards?: boolean | null
+  /**
+   * The Talon.One account API key.
+   * @example ```"TALON_ONE_API_KEY"```
+   */
+  api_key: string
+  /**
+   * The Talon.One API baseurl (excluding the talon.one suffix).
+   * @example ```"yourbaseurl"```
+   */
+  baseurl: string
 }
-
 
 interface TalonOneAccountUpdate extends ResourceUpdate {
-	
-	/** 
-	 * The discount engine's internal name.
-	 * @example ```"Personal discount engine"```
-	 */
-	name?: string | null
-	/** 
-	 * Indicates if the discount engine manages both promotions and gift cards application at once.
-	 * @example ```true```
-	 */
-	manage_gift_cards?: boolean | null
-	/** 
-	 * The Talon.One account API key.
-	 * @example ```"TALON_ONE_API_KEY"```
-	 */
-	api_key?: string | null
-	/** 
-	 * The Talon.One API baseurl (excluding the talon.one suffix).
-	 * @example ```"yourbaseurl"```
-	 */
-	baseurl?: string | null
-	
+  /**
+   * The discount engine's internal name.
+   * @example ```"Personal discount engine"```
+   */
+  name?: string | null
+  /**
+   * Indicates if the discount engine manages both promotions and gift cards application at once.
+   * @example ```true```
+   */
+  manage_gift_cards?: boolean | null
+  /**
+   * The Talon.One account API key.
+   * @example ```"TALON_ONE_API_KEY"```
+   */
+  api_key?: string | null
+  /**
+   * The Talon.One API baseurl (excluding the talon.one suffix).
+   * @example ```"yourbaseurl"```
+   */
+  baseurl?: string | null
 }
-
 
 class TalonOneAccounts extends ApiResource<TalonOneAccount> {
+  static readonly TYPE: TalonOneAccountType = 'talon_one_accounts' as const
 
-	static readonly TYPE: TalonOneAccountType = 'talon_one_accounts' as const
+  async create(
+    resource: TalonOneAccountCreate,
+    params?: QueryParamsRetrieve<TalonOneAccount>,
+    options?: ResourcesConfig,
+  ): Promise<TalonOneAccount> {
+    return this.resources.create<TalonOneAccountCreate, TalonOneAccount>(
+      { ...resource, type: TalonOneAccounts.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async create(resource: TalonOneAccountCreate, params?: QueryParamsRetrieve<TalonOneAccount>, options?: ResourcesConfig): Promise<TalonOneAccount> {
-		return this.resources.create<TalonOneAccountCreate, TalonOneAccount>({ ...resource, type: TalonOneAccounts.TYPE }, params, options)
-	}
+  async update(
+    resource: TalonOneAccountUpdate,
+    params?: QueryParamsRetrieve<TalonOneAccount>,
+    options?: ResourcesConfig,
+  ): Promise<TalonOneAccount> {
+    return this.resources.update<TalonOneAccountUpdate, TalonOneAccount>(
+      { ...resource, type: TalonOneAccounts.TYPE },
+      params,
+      options,
+    )
+  }
 
-	async update(resource: TalonOneAccountUpdate, params?: QueryParamsRetrieve<TalonOneAccount>, options?: ResourcesConfig): Promise<TalonOneAccount> {
-		return this.resources.update<TalonOneAccountUpdate, TalonOneAccount>({ ...resource, type: TalonOneAccounts.TYPE }, params, options)
-	}
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: TalonOneAccounts.TYPE } : id, options)
+  }
 
-	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
-		await this.resources.delete((typeof id === 'string')? { id, type: TalonOneAccounts.TYPE } : id, options)
-	}
+  async markets(
+    talonOneAccountId: string | TalonOneAccount,
+    params?: QueryParamsList<Market>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Market>> {
+    const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || (talonOneAccountId as string)
+    return this.resources.fetch<Market>(
+      { type: 'markets' },
+      `talon_one_accounts/${_talonOneAccountId}/markets`,
+      params,
+      options,
+    ) as unknown as ListResponse<Market>
+  }
 
-	async markets(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<Market>, options?: ResourcesConfig): Promise<ListResponse<Market>> {
-		const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || talonOneAccountId as string
-		return this.resources.fetch<Market>({ type: 'markets' }, `talon_one_accounts/${_talonOneAccountId}/markets`, params, options) as unknown as ListResponse<Market>
-	}
+  async discount_engine_items(
+    talonOneAccountId: string | TalonOneAccount,
+    params?: QueryParamsList<DiscountEngineItem>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<DiscountEngineItem>> {
+    const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || (talonOneAccountId as string)
+    return this.resources.fetch<DiscountEngineItem>(
+      { type: 'discount_engine_items' },
+      `talon_one_accounts/${_talonOneAccountId}/discount_engine_items`,
+      params,
+      options,
+    ) as unknown as ListResponse<DiscountEngineItem>
+  }
 
-	async discount_engine_items(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<DiscountEngineItem>, options?: ResourcesConfig): Promise<ListResponse<DiscountEngineItem>> {
-		const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || talonOneAccountId as string
-		return this.resources.fetch<DiscountEngineItem>({ type: 'discount_engine_items' }, `talon_one_accounts/${_talonOneAccountId}/discount_engine_items`, params, options) as unknown as ListResponse<DiscountEngineItem>
-	}
+  async attachments(
+    talonOneAccountId: string | TalonOneAccount,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || (talonOneAccountId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `talon_one_accounts/${_talonOneAccountId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
+  }
 
-	async attachments(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
-		const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || talonOneAccountId as string
-		return this.resources.fetch<Attachment>({ type: 'attachments' }, `talon_one_accounts/${_talonOneAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
+  async event_stores(
+    talonOneAccountId: string | TalonOneAccount,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || (talonOneAccountId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `talon_one_accounts/${_talonOneAccountId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || talonOneAccountId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `talon_one_accounts/${_talonOneAccountId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isTalonOneAccount(resource: any): resource is TalonOneAccount {
+    return resource.type && resource.type === TalonOneAccounts.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): TalonOneAccountRel {
+    return super.relationshipOneToOne<TalonOneAccountRel>(id)
+  }
 
-	isTalonOneAccount(resource: any): resource is TalonOneAccount {
-		return resource.type && (resource.type === TalonOneAccounts.TYPE)
-	}
+  relationshipToMany(...ids: string[]): TalonOneAccountRel[] {
+    return super.relationshipOneToMany<TalonOneAccountRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): TalonOneAccountRel {
-		return super.relationshipOneToOne<TalonOneAccountRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): TalonOneAccountRel[] {
-		return super.relationshipOneToMany<TalonOneAccountRel>(...ids)
-	}
-
-
-	type(): TalonOneAccountType {
-		return TalonOneAccounts.TYPE
-	}
-
+  type(): TalonOneAccountType {
+    return TalonOneAccounts.TYPE
+  }
 }
-
 
 const instance = new TalonOneAccounts()
 export default instance

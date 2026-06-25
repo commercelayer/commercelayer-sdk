@@ -1,69 +1,56 @@
-
 import { beforeAll, describe, expect, test } from 'vitest'
 import { type CommerceLayerClient, CommerceLayerStatic } from '../src'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
 import { getClient } from '../test/common'
 
-
 let cl: CommerceLayerClient
 
-
 beforeAll(async () => {
-	cl = await getClient()
-	const _version = cl.apiSchemaVersion	// avoid not used var issue
+  cl = await getClient()
+  const _version = cl.apiSchemaVersion // avoid not used var issue
 })
 
-
 describe('SDK:static suite', () => {
+  test('static.SdkError', async () => {
+    const sdkError = CommerceLayerStatic.isSdkError({ message: 'SdkError', name: 'SdkError', type: 'request' })
+    expect(sdkError).toBeTruthy()
+  })
 
-	test('static.SdkError', async () => {
-		const sdkError = CommerceLayerStatic.isSdkError({ message: 'SdkError', name: 'SdkError', type: 'request' })
-		expect(sdkError).toBeTruthy()
-	})
+  test('static.ApiError', async () => {
+    const apiError = CommerceLayerStatic.isApiError({ message: 'ApiError', name: 'ApiError', type: 'response' })
+    expect(apiError).toBeTruthy()
+  })
 
+  test('static.resources', async () => {
+    const resources = CommerceLayerStatic.resources()
+    expect(Array.isArray(resources)).toBeTruthy()
+    expect(resources.length).toBeGreaterThan(0)
+  })
 
-	test('static.ApiError', async () => {
-		const apiError = CommerceLayerStatic.isApiError({ message: 'ApiError', name: 'ApiError', type: 'response' })
-		expect(apiError).toBeTruthy()
-	})
+  test('static.singletons', async () => {
+    const singletons = CommerceLayerStatic.singletons()
+    expect(Array.isArray(singletons)).toBeTruthy()
+    expect(singletons.length).toBeGreaterThan(0)
+  })
 
+  test('static.schema', async () => {
+    const sver = CommerceLayerStatic.schemaVersion
+    expect(sver).toBe(API_SCHEMA_VERSION)
+  })
 
-	test('static.resources', async () => {
-		const resources = CommerceLayerStatic.resources()
-		expect(Array.isArray(resources)).toBeTruthy()
-		expect(resources.length).toBeGreaterThan(0)
-	})
+  test('static.creatable', async () => {
+    expect(CommerceLayerStatic.isCreatable('customers')).toBeTruthy()
+  })
 
+  test('static.updatable', async () => {
+    expect(CommerceLayerStatic.isUpdatable('customers')).toBeTruthy()
+  })
 
-	test('static.singletons', async () => {
-		const singletons = CommerceLayerStatic.singletons()
-		expect(Array.isArray(singletons)).toBeTruthy()
-		expect(singletons.length).toBeGreaterThan(0)
-	})
+  test('static.deletable', async () => {
+    expect(CommerceLayerStatic.isDeletable('customers')).toBeTruthy()
+  })
 
-
-	test('static.schema', async () => {
-		const sver = CommerceLayerStatic.schemaVersion
-		expect(sver).toBe(API_SCHEMA_VERSION)
-	})
-
-	test('static.creatable', async () => {
-		expect(CommerceLayerStatic.isCreatable('customers')).toBeTruthy()
-	})
-
-
-	test('static.updatable', async () => {
-		expect(CommerceLayerStatic.isUpdatable('customers')).toBeTruthy()
-	})
-
-
-	test('static.deletable', async () => {
-		expect(CommerceLayerStatic.isDeletable('customers')).toBeTruthy()
-	})
-
-
-	test('static.taggable', async () => {
-		expect(CommerceLayerStatic.isTaggable('orders')).toBeTruthy()
-	})
-
+  test('static.taggable', async () => {
+    expect(CommerceLayerStatic.isTaggable('orders')).toBeTruthy()
+  })
 })

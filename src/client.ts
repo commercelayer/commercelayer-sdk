@@ -8,255 +8,238 @@ import { extractTokenData, isTokenExpired } from './util'
 
 const debug = Debug('client')
 
-
-
 const baseURL = (organization: string, domain?: string): string => {
-	return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api`
+  return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api`
 }
-
-
 
 type RequestParams = Record<string, string | number | boolean>
 type RequestHeaders = Record<string, string>
 
-
 export type RefreshToken = (expiredToken: string) => Promise<string>
 
 type RequestConfig = {
-	timeout?: number
-	params?: RequestParams
-	headers?: RequestHeaders
-	userAgent?: string
-	fetch?: Fetch
-	refreshToken?: RefreshToken
+  timeout?: number
+  params?: RequestParams
+  headers?: RequestHeaders
+  userAgent?: string
+  fetch?: Fetch
+  refreshToken?: RefreshToken
 }
 
-
 type ApiConfig = {
-	organization?: string
-	domain?: string
-	accessToken: string
+  organization?: string
+  domain?: string
+  accessToken: string
 }
 
 type ApiClientInitConfig = ApiConfig & RequestConfig
 type ApiClientConfig = Partial<ApiClientInitConfig>
 
-
 export type Method = 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH'
 
-
-
 class ApiClient {
+  static create(options: ApiClientInitConfig): ApiClient {
+    // Take organization and domain from access token if not defined by user
+    if ((!options.organization || !options.domain) && options.accessToken) {
+      const tokenData = extractTokenData(options.accessToken)
+      if (!options.organization && tokenData?.organization) options.organization = tokenData.organization
+      if (!options.domain && tokenData?.domain) options.domain = tokenData.domain
+    }
 
-	static create(options: ApiClientInitConfig): ApiClient {
+    for (const attr of config.client.requiredAttributes)
+      if (!options[attr]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
+    return new ApiClient(options)
+  }
 
-		// Take organization and domain from access token if not defined by user
-		if ((!options.organization || !options.domain) && options.accessToken) {
-			const tokenData = extractTokenData(options.accessToken)
-			if (!options.organization && tokenData?.organization) options.organization = tokenData.organization
-			if (!options.domain && tokenData?.domain) options.domain = tokenData.domain
-		}
+  #baseUrl: string
+  #accessToken: string
+  #organization: string
+  #domain?: string
+  readonly #clientConfig: RequestConfig
+  readonly #interceptors: InterceptorManager
 
-		for (const attr of config.client.requiredAttributes)
-			if (!options[attr]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
-		return new ApiClient(options)
+  private constructor(options: ApiClientInitConfig) {
+    debug('new client instance %O', options)
 
-	}
+    this.#baseUrl = baseURL(options.organization ?? '', options.domain)
+    this.#accessToken = options.accessToken
+    this.#organization = options.organization ?? '' // organization is always defined
+    this.#domain = options.domain
 
+    const fetchConfig: RequestConfig = {
+      timeout: options.timeout || config.client.timeout,
+      fetch: options.fetch,
+      refreshToken: options.refreshToken,
+    }
 
-	#baseUrl: string
-	#accessToken: string
-	#organization: string
-	#domain?: string
-	readonly #clientConfig: RequestConfig
-	readonly #interceptors: InterceptorManager
+    // Set custom headers
+    const customHeaders = this.customHeaders(options.headers)
 
+    // Set headers
+    const headers: RequestHeaders = {
+      ...customHeaders,
+      Accept: 'application/vnd.api+json',
+      'Content-Type': 'application/vnd.api+json',
+      Authorization: 'Bearer ' + this.#accessToken,
+    }
 
-	private constructor(options: ApiClientInitConfig) {
+    // Set User-Agent
+    if (options.userAgent) headers['User-Agent'] = options.userAgent
 
-		debug('new client instance %O', options)
+    fetchConfig.headers = headers
 
-		this.#baseUrl = baseURL(options.organization ?? '', options.domain)
-		this.#accessToken = options.accessToken
-		this.#organization = options.organization ?? ''	// organization is always defined
-		this.#domain = options.domain
+    this.#clientConfig = fetchConfig
 
-		const fetchConfig: RequestConfig = {
-			timeout: options.timeout || config.client.timeout,
-			fetch: options.fetch,
-			refreshToken: options.refreshToken
-		}
+    debug('fetch config: %O', fetchConfig)
 
-		// Set custom headers
-		const customHeaders = this.customHeaders(options.headers)
+    // Interceptors
+    this.#interceptors = {}
+  }
 
-		// Set headers
-		const headers: RequestHeaders = {
-			...customHeaders,
-			'Accept': 'application/vnd.api+json',
-			'Content-Type': 'application/vnd.api+json',
-			'Authorization': 'Bearer ' + this.#accessToken
-		}
+  get interceptors(): InterceptorManager {
+    return this.#interceptors
+  }
 
-		// Set User-Agent
-		if (options.userAgent) headers['User-Agent'] = options.userAgent
+  get requestHeaders(): RequestHeaders {
+    if (!this.#clientConfig.headers) this.#clientConfig.headers = {}
+    return this.#clientConfig.headers
+  }
 
-		fetchConfig.headers = headers
-
-		this.#clientConfig = fetchConfig
-
-		debug('fetch config: %O', fetchConfig)
-
-		// Interceptors
-		this.#interceptors = {}
-
-	}
-
-
-	get interceptors(): InterceptorManager { return this.#interceptors }
-
-	get requestHeaders(): RequestHeaders {
-		if (!this.#clientConfig.headers) this.#clientConfig.headers = {}
-		return this.#clientConfig.headers
-	}
-
-
-	/*
+  /*
 	set requestHeaders(headers: RequestHeaders) {
 		this.#clientConfig.headers = { ...this.#clientConfig.headers, ...headers }
 	}
 	*/
 
+  config(config: ApiClientConfig): this {
+    debug('config %o', config)
 
-	config(config: ApiClientConfig): this {
+    const def = this.#clientConfig
+    if (!def.headers) def.headers = {}
 
-		debug('config %o', config)
+    // Client config
+    if (config.timeout) def.timeout = config.timeout
 
-		const def = this.#clientConfig
-		if (!def.headers) def.headers = {}
+    if (config.userAgent) this.userAgent(config.userAgent)
+    if (config.fetch) this.#clientConfig.fetch = config.fetch
+    if (config.refreshToken) this.#clientConfig.refreshToken = config.refreshToken
 
-		// Client config
-		if (config.timeout) def.timeout = config.timeout
+    // API Client config
+    if (config.organization || config.domain)
+      this.#baseUrl = baseURL(config.organization || this.#organization, config.domain || this.#domain)
+    if (config.organization) this.#organization = config.organization
+    if (config.domain) this.#domain = config.domain
+    if (config.accessToken) {
+      this.#accessToken = config.accessToken
+      def.headers.Authorization = 'Bearer ' + this.#accessToken
+    }
+    if (config.headers) def.headers = { ...def.headers, ...this.customHeaders(config.headers) }
 
-		if (config.userAgent) this.userAgent(config.userAgent)
-		if (config.fetch) this.#clientConfig.fetch = config.fetch
-		if (config.refreshToken) this.#clientConfig.refreshToken = config.refreshToken
+    return this
+  }
 
-		// API Client config
-		if (config.organization || config.domain) this.#baseUrl = baseURL(config.organization || this.#organization, config.domain || this.#domain)
-		if (config.organization) this.#organization = config.organization
-		if (config.domain) this.#domain = config.domain
-		if (config.accessToken) {
-			this.#accessToken = config.accessToken
-			def.headers.Authorization = 'Bearer ' + this.#accessToken
-		}
-		if (config.headers) def.headers = { ...def.headers, ...this.customHeaders(config.headers) }
+  userAgent(userAgent: string): this {
+    if (userAgent) this.requestHeaders['User-Agent'] = userAgent
+    return this
+  }
 
-		return this
+  async request(method: Method, path: string, body?: any, options?: ApiClientConfig): Promise<FetchResponse> {
+    debug('request %s %s, %O, %O', method, path, body || {}, options || {})
 
-	}
+    // Ignored params (in debug mode)
+    if (options?.userAgent) debug('User-Agent header ignored in request config')
 
+    // URL
+    const baseUrl = options?.organization ? baseURL(options.organization, options.domain) : this.#baseUrl
+    const url = new URL(`${baseUrl}/${path}`)
 
-	userAgent(userAgent: string): this {
-		if (userAgent) this.requestHeaders['User-Agent'] = userAgent
-		return this
-	}
+    // Body
+    const bodyData = body ? JSON.stringify({ data: body }) : undefined
 
+    // Headers
+    const headers = { ...this.requestHeaders, ...this.customHeaders(options?.headers) }
 
-	async request(method: Method, path: string, body?: any, options?: ApiClientConfig): Promise<FetchResponse> {
+    // Access token
+    const accessToken = options?.accessToken || this.#accessToken
+    if (accessToken) headers.Authorization = 'Bearer ' + accessToken
 
-		debug('request %s %s, %O, %O', method, path, body || {}, options || {})
+    const refreshToken = options?.refreshToken || this.#clientConfig.refreshToken
+    const fetchFunction = options?.fetch || this.#clientConfig.fetch
 
-		// Ignored params (in debug mode)
-		if (options?.userAgent) debug('User-Agent header ignored in request config')
+    const requestOptions: FetchRequestOptions = { method, body: bodyData, headers }
 
-		// URL
-		const baseUrl = options?.organization ? baseURL(options.organization, options.domain) : this.#baseUrl
-		const url = new URL(`${baseUrl}/${path}`)
+    // Timeout
+    const timeout = options?.timeout || this.#clientConfig.timeout
+    if (timeout) {
+      if (AbortSignal?.timeout) requestOptions.signal = AbortSignal.timeout(timeout)
+      else debug('Timeout not set. Undefined function: %s', 'AbortSignal.timeout')
+    }
 
-		// Body
-		const bodyData = body ? JSON.stringify({ data: body }) : undefined
+    if (options?.params)
+      Object.entries(options?.params).forEach(([name, value]) => {
+        url.searchParams.append(name, String(value))
+      })
 
-		// Headers
-		const headers = { ...this.requestHeaders, ...this.customHeaders(options?.headers) }
+    const clientOptions: FetchClientOptions = {
+      interceptors: this.interceptors,
+      fetch: fetchFunction,
+    }
 
-		// Access token
-		const accessToken = options?.accessToken || this.#accessToken
-		if (accessToken) headers.Authorization = 'Bearer ' + accessToken
+    // const start = Date.now()
+    try {
+      // Execute api call
+      return await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
+    } catch (err: any) {
+      // Error executing api call
 
-		const refreshToken = options?.refreshToken || this.#clientConfig.refreshToken
-		const fetchFunction = options?.fetch || this.#clientConfig.fetch
+      if (isExpiredTokenError(err) && refreshToken && isTokenExpired(accessToken)) {
+        // If token has expired and must be refreshed
 
-		const requestOptions: FetchRequestOptions = { method, body: bodyData, headers }
+        debug('Access token has expired')
+        const newAccessToken = await refreshToken(this.#accessToken) // Refresh access token ...
+          .catch((e: any) => {
+            // Error refreshing access token
+            debug('Refresh token error: %s', e.message)
+            const tokenError = new SdkError({ message: 'Error refreshing access token', type: ErrorType.TOKEN_REFRESH })
+            tokenError.source = e
+            throw tokenError
+          })
 
-		// Timeout
-		const timeout = options?.timeout || this.#clientConfig.timeout
-		if (timeout) {
-			if (AbortSignal?.timeout) requestOptions.signal = AbortSignal.timeout(timeout)
-			else debug('Timeout not set. Undefined function: %s', 'AbortSignal.timeout')
-		}
+        if (newAccessToken) {
+          // ... set new access token in current config and repeat call
+          debug('Access token refreshed')
+          this.config({ accessToken: newAccessToken })
+          this.#accessToken = newAccessToken
+          if (requestOptions.headers)
+            (requestOptions.headers as Record<string, string>).Authorization = `Bearer ${newAccessToken}`
+          const response = await fetchURL(url, requestOptions, clientOptions).catch((error: Error) =>
+            handleError(error),
+          )
+          return response
+        }
+      } else throw err
+    }
+    // .finally(() => { console.log(`<<-- ${method} ${path} ${Date.now() - start}`) })
+  }
 
-		if (options?.params) Object.entries(options?.params).forEach(([name, value]) => { url.searchParams.append(name, String(value)) })
+  private customHeaders(headers?: RequestHeaders): RequestHeaders {
+    const customHeaders: RequestHeaders = {}
+    if (headers) {
+      for (const [name, value] of Object.entries(headers))
+        if (!['accept', 'content-type', 'authorization', 'user-agent'].includes(name.toLowerCase()))
+          customHeaders[name] = value
+    }
+    return customHeaders
+  }
 
-		const clientOptions: FetchClientOptions = {
-			interceptors: this.interceptors,
-			fetch: fetchFunction
-		}
+  get currentAccessToken(): string {
+    return this.#accessToken
+  }
 
-		// const start = Date.now()
-		try {	// Execute api call
-			return await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
-		} catch (err: any) {	// Error executing api call
-
-			if (isExpiredTokenError(err) && refreshToken && isTokenExpired(accessToken)) {	// If token has expired and must be refreshed
-
-				debug('Access token has expired')
-				const newAccessToken = await refreshToken(this.#accessToken)	// Refresh access token ...
-					.catch((e: any) => {	// Error refreshing access token
-						debug('Refresh token error: %s', e.message)
-						const tokenError = new SdkError({ message: 'Error refreshing access token', type: ErrorType.TOKEN_REFRESH })
-						tokenError.source = e
-						throw tokenError
-					})
-
-				if (newAccessToken) {	// ... set new access token in current config and repeat call
-					debug('Access token refreshed')
-					this.config({ accessToken: newAccessToken })
-					this.#accessToken = newAccessToken
-					if (requestOptions.headers) (requestOptions.headers as Record<string, string>).Authorization = `Bearer ${newAccessToken}`
-					const response = await fetchURL(url, requestOptions, clientOptions).catch((error: Error) => handleError(error))
-					return response
-				}
-
-			} else throw err
-
-		}
-		// .finally(() => { console.log(`<<-- ${method} ${path} ${Date.now() - start}`) })
-
-	}
-
-
-	private customHeaders(headers?: RequestHeaders): RequestHeaders {
-		const customHeaders: RequestHeaders = {}
-		if (headers) {
-			for (const [name, value] of Object.entries(headers))
-				if (!['accept', 'content-type', 'authorization', 'user-agent'].includes(name.toLowerCase())) customHeaders[name] = value
-		}
-		return customHeaders
-	}
-
-
-	get currentAccessToken(): string {
-		return this.#accessToken
-	}
-
-	get currentOrganization(): string {
-		return this.#organization
-	}
-
+  get currentOrganization(): string {
+    return this.#organization
+  }
 }
-
-
 
 export default ApiClient
 

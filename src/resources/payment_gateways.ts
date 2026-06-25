@@ -1,84 +1,97 @@
 import type { QueryParamsList } from '../query'
-import type { ListResponse, Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, } from '../resource'
+import type {
+  ListResponse,
+  Resource,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+} from '../resource'
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
 
-
 type PaymentGatewayType = 'payment_gateways'
 type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
-
 
 export type PaymentGatewaySort = Pick<PaymentGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type PaymentGatewayFilter = Pick<PaymentGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
-
 interface PaymentGateway extends Resource {
-	
-	readonly type: PaymentGatewayType
+  readonly type: PaymentGatewayType
 
-	/** 
-	 * The payment gateway's internal name.
-	 * @example ```"US payment gateway"```
-	 */
-	name: string
-	/** 
-	 * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
-	 * @example ```true```
-	 */
-	force_payments?: boolean | null
-	/** 
-	 * The payment gateway's API credential keys last digits.
-	 * @example ```{"api_key":"********BW989"}```
-	 */
-	credential_keys?: Record<string, any> | null
-	/** 
-	 * Time at which this resource was disabled.
-	 * @example ```"2018-01-01T12:00:00.000Z"```
-	 */
-	disabled_at?: string | null
+  /**
+   * The payment gateway's internal name.
+   * @example ```"US payment gateway"```
+   */
+  name: string
+  /**
+   * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+   * @example ```true```
+   */
+  force_payments?: boolean | null
+  /**
+   * The payment gateway's API credential keys last digits.
+   * @example ```{"api_key":"********BW989"}```
+   */
+  credential_keys?: Record<string, any> | null
+  /**
+   * Time at which this resource was disabled.
+   * @example ```"2018-01-01T12:00:00.000Z"```
+   */
+  disabled_at?: string | null
 
-	payment_methods?: PaymentMethod[] | null
-	event_stores?: EventStore[] | null
-
+  payment_methods?: PaymentMethod[] | null
+  event_stores?: EventStore[] | null
 }
-
 
 class PaymentGateways extends ApiResource<PaymentGateway> {
+  static readonly TYPE: PaymentGatewayType = 'payment_gateways' as const
 
-	static readonly TYPE: PaymentGatewayType = 'payment_gateways' as const
+  async payment_methods(
+    paymentGatewayId: string | PaymentGateway,
+    params?: QueryParamsList<PaymentMethod>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PaymentMethod>> {
+    const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || (paymentGatewayId as string)
+    return this.resources.fetch<PaymentMethod>(
+      { type: 'payment_methods' },
+      `payment_gateways/${_paymentGatewayId}/payment_methods`,
+      params,
+      options,
+    ) as unknown as ListResponse<PaymentMethod>
+  }
 
-	async payment_methods(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList<PaymentMethod>, options?: ResourcesConfig): Promise<ListResponse<PaymentMethod>> {
-		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
-		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `payment_gateways/${_paymentGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
-	}
+  async event_stores(
+    paymentGatewayId: string | PaymentGateway,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || (paymentGatewayId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `payment_gateways/${_paymentGatewayId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
 
-	async event_stores(paymentGatewayId: string | PaymentGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
-		const _paymentGatewayId = (paymentGatewayId as PaymentGateway).id || paymentGatewayId as string
-		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `payment_gateways/${_paymentGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
-	}
+  isPaymentGateway(resource: any): resource is PaymentGateway {
+    return resource.type && resource.type === PaymentGateways.TYPE
+  }
 
+  relationship(id: string | ResourceId | null): PaymentGatewayRel {
+    return super.relationshipOneToOne<PaymentGatewayRel>(id)
+  }
 
-	isPaymentGateway(resource: any): resource is PaymentGateway {
-		return resource.type && (resource.type === PaymentGateways.TYPE)
-	}
+  relationshipToMany(...ids: string[]): PaymentGatewayRel[] {
+    return super.relationshipOneToMany<PaymentGatewayRel>(...ids)
+  }
 
-
-	relationship(id: string | ResourceId | null): PaymentGatewayRel {
-		return super.relationshipOneToOne<PaymentGatewayRel>(id)
-	}
-
-	relationshipToMany(...ids: string[]): PaymentGatewayRel[] {
-		return super.relationshipOneToMany<PaymentGatewayRel>(...ids)
-	}
-
-
-	type(): PaymentGatewayType {
-		return PaymentGateways.TYPE
-	}
-
+  type(): PaymentGatewayType {
+    return PaymentGateways.TYPE
+  }
 }
-
 
 const instance = new PaymentGateways()
 export default instance

@@ -1,65 +1,56 @@
-import { readFileSync, writeFileSync } from "node:fs"
-import { resolve } from "node:path"
-
+import { readFileSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 const RESOURCES_LOCAL_PATH = resolve('./gen/resources.json')
 const RESOURCES_REMOTE_URL = 'https://core.commercelayer.io/api/public/resources'
 
-
 const downloadResources = async (url?: string): Promise<any> => {
+  const resourcesUrl = url || RESOURCES_REMOTE_URL
+  const resourcesOutPath = RESOURCES_LOCAL_PATH
 
-	const resourcesUrl = url || RESOURCES_REMOTE_URL
-	const resourcesOutPath = RESOURCES_LOCAL_PATH
+  console.log(`Downloading resources ... [${resourcesUrl}]`)
 
-	console.log(`Downloading resources ... [${resourcesUrl}]`)
+  const response = await fetch(resourcesUrl)
+  const resources = (await response.json()).data
 
-	const response = await fetch(resourcesUrl)
-	const resources = (await response.json()).data
+  if (resources) writeFileSync(resourcesOutPath, JSON.stringify(resources, null, 4))
+  else console.log('Resources file is empty!')
 
-	if (resources) writeFileSync(resourcesOutPath, JSON.stringify(resources, null, 4))
-	else console.log('Resources file is empty!')
-
-	return resources
-
+  return resources
 }
-
 
 const loadResources = (): any => {
+  const schemaPath = RESOURCES_LOCAL_PATH
 
-	const schemaPath = RESOURCES_LOCAL_PATH
+  console.log(`Loading resources ... [${schemaPath}]`)
 
-	console.log(`Loading resources ... [${schemaPath}]`)
-
-	try {
-		const schema = readFileSync(schemaPath, { encoding: 'utf-8'})
-		return JSON.parse(schema)
-	} catch (_error) {
-		console.log('Error loading local resources schema: ' + schemaPath)
-		return undefined
-	}
-
+  try {
+    const schema = readFileSync(schemaPath, { encoding: 'utf-8' })
+    return JSON.parse(schema)
+  } catch (_error) {
+    console.log('Error loading local resources schema: ' + schemaPath)
+    return undefined
+  }
 }
 
-
-const getResource = (resources: any[], resId: string): { fields: any, relationships: any } => {
-  return resources.find(r => r.id === resId)
+const getResource = (resources: any[], resId: string): { fields: any; relationships: any } => {
+  return resources.find((r) => r.id === resId)
 }
 
 const getResourceFields = (resources: any[] | any, resId: string): any => {
-  return (Array.isArray(resources)? getResource(resources, resId) : resources)?.attributes.fields
+  return (Array.isArray(resources) ? getResource(resources, resId) : resources)?.attributes.fields
 }
 
 const getResourceRelationships = (resources: any[] | any, resId: string): any => {
-  return (Array.isArray(resources)? getResource(resources, resId) : resources)?.attributes.relationships
+  return (Array.isArray(resources) ? getResource(resources, resId) : resources)?.attributes.relationships
 }
 
-
 export default {
-	download: downloadResources,
-	load: loadResources,
+  download: downloadResources,
+  load: loadResources,
   getResource,
   getResourceFields,
   getResourceRelationships,
-	localPath: RESOURCES_LOCAL_PATH,
-	remoteUrl: RESOURCES_REMOTE_URL
+  localPath: RESOURCES_LOCAL_PATH,
+  remoteUrl: RESOURCES_REMOTE_URL,
 }
