@@ -1,3 +1,18 @@
+## [8.0.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.6...v8.0.0-beta.7) (2026-06-25)
+
+### ⚠ BREAKING CHANGES
+
+* remove /versions endpoints
+
+### Features
+
+* switch from OpenAPI schema to public resources and publish to pkg-pr-new ([fcc1b8a](https://github.com/commercelayer/commercelayer-sdk/commit/fcc1b8a37666f7c5f4b457f5d9a819cfa9f9f17b))
+* update resources to schema v7.10.0 ([c8086f2](https://github.com/commercelayer/commercelayer-sdk/commit/c8086f22f486254d785ea8cac50c76dee6ead224))
+
+### Documentation
+
+* update import guide ([d20dae1](https://github.com/commercelayer/commercelayer-sdk/commit/d20dae1237db7c5456fce21616b5c91a76759985))
+
 ## [8.0.0-beta.6](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.5...v8.0.0-beta.6) (2026-05-28)
 
 ### Features
