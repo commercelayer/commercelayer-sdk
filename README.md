@@ -58,44 +58,39 @@ All requests to Commerce Layer API must be authenticated with an [OAuth2](https:
 
 ### Import
 
-You can use the ES6 default import with the SDK like so:
+The SDK supports two import approaches. **Use the bundled client by default**, the selective import pattern is available for specific use cases but comes with important caveats described below.
+
+#### Bundled client import
 
 ```javascript
-import CommerceLayer from '@commercelayer/sdk'
+import { CommerceLayer } from '@commercelayer/sdk/bundle'
 
-/*
- * Organization slug is no longer required as it is taken from the    
- * information included in the access token
-*/
 const cl = CommerceLayer({
   accessToken: 'your-access-token'
 })
+
+const orderList = await cl.orders.list()
+const skuList = await cl.skus.list()
 ```
 
-Starting from version v7.x, in order to enable the tree-shaking feature used by bundlers to reduce the size of the created package, you can import separately the client and the required resources.
-Use `client` to setup the SDK access special features like *interceptors*, *raw response* or *auto token refresh* and use `resources` to interact with the API.
+All resource accessors are available directly on the client object. This increases your final bundle size but keeps all resource calls scoped to a specific client instance.
+
+#### Selective resource imports
 
 ```javascript
 import CommerceLayer, { orders, skus } from '@commercelayer/sdk'
 
-const cl = CommerceLayer({ accessToken })
-cl.addRawResponseReader()
+const cl = CommerceLayer({
+  accessToken: 'your-access-token'
+})
 
 const orderList = await orders.list()
 const skuList = await skus.list()
 ```
 
-You can still use the old style bundle client importing it directly (together with all the included resources, this will increase your final package size).
+Only the imported resources are included in your bundle. However, imported resources share a single global SDK configuration. If two requests are in-flight simultaneously with different access tokens (common in serverless environments with connection reuse, or in any multi-tenant context), they may silently use the wrong token.
 
-```javascript
-import { CommerceLayer } from '@commercelayer/sdk/bundle'
-
-const cl = CommerceLayer({ accessToken })
-cl.addRawResponseReader()
-
-const orderList = await cl.orders.list()
-const skuList = await cl.skus.list()
-```
+It is a good fit for edge/serverless functions or webhook handlers that use only a few resources and a single token active at a time.
 
 ### Options
 
