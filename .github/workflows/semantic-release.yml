@@ -38,5 +38,5 @@ jobs:
         run: pnpm test
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
         run: pnpx semantic-release

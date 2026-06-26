@@ -5,6 +5,9 @@ import type { Fetch, FetchClientOptions, FetchRequestOptions, FetchResponse } fr
 import { fetchURL } from './fetch'
 import type { InterceptorManager } from './interceptor'
 import { extractTokenData, isTokenExpired } from './util'
+import { SDK_VERSION } from './version'
+
+const CLIENT_HEADER_NAME = 'X-CL-SDK'
 
 const debug = Debug('client')
 
@@ -24,6 +27,7 @@ type RequestConfig = {
   userAgent?: string
   fetch?: Fetch
   refreshToken?: RefreshToken
+  telemetry?: boolean
 }
 
 type ApiConfig = {
@@ -82,6 +86,9 @@ class ApiClient {
       'Content-Type': 'application/vnd.api+json',
       Authorization: 'Bearer ' + this.#accessToken,
     }
+
+    // SDK client identification — opt out via { telemetry: false } at init time
+    if (options.telemetry !== false) headers[CLIENT_HEADER_NAME] = `js/${SDK_VERSION}`
 
     // Set User-Agent
     if (options.userAgent) headers['User-Agent'] = options.userAgent
@@ -226,7 +233,11 @@ class ApiClient {
     const customHeaders: RequestHeaders = {}
     if (headers) {
       for (const [name, value] of Object.entries(headers))
-        if (!['accept', 'content-type', 'authorization', 'user-agent'].includes(name.toLowerCase()))
+        if (
+          !['accept', 'content-type', 'authorization', 'user-agent', CLIENT_HEADER_NAME.toLowerCase()].includes(
+            name.toLowerCase(),
+          )
+        )
           customHeaders[name] = value
     }
     return customHeaders
