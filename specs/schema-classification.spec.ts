@@ -103,6 +103,28 @@ describe('Schema classification by target version', () => {
   test('invalid --api-version throws', () => {
     expect(() => apiSchema.parse(FIXTURE, { apiVersion: '1999-01' })).toThrow(/not in the supported set/)
   })
+
+  test('@since: elements introduced after the oldest version are annotated', () => {
+    // Oldest supported version in the fixture is 2017-08.
+    // `future_resource` has meta.api_versions=["2026-05"] → introduced in 2026-05.
+    const schema = apiSchema.parse(FIXTURE)
+
+    // Resource introduced after the oldest version.
+    expect(schema.resources.future_resources?.since).toBe('2026-05')
+    // Resource that has been there since the oldest version.
+    expect(schema.resources.agnostic_resources?.since).toBeUndefined()
+    // Resource only in older → @deprecated wins; no @since.
+    expect(schema.resources.legacy_resources?.since).toBeUndefined()
+
+    // Field added later.
+    const comp = schema.resources.agnostic_resources?.components.AgnosticResource
+    expect(comp?.attributes.future_field?.since).toBe('2026-05')
+    // Field present in oldest → no @since.
+    expect(comp?.attributes.spanning_field?.since).toBeUndefined()
+    expect(comp?.attributes.always_field?.since).toBeUndefined()
+    // Field only in older → @deprecated path; no @since.
+    expect(comp?.attributes.legacy_field?.since).toBeUndefined()
+  })
 })
 
 describe('Legacy-shape schema support', () => {

@@ -728,16 +728,17 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   res = res.replace(/##__RESOURCE_TYPE__##/g, type)
   res = res.replace(/##__RESOURCE_CLASS__##/g, resName)
 
-  // Resource-level @deprecated JSDoc — emitted when the parser flags the
-  // resource as version-scoped to API versions older than the current
-  // target. The placeholder is collapsed to an empty string otherwise.
+  // Resource-level JSDoc — `@deprecated` when the resource is version-scoped
+  // to API versions older than the current target, `@since` when introduced
+  // after the catalogue's oldest supported version. Both can apply but in
+  // practice they're mutually exclusive for resources.
   const resourceDeprecatedSince = resource.deprecatedSince
     ? ` Last available in API version ${resource.deprecatedSince}.`
     : ''
-  res = res.replace(
-    /##__RESOURCE_DEPRECATED_JSDOC__##/g,
-    resource.deprecated ? `/** @deprecated${resourceDeprecatedSince} */\n` : '',
-  )
+  let resourceJsdoc = ''
+  if (resource.deprecated) resourceJsdoc = `/** @deprecated${resourceDeprecatedSince} */\n`
+  else if (resource.since) resourceJsdoc = `/** @since ${resource.since} */\n`
+  res = res.replace(/##__RESOURCE_DEPRECATED_JSDOC__##/g, resourceJsdoc)
 
   const resourceOperations = operations && operations.length > 0 ? operations.join('\n\n\t') : ''
   res = res.replace(/##__RESOURCE_OPERATIONS__##/, resourceOperations)
@@ -880,12 +881,13 @@ const templatedOperation = (
       operation = operation.replace(plh, val)
     })
 
-  // Prepend `@deprecated` JSDoc to the method when the operation comes from
-  // a relationship whose own versions are legacy (the target resource still
-  // exists; only the access path is being phased out).
+  // Prepend `@deprecated` or `@since` JSDoc to the method based on the
+  // versions metadata of the underlying relationship.
   if (op.deprecated) {
-    const sinceText = op.deprecatedSince ? ` Last available in API version ${op.deprecatedSince}.` : ''
-    operation = `/**\n * @deprecated${sinceText}\n */\n${operation}`
+    const lastAvailable = op.deprecatedSince ? ` Last available in API version ${op.deprecatedSince}.` : ''
+    operation = `/**\n * @deprecated${lastAvailable}\n */\n${operation}`
+  } else if (op.since) {
+    operation = `/**\n * @since ${op.since}\n */\n${operation}`
   }
 
   operation = operation.replace(/\n/g, '\n\t')
@@ -949,14 +951,15 @@ const templatedComponent = (
       if (cudModel || a.fetchable) {
         const attrType = fixAttributeType(a)
         if (a.enum) enums[a.name] = attrType
-        if (a.description || a.example || a.deprecated) {
+        if (a.description || a.example || a.deprecated || a.since) {
           const desc = a.description && !a.description.endsWith('.') ? `${a.description}.` : a.description
           const descLine = desc ? `\n\t * ${desc}` : ''
+          const sinceLine = a.since ? `\n\t * @since ${a.since}` : ''
           const deprecatedLine = a.deprecated
             ? `\n\t * @deprecated${a.deprecatedSince ? ` Last available in API version ${a.deprecatedSince}.` : ''}`
             : ''
           const exampleLine = a.example ? `\n\t * @example \`\`\`${JSON.stringify(a.example)}\`\`\`` : ''
-          fields.push(`/** ${descLine}${deprecatedLine}${exampleLine}\n\t */`)
+          fields.push(`/** ${descLine}${sinceLine}${deprecatedLine}${exampleLine}\n\t */`)
         }
         fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}${a.required ? '' : ' | null'}`)
       }
@@ -1000,9 +1003,12 @@ const templatedComponent = (
       else resName += '[]'
     }
 
-    const jsdoc = r.deprecated
-      ? `/**\n\t * @deprecated${r.deprecatedSince ? ` Last available in API version ${r.deprecatedSince}.` : ''}\n\t */\n\t`
-      : ''
+    let jsdoc = ''
+    if (r.deprecated) {
+      jsdoc = `/**\n\t * @deprecated${r.deprecatedSince ? ` Last available in API version ${r.deprecatedSince}.` : ''}\n\t */\n\t`
+    } else if (r.since) {
+      jsdoc = `/**\n\t * @since ${r.since}\n\t */\n\t`
+    }
     rels.push(`${jsdoc}${r.name}${r.required ? '' : '?'}: ${resName}${r.required ? '' : ' | null'}`)
   })
 

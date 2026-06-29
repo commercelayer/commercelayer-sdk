@@ -14,6 +14,7 @@ type Resource = {
   operations: Record<string, Operation>
   deprecated?: boolean
   deprecatedSince?: string
+  since?: string
 }
 
 type Component = {
@@ -37,6 +38,7 @@ type Attribute = {
   example?: string
   deprecated?: boolean
   deprecatedSince?: string
+  since?: string
 }
 
 enum Cardinality {
@@ -51,6 +53,7 @@ type Relationship = {
   cardinality: Cardinality
   deprecated: boolean
   deprecatedSince?: string
+  since?: string
   /**
    * Set when the relationship's target resource is excluded from the current
    * build (only available in versions newer than the target). The renderer
@@ -76,6 +79,7 @@ type Operation = {
   trigger?: boolean
   deprecated?: boolean
   deprecatedSince?: string
+  since?: string
 }
 
 const RESOURCES_LOCAL_PATH = resolve('./gen/public_resources.json')
@@ -224,6 +228,19 @@ const classifyVersions = (versions: string[] | undefined, targetVersion: string)
 }
 
 const maxVersion = (versions: string[]): string => versions.slice().sort().at(-1) as string
+const minVersion = (versions: string[]): string => versions.slice().sort()[0] as string
+
+/**
+ * Returns the version in which a versioned element was introduced if that
+ * version is later than the catalogue's oldest supported one (so callers see
+ * "this was added in X"). Returns `undefined` when the element has been
+ * present since the oldest version — no annotation needed.
+ */
+const deriveSince = (versions: string[] | undefined, oldestSupported: string): string | undefined => {
+  if (!versions || versions.length === 0) return undefined
+  const min = minVersion(versions)
+  return min > oldestSupported ? min : undefined
+}
 
 type ResourceContext = {
   res: PublicResource
@@ -357,6 +374,7 @@ const buildAttribute = (
   field: PublicField,
   required: boolean,
   targetVersion: string,
+  oldestSupported: string,
 ): Attribute | undefined => {
   const classification = classifyVersions(field.versions, targetVersion)
   if (classification === 'exclude') return undefined
@@ -372,6 +390,7 @@ const buildAttribute = (
     example: coerceExample(field.example, field.type) as string | undefined,
     deprecated: classification === 'deprecated' ? true : undefined,
     deprecatedSince: classification === 'deprecated' ? maxVersion(field.versions as string[]) : undefined,
+    since: classification === 'include' ? deriveSince(field.versions, oldestSupported) : undefined,
   }
 }
 
@@ -379,6 +398,7 @@ const buildRelationship = (
   relName: string,
   rel: PublicRelationship,
   targetVersion: string,
+  oldestSupported: string,
   parentCam?: string,
   excludedClassNames?: ReadonlySet<string>,
 ): Relationship | undefined => {
@@ -433,6 +453,7 @@ const buildRelationship = (
   const legacyDeprecated = rel.deprecated === true
   const deprecated = ownClassification === 'deprecated' || legacyDeprecated || targetExcluded
   const deprecatedSince = ownClassification === 'deprecated' ? maxVersion(rel.versions as string[]) : undefined
+  const since = ownClassification === 'include' ? deriveSince(rel.versions, oldestSupported) : undefined
 
   return {
     name: relName,
@@ -441,6 +462,7 @@ const buildRelationship = (
     cardinality,
     deprecated,
     deprecatedSince,
+    since,
     targetExcluded: targetExcluded || undefined,
     oneOf,
     polymorphic,
@@ -488,6 +510,7 @@ const buildComponent = (
   ctx: ResourceContext,
   variant: ComponentVariant,
   targetVersion: string,
+  oldestSupported: string,
   excludedClassNames: ReadonlySet<string>,
 ): Component => {
   const rule = VARIANT_RULES[variant]
@@ -497,13 +520,13 @@ const buildComponent = (
   for (const [name, field] of Object.entries(ctx.res.attributes.fields)) {
     if (name === 'id' || name === 'type') continue
     if (!rule.includeField(field)) continue
-    const attr = buildAttribute(ctx.singular, name, field, rule.fieldRequired(field), targetVersion)
+    const attr = buildAttribute(ctx.singular, name, field, rule.fieldRequired(field), targetVersion, oldestSupported)
     if (attr) attributes[name] = attr
   }
 
   for (const [name, rel] of Object.entries(ctx.res.attributes.relationships || {})) {
     if (!rule.includeRel(rel)) continue
-    const built = buildRelationship(name, rel, targetVersion, ctx.cam, excludedClassNames)
+    const built = buildRelationship(name, rel, targetVersion, oldestSupported, ctx.cam, excludedClassNames)
     if (!built) continue
     relationships[name] = {
       ...built,
@@ -517,6 +540,7 @@ const buildComponent = (
 const buildOperations = (
   ctx: ResourceContext,
   targetVersion: string,
+  oldestSupported: string,
   excludedClassNames: ReadonlySet<string>,
 ): Record<string, Operation> => {
   const { singular, plural, cam, idVar, singleton } = ctx
@@ -582,7 +606,7 @@ const buildOperations = (
     // Polymorphic relationships handle their union inline in the read model
     // and don't get a dedicated sub-path operation.
     if (rel.polymorphic === true) continue
-    const relationship = buildRelationship(relName, rel, targetVersion, undefined, excludedClassNames)
+    const relationship = buildRelationship(relName, rel, targetVersion, oldestSupported, undefined, excludedClassNames)
     // No relationship at all → own classification is `exclude`, skip.
     if (!relationship) continue
     // Target resource was excluded → there's no proper response type to
@@ -604,6 +628,7 @@ const buildOperations = (
       relationship,
       deprecated: relationship.deprecated || undefined,
       deprecatedSince: relationship.deprecatedSince,
+      since: relationship.since,
     }
   }
 
@@ -633,22 +658,26 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
   }
 
   let targetVersion: string
+  let oldestSupported: string
   if (isUnified) {
-    // Union of every resource's api_versions, sorted; the last entry is the
-    // newest API version the catalogue knows about.
+    // Union of every resource's api_versions, sorted; first/last entries
+    // are the oldest/newest API versions the catalogue knows about.
     const supportedVersions = Array.from(new Set(doc.data.flatMap((r) => r.meta?.api_versions ?? []))).sort()
     const latestVersion = supportedVersions[supportedVersions.length - 1] as string
+    oldestSupported = supportedVersions[0] as string
     targetVersion = opts.apiVersion ?? latestVersion
     if (!supportedVersions.includes(targetVersion)) {
       throw new Error(
         `--api-version=${targetVersion} is not in the supported set [${supportedVersions.join(', ')}]. Check for typos.`,
       )
     }
-    console.log(`Target API version: ${targetVersion} (latest: ${latestVersion})`)
+    console.log(`Target API version: ${targetVersion} (latest: ${latestVersion}, oldest: ${oldestSupported})`)
   } else {
     // Legacy payloads carry no version metadata — pin to the literal
-    // 'latest', preserving pre-Phase-4 production behaviour.
+    // 'latest', preserving pre-Phase-4 production behaviour. No `@since`
+    // annotations are emitted in this mode.
     targetVersion = 'latest'
+    oldestSupported = ''
   }
 
   // Classify each resource. In unified mode classification is version-driven;
@@ -683,14 +712,14 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
     const ctx = resourceContext(res)
     const { plural, cam } = ctx
 
-    const operations = buildOperations(ctx, targetVersion, excludedClassNames)
-    const readComp = buildComponent(ctx, 'read', targetVersion, excludedClassNames)
+    const operations = buildOperations(ctx, targetVersion, oldestSupported, excludedClassNames)
+    const readComp = buildComponent(ctx, 'read', targetVersion, oldestSupported, excludedClassNames)
 
     const resComponents: ComponentMap = { [cam]: readComp }
     if (operations.create)
-      resComponents[`${cam}Create`] = buildComponent(ctx, 'create', targetVersion, excludedClassNames)
+      resComponents[`${cam}Create`] = buildComponent(ctx, 'create', targetVersion, oldestSupported, excludedClassNames)
     if (operations.update)
-      resComponents[`${cam}Update`] = buildComponent(ctx, 'update', targetVersion, excludedClassNames)
+      resComponents[`${cam}Update`] = buildComponent(ctx, 'update', targetVersion, oldestSupported, excludedClassNames)
 
     const apiVersions = res.meta?.api_versions
     resources[plural] = {
@@ -701,6 +730,7 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
       // the version (unified shape); legacy payloads carry no such info.
       deprecatedSince:
         classification === 'deprecated' && apiVersions && apiVersions.length > 0 ? maxVersion(apiVersions) : undefined,
+      since: classification === 'include' ? deriveSince(apiVersions, oldestSupported) : undefined,
     }
 
     components[cam] = readComp
