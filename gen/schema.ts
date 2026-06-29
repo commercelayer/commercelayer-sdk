@@ -657,12 +657,16 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
     )
   }
 
+  // Union of every resource's api_versions, sorted; first/last entries
+  // are the oldest/newest API versions the catalogue knows about. Empty
+  // when the payload is legacy.
+  const supportedVersions: readonly string[] = isUnified
+    ? Array.from(new Set(doc.data.flatMap((r) => r.meta?.api_versions ?? []))).sort()
+    : []
+
   let targetVersion: string
   let oldestSupported: string
   if (isUnified) {
-    // Union of every resource's api_versions, sorted; first/last entries
-    // are the oldest/newest API versions the catalogue knows about.
-    const supportedVersions = Array.from(new Set(doc.data.flatMap((r) => r.meta?.api_versions ?? []))).sort()
     const latestVersion = supportedVersions[supportedVersions.length - 1] as string
     oldestSupported = supportedVersions[0] as string
     targetVersion = opts.apiVersion ?? latestVersion

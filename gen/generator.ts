@@ -205,25 +205,24 @@ const _tabsString = (num: number): string => {
 const updateSdkVersion = (): void => {
   if (!global.version) return
 
-  const filePath = 'src/commercelayer.ts'
+  // API_SCHEMA_VERSION lives in src/version.ts (alongside SDK_VERSION) so
+  // client.ts can read it without a circular import via commercelayer.ts.
+  const filePath = 'src/version.ts'
 
   const cl = readFileSync(filePath, { encoding: 'utf-8' })
 
   const lines = cl.split('\n')
 
-  // OpenAPI schema version
+  // Build's target API version (e.g. '2026-05' for a unified build,
+  // 'latest' for a legacy build). Customers don't override this — the URL
+  // version segment is purely driven by the generator's output.
+  // The `: string` annotation widens TS's inferred literal type so
+  // comparisons like `API_SCHEMA_VERSION === 'latest'` don't trip TS2367
+  // after regen against a unified host.
   const schemaLine = findLine(SCHEMA_VERSION_CONST, lines)
   const schemaPrefix = schemaLine.text.substring(0, schemaLine.offset).trim()
-  if (schemaLine.index >= 0) lines[schemaLine.index] = `${schemaPrefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
-
-  // SDK version
-  /*
-	const pkgJson = readFileSync(resolve('.', 'package.json'), { encoding: 'utf-8' })
-	const pkg = JSON.parse(pkgJson)
-	const sdkLine = findLine(SDK_VERSION_CONST, lines)
-	const sdkPrefix = sdkLine.text.substring(0, sdkLine.offset).trim()
-	if (sdkLine.index >= 0) lines[sdkLine.index] = `${sdkPrefix} ${SDK_VERSION_CONST} = '${pkg.version}'`
-	*/
+  if (schemaLine.index >= 0)
+    lines[schemaLine.index] = `${schemaPrefix} ${SCHEMA_VERSION_CONST}: string = '${global.version}'`
 
   writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
 

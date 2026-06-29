@@ -1,18 +1,19 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 import { CommerceLayer, type CommerceLayerBundle } from '../src/bundle'
-import { domain, organization } from '../test/common'
+import { domain, IS_UNIFIED_BUILD, organization } from '../test/common'
 import getToken from '../test/token'
 
 let cl: CommerceLayerBundle
 
 beforeAll(async () => {
+  if (IS_UNIFIED_BUILD) return
   const token = await getToken('integration')
   if (token === null) throw new Error('Unable to get access token')
   const accessToken = token.accessToken
   cl = CommerceLayer({ organization, accessToken, domain })
 })
 
-describe('SDK:bundle suite', () => {
+describe.skipIf(IS_UNIFIED_BUILD)('SDK:bundle suite', () => {
   test('bundle.client', async () => {
     const customers = await cl.customers.list()
     expect(customers).toBeDefined()

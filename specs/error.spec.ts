@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { type CommerceLayerClient, customers, type ErrorObj } from '../src'
 import { ErrorType } from '../src/error'
-import { getClient } from '../test/common'
+import { getClient, IS_UNIFIED_BUILD } from '../test/common'
 
 // import { DBG } from '../src/common'
 
@@ -25,7 +25,7 @@ describe('SDK:error suite', () => {
     }
   })
 
-  test('ApiError.first', async () => {
+  test.skipIf(IS_UNIFIED_BUILD)('ApiError.first', async () => {
     try {
       await customers.create({ email: '' })
     } catch (error: any) {

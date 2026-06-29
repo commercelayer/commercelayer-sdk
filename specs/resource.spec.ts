@@ -1,18 +1,21 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 import { application, type CommerceLayerClient, type Customer, customers, type ListResponse, orders } from '../src'
-import { getClient } from '../test/common'
+import { getClient, IS_UNIFIED_BUILD } from '../test/common'
 
 let cl: CommerceLayerClient
 let customerList: ListResponse<Customer>
 let tempId: string
 
 beforeAll(async () => {
+  // Integration tests hit a real API; skip the setup on unified builds until
+  // the target API version is configured for the test org on staging.
+  if (IS_UNIFIED_BUILD) return
   cl = await getClient({})
   const _version = cl.apiSchemaVersion // avoid not used var issue
   customerList = await customers.list({ pageSize: 1 })
 })
 
-describe('SDK:resource suite', () => {
+describe.skipIf(IS_UNIFIED_BUILD)('SDK:resource suite', () => {
   test('resource.first', async () => {
     const first = customerList.first()
     expect(first?.id).not.toBeUndefined()

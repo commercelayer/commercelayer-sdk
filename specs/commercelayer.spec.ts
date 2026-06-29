@@ -6,7 +6,7 @@ import {
   CommerceLayerStatic,
   customers,
 } from '../src'
-import { getClient, organization } from '../test/common'
+import { getClient, IS_UNIFIED_BUILD, organization } from '../test/common'
 import getAccessToken from '../test/token'
 
 let cl: CommerceLayerClient
@@ -34,7 +34,7 @@ describe('SDK:commercelayer suite', () => {
     expect(cl.currentOrganization).toEqual('fake-org')
   })
 
-  test('commercelayer.rawResponse', async () => {
+  test.skipIf(IS_UNIFIED_BUILD)('commercelayer.rawResponse', async () => {
     const headers = true
 
     const cli = await getClient({ timeout: 15000 })
@@ -53,7 +53,7 @@ describe('SDK:commercelayer suite', () => {
     cl = await getClient()
   })
 
-  test('commercelayer.refreshToken', async () => {
+  test.skipIf(IS_UNIFIED_BUILD)('commercelayer.refreshToken', async () => {
     let refreshed = false
 
     async function refreshToken(_old: string): Promise<string> {

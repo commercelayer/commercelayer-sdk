@@ -5,14 +5,19 @@ import type { Fetch, FetchClientOptions, FetchRequestOptions, FetchResponse } fr
 import { fetchURL } from './fetch'
 import type { InterceptorManager } from './interceptor'
 import { extractTokenData, isTokenExpired } from './util'
-import { SDK_VERSION } from './version'
+import { API_SCHEMA_VERSION, SDK_VERSION } from './version'
 
 const CLIENT_HEADER_NAME = 'X-CL-SDK'
 
 const debug = Debug('client')
 
+// Unified builds embed the schema version as a URL path segment
+// (`/api/2026-05/orders`). Legacy builds carry the literal 'latest' marker
+// from the generator and stay unversioned (`/api/orders`).
+const URL_VERSION_SEGMENT = API_SCHEMA_VERSION === 'latest' ? '' : `/${API_SCHEMA_VERSION}`
+
 const baseURL = (organization: string, domain?: string): string => {
-  return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api`
+  return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api${URL_VERSION_SEGMENT}`
 }
 
 type RequestParams = Record<string, string | number | boolean>
