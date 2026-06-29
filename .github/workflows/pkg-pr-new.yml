@@ -74,7 +74,11 @@ jobs:
           if [ -n "${{ inputs.api_version }}" ]; then
             ARGS="$ARGS --api-version=${{ inputs.api_version }}"
           fi
-          pnpm generate $ARGS
+          # Invoke tsx directly: `pnpm generate` is `tsx gen/generator.ts && pnpm check`,
+          # and pnpm appends user args to the LAST command in a chained script — so
+          # `pnpm generate --api-host=…` would pass the flag to `pnpm check` instead.
+          pnpm tsx gen/generator.ts $ARGS
+          pnpm check
 
       - name: Commit + push to pkg-pr-new-${{ inputs.environment }}
         if: github.event_name == 'workflow_dispatch'
