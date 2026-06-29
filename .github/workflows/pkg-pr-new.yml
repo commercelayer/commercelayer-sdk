@@ -1,4 +1,5 @@
 name: Publish preview package
+
 on:
   push:
     branches:
@@ -6,29 +7,100 @@ on:
       - '!main'
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to regenerate the SDK against'
+        type: choice
+        required: true
+        default: production
+        options:
+          - production
+          - staging
+          - staging1
+          - staging2
+          - staging3
+      api_version:
+        description: 'Target API version (YYYY-MM). Leave empty for latest. Rejected against legacy-shape hosts (e.g. production today).'
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   preview:
     name: pkg.pr.new
     runs-on: ubuntu-latest
     steps:
+      - name: Resolve host from environment
+        id: env
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          case "${{ inputs.environment }}" in
+            production)  HOST=core.commercelayer.io ;;
+            staging)     HOST=core.commercelayer.co ;;
+            staging1)    HOST=core.stg1.commercelayer.co ;;
+            staging2)    HOST=core.stg2.commercelayer.co ;;
+            staging3)    HOST=core.stg3.commercelayer.co ;;
+          esac
+          echo "host=$HOST" >> "$GITHUB_OUTPUT"
+
       - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 1
-          persist-credentials: false
+
       - name: Install pnpm
         uses: pnpm/action-setup@v5
         with:
           version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 'lts/*'
           cache: 'pnpm'
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Regenerate SDK against ${{ inputs.environment }}
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          ARGS="--api-host=${{ steps.env.outputs.host }}"
+          if [ -n "${{ inputs.api_version }}" ]; then
+            ARGS="$ARGS --api-version=${{ inputs.api_version }}"
+          fi
+          pnpm generate $ARGS
+
+      - name: Commit + push to pkg-pr-new-${{ inputs.environment }}
+        if: github.event_name == 'workflow_dispatch'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: regenerate against ${{ inputs.environment }}'
+          branch: 'pkg-pr-new-${{ inputs.environment }}'
+          push_options: '--force'
+          create_branch: true
+          commit_user_name: 'commercelayer-ci'
+          commit_user_email: 'ci@commercelayer.io'
+
       - name: Build package
         run: pnpm build
+
       - name: Publish preview
         run: npx pkg-pr-new publish --no-template
+
+      - name: Open PR to main (production dispatch only)
+        if: github.event_name == 'workflow_dispatch' && inputs.environment == 'production'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head pkg-pr-new-production \
+            --title 'chore: regenerate schema from production' \
+            --body $'Automated schema regen via workflow dispatch.\n\nInstall the preview to test before merging:\n```\npnpm add https://pkg.pr.new/commercelayer/commercelayer-sdk@pkg-pr-new-production\n```' \
+          || echo 'PR already open for pkg-pr-new-production; latest commit force-pushed.'
