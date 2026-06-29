@@ -95,7 +95,6 @@ interface SatispayPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class SatispayPayments extends ApiResource<SatispayPayment> {
   static readonly TYPE: SatispayPaymentType = 'satispay_payments' as const
 

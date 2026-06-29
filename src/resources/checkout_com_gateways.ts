@@ -150,7 +150,6 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
   checkout_com_payments?: CheckoutComPaymentRel[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
   static readonly TYPE: CheckoutComGatewayType = 'checkout_com_gateways' as const
 

@@ -109,7 +109,6 @@ interface SubscriptionModelUpdate extends ResourceUpdate {
   auto_cancel?: boolean | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class SubscriptionModels extends ApiResource<SubscriptionModel> {
   static readonly TYPE: SubscriptionModelType = 'subscription_models' as const
 

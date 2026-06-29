@@ -78,7 +78,6 @@ interface KlarnaPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class KlarnaPayments extends ApiResource<KlarnaPayment> {
   static readonly TYPE: KlarnaPaymentType = 'klarna_payments' as const
 

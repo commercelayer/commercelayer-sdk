@@ -130,7 +130,6 @@ interface AxerveGatewayUpdate extends ResourceUpdate {
   axerve_payments?: AxervePaymentRel[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class AxerveGateways extends ApiResource<AxerveGateway> {
   static readonly TYPE: AxerveGatewayType = 'axerve_gateways' as const
 

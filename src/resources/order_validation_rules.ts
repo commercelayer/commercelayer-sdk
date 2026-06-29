@@ -26,7 +26,7 @@ interface OrderValidationRule extends Resource {
   event_stores?: EventStore[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated */
 class OrderValidationRules extends ApiResource<OrderValidationRule> {
   static readonly TYPE: OrderValidationRuleType = 'order_validation_rules' as const
 

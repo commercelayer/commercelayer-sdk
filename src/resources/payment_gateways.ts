@@ -45,7 +45,6 @@ interface PaymentGateway extends Resource {
   event_stores?: EventStore[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class PaymentGateways extends ApiResource<PaymentGateway> {
   static readonly TYPE: PaymentGatewayType = 'payment_gateways' as const
 

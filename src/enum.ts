@@ -82,25 +82,9 @@ const apiResources = [
   'packages',
   'parcels',
   'parcel_line_items',
-  'payment_authorizations',
-  'payment_captures',
   'payment_gateways',
-  'payment_links',
   'payment_methods',
   'payment_options',
-  'payment_refunds',
-  'payment_rules',
-  'payment_sessions',
-  'payment_settings',
-  'payment_setting_adyens',
-  'payment_setting_braintrees',
-  'payment_setting_externals',
-  'payment_setting_gift_cards',
-  'payment_setting_manuals',
-  'payment_setting_stripes',
-  'payment_transactions',
-  'payment_voids',
-  'payment_wallets',
   'paypal_gateways',
   'paypal_payments',
   'percentage_discount_promotions',
@@ -256,22 +240,8 @@ export const creatableResources = [
   'packages',
   'parcels',
   'parcel_line_items',
-  'payment_authorizations',
-  'payment_captures',
-  'payment_links',
   'payment_methods',
   'payment_options',
-  'payment_refunds',
-  'payment_rules',
-  'payment_sessions',
-  'payment_setting_adyens',
-  'payment_setting_braintrees',
-  'payment_setting_externals',
-  'payment_setting_gift_cards',
-  'payment_setting_manuals',
-  'payment_setting_stripes',
-  'payment_voids',
-  'payment_wallets',
   'paypal_gateways',
   'paypal_payments',
   'percentage_discount_promotions',
@@ -393,22 +363,8 @@ export const updatableResources = [
   'packages',
   'parcels',
   'parcel_line_items',
-  'payment_authorizations',
-  'payment_captures',
-  'payment_links',
   'payment_methods',
   'payment_options',
-  'payment_refunds',
-  'payment_rules',
-  'payment_sessions',
-  'payment_setting_adyens',
-  'payment_setting_braintrees',
-  'payment_setting_externals',
-  'payment_setting_gift_cards',
-  'payment_setting_manuals',
-  'payment_setting_stripes',
-  'payment_voids',
-  'payment_wallets',
   'paypal_gateways',
   'paypal_payments',
   'percentage_discount_promotions',
@@ -529,22 +485,8 @@ export const deletableResources = [
   'packages',
   'parcels',
   'parcel_line_items',
-  'payment_authorizations',
-  'payment_captures',
-  'payment_links',
   'payment_methods',
   'payment_options',
-  'payment_refunds',
-  'payment_rules',
-  'payment_sessions',
-  'payment_setting_adyens',
-  'payment_setting_braintrees',
-  'payment_setting_externals',
-  'payment_setting_gift_cards',
-  'payment_setting_manuals',
-  'payment_setting_stripes',
-  'payment_voids',
-  'payment_wallets',
   'paypal_gateways',
   'paypal_payments',
   'percentage_discount_promotions',
@@ -739,25 +681,9 @@ export type ResourceFields = {
   packages: models.Package
   parcels: models.Parcel
   parcel_line_items: models.ParcelLineItem
-  payment_authorizations: models.PaymentAuthorization
-  payment_captures: models.PaymentCapture
   payment_gateways: models.PaymentGateway
-  payment_links: models.PaymentLink
   payment_methods: models.PaymentMethod
   payment_options: models.PaymentOption
-  payment_refunds: models.PaymentRefund
-  payment_rules: models.PaymentRule
-  payment_sessions: models.PaymentSession
-  payment_settings: models.PaymentSetting
-  payment_setting_adyens: models.PaymentSettingAdyen
-  payment_setting_braintrees: models.PaymentSettingBraintree
-  payment_setting_externals: models.PaymentSettingExternal
-  payment_setting_gift_cards: models.PaymentSettingGiftCard
-  payment_setting_manuals: models.PaymentSettingManual
-  payment_setting_stripes: models.PaymentSettingStripe
-  payment_transactions: models.PaymentTransaction
-  payment_voids: models.PaymentVoid
-  payment_wallets: models.PaymentWallet
   paypal_gateways: models.PaypalGateway
   paypal_payments: models.PaypalPayment
   percentage_discount_promotions: models.PercentageDiscountPromotion
@@ -894,25 +820,9 @@ export type ResourceSortFields = {
   packages: models.PackageSort
   parcels: models.ParcelSort
   parcel_line_items: models.ParcelLineItemSort
-  payment_authorizations: models.PaymentAuthorizationSort
-  payment_captures: models.PaymentCaptureSort
   payment_gateways: models.PaymentGatewaySort
-  payment_links: models.PaymentLinkSort
   payment_methods: models.PaymentMethodSort
   payment_options: models.PaymentOptionSort
-  payment_refunds: models.PaymentRefundSort
-  payment_rules: models.PaymentRuleSort
-  payment_sessions: models.PaymentSessionSort
-  payment_settings: models.PaymentSettingSort
-  payment_setting_adyens: models.PaymentSettingAdyenSort
-  payment_setting_braintrees: models.PaymentSettingBraintreeSort
-  payment_setting_externals: models.PaymentSettingExternalSort
-  payment_setting_gift_cards: models.PaymentSettingGiftCardSort
-  payment_setting_manuals: models.PaymentSettingManualSort
-  payment_setting_stripes: models.PaymentSettingStripeSort
-  payment_transactions: models.PaymentTransactionSort
-  payment_voids: models.PaymentVoidSort
-  payment_wallets: models.PaymentWalletSort
   paypal_gateways: models.PaypalGatewaySort
   paypal_payments: models.PaypalPaymentSort
   percentage_discount_promotions: models.PercentageDiscountPromotionSort

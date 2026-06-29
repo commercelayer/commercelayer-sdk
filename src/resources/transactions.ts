@@ -110,7 +110,6 @@ interface Transaction extends Resource {
   event_stores?: EventStore[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class Transactions extends ApiResource<Transaction> {
   static readonly TYPE: TransactionType = 'transactions' as const
 

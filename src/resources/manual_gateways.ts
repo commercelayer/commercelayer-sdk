@@ -93,7 +93,6 @@ interface ManualGatewayUpdate extends ResourceUpdate {
   _enable?: boolean | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class ManualGateways extends ApiResource<ManualGateway> {
   static readonly TYPE: ManualGatewayType = 'manual_gateways' as const
 

@@ -251,7 +251,6 @@ interface PaymentMethodUpdate extends ResourceUpdate {
   store?: StoreRel | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class PaymentMethods extends ApiResource<PaymentMethod> {
   static readonly TYPE: PaymentMethodType = 'payment_methods' as const
 

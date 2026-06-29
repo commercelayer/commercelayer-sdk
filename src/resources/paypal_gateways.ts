@@ -125,7 +125,6 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
   client_secret?: string | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class PaypalGateways extends ApiResource<PaypalGateway> {
   static readonly TYPE: PaypalGatewayType = 'paypal_gateways' as const
 

@@ -58,7 +58,7 @@ interface ShipmentLineItem extends Resource {
   event_stores?: EventStore[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated */
 class ShipmentLineItems extends ApiResource<ShipmentLineItem> {
   static readonly TYPE: ShipmentLineItemType = 'shipment_line_items' as const
 

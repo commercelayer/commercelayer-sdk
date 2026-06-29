@@ -149,7 +149,6 @@ interface StripePaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class StripePayments extends ApiResource<StripePayment> {
   static readonly TYPE: StripePaymentType = 'stripe_payments' as const
 

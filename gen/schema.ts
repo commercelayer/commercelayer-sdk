@@ -122,8 +122,10 @@ type PublicRelationship = {
   eager_load_on_include?: boolean
   enum?: string[]
   parent_resource?: string
-  /** API versions this relationship belongs to. Absent → version-agnostic. */
+  /** API versions this relationship belongs to. Absent → version-agnostic. Unified schema only. */
   versions?: string[]
+  /** Legacy schema only — replaced by `versions` in the unified shape. Drives deprecation when present. */
+  deprecated?: boolean
 }
 
 type PublicResource = {
@@ -143,12 +145,15 @@ type PublicResource = {
     /**
      * API versions the resource lives in. Synonymous with `meta.api_versions`
      * (same array, always identical). The parser reads `meta.api_versions`
-     * canonically.
+     * canonically. Unified schema only.
      */
     versions?: string[]
+    /** Legacy schema only — replaced by `meta.api_versions` in the unified shape. */
+    deprecated?: boolean
   }
-  meta: {
-    api_versions: string[]
+  /** Unified schema only — absent in the legacy payload. */
+  meta?: {
+    api_versions?: string[]
   }
 }
 
@@ -417,13 +422,16 @@ const buildRelationship = (
     }
   }
 
-  // `deprecated` covers both signals: the relationship's own versions are
-  // legacy, OR the target resource doesn't exist in this build (excluded).
-  // `targetExcluded` is separate so the renderer can decide between
+  // `deprecated` covers three signals:
+  //   1. the relationship's own `versions` are legacy (unified shape)
+  //   2. the relationship's `deprecated: true` boolean is set (legacy shape)
+  //   3. the target resource doesn't exist in this build (`targetExcluded`)
+  // `targetExcluded` is kept separate so the renderer can decide between
   // "proper-type-with-@deprecated" (target still exists, just marked
   // deprecated) and the `object[]` fallback (target's module isn't there).
   const targetExcluded = excludedClassNames?.has(Inflector.camelize(className)) === true
-  const deprecated = ownClassification === 'deprecated' || targetExcluded
+  const legacyDeprecated = rel.deprecated === true
+  const deprecated = ownClassification === 'deprecated' || legacyDeprecated || targetExcluded
   const deprecatedSince = ownClassification === 'deprecated' ? maxVersion(rel.versions as string[]) : undefined
 
   return {
@@ -608,35 +616,59 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
   const raw = readFileSync(path, { encoding: 'utf-8' })
   const doc = JSON.parse(raw) as PublicResourcesDoc
 
-  // Union of every resource's api_versions, sorted; the last entry is the
-  // newest API version the catalogue knows about.
-  const supportedVersions = Array.from(new Set(doc.data.flatMap((r) => r.meta?.api_versions ?? []))).sort()
-  if (supportedVersions.length === 0) {
-    throw new Error(
-      'No `meta.api_versions` found on any resource — payload likely predates the unified-schema rollout. Aborting.',
-    )
-  }
-  const latestVersion = supportedVersions[supportedVersions.length - 1] as string
-  const targetVersion = opts.apiVersion ?? latestVersion
-  if (!supportedVersions.includes(targetVersion)) {
-    throw new Error(
-      `--api-version=${targetVersion} is not in the supported set [${supportedVersions.join(', ')}]. Check for typos.`,
-    )
-  }
-
-  console.log(`Target API version: ${targetVersion} (latest: ${latestVersion})`)
+  // Shape detection. Unified payloads carry `meta.api_versions` on every
+  // resource; legacy payloads (e.g. production today) don't have a per-resource
+  // `meta` block at all. Lenient rule: any resource with the field flips us
+  // into unified mode. In a hypothetical mixed payload, resources without
+  // the field are treated as version-agnostic (always included).
+  const isUnified = doc.data.some((r) => r.meta?.api_versions != null)
+  console.log(`Schema shape: ${isUnified ? 'unified' : 'legacy'}`)
   if (doc.meta?.version) console.log(`Schema release: ${doc.meta.version}`)
 
-  // Classify each resource. Excluded resources are dropped entirely;
-  // deprecated resources stay in the SDK with an @deprecated marker so
-  // callers keep getting type imports (with a deprecation warning).
+  if (!isUnified && opts.apiVersion) {
+    throw new Error(
+      `--api-version=${opts.apiVersion} was provided but the schema doesn't include version metadata. ` +
+        `Either omit the flag or point at a host returning the unified schema (e.g. core.stg1.commercelayer.co).`,
+    )
+  }
+
+  let targetVersion: string
+  if (isUnified) {
+    // Union of every resource's api_versions, sorted; the last entry is the
+    // newest API version the catalogue knows about.
+    const supportedVersions = Array.from(new Set(doc.data.flatMap((r) => r.meta?.api_versions ?? []))).sort()
+    const latestVersion = supportedVersions[supportedVersions.length - 1] as string
+    targetVersion = opts.apiVersion ?? latestVersion
+    if (!supportedVersions.includes(targetVersion)) {
+      throw new Error(
+        `--api-version=${targetVersion} is not in the supported set [${supportedVersions.join(', ')}]. Check for typos.`,
+      )
+    }
+    console.log(`Target API version: ${targetVersion} (latest: ${latestVersion})`)
+  } else {
+    // Legacy payloads carry no version metadata — pin to the literal
+    // 'latest', preserving pre-Phase-4 production behaviour.
+    targetVersion = 'latest'
+  }
+
+  // Classify each resource. In unified mode classification is version-driven;
+  // in legacy mode it falls back to the boolean `attributes.deprecated`.
+  // Either way, "deprecated" resources stay in the SDK with an @deprecated
+  // marker so callers keep getting type imports.
   const resourceClassifications = new Map<string, Classification>()
   for (const res of doc.data) {
-    resourceClassifications.set(res.id, classifyVersions(res.meta?.api_versions, targetVersion))
+    const versioned = classifyVersions(res.meta?.api_versions, targetVersion)
+    if (versioned === 'deprecated' || versioned === 'exclude') {
+      resourceClassifications.set(res.id, versioned)
+    } else if (res.attributes.deprecated === true) {
+      resourceClassifications.set(res.id, 'deprecated')
+    } else {
+      resourceClassifications.set(res.id, 'include')
+    }
   }
   // Camelized class names of resources excluded for this target — drop any
   // polymorphic `oneOf` reference pointing at them since their files don't
-  // exist in the generated output.
+  // exist in the generated output. Always empty in legacy mode.
   const excludedClassNames: ReadonlySet<string> = new Set(
     doc.data.filter((r) => resourceClassifications.get(r.id) === 'exclude').map((r) => Inflector.camelize(r.id)),
   )
@@ -660,11 +692,15 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
     if (operations.update)
       resComponents[`${cam}Update`] = buildComponent(ctx, 'update', targetVersion, excludedClassNames)
 
+    const apiVersions = res.meta?.api_versions
     resources[plural] = {
       components: sortObjectFields(resComponents),
       operations,
       deprecated: classification === 'deprecated' ? true : undefined,
-      deprecatedSince: classification === 'deprecated' ? maxVersion(res.meta.api_versions) : undefined,
+      // Only attach "Last available in API version X" when we actually know
+      // the version (unified shape); legacy payloads carry no such info.
+      deprecatedSince:
+        classification === 'deprecated' && apiVersions && apiVersions.length > 0 ? maxVersion(apiVersions) : undefined,
     }
 
     components[cam] = readComp

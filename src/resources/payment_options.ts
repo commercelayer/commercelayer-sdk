@@ -100,7 +100,6 @@ interface PaymentOptionUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class PaymentOptions extends ApiResource<PaymentOption> {
   static readonly TYPE: PaymentOptionType = 'payment_options' as const
 

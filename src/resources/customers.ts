@@ -20,7 +20,6 @@ import type { Event } from './events'
 import type { Market } from './markets'
 import type { OrderSubscription } from './order_subscriptions'
 import type { Order } from './orders'
-import type { PaymentSession } from './payment_sessions'
 import type { Return } from './returns'
 import type { SkuList } from './sku_lists'
 import type { StockLocation } from './stock_locations'
@@ -90,19 +89,12 @@ interface Customer extends Resource {
 
   customer_group?: CustomerGroup | null
   customer_addresses?: CustomerAddress[] | null
-  /**
-   * @deprecated Last available in API version 2017-08.
-   */
   customer_payment_sources?: CustomerPaymentSource[] | null
   customer_subscriptions?: CustomerSubscription[] | null
   orders?: Order[] | null
   order_subscriptions?: OrderSubscription[] | null
-  /**
-   * @deprecated Last available in API version 2017-08.
-   */
   returns?: Return[] | null
   sku_lists?: SkuList[] | null
-  payment_sessions?: PaymentSession[] | null
   attachments?: Attachment[] | null
   events?: Event[] | null
   tags?: Tag[] | null
@@ -243,9 +235,6 @@ class Customers extends ApiResource<Customer> {
     ) as unknown as ListResponse<CustomerAddress>
   }
 
-  /**
-   * @deprecated Last available in API version 2017-08.
-   */
   async customer_payment_sources(
     customerId: string | Customer,
     params?: QueryParamsList<CustomerPaymentSource>,
@@ -302,9 +291,6 @@ class Customers extends ApiResource<Customer> {
     ) as unknown as ListResponse<OrderSubscription>
   }
 
-  /**
-   * @deprecated Last available in API version 2017-08.
-   */
   async returns(
     customerId: string | Customer,
     params?: QueryParamsList<Return>,
@@ -331,20 +317,6 @@ class Customers extends ApiResource<Customer> {
       params,
       options,
     ) as unknown as ListResponse<SkuList>
-  }
-
-  async payment_sessions(
-    customerId: string | Customer,
-    params?: QueryParamsList<PaymentSession>,
-    options?: ResourcesConfig,
-  ): Promise<ListResponse<PaymentSession>> {
-    const _customerId = (customerId as Customer).id || (customerId as string)
-    return this.resources.fetch<PaymentSession>(
-      { type: 'payment_sessions' },
-      `customers/${_customerId}/payment_sessions`,
-      params,
-      options,
-    ) as unknown as ListResponse<PaymentSession>
   }
 
   async attachments(

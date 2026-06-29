@@ -10,7 +10,6 @@ import type {
 import { ApiResource } from '../resource'
 
 import type { EventStore } from './event_stores'
-import type { OrderSubscription } from './order_subscriptions'
 import type { Order } from './orders'
 import type { Return } from './returns'
 
@@ -39,7 +38,7 @@ interface ResourceError extends Resource {
    */
   message: string
 
-  resource?: Order | Return | OrderSubscription | null
+  resource?: Order | Return | null
   event_stores?: EventStore[] | null
 }
 

@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest'
 import apiSchema from '../gen/schema'
 
 const FIXTURE = 'test/fixtures/public/classification.json'
+const LEGACY_FIXTURE = 'test/fixtures/public/legacy.json'
 
 describe('Schema classification by target version', () => {
   test('default target = latest: includes everything, marks older-only as deprecated', () => {
@@ -101,5 +102,44 @@ describe('Schema classification by target version', () => {
 
   test('invalid --api-version throws', () => {
     expect(() => apiSchema.parse(FIXTURE, { apiVersion: '1999-01' })).toThrow(/not in the supported set/)
+  })
+})
+
+describe('Legacy-shape schema support', () => {
+  test('parses legacy payload, classifies by boolean `deprecated`', () => {
+    const schema = apiSchema.parse(LEGACY_FIXTURE)
+
+    // No version metadata in legacy payloads → API_SCHEMA_VERSION = 'latest'.
+    expect(schema.version).toBe('latest')
+
+    // Resource with `attributes.deprecated: true` → kept with @deprecated.
+    expect(schema.resources.deprecated_resources).toBeDefined()
+    expect(schema.resources.deprecated_resources?.deprecated).toBe(true)
+    // No deprecatedSince in legacy (no per-version info to cite).
+    expect(schema.resources.deprecated_resources?.deprecatedSince).toBeUndefined()
+
+    // Resource without the flag → included normally.
+    expect(schema.resources.normal_resources?.deprecated).toBeUndefined()
+  })
+
+  test('honours legacy `deprecated` boolean on relationships', () => {
+    const schema = apiSchema.parse(LEGACY_FIXTURE)
+    const comp = schema.resources.normal_resources?.components.NormalResource
+
+    // `legacy_deprecated_rel` has `deprecated: true` (legacy boolean), target
+    // is a normal resource (not excluded) → use proper type + @deprecated.
+    expect(comp?.relationships.legacy_deprecated_rel?.deprecated).toBe(true)
+    expect(comp?.relationships.legacy_deprecated_rel?.targetExcluded).toBeUndefined()
+
+    // `deprecated_target_rel` points at `deprecated_target_resource` (kept
+    // in SDK, also flagged). The rel itself has no deprecated flag, but the
+    // target is `deprecated` (not excluded) → use proper type, no @deprecated
+    // on the rel.
+    expect(comp?.relationships.deprecated_target_rel?.deprecated).toBe(false)
+    expect(comp?.relationships.deprecated_target_rel?.targetExcluded).toBeUndefined()
+  })
+
+  test('rejects --api-version against a legacy payload', () => {
+    expect(() => apiSchema.parse(LEGACY_FIXTURE, { apiVersion: '2017-08' })).toThrow(/doesn't include version metadata/)
   })
 })

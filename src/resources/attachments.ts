@@ -28,12 +28,8 @@ import type { OrderValidationRule, OrderValidationRuleType } from './order_valid
 import type { Order, OrderType } from './orders'
 import type { Package, PackageType } from './packages'
 import type { Parcel, ParcelType } from './parcels'
-import type { PaymentLink, PaymentLinkType } from './payment_links'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { PaymentOption, PaymentOptionType } from './payment_options'
-import type { PaymentSession, PaymentSessionType } from './payment_sessions'
-import type { PaymentTransaction, PaymentTransactionType } from './payment_transactions'
-import type { PaymentWallet, PaymentWalletType } from './payment_wallets'
 import type { PriceList, PriceListType } from './price_lists'
 import type { PriceTier, PriceTierType } from './price_tiers'
 import type { Price, PriceType } from './prices'
@@ -65,7 +61,6 @@ type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type PromotionRel = ResourceRel & { type: PromotionType }
 type OrderRel = ResourceRel & { type: OrderType }
 type TransactionRel = ResourceRel & { type: TransactionType }
-type PaymentSessionRel = ResourceRel & { type: PaymentSessionType }
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 type SkuRel = ResourceRel & { type: SkuType }
@@ -91,10 +86,7 @@ type StockTransferRel = ResourceRel & { type: StockTransferType }
 type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 type MerchantRel = ResourceRel & { type: MerchantType }
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
-type PaymentWalletRel = ResourceRel & { type: PaymentWalletType }
 type PaymentOptionRel = ResourceRel & { type: PaymentOptionType }
-type PaymentTransactionRel = ResourceRel & { type: PaymentTransactionType }
-type PaymentLinkRel = ResourceRel & { type: PaymentLinkType }
 type PackageRel = ResourceRel & { type: PackageType }
 type PriceRel = ResourceRel & { type: PriceType }
 type PriceTierRel = ResourceRel & { type: PriceTierType }
@@ -132,7 +124,6 @@ interface Attachment extends Resource {
     | Promotion
     | Order
     | Transaction
-    | PaymentSession
     | TaxCalculator
     | TaxCategory
     | Sku
@@ -158,10 +149,7 @@ interface Attachment extends Resource {
     | SkuOption
     | Merchant
     | SubscriptionModel
-    | PaymentWallet
     | PaymentOption
-    | PaymentTransaction
-    | PaymentLink
     | Package
     | Price
     | PriceTier
@@ -197,7 +185,6 @@ interface AttachmentCreate extends ResourceCreate {
     | PromotionRel
     | OrderRel
     | TransactionRel
-    | PaymentSessionRel
     | TaxCalculatorRel
     | TaxCategoryRel
     | SkuRel
@@ -223,10 +210,7 @@ interface AttachmentCreate extends ResourceCreate {
     | SkuOptionRel
     | MerchantRel
     | SubscriptionModelRel
-    | PaymentWalletRel
     | PaymentOptionRel
-    | PaymentTransactionRel
-    | PaymentLinkRel
     | PackageRel
     | PriceRel
     | PriceTierRel
@@ -260,7 +244,6 @@ interface AttachmentUpdate extends ResourceUpdate {
     | PromotionRel
     | OrderRel
     | TransactionRel
-    | PaymentSessionRel
     | TaxCalculatorRel
     | TaxCategoryRel
     | SkuRel
@@ -286,10 +269,7 @@ interface AttachmentUpdate extends ResourceUpdate {
     | SkuOptionRel
     | MerchantRel
     | SubscriptionModelRel
-    | PaymentWalletRel
     | PaymentOptionRel
-    | PaymentTransactionRel
-    | PaymentLinkRel
     | PackageRel
     | PriceRel
     | PriceTierRel

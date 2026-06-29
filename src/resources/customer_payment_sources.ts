@@ -134,7 +134,6 @@ interface CustomerPaymentSourceUpdate extends ResourceUpdate {
     | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
 class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
   static readonly TYPE: CustomerPaymentSourceType = 'customer_payment_sources' as const
 

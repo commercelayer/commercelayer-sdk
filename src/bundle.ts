@@ -111,25 +111,9 @@ class CommerceLayerBundle extends CommerceLayerClient {
 	get packages(): api.Packages { return api.packages }
 	get parcels(): api.Parcels { return api.parcels }
 	get parcel_line_items(): api.ParcelLineItems { return api.parcel_line_items }
-	get payment_authorizations(): api.PaymentAuthorizations { return api.payment_authorizations }
-	get payment_captures(): api.PaymentCaptures { return api.payment_captures }
 	get payment_gateways(): api.PaymentGateways { return api.payment_gateways }
-	get payment_links(): api.PaymentLinks { return api.payment_links }
 	get payment_methods(): api.PaymentMethods { return api.payment_methods }
 	get payment_options(): api.PaymentOptions { return api.payment_options }
-	get payment_refunds(): api.PaymentRefunds { return api.payment_refunds }
-	get payment_rules(): api.PaymentRules { return api.payment_rules }
-	get payment_sessions(): api.PaymentSessions { return api.payment_sessions }
-	get payment_settings(): api.PaymentSettings { return api.payment_settings }
-	get payment_setting_adyens(): api.PaymentSettingAdyens { return api.payment_setting_adyens }
-	get payment_setting_braintrees(): api.PaymentSettingBraintrees { return api.payment_setting_braintrees }
-	get payment_setting_externals(): api.PaymentSettingExternals { return api.payment_setting_externals }
-	get payment_setting_gift_cards(): api.PaymentSettingGiftCards { return api.payment_setting_gift_cards }
-	get payment_setting_manuals(): api.PaymentSettingManuals { return api.payment_setting_manuals }
-	get payment_setting_stripes(): api.PaymentSettingStripes { return api.payment_setting_stripes }
-	get payment_transactions(): api.PaymentTransactions { return api.payment_transactions }
-	get payment_voids(): api.PaymentVoids { return api.payment_voids }
-	get payment_wallets(): api.PaymentWallets { return api.payment_wallets }
 	get paypal_gateways(): api.PaypalGateways { return api.paypal_gateways }
 	get paypal_payments(): api.PaypalPayments { return api.paypal_payments }
 	get percentage_discount_promotions(): api.PercentageDiscountPromotions { return api.percentage_discount_promotions }

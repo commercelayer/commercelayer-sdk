@@ -37,7 +37,7 @@ interface BillingInfoValidationRuleUpdate extends ResourceUpdate {
   market?: MarketRel | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated */
 class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> {
   static readonly TYPE: BillingInfoValidationRuleType = 'billing_info_validation_rules' as const
 

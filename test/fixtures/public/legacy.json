@@ -1,0 +1,60 @@
+{
+  "data": [
+    {
+      "id": "normal_resource",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "deprecated": false,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve"],
+        "fields": {
+          "name": { "type": "string", "fetchable": true }
+        },
+        "relationships": {
+          "deprecated_target_rel": {
+            "type": "has_one",
+            "class_name": "DeprecatedTargetResource",
+            "fetchable": true
+          },
+          "legacy_deprecated_rel": {
+            "type": "has_one",
+            "class_name": "NormalResource",
+            "fetchable": true,
+            "deprecated": true
+          }
+        }
+      }
+    },
+    {
+      "id": "deprecated_resource",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "deprecated": true,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve"],
+        "fields": {
+          "name": { "type": "string", "fetchable": true }
+        }
+      }
+    },
+    {
+      "id": "deprecated_target_resource",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "deprecated": true,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve"],
+        "fields": {
+          "name": { "type": "string", "fetchable": true }
+        }
+      }
+    }
+  ],
+  "meta": { "version": "legacy-release-1", "record_count": 3, "page_count": 1 }
+}
