@@ -200,6 +200,7 @@ interface BraintreeGatewayUpdate extends ResourceUpdate {
   braintree_payments?: BraintreePaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class BraintreeGateways extends ApiResource<BraintreeGateway> {
   static readonly TYPE: BraintreeGatewayType = 'braintree_gateways' as const
 

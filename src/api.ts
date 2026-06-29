@@ -13,6 +13,10 @@ export { type Authorizations, default as authorizations } from './resources/auth
 export { type AvalaraAccounts, default as avalara_accounts } from './resources/avalara_accounts'
 export { type AxerveGateways, default as axerve_gateways } from './resources/axerve_gateways'
 export { type AxervePayments, default as axerve_payments } from './resources/axerve_payments'
+export {
+  type BillingInfoValidationRules,
+  default as billing_info_validation_rules,
+} from './resources/billing_info_validation_rules'
 export { type BingGeocoders, default as bing_geocoders } from './resources/bing_geocoders'
 export { type BraintreeGateways, default as braintree_gateways } from './resources/braintree_gateways'
 export { type BraintreePayments, default as braintree_payments } from './resources/braintree_payments'
@@ -86,14 +90,40 @@ export { default as order_copies, type OrderCopies } from './resources/order_cop
 export { default as order_factories, type OrderFactories } from './resources/order_factories'
 export { default as order_subscription_items, type OrderSubscriptionItems } from './resources/order_subscription_items'
 export { default as order_subscriptions, type OrderSubscriptions } from './resources/order_subscriptions'
+export { default as order_validation_rules, type OrderValidationRules } from './resources/order_validation_rules'
 export { default as orders, type Orders } from './resources/orders'
 export { default as organization, type Organizations } from './resources/organizations'
 export { default as packages, type Packages } from './resources/packages'
 export { default as parcel_line_items, type ParcelLineItems } from './resources/parcel_line_items'
 export { default as parcels, type Parcels } from './resources/parcels'
+export { default as payment_authorizations, type PaymentAuthorizations } from './resources/payment_authorizations'
+export { default as payment_captures, type PaymentCaptures } from './resources/payment_captures'
 export { default as payment_gateways, type PaymentGateways } from './resources/payment_gateways'
+export { default as payment_links, type PaymentLinks } from './resources/payment_links'
 export { default as payment_methods, type PaymentMethods } from './resources/payment_methods'
 export { default as payment_options, type PaymentOptions } from './resources/payment_options'
+export { default as payment_refunds, type PaymentRefunds } from './resources/payment_refunds'
+export { default as payment_rules, type PaymentRules } from './resources/payment_rules'
+export { default as payment_sessions, type PaymentSessions } from './resources/payment_sessions'
+export { default as payment_setting_adyens, type PaymentSettingAdyens } from './resources/payment_setting_adyens'
+export {
+  default as payment_setting_braintrees,
+  type PaymentSettingBraintrees,
+} from './resources/payment_setting_braintrees'
+export {
+  default as payment_setting_externals,
+  type PaymentSettingExternals,
+} from './resources/payment_setting_externals'
+export {
+  default as payment_setting_gift_cards,
+  type PaymentSettingGiftCards,
+} from './resources/payment_setting_gift_cards'
+export { default as payment_setting_manuals, type PaymentSettingManuals } from './resources/payment_setting_manuals'
+export { default as payment_setting_stripes, type PaymentSettingStripes } from './resources/payment_setting_stripes'
+export { default as payment_settings, type PaymentSettings } from './resources/payment_settings'
+export { default as payment_transactions, type PaymentTransactions } from './resources/payment_transactions'
+export { default as payment_voids, type PaymentVoids } from './resources/payment_voids'
+export { default as payment_wallets, type PaymentWallets } from './resources/payment_wallets'
 export { default as paypal_gateways, type PaypalGateways } from './resources/paypal_gateways'
 export { default as paypal_payments, type PaypalPayments } from './resources/paypal_payments'
 export {
@@ -117,6 +147,7 @@ export { default as return_line_items, type ReturnLineItems } from './resources/
 export { default as returns, type Returns } from './resources/returns'
 export { default as satispay_gateways, type SatispayGateways } from './resources/satispay_gateways'
 export { default as satispay_payments, type SatispayPayments } from './resources/satispay_payments'
+export { default as shipment_line_items, type ShipmentLineItems } from './resources/shipment_line_items'
 export { default as shipments, type Shipments } from './resources/shipments'
 export { default as shipping_categories, type ShippingCategories } from './resources/shipping_categories'
 export { default as shipping_method_tiers, type ShippingMethodTiers } from './resources/shipping_method_tiers'

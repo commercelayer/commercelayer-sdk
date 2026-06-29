@@ -247,6 +247,7 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
   adyen_payments?: AdyenPaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class AdyenGateways extends ApiResource<AdyenGateway> {
   static readonly TYPE: AdyenGatewayType = 'adyen_gateways' as const
 

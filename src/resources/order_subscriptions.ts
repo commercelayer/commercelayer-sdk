@@ -15,10 +15,14 @@ import type { Customer } from './customers'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { Market, MarketType } from './markets'
+import type { OrderCopy } from './order_copies'
 import type { OrderFactory } from './order_factories'
 import type { OrderSubscriptionItem } from './order_subscription_items'
 import type { Order, OrderType } from './orders'
+import type { PaymentSetting, PaymentSettingType } from './payment_settings'
+import type { PaymentWallet, PaymentWalletType } from './payment_wallets'
 import type { RecurringOrderCopy } from './recurring_order_copies'
+import type { ResourceError } from './resource_errors'
 import type { SubscriptionModel } from './subscription_models'
 import type { Tag, TagType } from './tags'
 
@@ -26,6 +30,8 @@ type OrderSubscriptionType = 'order_subscriptions'
 type OrderSubscriptionRel = ResourceRel & { type: OrderSubscriptionType }
 type MarketRel = ResourceRel & { type: MarketType }
 type OrderRel = ResourceRel & { type: OrderType }
+type PaymentWalletRel = ResourceRel & { type: PaymentWalletType }
+type PaymentSettingRel = ResourceRel & { type: PaymentSettingType }
 type TagRel = ResourceRel & { type: TagType }
 type CustomerPaymentSourceRel = ResourceRel & { type: CustomerPaymentSourceType }
 
@@ -55,10 +61,10 @@ interface OrderSubscription extends Resource {
    */
   number?: string | null
   /**
-   * The subscription status. One of 'draft' (default), 'inactive', 'active', 'running', or 'cancelled'.
+   * The subscription status. One of 'draft' (default), 'pending', 'inactive', 'active', 'running', or 'cancelled'.
    * @example ```"draft"```
    */
-  status: 'draft' | 'inactive' | 'active' | 'running' | 'cancelled'
+  status: 'draft' | 'pending' | 'inactive' | 'active' | 'running' | 'cancelled'
   /**
    * The frequency of the subscription. Use one of the supported within 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or provide your custom crontab expression (min unit is hour). Must be supported by existing associated subscription_model.
    * @example ```"monthly"```
@@ -121,23 +127,30 @@ interface OrderSubscription extends Resource {
   succeeded_on_last_run?: boolean | null
   /**
    * The subscription options used to create the order.
+   * @deprecated Last available in API version 2017-08.
    * @example ```{"place_target_order":false}```
    */
   options?: Record<string, any> | null
 
   market?: Market | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   subscription_model?: SubscriptionModel | null
   source_order?: Order | null
   customer?: Customer | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   customer_payment_source?: CustomerPaymentSource | null
+  payment_wallet?: PaymentWallet | null
+  payment_setting?: PaymentSetting | null
   order_subscription_items?: OrderSubscriptionItem[] | null
   order_factories?: OrderFactory[] | null
-  /**
-   * @deprecated This field should not be used as it may be removed in the future without notice
-   */
-  order_copies?: object[]
+  order_copies?: OrderCopy[] | null
   recurring_order_copies?: RecurringOrderCopy[] | null
   orders?: Order[] | null
+  resource_errors?: ResourceError[] | null
   events?: Event[] | null
   tags?: Tag[] | null
   event_stores?: EventStore[] | null
@@ -176,12 +189,15 @@ interface OrderSubscriptionCreate extends ResourceCreate {
   expires_at?: string | null
   /**
    * The subscription options used to create the order.
+   * @deprecated Last available in API version 2017-08.
    * @example ```{"place_target_order":false}```
    */
   options?: Record<string, any> | null
 
   market?: MarketRel | null
   source_order: OrderRel
+  payment_wallet?: PaymentWalletRel | null
+  payment_setting?: PaymentSettingRel | null
   tags?: TagRel[] | null
 }
 
@@ -218,6 +234,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
   next_run_at?: string | null
   /**
    * The subscription options used to create the order.
+   * @deprecated Last available in API version 2017-08.
    * @example ```{"place_target_order":false}```
    */
   options?: Record<string, any> | null
@@ -250,7 +267,12 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
    */
   _remove_tags?: string | null
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   customer_payment_source?: CustomerPaymentSourceRel | null
+  payment_wallet?: PaymentWalletRel | null
+  payment_setting?: PaymentSettingRel | null
   tags?: TagRel[] | null
 }
 
@@ -299,6 +321,9 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
     ) as unknown as Market
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async subscription_model(
     orderSubscriptionId: string | OrderSubscription,
     params?: QueryParamsRetrieve<SubscriptionModel>,
@@ -341,6 +366,9 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
     ) as unknown as Customer
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async customer_payment_source(
     orderSubscriptionId: string | OrderSubscription,
     params?: QueryParamsRetrieve<CustomerPaymentSource>,
@@ -353,6 +381,34 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
       params,
       options,
     ) as unknown as CustomerPaymentSource
+  }
+
+  async payment_wallet(
+    orderSubscriptionId: string | OrderSubscription,
+    params?: QueryParamsRetrieve<PaymentWallet>,
+    options?: ResourcesConfig,
+  ): Promise<PaymentWallet> {
+    const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || (orderSubscriptionId as string)
+    return this.resources.fetch<PaymentWallet>(
+      { type: 'payment_wallets' },
+      `order_subscriptions/${_orderSubscriptionId}/payment_wallet`,
+      params,
+      options,
+    ) as unknown as PaymentWallet
+  }
+
+  async payment_setting(
+    orderSubscriptionId: string | OrderSubscription,
+    params?: QueryParamsRetrieve<PaymentSetting>,
+    options?: ResourcesConfig,
+  ): Promise<PaymentSetting> {
+    const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || (orderSubscriptionId as string)
+    return this.resources.fetch<PaymentSetting>(
+      { type: 'payment_settings' },
+      `order_subscriptions/${_orderSubscriptionId}/payment_setting`,
+      params,
+      options,
+    ) as unknown as PaymentSetting
   }
 
   async order_subscription_items(
@@ -383,6 +439,20 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
     ) as unknown as ListResponse<OrderFactory>
   }
 
+  async order_copies(
+    orderSubscriptionId: string | OrderSubscription,
+    params?: QueryParamsList<OrderCopy>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<OrderCopy>> {
+    const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || (orderSubscriptionId as string)
+    return this.resources.fetch<OrderCopy>(
+      { type: 'order_copies' },
+      `order_subscriptions/${_orderSubscriptionId}/order_copies`,
+      params,
+      options,
+    ) as unknown as ListResponse<OrderCopy>
+  }
+
   async recurring_order_copies(
     orderSubscriptionId: string | OrderSubscription,
     params?: QueryParamsList<RecurringOrderCopy>,
@@ -409,6 +479,20 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
       params,
       options,
     ) as unknown as ListResponse<Order>
+  }
+
+  async resource_errors(
+    orderSubscriptionId: string | OrderSubscription,
+    params?: QueryParamsList<ResourceError>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<ResourceError>> {
+    const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || (orderSubscriptionId as string)
+    return this.resources.fetch<ResourceError>(
+      { type: 'resource_errors' },
+      `order_subscriptions/${_orderSubscriptionId}/resource_errors`,
+      params,
+      options,
+    ) as unknown as ListResponse<ResourceError>
   }
 
   async events(

@@ -120,6 +120,7 @@ interface Import extends Resource {
   warnings_count?: number | null
   /**
    * Indicates the number of records that have been destroyed, if any.
+   * @deprecated Last available in API version 2017-08.
    * @example ```99```
    */
   destroyed_count?: number | null
@@ -140,6 +141,7 @@ interface Import extends Resource {
   warnings_log?: Record<string, any> | null
   /**
    * Indicates if the import should cleanup records that are not included in the inputs array.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   cleanup_records?: boolean | null
@@ -205,6 +207,7 @@ interface ImportCreate extends ResourceCreate {
   inputs: Array<Record<string, any>>
   /**
    * Indicates if the import should cleanup records that are not included in the inputs array.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   cleanup_records?: boolean | null

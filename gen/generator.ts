@@ -101,15 +101,6 @@ const generate = async (cli: CliOptions) => {
   const isDiffMode = output !== undefined
 
   if (!localSchema) {
-    let currentVersion = '0.0.0'
-
-    try {
-      const currentSchema = apiSchema.current()
-      if (currentSchema?.info?.version) currentVersion = currentSchema.info.version
-    } catch (_err) {
-      console.log('No current local schema available')
-    }
-
     const schemaInfo = await apiSchema.download({ apiHost, apiVersion }).catch((error: Error) => {
       console.log(error.message)
       return undefined
@@ -118,10 +109,8 @@ const generate = async (cli: CliOptions) => {
     if (!schemaInfo) {
       console.log('Unable to download schema')
       return
-    } else if (schemaInfo.version === currentVersion && !isDiffMode) {
-      console.log('No new schema version: ' + currentVersion)
-      return
-    } else console.log(`New schema version: ${currentVersion} --> ${schemaInfo.version}`)
+    }
+    console.log(`Schema release: ${schemaInfo.version}`)
   }
 
   const schemaPath = apiSchema.localPath
@@ -739,6 +728,17 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   res = res.replace(/##__RESOURCE_TYPE__##/g, type)
   res = res.replace(/##__RESOURCE_CLASS__##/g, resName)
 
+  // Resource-level @deprecated JSDoc — emitted when the parser flags the
+  // resource as version-scoped to API versions older than the current
+  // target. The placeholder is collapsed to an empty string otherwise.
+  const resourceDeprecatedSince = resource.deprecatedSince
+    ? ` Last available in API version ${resource.deprecatedSince}.`
+    : ''
+  res = res.replace(
+    /##__RESOURCE_DEPRECATED_JSDOC__##/g,
+    resource.deprecated ? `/** @deprecated${resourceDeprecatedSince} */\n` : '',
+  )
+
   const resourceOperations = operations && operations.length > 0 ? operations.join('\n\n\t') : ''
   res = res.replace(/##__RESOURCE_OPERATIONS__##/, resourceOperations)
 
@@ -880,6 +880,14 @@ const templatedOperation = (
       operation = operation.replace(plh, val)
     })
 
+  // Prepend `@deprecated` JSDoc to the method when the operation comes from
+  // a relationship whose own versions are legacy (the target resource still
+  // exists; only the access path is being phased out).
+  if (op.deprecated) {
+    const sinceText = op.deprecatedSince ? ` Last available in API version ${op.deprecatedSince}.` : ''
+    operation = `/**\n * @deprecated${sinceText}\n */\n${operation}`
+  }
+
   operation = operation.replace(/\n/g, '\n\t')
 
   return { operation, types }
@@ -941,11 +949,14 @@ const templatedComponent = (
       if (cudModel || a.fetchable) {
         const attrType = fixAttributeType(a)
         if (a.enum) enums[a.name] = attrType
-        if (a.description || a.example) {
+        if (a.description || a.example || a.deprecated) {
           const desc = a.description && !a.description.endsWith('.') ? `${a.description}.` : a.description
-          fields.push(
-            `/** ${desc ? `\n\t * ${desc}` : ''}${a.example ? `\n\t * @example \`\`\`${JSON.stringify(a.example)}\`\`\`` : ''}\n\t */`,
-          )
+          const descLine = desc ? `\n\t * ${desc}` : ''
+          const deprecatedLine = a.deprecated
+            ? `\n\t * @deprecated${a.deprecatedSince ? ` Last available in API version ${a.deprecatedSince}.` : ''}`
+            : ''
+          const exampleLine = a.example ? `\n\t * @example \`\`\`${JSON.stringify(a.example)}\`\`\`` : ''
+          fields.push(`/** ${descLine}${deprecatedLine}${exampleLine}\n\t */`)
         }
         fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}${a.required ? '' : ' | null'}`)
       }
@@ -959,32 +970,40 @@ const templatedComponent = (
   const relationships = Object.values(cmp.relationships)
   const rels: string[] = []
   relationships.forEach((r) => {
-    if (r.deprecated) {
-      const deprecated =
-        '/**\n\t* @deprecated This field should not be used as it may be removed in the future without notice\n\t*/\n\t'
+    // Fallback path: when the target resource was excluded from this build,
+    // there's no proper type module to import — render as `object[]` with
+    // `@deprecated` JSDoc. This is the only case where typing is degraded.
+    if (r.targetExcluded) {
+      const deprecated = '/**\n\t * @deprecated Target resource not available in the current API version.\n\t */\n\t'
       rels.push(`${deprecated}${r.name}?: object${r.cardinality === Cardinality.to_many ? '[]' : ''}`)
-    } else {
-      let resName = r.type
-
-      if (resName !== 'object') {
-        const relStr = cudModel ? 'Rel' : ''
-        if (r.polymorphic && r.oneOf) {
-          resName = r.oneOf.map((o) => `${o}${relStr}`).join(' | ')
-          models.push(...r.oneOf)
-        } else {
-          resName = Inflector.camelize(Inflector.singularize(r.type))
-          models.push(resName)
-          resName += relStr
-        }
-      }
-
-      if (r.cardinality === Cardinality.to_many) {
-        if (r.polymorphic) resName = `Array<${resName}>`
-        else resName += '[]'
-      }
-
-      rels.push(`${r.name}${r.required ? '' : '?'}: ${resName}${r.required ? '' : ' | null'}`)
+      return
     }
+
+    // Proper-type path — used for both current and deprecated relationships.
+    // Deprecated relationships get the `@deprecated` JSDoc; the underlying
+    // type is the real one (the target resource is in the SDK, possibly
+    // with its own `@deprecated` on the class).
+    let resName = r.type
+    if (resName !== 'object') {
+      const relStr = cudModel ? 'Rel' : ''
+      if (r.polymorphic && r.oneOf) {
+        resName = r.oneOf.map((o) => `${o}${relStr}`).join(' | ')
+        models.push(...r.oneOf)
+      } else {
+        resName = Inflector.camelize(Inflector.singularize(r.type))
+        models.push(resName)
+        resName += relStr
+      }
+    }
+    if (r.cardinality === Cardinality.to_many) {
+      if (r.polymorphic) resName = `Array<${resName}>`
+      else resName += '[]'
+    }
+
+    const jsdoc = r.deprecated
+      ? `/**\n\t * @deprecated${r.deprecatedSince ? ` Last available in API version ${r.deprecatedSince}.` : ''}\n\t */\n\t`
+      : ''
+    rels.push(`${jsdoc}${r.name}${r.required ? '' : '?'}: ${resName}${r.required ? '' : ' | null'}`)
   })
 
   let component = fields.length || rels.length ? templates.model : templates.model_empty

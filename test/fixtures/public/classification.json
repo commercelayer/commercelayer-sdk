@@ -1,0 +1,82 @@
+{
+  "data": [
+    {
+      "id": "agnostic_resource",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve", "create", "update"],
+        "fields": {
+          "always_field": { "type": "string", "fetchable": true, "creatable": true, "updatable": true },
+          "legacy_field": { "type": "string", "fetchable": true, "versions": ["2017-08"] },
+          "future_field": { "type": "string", "fetchable": true, "versions": ["2026-05"] },
+          "spanning_field": { "type": "string", "fetchable": true, "versions": ["2017-08", "2026-05"] }
+        },
+        "relationships": {
+          "agnostic_rel": {
+            "type": "has_one",
+            "class_name": "AgnosticResource",
+            "fetchable": true
+          },
+          "legacy_rel": {
+            "type": "has_one",
+            "class_name": "LegacyResource",
+            "fetchable": true,
+            "versions": ["2017-08"]
+          },
+          "future_rel": {
+            "type": "has_one",
+            "class_name": "FutureResource",
+            "fetchable": true,
+            "versions": ["2026-05"]
+          },
+          "always_to_future": {
+            "type": "has_one",
+            "class_name": "FutureResource",
+            "fetchable": true
+          },
+          "always_to_legacy": {
+            "type": "has_one",
+            "class_name": "LegacyResource",
+            "fetchable": true
+          }
+        },
+        "versions": ["2017-08", "2026-05"]
+      },
+      "meta": { "api_versions": ["2017-08", "2026-05"] }
+    },
+    {
+      "id": "legacy_resource",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve"],
+        "fields": {
+          "name": { "type": "string", "fetchable": true }
+        },
+        "versions": ["2017-08"]
+      },
+      "meta": { "api_versions": ["2017-08"] }
+    },
+    {
+      "id": "future_resource",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve"],
+        "fields": {
+          "name": { "type": "string", "fetchable": true }
+        },
+        "versions": ["2026-05"]
+      },
+      "meta": { "api_versions": ["2026-05"] }
+    }
+  ],
+  "meta": { "version": "test-release-1", "record_count": 3, "page_count": 1 }
+}

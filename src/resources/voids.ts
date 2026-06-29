@@ -125,6 +125,7 @@ interface VoidUpdate extends ResourceUpdate {
   _forward?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class Voids extends ApiResource<Void> {
   static readonly TYPE: VoidType = 'voids' as const
 

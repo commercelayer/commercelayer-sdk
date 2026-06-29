@@ -20,7 +20,9 @@ import type { Geocoder, GeocoderType } from './geocoders'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 import type { Merchant, MerchantType } from './merchants'
+import type { OrderValidationRule } from './order_validation_rules'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
+import type { PaymentRule } from './payment_rules'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { PriceList, PriceListType } from './price_lists'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
@@ -69,6 +71,11 @@ interface Market extends Resource {
    * @example ```"europe1"```
    */
   code?: string | null
+  /**
+   * The list of available payment setting ids.
+   * @example ```["1","2","34"]```
+   */
+  payment_setting_ids?: string[] | null
   /**
    * The Facebook Pixed ID.
    * @example ```"1234567890"```
@@ -119,6 +126,9 @@ interface Market extends Resource {
   price_list?: PriceList | null
   base_price_list?: PriceList | null
   inventory_model?: InventoryModel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   subscription_model?: SubscriptionModel | null
   discount_engine?: DiscountEngine | null
   tax_calculator?:
@@ -132,13 +142,17 @@ interface Market extends Resource {
   customer_group?: CustomerGroup | null
   geocoder?: Geocoder | null
   default_shipping_method?: ShippingMethod | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   default_payment_method?: PaymentMethod | null
   stores?: Store[] | null
   price_list_schedulers?: PriceListScheduler[] | null
   /**
-   * @deprecated This field should not be used as it may be removed in the future without notice
+   * @deprecated Last available in API version 2017-08.
    */
-  order_validation_rules?: object[]
+  order_validation_rules?: OrderValidationRule[] | null
+  payment_rules?: PaymentRule[] | null
   attachments?: Attachment[] | null
   event_stores?: EventStore[] | null
 }
@@ -154,6 +168,11 @@ interface MarketCreate extends ResourceCreate {
    * @example ```"europe1"```
    */
   code?: string | null
+  /**
+   * The list of available payment setting ids.
+   * @example ```["1","2","34"]```
+   */
+  payment_setting_ids?: string[] | null
   /**
    * The Facebook Pixed ID.
    * @example ```"1234567890"```
@@ -198,6 +217,9 @@ interface MarketCreate extends ResourceCreate {
   merchant: MerchantRel
   price_list: PriceListRel
   inventory_model: InventoryModelRel
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   subscription_model?: SubscriptionModelRel | null
   discount_engine?: DiscountEngineRel | null
   tax_calculator?:
@@ -211,6 +233,9 @@ interface MarketCreate extends ResourceCreate {
   customer_group?: CustomerGroupRel | null
   geocoder?: GeocoderRel | null
   default_shipping_method?: ShippingMethodRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   default_payment_method?: PaymentMethodRel | null
 }
 
@@ -225,6 +250,11 @@ interface MarketUpdate extends ResourceUpdate {
    * @example ```"europe1"```
    */
   code?: string | null
+  /**
+   * The list of available payment setting ids.
+   * @example ```["1","2","34"]```
+   */
+  payment_setting_ids?: string[] | null
   /**
    * The Facebook Pixed ID.
    * @example ```"1234567890"```
@@ -262,6 +292,7 @@ interface MarketUpdate extends ResourceUpdate {
   _enable?: boolean | null
   /**
    * Send this attribute if you want to regenerate the shared secret.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _regenerate_shared_secret?: boolean | null
@@ -274,6 +305,9 @@ interface MarketUpdate extends ResourceUpdate {
   merchant?: MerchantRel | null
   price_list?: PriceListRel | null
   inventory_model?: InventoryModelRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   subscription_model?: SubscriptionModelRel | null
   discount_engine?: DiscountEngineRel | null
   tax_calculator?:
@@ -287,6 +321,9 @@ interface MarketUpdate extends ResourceUpdate {
   customer_group?: CustomerGroupRel | null
   geocoder?: GeocoderRel | null
   default_shipping_method?: ShippingMethodRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   default_payment_method?: PaymentMethodRel | null
 }
 
@@ -369,6 +406,9 @@ class Markets extends ApiResource<Market> {
     ) as unknown as InventoryModel
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async subscription_model(
     marketId: string | Market,
     params?: QueryParamsRetrieve<SubscriptionModel>,
@@ -439,6 +479,9 @@ class Markets extends ApiResource<Market> {
     ) as unknown as ShippingMethod
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async default_payment_method(
     marketId: string | Market,
     params?: QueryParamsRetrieve<PaymentMethod>,
@@ -479,6 +522,20 @@ class Markets extends ApiResource<Market> {
       params,
       options,
     ) as unknown as ListResponse<PriceListScheduler>
+  }
+
+  async payment_rules(
+    marketId: string | Market,
+    params?: QueryParamsList<PaymentRule>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PaymentRule>> {
+    const _marketId = (marketId as Market).id || (marketId as string)
+    return this.resources.fetch<PaymentRule>(
+      { type: 'payment_rules' },
+      `markets/${_marketId}/payment_rules`,
+      params,
+      options,
+    ) as unknown as ListResponse<PaymentRule>
   }
 
   async attachments(

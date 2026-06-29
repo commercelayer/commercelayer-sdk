@@ -217,6 +217,7 @@ interface AuthorizationUpdate extends ResourceUpdate {
   _cancel?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class Authorizations extends ApiResource<Authorization> {
   static readonly TYPE: AuthorizationType = 'authorizations' as const
 

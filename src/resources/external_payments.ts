@@ -72,6 +72,7 @@ interface ExternalPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class ExternalPayments extends ApiResource<ExternalPayment> {
   static readonly TYPE: ExternalPaymentType = 'external_payments' as const
 

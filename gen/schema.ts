@@ -12,6 +12,8 @@ type ApiSchema = {
 type Resource = {
   components: ComponentMap
   operations: Record<string, Operation>
+  deprecated?: boolean
+  deprecatedSince?: string
 }
 
 type Component = {
@@ -33,6 +35,8 @@ type Attribute = {
   enum: string[]
   description?: string
   example?: string
+  deprecated?: boolean
+  deprecatedSince?: string
 }
 
 enum Cardinality {
@@ -46,6 +50,16 @@ type Relationship = {
   required: boolean
   cardinality: Cardinality
   deprecated: boolean
+  deprecatedSince?: string
+  /**
+   * Set when the relationship's target resource is excluded from the current
+   * build (only available in versions newer than the target). The renderer
+   * falls back to `object[]` because the proper type module isn't generated.
+   * When false/undefined, even deprecated relationships render with their
+   * proper type — the target resource is still in the SDK (with its own
+   * `@deprecated` marker when applicable).
+   */
+  targetExcluded?: boolean
   oneOf?: Array<string>
   polymorphic: boolean
 }
@@ -60,6 +74,8 @@ type Operation = {
   singleton: boolean
   relationship?: Relationship
   trigger?: boolean
+  deprecated?: boolean
+  deprecatedSince?: string
 }
 
 const RESOURCES_LOCAL_PATH = resolve('./gen/public_resources.json')
@@ -83,6 +99,8 @@ type PublicField = {
   aasm?: boolean
   delegate?: string
   filter_operators?: string[]
+  /** API versions this field belongs to. Absent → version-agnostic. */
+  versions?: string[]
 }
 
 type PublicRelationship = {
@@ -104,7 +122,8 @@ type PublicRelationship = {
   eager_load_on_include?: boolean
   enum?: string[]
   parent_resource?: string
-  deprecated?: boolean
+  /** API versions this relationship belongs to. Absent → version-agnostic. */
+  versions?: string[]
 }
 
 type PublicResource = {
@@ -112,7 +131,6 @@ type PublicResource = {
   type: 'resources'
   attributes: {
     singleton: boolean
-    deprecated: boolean
     addon: boolean
     hidden: boolean
     actions: Array<'list' | 'retrieve' | 'create' | 'update' | 'delete'>
@@ -122,10 +140,22 @@ type PublicResource = {
     filter_scopes?: unknown[]
     filters?: Record<string, unknown>
     parent_resource?: string
+    /**
+     * API versions the resource lives in. Synonymous with `meta.api_versions`
+     * (same array, always identical). The parser reads `meta.api_versions`
+     * canonically.
+     */
+    versions?: string[]
+  }
+  meta: {
+    api_versions: string[]
   }
 }
 
-type PublicResourcesDoc = { data: PublicResource[] }
+type PublicResourcesDoc = {
+  data: PublicResource[]
+  meta?: { record_count?: number; page_count?: number; version?: string }
+}
 
 type SchemaInfo = {
   remoteUrl: string
@@ -164,11 +194,31 @@ const ARRAY_ITEM_TYPES: Record<string, 'string' | 'object'> = {
 
 const remoteUrlFor = (opts: GeneratorOptions): string => {
   const host = opts.apiHost || DEFAULT_API_HOST
-  const segment = opts.apiVersion ? `${opts.apiVersion}/` : ''
-  return `https://${host}/api/public/${segment}resources`
+  // The unversioned route returns the full catalogue regardless of API
+  // version. `--api-version` no longer affects the URL — it selects the
+  // target version for classification only.
+  return `https://${host}/api/public/resources`
 }
 
-const versionLabel = (opts: GeneratorOptions): string => opts.apiVersion || 'latest'
+/**
+ * Three-way classification of a versioned element against the build target:
+ * - `include`: element is available at the target (or version-agnostic).
+ * - `deprecated`: element exists only in versions older than the target.
+ * - `exclude`: element is only in versions newer than the target (or has a
+ *   version gap that skips the target). Calling it at runtime would 404.
+ *
+ * Version strings are in `YYYY-MM` format and compare lexicographically.
+ */
+type Classification = 'include' | 'deprecated' | 'exclude'
+
+const classifyVersions = (versions: string[] | undefined, targetVersion: string): Classification => {
+  if (!versions || versions.length === 0) return 'include'
+  if (versions.includes(targetVersion)) return 'include'
+  const allOlder = versions.every((v) => v < targetVersion)
+  return allOlder ? 'deprecated' : 'exclude'
+}
+
+const maxVersion = (versions: string[]): string => versions.slice().sort().at(-1) as string
 
 type ResourceContext = {
   res: PublicResource
@@ -204,7 +254,9 @@ const downloadResources = async (opts: GeneratorOptions = {}): Promise<SchemaInf
   if (doc?.data) writeFileSync(outPath, JSON.stringify(doc, null, 4))
   else console.log('Public resources schema is empty!')
 
-  const version = versionLabel(opts)
+  // The release tag is the right cache-bust key: a new release means the
+  // catalogue may have changed even if the requested target version did not.
+  const version = doc.meta?.version || opts.apiVersion || 'latest'
   console.log('Public resources schema downloaded: ' + version)
 
   return { remoteUrl: url, localPath: outPath, version }
@@ -213,8 +265,8 @@ const downloadResources = async (opts: GeneratorOptions = {}): Promise<SchemaInf
 const currentSchema = (): { info: { version: string } } | undefined => {
   try {
     const raw = readFileSync(RESOURCES_LOCAL_PATH, { encoding: 'utf-8' })
-    const doc = JSON.parse(raw) as PublicResourcesDoc & { _version?: string }
-    return { info: { version: doc._version || '0.0.0' } }
+    const doc = JSON.parse(raw) as PublicResourcesDoc
+    return { info: { version: doc.meta?.version || '0.0.0' } }
   } catch {
     return undefined
   }
@@ -294,7 +346,15 @@ const coerceExample = (example: unknown, fieldType: PublicFieldType): unknown =>
   }
 }
 
-const buildAttribute = (resId: string, fieldName: string, field: PublicField, required: boolean): Attribute => {
+const buildAttribute = (
+  resId: string,
+  fieldName: string,
+  field: PublicField,
+  required: boolean,
+  targetVersion: string,
+): Attribute | undefined => {
+  const classification = classifyVersions(field.versions, targetVersion)
+  if (classification === 'exclude') return undefined
   return {
     name: fieldName,
     type: mapAttributeType(resId, fieldName, field),
@@ -305,31 +365,41 @@ const buildAttribute = (resId: string, fieldName: string, field: PublicField, re
     enum: field.enum as string[],
     description: field.desc,
     example: coerceExample(field.example, field.type) as string | undefined,
+    deprecated: classification === 'deprecated' ? true : undefined,
+    deprecatedSince: classification === 'deprecated' ? maxVersion(field.versions as string[]) : undefined,
   }
 }
 
 const buildRelationship = (
   relName: string,
   rel: PublicRelationship,
+  targetVersion: string,
   parentCam?: string,
-  deprecatedClassNames?: ReadonlySet<string>,
-): Relationship => {
+  excludedClassNames?: ReadonlySet<string>,
+): Relationship | undefined => {
+  // Classify the relationship's own version scope first; future-only
+  // relationships drop out of the SDK surface entirely.
+  const ownClassification = classifyVersions(rel.versions, targetVersion)
+  if (ownClassification === 'exclude') return undefined
+
   const cardinality = rel.type === 'has_many' ? Cardinality.to_many : Cardinality.to_one
   const className = rel.class_name
   let polymorphic = rel.polymorphic === true && Array.isArray(rel.enum) && rel.enum.length > 0
-  // For polymorphic relationships, match OpenAPI's parser which uses the
-  // first enum entry as the canonical `type` (used by the spec generator
-  // to pick a concrete relationship import). Non-polymorphic relationships
-  // derive from class_name.
+  // For polymorphic relationships use the first enum entry as the canonical
+  // `type` (used by the spec generator to pick a concrete relationship
+  // import). Non-polymorphic relationships derive from class_name.
   let type =
     polymorphic && rel.enum && rel.enum.length > 0
       ? (rel.enum[0] as string)
       : Inflector.pluralize(Inflector.snakeCase(className))
   let oneOf = polymorphic && rel.enum ? rel.enum.map((e) => Inflector.camelize(Inflector.singularize(e))) : undefined
-  // Drop polymorphic options that point to deprecated resources — the
-  // renderer would otherwise emit imports from non-existent files.
-  if (oneOf && deprecatedClassNames && deprecatedClassNames.size > 0) {
-    oneOf = oneOf.filter((n) => !deprecatedClassNames.has(n))
+  // Drop polymorphic options that point to excluded resources (not present
+  // in the catalogue for this target) — the renderer would otherwise emit
+  // imports from non-existent files. Deprecated resources STAY in oneOf:
+  // they're still generated (with @deprecated on the class) so their imports
+  // resolve.
+  if (oneOf && excludedClassNames && excludedClassNames.size > 0) {
+    oneOf = oneOf.filter((n) => !excludedClassNames.has(n))
   }
   // STI: drop self-reference from oneOf — the template already declares
   // `<Self>Rel = ResourceRel & { type: <Self>Type }`, so re-emitting it here
@@ -346,12 +416,24 @@ const buildRelationship = (
       oneOf = filtered
     }
   }
+
+  // `deprecated` covers both signals: the relationship's own versions are
+  // legacy, OR the target resource doesn't exist in this build (excluded).
+  // `targetExcluded` is separate so the renderer can decide between
+  // "proper-type-with-@deprecated" (target still exists, just marked
+  // deprecated) and the `object[]` fallback (target's module isn't there).
+  const targetExcluded = excludedClassNames?.has(Inflector.camelize(className)) === true
+  const deprecated = ownClassification === 'deprecated' || targetExcluded
+  const deprecatedSince = ownClassification === 'deprecated' ? maxVersion(rel.versions as string[]) : undefined
+
   return {
     name: relName,
     type,
     required: readRequired(rel.required),
     cardinality,
-    deprecated: rel.deprecated === true,
+    deprecated,
+    deprecatedSince,
+    targetExcluded: targetExcluded || undefined,
     oneOf,
     polymorphic,
   }
@@ -397,7 +479,8 @@ const VARIANT_RULES: Record<ComponentVariant, VariantRule> = {
 const buildComponent = (
   ctx: ResourceContext,
   variant: ComponentVariant,
-  deprecatedClassNames: ReadonlySet<string>,
+  targetVersion: string,
+  excludedClassNames: ReadonlySet<string>,
 ): Component => {
   const rule = VARIANT_RULES[variant]
   const attributes: Record<string, Attribute> = {}
@@ -406,13 +489,16 @@ const buildComponent = (
   for (const [name, field] of Object.entries(ctx.res.attributes.fields)) {
     if (name === 'id' || name === 'type') continue
     if (!rule.includeField(field)) continue
-    attributes[name] = buildAttribute(ctx.singular, name, field, rule.fieldRequired(field))
+    const attr = buildAttribute(ctx.singular, name, field, rule.fieldRequired(field), targetVersion)
+    if (attr) attributes[name] = attr
   }
 
   for (const [name, rel] of Object.entries(ctx.res.attributes.relationships || {})) {
     if (!rule.includeRel(rel)) continue
+    const built = buildRelationship(name, rel, targetVersion, ctx.cam, excludedClassNames)
+    if (!built) continue
     relationships[name] = {
-      ...buildRelationship(name, rel, ctx.cam, deprecatedClassNames),
+      ...built,
       required: rule.relRequired(rel),
     }
   }
@@ -420,7 +506,11 @@ const buildComponent = (
   return { attributes, relationships }
 }
 
-const buildOperations = (ctx: ResourceContext): Record<string, Operation> => {
+const buildOperations = (
+  ctx: ResourceContext,
+  targetVersion: string,
+  excludedClassNames: ReadonlySet<string>,
+): Record<string, Operation> => {
   const { singular, plural, cam, idVar, singleton } = ctx
   const operations: Record<string, Operation> = {}
 
@@ -431,9 +521,9 @@ const buildOperations = (ctx: ResourceContext): Record<string, Operation> => {
   const relParentPath = singleton ? `/${singular}/{${idVar}}` : idPath
   const opId = singleton ? undefined : idVar
 
-  // Singleton resources only declare a 'retrieve' action; OpenAPI's path-based
-  // parser names that 'list' (no id segment), and the renderer's spec template
-  // detects singletons via `op.name === 'list' && op.singleton`. Normalise upfront.
+  // Singleton resources only declare a 'retrieve' action; the renderer's spec
+  // template detects singletons via `op.name === 'list' && op.singleton`.
+  // Normalise upfront.
   const actions = singleton
     ? ctx.res.attributes.actions.map((a) => (a === 'retrieve' ? 'list' : a))
     : ctx.res.attributes.actions
@@ -481,11 +571,21 @@ const buildOperations = (ctx: ResourceContext): Record<string, Operation> => {
   }
 
   for (const [relName, rel] of Object.entries(ctx.res.attributes.relationships || {})) {
-    // Polymorphic relationships handle their union inline in the read model;
-    // deprecated relationships render as `object[]` with @deprecated. Neither
-    // gets a dedicated sub-path operation.
-    if (rel.polymorphic === true || rel.deprecated === true) continue
-    const relationship = buildRelationship(relName, rel)
+    // Polymorphic relationships handle their union inline in the read model
+    // and don't get a dedicated sub-path operation.
+    if (rel.polymorphic === true) continue
+    const relationship = buildRelationship(relName, rel, targetVersion, undefined, excludedClassNames)
+    // No relationship at all → own classification is `exclude`, skip.
+    if (!relationship) continue
+    // Target resource was excluded → there's no proper response type to
+    // import, so no async method either. The TYPE field on the model still
+    // exists (rendered as the `object[]` fallback).
+    if (relationship.targetExcluded) continue
+    // Deprecated relationships (own legacy versions, target still available)
+    // keep the method — calling at the build's target may legitimately work
+    // for callers transitioning between versions; the `@deprecated` JSDoc
+    // signals the lifecycle. Same convention as fields and class-level
+    // deprecation.
     operations[relName] = {
       path: `${relParentPath}/${relName}`,
       type: 'get',
@@ -494,6 +594,8 @@ const buildOperations = (ctx: ResourceContext): Record<string, Operation> => {
       id: idVar,
       responseType: Inflector.camelize(Inflector.singularize(relationship.type)),
       relationship,
+      deprecated: relationship.deprecated || undefined,
+      deprecatedSince: relationship.deprecatedSince,
     }
   }
 
@@ -506,37 +608,63 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
   const raw = readFileSync(path, { encoding: 'utf-8' })
   const doc = JSON.parse(raw) as PublicResourcesDoc
 
-  const version = versionLabel(opts)
-  console.log(`Schema version: ${version}`)
+  // Union of every resource's api_versions, sorted; the last entry is the
+  // newest API version the catalogue knows about.
+  const supportedVersions = Array.from(new Set(doc.data.flatMap((r) => r.meta?.api_versions ?? []))).sort()
+  if (supportedVersions.length === 0) {
+    throw new Error(
+      'No `meta.api_versions` found on any resource — payload likely predates the unified-schema rollout. Aborting.',
+    )
+  }
+  const latestVersion = supportedVersions[supportedVersions.length - 1] as string
+  const targetVersion = opts.apiVersion ?? latestVersion
+  if (!supportedVersions.includes(targetVersion)) {
+    throw new Error(
+      `--api-version=${targetVersion} is not in the supported set [${supportedVersions.join(', ')}]. Check for typos.`,
+    )
+  }
+
+  console.log(`Target API version: ${targetVersion} (latest: ${latestVersion})`)
+  if (doc.meta?.version) console.log(`Schema release: ${doc.meta.version}`)
+
+  // Classify each resource. Excluded resources are dropped entirely;
+  // deprecated resources stay in the SDK with an @deprecated marker so
+  // callers keep getting type imports (with a deprecation warning).
+  const resourceClassifications = new Map<string, Classification>()
+  for (const res of doc.data) {
+    resourceClassifications.set(res.id, classifyVersions(res.meta?.api_versions, targetVersion))
+  }
+  // Camelized class names of resources excluded for this target — drop any
+  // polymorphic `oneOf` reference pointing at them since their files don't
+  // exist in the generated output.
+  const excludedClassNames: ReadonlySet<string> = new Set(
+    doc.data.filter((r) => resourceClassifications.get(r.id) === 'exclude').map((r) => Inflector.camelize(r.id)),
+  )
 
   const resources: Record<string, Resource> = {}
   const components: ComponentMap = {}
 
-  // Collect deprecated resource class_names so polymorphic `oneOf` arrays
-  // can exclude entries that would otherwise reference missing imports.
-  const deprecatedClassNames: ReadonlySet<string> = new Set(
-    doc.data.filter((r) => r.attributes.deprecated === true).map((r) => Inflector.camelize(r.id)),
-  )
-
   for (const res of doc.data) {
-    // Deprecated resources are kept out of the generated SDK surface;
-    // references to them via relationships are still emitted but marked
-    // @deprecated and typed as `object` by the renderer.
-    if (res.attributes.deprecated === true) continue
+    const classification = resourceClassifications.get(res.id) as Classification
+    if (classification === 'exclude') continue
 
     const ctx = resourceContext(res)
     const { plural, cam } = ctx
 
-    const operations = buildOperations(ctx)
-    const readComp = buildComponent(ctx, 'read', deprecatedClassNames)
+    const operations = buildOperations(ctx, targetVersion, excludedClassNames)
+    const readComp = buildComponent(ctx, 'read', targetVersion, excludedClassNames)
 
     const resComponents: ComponentMap = { [cam]: readComp }
-    if (operations.create) resComponents[`${cam}Create`] = buildComponent(ctx, 'create', deprecatedClassNames)
-    if (operations.update) resComponents[`${cam}Update`] = buildComponent(ctx, 'update', deprecatedClassNames)
+    if (operations.create)
+      resComponents[`${cam}Create`] = buildComponent(ctx, 'create', targetVersion, excludedClassNames)
+    if (operations.update)
+      resComponents[`${cam}Update`] = buildComponent(ctx, 'update', targetVersion, excludedClassNames)
 
     resources[plural] = {
       components: sortObjectFields(resComponents),
       operations,
+      deprecated: classification === 'deprecated' ? true : undefined,
+      deprecatedSince: classification === 'deprecated' ? maxVersion(res.meta.api_versions) : undefined,
     }
 
     components[cam] = readComp
@@ -544,7 +672,7 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
 
   console.log('Public resources schema correctly parsed.')
 
-  return { version, resources, components }
+  return { version: targetVersion, resources, components }
 }
 
 export default {

@@ -109,6 +109,7 @@ interface PaypalPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class PaypalPayments extends ApiResource<PaypalPayment> {
   static readonly TYPE: PaypalPaymentType = 'paypal_payments' as const
 

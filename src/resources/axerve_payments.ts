@@ -109,6 +109,7 @@ interface AxervePaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class AxervePayments extends ApiResource<AxervePayment> {
   static readonly TYPE: AxervePaymentType = 'axerve_payments' as const
 

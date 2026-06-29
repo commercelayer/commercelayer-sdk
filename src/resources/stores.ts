@@ -45,6 +45,9 @@ interface Store extends Resource {
   merchant?: Merchant | null
   stock_location?: StockLocation | null
   orders?: Order[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_methods?: PaymentMethod[] | null
   events?: Event[] | null
   event_stores?: EventStore[] | null
@@ -155,6 +158,9 @@ class Stores extends ApiResource<Store> {
     ) as unknown as ListResponse<Order>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async payment_methods(
     storeId: string | Store,
     params?: QueryParamsList<PaymentMethod>,

@@ -105,6 +105,7 @@ interface BraintreePaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class BraintreePayments extends ApiResource<BraintreePayment> {
   static readonly TYPE: BraintreePaymentType = 'braintree_payments' as const
 

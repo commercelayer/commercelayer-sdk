@@ -120,6 +120,7 @@ interface SatispayGatewayUpdate extends ResourceUpdate {
   satispay_payments?: SatispayPaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class SatispayGateways extends ApiResource<SatispayGateway> {
   static readonly TYPE: SatispayGatewayType = 'satispay_gateways' as const
 

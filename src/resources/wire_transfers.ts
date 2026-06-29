@@ -41,6 +41,7 @@ interface WireTransferUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class WireTransfers extends ApiResource<WireTransfer> {
   static readonly TYPE: WireTransferType = 'wire_transfers' as const
 

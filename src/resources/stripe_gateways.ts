@@ -28,6 +28,10 @@ interface StripeGateway extends Resource {
    * @example ```"US payment gateway"```
    */
   name: string
+  /**
+   * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+   * @example ```true```
+   */
   force_payments?: boolean | null
   /**
    * The payment gateway's API credential keys last digits.
@@ -76,6 +80,10 @@ interface StripeGatewayCreate extends ResourceCreate {
    * @example ```"US payment gateway"```
    */
   name: string
+  /**
+   * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+   * @example ```true```
+   */
   force_payments?: boolean | null
   /**
    * Send this attribute if you want to mark this resource as disabled.
@@ -120,6 +128,10 @@ interface StripeGatewayUpdate extends ResourceUpdate {
    * @example ```"US payment gateway"```
    */
   name?: string | null
+  /**
+   * Indicates if the payment source is forced on the editable order upon receiving a successful event from the gateway.
+   * @example ```true```
+   */
   force_payments?: boolean | null
   /**
    * Send this attribute if you want to mark this resource as disabled.
@@ -148,6 +160,7 @@ interface StripeGatewayUpdate extends ResourceUpdate {
   auto_payments?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class StripeGateways extends ApiResource<StripeGateway> {
   static readonly TYPE: StripeGatewayType = 'stripe_gateways' as const
 

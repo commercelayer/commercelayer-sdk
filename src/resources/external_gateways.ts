@@ -179,6 +179,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
   _reset_circuit?: boolean | null
   /**
    * Send this attribute if you want to regenerate the shared secret.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _regenerate_shared_secret?: boolean | null
@@ -214,6 +215,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
   token_url?: string | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class ExternalGateways extends ApiResource<ExternalGateway> {
   static readonly TYPE: ExternalGatewayType = 'external_gateways' as const
 

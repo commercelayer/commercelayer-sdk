@@ -130,6 +130,7 @@ interface KlarnaGatewayUpdate extends ResourceUpdate {
   klarna_payments?: KlarnaPaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class KlarnaGateways extends ApiResource<KlarnaGateway> {
   static readonly TYPE: KlarnaGatewayType = 'klarna_gateways' as const
 

@@ -127,6 +127,7 @@ interface RefundUpdate extends ResourceUpdate {
   _forward?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class Refunds extends ApiResource<Refund> {
   static readonly TYPE: RefundType = 'refunds' as const
 

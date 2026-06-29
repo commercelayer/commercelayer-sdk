@@ -112,6 +112,7 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
   token?: string | null
   /**
    * Send this attribute if you want to authorize the payment.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _authorize?: boolean | null
@@ -129,6 +130,7 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
   static readonly TYPE: CheckoutComPaymentType = 'checkout_com_payments' as const
 

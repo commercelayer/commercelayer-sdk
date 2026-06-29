@@ -16,10 +16,8 @@ import {
   type Market,
   markets,
   merchants,
-  payment_methods,
   price_lists,
   shipping_methods,
-  subscription_models,
 } from '../../src'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
@@ -53,13 +51,11 @@ describe('Markets resource', () => {
       merchant: merchants.relationship(TestData.id),
       price_list: price_lists.relationship(TestData.id),
       inventory_model: inventory_models.relationship(TestData.id),
-      subscription_model: subscription_models.relationship(TestData.id),
       discount_engine: discount_engines.relationship(TestData.id),
       tax_calculator: avalara_accounts.relationship(TestData.id),
       customer_group: customer_groups.relationship(TestData.id),
       geocoder: geocoders.relationship(TestData.id),
       default_shipping_method: shipping_methods.relationship(TestData.id),
-      default_payment_method: payment_methods.relationship(TestData.id),
     }
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -451,6 +447,25 @@ describe('Markets resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* relationship.price_list_schedulers stop */
+
+  /* relationship.payment_rules start */
+  test(resourceType + '.payment_rules', async () => {
+    const id = TestData.id
+    const params = { fields: { payment_rules: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'payment_rules')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await markets
+      .payment_rules(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.payment_rules stop */
 
   /* relationship.attachments start */
   test(resourceType + '.attachments', async () => {

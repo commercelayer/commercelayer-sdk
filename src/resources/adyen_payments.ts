@@ -113,6 +113,7 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class AdyenPayments extends ApiResource<AdyenPayment> {
   static readonly TYPE: AdyenPaymentType = 'adyen_payments' as const
 

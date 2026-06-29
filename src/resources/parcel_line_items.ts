@@ -12,12 +12,14 @@ import type {
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { Parcel, ParcelType } from './parcels'
+import type { ShipmentLineItem, ShipmentLineItemType } from './shipment_line_items'
 import type { StockLineItem, StockLineItemType } from './stock_line_items'
 
 type ParcelLineItemType = 'parcel_line_items'
 type ParcelLineItemRel = ResourceRel & { type: ParcelLineItemType }
 type ParcelRel = ResourceRel & { type: ParcelType }
 type StockLineItemRel = ResourceRel & { type: StockLineItemType }
+type ShipmentLineItemRel = ResourceRel & { type: ShipmentLineItemType }
 
 export type ParcelLineItemSort = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceSort
 // export type ParcelLineItemFilter = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceFilter
@@ -54,9 +56,9 @@ interface ParcelLineItem extends Resource {
   parcel?: Parcel | null
   stock_line_item?: StockLineItem | null
   /**
-   * @deprecated This field should not be used as it may be removed in the future without notice
+   * @deprecated Last available in API version 2017-08.
    */
-  shipment_line_item?: object
+  shipment_line_item?: ShipmentLineItem | null
   event_stores?: EventStore[] | null
 }
 
@@ -70,9 +72,9 @@ interface ParcelLineItemCreate extends ResourceCreate {
   parcel: ParcelRel
   stock_line_item: StockLineItemRel
   /**
-   * @deprecated This field should not be used as it may be removed in the future without notice
+   * @deprecated Last available in API version 2017-08.
    */
-  shipment_line_item?: object
+  shipment_line_item?: ShipmentLineItemRel | null
 }
 
 type ParcelLineItemUpdate = ResourceUpdate
@@ -134,6 +136,23 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
       params,
       options,
     ) as unknown as StockLineItem
+  }
+
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
+  async shipment_line_item(
+    parcelLineItemId: string | ParcelLineItem,
+    params?: QueryParamsRetrieve<ShipmentLineItem>,
+    options?: ResourcesConfig,
+  ): Promise<ShipmentLineItem> {
+    const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || (parcelLineItemId as string)
+    return this.resources.fetch<ShipmentLineItem>(
+      { type: 'shipment_line_items' },
+      `parcel_line_items/${_parcelLineItemId}/shipment_line_item`,
+      params,
+      options,
+    ) as unknown as ShipmentLineItem
   }
 
   async event_stores(

@@ -174,6 +174,7 @@ interface CaptureUpdate extends ResourceUpdate {
   _cancel?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class Captures extends ApiResource<Capture> {
   static readonly TYPE: CaptureType = 'captures' as const
 

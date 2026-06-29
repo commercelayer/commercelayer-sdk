@@ -354,6 +354,25 @@ describe('Customers resource', () => {
   })
   /* relationship.sku_lists stop */
 
+  /* relationship.payment_sessions start */
+  test(resourceType + '.payment_sessions', async () => {
+    const id = TestData.id
+    const params = { fields: { payment_sessions: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'payment_sessions')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await customers
+      .payment_sessions(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.payment_sessions stop */
+
   /* relationship.attachments start */
   test(resourceType + '.attachments', async () => {
     const id = TestData.id
