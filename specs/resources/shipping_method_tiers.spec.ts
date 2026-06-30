@@ -72,7 +72,7 @@ describe('ShippingMethodTiers resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'shipping_weight_tiers' }
     expect(shipping_method_tiers.isShippingMethodTier(resource)).toBeTruthy()
 
     const type = shipping_method_tiers.type()

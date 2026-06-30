@@ -72,7 +72,7 @@ describe('PaymentGateways resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'adyen_gateways' }
     expect(payment_gateways.isPaymentGateway(resource)).toBeTruthy()
 
     const type = payment_gateways.type()

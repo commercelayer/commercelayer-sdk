@@ -72,7 +72,7 @@ describe('PromotionRules resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'coupon_codes_promotion_rules' }
     expect(promotion_rules.isPromotionRule(resource)).toBeTruthy()
 
     const type = promotion_rules.type()

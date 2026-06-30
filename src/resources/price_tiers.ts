@@ -10,15 +10,19 @@ import type {
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
+import type { PriceFrequencyTier } from './price_frequency_tiers'
+import type { PriceVolumeTier } from './price_volume_tiers'
 import type { Price } from './prices'
 
 type PriceTierType = 'price_tiers'
 type PriceTierRel = ResourceRel & { type: PriceTierType }
 
-export type PriceTierSort = Pick<PriceTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
+export type PriceTierSort = Pick<PriceTierBase, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
 // export type PriceTierFilter = Pick<PriceTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
-interface PriceTier extends Resource {
+type PriceTier = PriceFrequencyTier | PriceVolumeTier
+
+interface PriceTierBase extends Resource {
   readonly type: PriceTierType
 
   /**
@@ -98,7 +102,10 @@ class PriceTiers extends ApiResource<PriceTier> {
   }
 
   isPriceTier(resource: any): resource is PriceTier {
-    return resource.type && resource.type === PriceTiers.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === PriceTiers.TYPE || ['price_frequency_tiers', 'price_volume_tiers'].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): PriceTierRel {

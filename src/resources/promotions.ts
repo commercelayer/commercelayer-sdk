@@ -9,13 +9,21 @@ import type {
 } from '../resource'
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
+import type { BuyXPayYPromotion } from './buy_x_pay_y_promotions'
 import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
 import type { Coupon } from './coupons'
 import type { CustomPromotionRule } from './custom_promotion_rules'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { ExternalPromotion } from './external_promotions'
+import type { FixedAmountPromotion } from './fixed_amount_promotions'
+import type { FixedPricePromotion } from './fixed_price_promotions'
+import type { FlexPromotion } from './flex_promotions'
+import type { FreeGiftPromotion } from './free_gift_promotions'
+import type { FreeShippingPromotion } from './free_shipping_promotions'
 import type { Market } from './markets'
 import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
+import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import type { PromotionRule } from './promotion_rules'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { SkuList } from './sku_lists'
@@ -25,7 +33,7 @@ type PromotionType = 'promotions'
 type PromotionRel = ResourceRel & { type: PromotionType }
 
 export type PromotionSort = Pick<
-  Promotion,
+  PromotionBase,
   | 'id'
   | 'name'
   | 'currency_code'
@@ -41,7 +49,17 @@ export type PromotionSort = Pick<
   ResourceSort
 // export type PromotionFilter = Pick<Promotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceFilter
 
-interface Promotion extends Resource {
+type Promotion =
+  | BuyXPayYPromotion
+  | ExternalPromotion
+  | FixedAmountPromotion
+  | FixedPricePromotion
+  | FlexPromotion
+  | FreeGiftPromotion
+  | FreeShippingPromotion
+  | PercentageDiscountPromotion
+
+interface PromotionBase extends Resource {
   readonly type: PromotionType
 
   /**
@@ -286,7 +304,20 @@ class Promotions extends ApiResource<Promotion> {
   }
 
   isPromotion(resource: any): resource is Promotion {
-    return resource.type && resource.type === Promotions.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === Promotions.TYPE ||
+        [
+          'buy_x_pay_y_promotions',
+          'external_promotions',
+          'fixed_amount_promotions',
+          'fixed_price_promotions',
+          'flex_promotions',
+          'free_gift_promotions',
+          'free_shipping_promotions',
+          'percentage_discount_promotions',
+        ].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): PromotionRel {

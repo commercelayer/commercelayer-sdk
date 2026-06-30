@@ -72,7 +72,7 @@ describe('OrderFactories resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'order_copies' }
     expect(order_factories.isOrderFactory(resource)).toBeTruthy()
 
     const type = order_factories.type()

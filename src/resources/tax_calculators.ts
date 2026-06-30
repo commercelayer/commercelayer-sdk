@@ -9,17 +9,31 @@ import type {
 } from '../resource'
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
+import type { AvalaraAccount } from './avalara_accounts'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { ExternalTaxCalculator } from './external_tax_calculators'
+import type { ManualTaxCalculator } from './manual_tax_calculators'
 import type { Market } from './markets'
+import type { StripeTaxAccount } from './stripe_tax_accounts'
+import type { TaxjarAccount } from './taxjar_accounts'
+import type { VertexAccount } from './vertex_accounts'
 
 type TaxCalculatorType = 'tax_calculators'
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 
-export type TaxCalculatorSort = Pick<TaxCalculator, 'id' | 'name'> & ResourceSort
+export type TaxCalculatorSort = Pick<TaxCalculatorBase, 'id' | 'name'> & ResourceSort
 // export type TaxCalculatorFilter = Pick<TaxCalculator, 'id' | 'name'> & ResourceFilter
 
-interface TaxCalculator extends Resource {
+type TaxCalculator =
+  | AvalaraAccount
+  | ExternalTaxCalculator
+  | ManualTaxCalculator
+  | StripeTaxAccount
+  | TaxjarAccount
+  | VertexAccount
+
+interface TaxCalculatorBase extends Resource {
   readonly type: TaxCalculatorType
 
   /**
@@ -94,7 +108,18 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
   }
 
   isTaxCalculator(resource: any): resource is TaxCalculator {
-    return resource.type && resource.type === TaxCalculators.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === TaxCalculators.TYPE ||
+        [
+          'avalara_accounts',
+          'external_tax_calculators',
+          'manual_tax_calculators',
+          'stripe_tax_accounts',
+          'taxjar_accounts',
+          'vertex_accounts',
+        ].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): TaxCalculatorRel {

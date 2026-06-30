@@ -9,6 +9,8 @@ import type {
 } from '../resource'
 import { ApiResource } from '../resource'
 import type { BuyXPayYPromotion } from './buy_x_pay_y_promotions'
+import type { CouponCodesPromotionRule } from './coupon_codes_promotion_rules'
+import type { CustomPromotionRule } from './custom_promotion_rules'
 import type { EventStore } from './event_stores'
 import type { ExternalPromotion } from './external_promotions'
 import type { FixedAmountPromotion } from './fixed_amount_promotions'
@@ -16,15 +18,19 @@ import type { FixedPricePromotion } from './fixed_price_promotions'
 import type { FlexPromotion } from './flex_promotions'
 import type { FreeGiftPromotion } from './free_gift_promotions'
 import type { FreeShippingPromotion } from './free_shipping_promotions'
+import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
+import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 
 type PromotionRuleType = 'promotion_rules'
 type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 
-export type PromotionRuleSort = Pick<PromotionRule, 'id'> & ResourceSort
+export type PromotionRuleSort = Pick<PromotionRuleBase, 'id'> & ResourceSort
 // export type PromotionRuleFilter = Pick<PromotionRule, 'id'> & ResourceFilter
 
-interface PromotionRule extends Resource {
+type PromotionRule = CouponCodesPromotionRule | CustomPromotionRule | OrderAmountPromotionRule | SkuListPromotionRule
+
+interface PromotionRuleBase extends Resource {
   readonly type: PromotionRuleType
 
   promotion?:
@@ -58,7 +64,16 @@ class PromotionRules extends ApiResource<PromotionRule> {
   }
 
   isPromotionRule(resource: any): resource is PromotionRule {
-    return resource.type && resource.type === PromotionRules.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === PromotionRules.TYPE ||
+        [
+          'coupon_codes_promotion_rules',
+          'custom_promotion_rules',
+          'order_amount_promotion_rules',
+          'sku_list_promotion_rules',
+        ].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): PromotionRuleRel {

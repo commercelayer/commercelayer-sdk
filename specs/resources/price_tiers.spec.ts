@@ -72,7 +72,7 @@ describe('PriceTiers resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'price_frequency_tiers' }
     expect(price_tiers.isPriceTier(resource)).toBeTruthy()
 
     const type = price_tiers.type()

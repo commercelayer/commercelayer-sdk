@@ -12,14 +12,17 @@ import type { Attachment } from './attachments'
 import type { DiscountEngineItem } from './discount_engine_items'
 import type { EventStore } from './event_stores'
 import type { Market } from './markets'
+import type { TalonOneAccount } from './talon_one_accounts'
 
 type DiscountEngineType = 'discount_engines'
 type DiscountEngineRel = ResourceRel & { type: DiscountEngineType }
 
-export type DiscountEngineSort = Pick<DiscountEngine, 'id' | 'name'> & ResourceSort
+export type DiscountEngineSort = Pick<DiscountEngineBase, 'id' | 'name'> & ResourceSort
 // export type DiscountEngineFilter = Pick<DiscountEngine, 'id' | 'name'> & ResourceFilter
 
-interface DiscountEngine extends Resource {
+type DiscountEngine = TalonOneAccount
+
+interface DiscountEngineBase extends Resource {
   readonly type: DiscountEngineType
 
   /**
@@ -99,7 +102,7 @@ class DiscountEngines extends ApiResource<DiscountEngine> {
   }
 
   isDiscountEngine(resource: any): resource is DiscountEngine {
-    return resource.type && resource.type === DiscountEngines.TYPE
+    return !!resource.type && (resource.type === DiscountEngines.TYPE || ['talon_one_accounts'].includes(resource.type))
   }
 
   relationship(id: string | ResourceId | null): DiscountEngineRel {

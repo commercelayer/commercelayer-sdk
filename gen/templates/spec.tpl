@@ -158,7 +158,7 @@ describe('##__RESOURCE_CLASS__## resource', () => {
   /* spec.type.start */
   test(resourceType + '.type', async () => {
 
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: ##__SAMPLE_RESOURCE_TYPE__## }
     expect(##__RESOURCE_PATH__##.is##__RESOURCE_MODEL__##(resource)).toBeTruthy()
 
     const type = ##__RESOURCE_PATH__##.type()

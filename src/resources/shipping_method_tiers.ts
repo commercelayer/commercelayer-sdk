@@ -11,15 +11,18 @@ import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
 import type { EventStore } from './event_stores'
 import type { ShippingMethod } from './shipping_methods'
+import type { ShippingWeightTier } from './shipping_weight_tiers'
 
 type ShippingMethodTierType = 'shipping_method_tiers'
 type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
-export type ShippingMethodTierSort = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> &
+export type ShippingMethodTierSort = Pick<ShippingMethodTierBase, 'id' | 'name' | 'up_to' | 'price_amount_cents'> &
   ResourceSort
 // export type ShippingMethodTierFilter = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
-interface ShippingMethodTier extends Resource {
+type ShippingMethodTier = ShippingWeightTier
+
+interface ShippingMethodTierBase extends Resource {
   readonly type: ShippingMethodTierType
 
   /**
@@ -99,7 +102,10 @@ class ShippingMethodTiers extends ApiResource<ShippingMethodTier> {
   }
 
   isShippingMethodTier(resource: any): resource is ShippingMethodTier {
-    return resource.type && resource.type === ShippingMethodTiers.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === ShippingMethodTiers.TYPE || ['shipping_weight_tiers'].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): ShippingMethodTierRel {

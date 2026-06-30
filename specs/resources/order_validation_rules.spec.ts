@@ -72,7 +72,7 @@ describe('OrderValidationRules resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'billing_info_validation_rules' }
     expect(order_validation_rules.isOrderValidationRule(resource)).toBeTruthy()
 
     const type = order_validation_rules.type()

@@ -9,16 +9,19 @@ import type {
 } from '../resource'
 import { ApiResource } from '../resource'
 import type { Attachment } from './attachments'
+import type { BillingInfoValidationRule } from './billing_info_validation_rules'
 import type { EventStore } from './event_stores'
 import type { Market } from './markets'
 
 type OrderValidationRuleType = 'order_validation_rules'
 type OrderValidationRuleRel = ResourceRel & { type: OrderValidationRuleType }
 
-export type OrderValidationRuleSort = Pick<OrderValidationRule, 'id'> & ResourceSort
+export type OrderValidationRuleSort = Pick<OrderValidationRuleBase, 'id'> & ResourceSort
 // export type OrderValidationRuleFilter = Pick<OrderValidationRule, 'id'> & ResourceFilter
 
-interface OrderValidationRule extends Resource {
+type OrderValidationRule = BillingInfoValidationRule
+
+interface OrderValidationRuleBase extends Resource {
   readonly type: OrderValidationRuleType
 
   market?: Market | null
@@ -76,7 +79,10 @@ class OrderValidationRules extends ApiResource<OrderValidationRule> {
   }
 
   isOrderValidationRule(resource: any): resource is OrderValidationRule {
-    return resource.type && resource.type === OrderValidationRules.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === OrderValidationRules.TYPE || ['billing_info_validation_rules'].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): OrderValidationRuleRel {
