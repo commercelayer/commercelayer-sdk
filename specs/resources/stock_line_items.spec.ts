@@ -150,7 +150,7 @@ describe('StockLineItems resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'shipment_line_items' }
     expect(stock_line_items.isStockLineItem(resource)).toBeTruthy()
 
     const type = stock_line_items.type()

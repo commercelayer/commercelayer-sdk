@@ -72,7 +72,7 @@ describe('Pickups resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'easypost_pickups' }
     expect(pickups.isPickup(resource)).toBeTruthy()
 
     const type = pickups.type()

@@ -104,6 +104,28 @@ describe('Schema classification by target version', () => {
     expect(() => apiSchema.parse(FIXTURE, { apiVersion: '1999-01' })).toThrow(/not in the supported set/)
   })
 
+  test('STI parent: rel points at the abstract type (a union in the generated SDK), children listed on the parent Resource', () => {
+    // The fixture defines `sti_parent` with two children (`sti_child_one`,
+    // `sti_child_two`). The rel from `agnostic_resource.sti_rel` is
+    // polymorphic+sti with empty enum.
+    //
+    // The parser no longer expands the rel's `oneOf` — it stays non-
+    // polymorphic and references the abstract `StiParent` type. The
+    // renderer rewrites the abstract resource's read-model interface into
+    // a union of the children, so a single reference to `StiParent` yields
+    // the union at every use site.
+    const schema = apiSchema.parse(FIXTURE)
+    const comp = schema.resources.agnostic_resources?.components.AgnosticResource
+    const rel = comp?.relationships.sti_rel
+    expect(rel?.polymorphic).toBe(false)
+    expect(rel?.oneOf).toBeUndefined()
+    expect(rel?.type).toBe('sti_parents')
+
+    // The STI parent resource itself carries its discovered children so the
+    // renderer can emit the union type alias + child imports.
+    expect(schema.resources.sti_parents?.stiChildren).toEqual(['sti_child_one', 'sti_child_two'])
+  })
+
   test('@since: elements introduced after the oldest version are annotated', () => {
     // Oldest supported version in the fixture is 2017-08.
     // `future_resource` has meta.api_versions=["2026-05"] → introduced in 2026-05.

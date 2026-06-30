@@ -72,7 +72,7 @@ describe('TaxCalculators resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'avalara_accounts' }
     expect(tax_calculators.isTaxCalculator(resource)).toBeTruthy()
 
     const type = tax_calculators.type()

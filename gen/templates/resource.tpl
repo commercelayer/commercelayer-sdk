@@ -8,7 +8,7 @@ type ##__MODEL_RESOURCE_INTERFACE__##Type = '##__RESOURCE_TYPE__##'
 type ##__MODEL_RESOURCE_INTERFACE__##Rel = ResourceRel & { type: ##__MODEL_RESOURCE_INTERFACE__##Type }
 ##__RELATIONSHIP_TYPES__##
 
-export type ##__MODEL_RESOURCE_INTERFACE__##Sort = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_SORTABLE_FIELDS__##> & ResourceSort
+export type ##__MODEL_RESOURCE_INTERFACE__##Sort = Pick<##__SORT_SOURCE__##, ##__MODEL_SORTABLE_FIELDS__##> & ResourceSort
 // export type ##__MODEL_RESOURCE_INTERFACE__##Filter = Pick<##__MODEL_RESOURCE_INTERFACE__##, ##__MODEL_FILTERABLE_FIELDS__##> & ResourceFilter
 
 
@@ -23,7 +23,7 @@ export type ##__MODEL_RESOURCE_INTERFACE__##Sort = Pick<##__MODEL_RESOURCE_INTER
 
 
 	is##__MODEL_RESOURCE_INTERFACE__##(resource: any): resource is ##__MODEL_RESOURCE_INTERFACE__## {
-		return resource.type && (resource.type === ##__RESOURCE_CLASS__##.TYPE)
+		return ##__TYPE_GUARD_BODY__##
 	}
 
 

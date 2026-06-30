@@ -10,19 +10,23 @@ import type {
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
+import type { OrderCopy } from './order_copies'
 import type { Order } from './orders'
+import type { RecurringOrderCopy } from './recurring_order_copies'
 
 type OrderFactoryType = 'order_factories'
 type OrderFactoryRel = ResourceRel & { type: OrderFactoryType }
 
 export type OrderFactorySort = Pick<
-  OrderFactory,
+  OrderFactoryBase,
   'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'
 > &
   ResourceSort
 // export type OrderFactoryFilter = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
-interface OrderFactory extends Resource {
+type OrderFactory = OrderCopy | RecurringOrderCopy
+
+interface OrderFactoryBase extends Resource {
   readonly type: OrderFactoryType
 
   /**
@@ -132,7 +136,10 @@ class OrderFactories extends ApiResource<OrderFactory> {
   }
 
   isOrderFactory(resource: any): resource is OrderFactory {
-    return resource.type && resource.type === OrderFactories.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === OrderFactories.TYPE || ['order_copies', 'recurring_order_copies'].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): OrderFactoryRel {

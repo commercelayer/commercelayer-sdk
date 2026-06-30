@@ -559,6 +559,14 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
   spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
   spec = spec.replace(/##__RESOURCE_PATH__##/g, pathAndName)
   spec = spec.replace(/##__RESOURCE_INSTANCE__##/g, pathAndName /* fixReservedWord(pathAndName) */)
+  // For STI parents the type-guard rejects the abstract type — the auto-
+  // generated spec needs to assert against a concrete child type instead.
+  // Pick the first child's plural id; non-STI resources keep `resourceType`.
+  const sampleResourceType =
+    resource.stiChildren && resource.stiChildren.length > 0
+      ? `'${Inflector.pluralize(resource.stiChildren[0] as string)}'`
+      : 'resourceType'
+  spec = spec.replace(/##__SAMPLE_RESOURCE_TYPE__##/g, sampleResourceType)
   // Clear unused placeholders
   spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
   spec = spec.replace(/##__TRIGGER_SPECS__##/g, '')
@@ -742,6 +750,19 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   const resourceOperations = operations && operations.length > 0 ? operations.join('\n\n\t') : ''
   res = res.replace(/##__RESOURCE_OPERATIONS__##/, resourceOperations)
 
+  // Type guard body: for STI parents, accept either the abstract `<Class>.TYPE`
+  // or any concrete child type. The abstract still appears on write paths
+  // (e.g. create bodies referencing the abstract URL) and on resources like
+  // `stock_line_item` that have their own concrete records alongside STI
+  // children, so a strict child-only check would reject legitimate inputs.
+  // Non-STI resources keep the original single-equality check.
+  const stiChildTypes = (resource.stiChildren ?? []).map((c) => Inflector.pluralize(c))
+  const typeGuardBody =
+    stiChildTypes.length > 0
+      ? `!!resource.type && (resource.type === ${resName}.TYPE || [${stiChildTypes.map((t) => `'${t}'`).join(', ')}].includes(resource.type))`
+      : `resource.type && (resource.type === ${resName}.TYPE)`
+  res = res.replace(/##__TYPE_GUARD_BODY__##/g, typeGuardBody)
+
   // Interfaces export
   const typesArray = Array.from(declaredTypes)
   res = res.replace(/##__EXPORT_RESOURCE_TYPES__##/g, typesArray.join(', '))
@@ -781,7 +802,28 @@ const generateResource = (type: string, name: string, resource: Resource): strin
       )
     }
   })
+  // STI parents: keep the auto-generated abstract interface as a *private*
+  // `<Self>Base` type (used by the Sort `Pick` source — it has every field
+  // the abstract declares, including ones some children may legitimately
+  // omit from their own schema). The exported `<Self>` becomes a union of
+  // the concrete child types — what the API actually returns. Children's
+  // modules are pulled in so the union resolves.
+  let sortSource = resModelInterface
+  if (resource.stiChildren && resource.stiChildren.length > 0) {
+    const childClassNames = resource.stiChildren.map((c) => Inflector.camelize(c))
+    const baseName = `${resModelInterface}Base`
+    // Rename the abstract interface in-place to <Self>Base.
+    modelInterfaces[0] = modelInterfaces[0]?.replace(
+      new RegExp(`\\binterface ${resModelInterface}\\b`),
+      `interface ${baseName}`,
+    ) as string
+    // Prepend the union type alias so it appears above the abstract.
+    modelInterfaces.unshift(`type ${resModelInterface} = ${childClassNames.join(' | ')}`)
+    for (const c of childClassNames) declaredImportsModels.add(c)
+    sortSource = baseName
+  }
   res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
+  res = res.replace(/##__SORT_SOURCE__##/g, sortSource)
   res = res.replace(/##__IMPORT_RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
 
   res = res.replace(

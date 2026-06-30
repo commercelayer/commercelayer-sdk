@@ -10,8 +10,10 @@ import type {
 import { ApiResource } from '../resource'
 import type { AdyenPayment } from './adyen_payments'
 import type { Attachment } from './attachments'
+import type { Authorization } from './authorizations'
 import type { AxervePayment } from './axerve_payments'
 import type { BraintreePayment } from './braintree_payments'
+import type { Capture } from './captures'
 import type { CheckoutComPayment } from './checkout_com_payments'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
@@ -19,17 +21,21 @@ import type { ExternalPayment } from './external_payments'
 import type { KlarnaPayment } from './klarna_payments'
 import type { Order } from './orders'
 import type { PaypalPayment } from './paypal_payments'
+import type { Refund } from './refunds'
 import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
+import type { Void } from './voids'
 import type { WireTransfer } from './wire_transfers'
 
 type TransactionType = 'transactions'
 type TransactionRel = ResourceRel & { type: TransactionType }
 
-export type TransactionSort = Pick<Transaction, 'id' | 'number' | 'amount_cents'> & ResourceSort
+export type TransactionSort = Pick<TransactionBase, 'id' | 'number' | 'amount_cents'> & ResourceSort
 // export type TransactionFilter = Pick<Transaction, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
-interface Transaction extends Resource {
+type Transaction = Authorization | Capture | Refund | Void
+
+interface TransactionBase extends Resource {
   readonly type: TransactionType
 
   /**
@@ -170,7 +176,11 @@ class Transactions extends ApiResource<Transaction> {
   }
 
   isTransaction(resource: any): resource is Transaction {
-    return resource.type && resource.type === Transactions.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === Transactions.TYPE ||
+        ['authorizations', 'captures', 'refunds', 'voids'].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): TransactionRel {

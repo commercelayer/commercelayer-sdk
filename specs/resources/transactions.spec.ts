@@ -72,7 +72,7 @@ describe('Transactions resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'authorizations' }
     expect(transactions.isTransaction(resource)).toBeTruthy()
 
     const type = transactions.type()

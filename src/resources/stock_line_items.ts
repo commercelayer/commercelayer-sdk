@@ -12,6 +12,7 @@ import type {
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { LineItem, LineItemType } from './line_items'
+import type { ShipmentLineItem } from './shipment_line_items'
 import type { Shipment, ShipmentType } from './shipments'
 import type { Sku, SkuType } from './skus'
 import type { StockItem, StockItemType } from './stock_items'
@@ -24,10 +25,12 @@ type LineItemRel = ResourceRel & { type: LineItemType }
 type StockItemRel = ResourceRel & { type: StockItemType }
 type SkuRel = ResourceRel & { type: SkuType }
 
-export type StockLineItemSort = Pick<StockLineItem, 'id' | 'quantity'> & ResourceSort
+export type StockLineItemSort = Pick<StockLineItemBase, 'id' | 'quantity'> & ResourceSort
 // export type StockLineItemFilter = Pick<StockLineItem, 'id' | 'sku_code' | 'quantity'> & ResourceFilter
 
-interface StockLineItem extends Resource {
+type StockLineItem = ShipmentLineItem
+
+interface StockLineItemBase extends Resource {
   readonly type: StockLineItemType
 
   /**
@@ -267,7 +270,7 @@ class StockLineItems extends ApiResource<StockLineItem> {
   }
 
   isStockLineItem(resource: any): resource is StockLineItem {
-    return resource.type && resource.type === StockLineItems.TYPE
+    return !!resource.type && (resource.type === StockLineItems.TYPE || ['shipment_line_items'].includes(resource.type))
   }
 
   relationship(id: string | ResourceId | null): StockLineItemRel {

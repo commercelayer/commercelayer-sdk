@@ -72,7 +72,7 @@ describe('Geocoders resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'bing_geocoders' }
     expect(geocoders.isGeocoder(resource)).toBeTruthy()
 
     const type = geocoders.type()

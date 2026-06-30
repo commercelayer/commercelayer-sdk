@@ -10,16 +10,20 @@ import type {
 import { ApiResource } from '../resource'
 import type { Address } from './addresses'
 import type { Attachment } from './attachments'
+import type { BingGeocoder } from './bing_geocoders'
 import type { EventStore } from './event_stores'
+import type { GoogleGeocoder } from './google_geocoders'
 import type { Market } from './markets'
 
 type GeocoderType = 'geocoders'
 type GeocoderRel = ResourceRel & { type: GeocoderType }
 
-export type GeocoderSort = Pick<Geocoder, 'id' | 'name'> & ResourceSort
+export type GeocoderSort = Pick<GeocoderBase, 'id' | 'name'> & ResourceSort
 // export type GeocoderFilter = Pick<Geocoder, 'id' | 'name'> & ResourceFilter
 
-interface Geocoder extends Resource {
+type Geocoder = BingGeocoder | GoogleGeocoder
+
+interface GeocoderBase extends Resource {
   readonly type: GeocoderType
 
   /**
@@ -94,7 +98,10 @@ class Geocoders extends ApiResource<Geocoder> {
   }
 
   isGeocoder(resource: any): resource is Geocoder {
-    return resource.type && resource.type === Geocoders.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === Geocoders.TYPE || ['bing_geocoders', 'google_geocoders'].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): GeocoderRel {

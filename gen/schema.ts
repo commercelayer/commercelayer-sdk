@@ -15,6 +15,14 @@ type Resource = {
   deprecated?: boolean
   deprecatedSince?: string
   since?: string
+  /**
+   * Children of this resource if it is an STI parent (other resources declare
+   * `parent_resource: <this resource's id>`). Each entry is a child resource
+   * id in singular snake_case (e.g. `payment_setting_adyen`). The renderer
+   * uses this to replace the abstract read-model interface with a union of
+   * the concrete child types.
+   */
+  stiChildren?: readonly string[]
 }
 
 type Component = {
@@ -418,6 +426,12 @@ const buildRelationship = (
       ? (rel.enum[0] as string)
       : Inflector.pluralize(Inflector.snakeCase(className))
   let oneOf = polymorphic && rel.enum ? rel.enum.map((e) => Inflector.camelize(Inflector.singularize(e))) : undefined
+  // For STI parents with an empty `enum` (`polymorphic + sti`, e.g.
+  // `order.available_payment_settings`), the rel stays non-polymorphic
+  // here. The renderer rewrites the abstract resource's read-model
+  // interface into a union of its children — so a single reference to
+  // the parent type yields the union at use sites, without inlining
+  // the explicit `Array<ChildA | ChildB | ...>` in every consumer.
   // Drop polymorphic options that point to excluded resources (not present
   // in the catalogue for this target) — the renderer would otherwise emit
   // imports from non-existent files. Deprecated resources STAY in oneOf:
@@ -440,6 +454,14 @@ const buildRelationship = (
     } else {
       oneOf = filtered
     }
+  }
+  // If oneOf collapsed to empty after the excluded-classes filter (no
+  // self-reference involved), fall back to the abstract class_name as a
+  // non-polymorphic single type.
+  if (polymorphic && oneOf && oneOf.length === 0) {
+    polymorphic = false
+    oneOf = undefined
+    type = Inflector.pluralize(Inflector.snakeCase(className))
   }
 
   // `deprecated` covers three signals:
@@ -706,6 +728,20 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
     doc.data.filter((r) => resourceClassifications.get(r.id) === 'exclude').map((r) => Inflector.camelize(r.id)),
   )
 
+  // STI children map: `parent_resource` id → list of concrete child resource
+  // ids. Used to widen `polymorphic + sti` relationships whose `enum` array
+  // is empty (e.g. `order.available_payment_settings`) into a union of the
+  // discoverable subclasses.
+  const stiChildren = new Map<string, string[]>()
+  for (const res of doc.data) {
+    const parent = res.attributes.parent_resource
+    if (typeof parent === 'string' && parent.length > 0) {
+      const list = stiChildren.get(parent) ?? []
+      list.push(res.id)
+      stiChildren.set(parent, list)
+    }
+  }
+
   const resources: Record<string, Resource> = {}
   const components: ComponentMap = {}
 
@@ -726,6 +762,14 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
       resComponents[`${cam}Update`] = buildComponent(ctx, 'update', targetVersion, oldestSupported, excludedClassNames)
 
     const apiVersions = res.meta?.api_versions
+    // If this resource is an STI parent (other resources declare it as
+    // `parent_resource`), collect the children whose own modules will be
+    // generated. Drop any children classified as `exclude` — their files
+    // don't exist for this target so they can't appear in the union.
+    const stiChildIds = (stiChildren.get(res.id) ?? []).filter(
+      (childId) => resourceClassifications.get(childId) !== 'exclude',
+    )
+
     resources[plural] = {
       components: sortObjectFields(resComponents),
       operations,
@@ -735,6 +779,7 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
       deprecatedSince:
         classification === 'deprecated' && apiVersions && apiVersions.length > 0 ? maxVersion(apiVersions) : undefined,
       since: classification === 'include' ? deriveSince(apiVersions, oldestSupported) : undefined,
+      stiChildren: stiChildIds.length > 0 ? stiChildIds : undefined,
     }
 
     components[cam] = readComp

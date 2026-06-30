@@ -8,16 +8,38 @@ import type {
   /* ResourceFilter */ ResourcesConfig,
 } from '../resource'
 import { ApiResource } from '../resource'
+import type { AdyenGateway } from './adyen_gateways'
+import type { AxerveGateway } from './axerve_gateways'
+import type { BraintreeGateway } from './braintree_gateways'
+import type { CheckoutComGateway } from './checkout_com_gateways'
 import type { EventStore } from './event_stores'
+import type { ExternalGateway } from './external_gateways'
+import type { KlarnaGateway } from './klarna_gateways'
+import type { ManualGateway } from './manual_gateways'
 import type { PaymentMethod } from './payment_methods'
+import type { PaypalGateway } from './paypal_gateways'
+import type { SatispayGateway } from './satispay_gateways'
+import type { StripeGateway } from './stripe_gateways'
 
 type PaymentGatewayType = 'payment_gateways'
 type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 
-export type PaymentGatewaySort = Pick<PaymentGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
+export type PaymentGatewaySort = Pick<PaymentGatewayBase, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type PaymentGatewayFilter = Pick<PaymentGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
-interface PaymentGateway extends Resource {
+type PaymentGateway =
+  | AdyenGateway
+  | AxerveGateway
+  | BraintreeGateway
+  | CheckoutComGateway
+  | ExternalGateway
+  | KlarnaGateway
+  | ManualGateway
+  | PaypalGateway
+  | SatispayGateway
+  | StripeGateway
+
+interface PaymentGatewayBase extends Resource {
   readonly type: PaymentGatewayType
 
   /**
@@ -77,7 +99,22 @@ class PaymentGateways extends ApiResource<PaymentGateway> {
   }
 
   isPaymentGateway(resource: any): resource is PaymentGateway {
-    return resource.type && resource.type === PaymentGateways.TYPE
+    return (
+      !!resource.type &&
+      (resource.type === PaymentGateways.TYPE ||
+        [
+          'adyen_gateways',
+          'axerve_gateways',
+          'braintree_gateways',
+          'checkout_com_gateways',
+          'external_gateways',
+          'klarna_gateways',
+          'manual_gateways',
+          'paypal_gateways',
+          'satispay_gateways',
+          'stripe_gateways',
+        ].includes(resource.type))
+    )
   }
 
   relationship(id: string | ResourceId | null): PaymentGatewayRel {

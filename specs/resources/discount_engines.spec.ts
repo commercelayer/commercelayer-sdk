@@ -72,7 +72,7 @@ describe('DiscountEngines resource', () => {
 
   /* spec.type.start */
   test(resourceType + '.type', async () => {
-    const resource = { id: TestData.id, type: resourceType }
+    const resource = { id: TestData.id, type: 'talon_one_accounts' }
     expect(discount_engines.isDiscountEngine(resource)).toBeTruthy()
 
     const type = discount_engines.type()

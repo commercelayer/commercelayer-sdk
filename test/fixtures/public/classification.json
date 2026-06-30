@@ -1,6 +1,53 @@
 {
   "data": [
     {
+      "id": "sti_parent",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve"],
+        "fields": {
+          "name": { "type": "string", "fetchable": true }
+        },
+        "versions": ["2017-08", "2026-05"]
+      },
+      "meta": { "api_versions": ["2017-08", "2026-05"] }
+    },
+    {
+      "id": "sti_child_one",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve"],
+        "fields": {
+          "name": { "type": "string", "fetchable": true }
+        },
+        "parent_resource": "sti_parent",
+        "versions": ["2017-08", "2026-05"]
+      },
+      "meta": { "api_versions": ["2017-08", "2026-05"] }
+    },
+    {
+      "id": "sti_child_two",
+      "type": "resources",
+      "attributes": {
+        "singleton": false,
+        "addon": false,
+        "hidden": false,
+        "actions": ["list", "retrieve"],
+        "fields": {
+          "name": { "type": "string", "fetchable": true }
+        },
+        "parent_resource": "sti_parent",
+        "versions": ["2017-08", "2026-05"]
+      },
+      "meta": { "api_versions": ["2017-08", "2026-05"] }
+    },
+    {
       "id": "agnostic_resource",
       "type": "resources",
       "attributes": {
@@ -41,6 +88,13 @@
             "type": "has_one",
             "class_name": "LegacyResource",
             "fetchable": true
+          },
+          "sti_rel": {
+            "type": "has_many",
+            "class_name": "StiParent",
+            "fetchable": true,
+            "polymorphic": true,
+            "sti": true
           }
         },
         "versions": ["2017-08", "2026-05"]

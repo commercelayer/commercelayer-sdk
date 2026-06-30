@@ -8,6 +8,7 @@ import type {
   /* ResourceFilter */ ResourcesConfig,
 } from '../resource'
 import { ApiResource } from '../resource'
+import type { EasypostPickup } from './easypost_pickups'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { Parcel } from './parcels'
@@ -16,10 +17,12 @@ import type { Shipment } from './shipments'
 type PickupType = 'pickups'
 type PickupRel = ResourceRel & { type: PickupType }
 
-export type PickupSort = Pick<Pickup, 'id' | 'status'> & ResourceSort
+export type PickupSort = Pick<PickupBase, 'id' | 'status'> & ResourceSort
 // export type PickupFilter = Pick<Pickup, 'id' | 'status'> & ResourceFilter
 
-interface Pickup extends Resource {
+type Pickup = EasypostPickup
+
+interface PickupBase extends Resource {
   readonly type: PickupType
 
   /**
@@ -99,7 +102,7 @@ class Pickups extends ApiResource<Pickup> {
   }
 
   isPickup(resource: any): resource is Pickup {
-    return resource.type && resource.type === Pickups.TYPE
+    return !!resource.type && (resource.type === Pickups.TYPE || ['easypost_pickups'].includes(resource.type))
   }
 
   relationship(id: string | ResourceId | null): PickupRel {
