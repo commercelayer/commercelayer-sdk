@@ -764,11 +764,21 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
     const apiVersions = res.meta?.api_versions
     // If this resource is an STI parent (other resources declare it as
     // `parent_resource`), collect the children whose own modules will be
-    // generated. Drop any children classified as `exclude` — their files
-    // don't exist for this target so they can't appear in the union.
-    const stiChildIds = (stiChildren.get(res.id) ?? []).filter(
-      (childId) => resourceClassifications.get(childId) !== 'exclude',
-    )
+    // generated. Drop:
+    //   - `exclude`d children (no module to import for this target), and
+    //   - children whose classification diverges from the parent's. A live
+    //     STI hierarchy keeps a consistent deprecation status across the
+    //     tree; a divergent link (active parent ↔ deprecated child, or the
+    //     mirror) is a historical artifact where the child got absorbed
+    //     back into the parent. Treating those as STI children produces a
+    //     misleading single-member union (e.g. `StockLineItem =
+    //     ShipmentLineItem`, dropping the active parent's own `type`
+    //     discriminator). The deprecated child is still generated as a
+    //     standalone resource via the Phase 4 deprecation path.
+    const stiChildIds = (stiChildren.get(res.id) ?? []).filter((childId) => {
+      const childClassification = resourceClassifications.get(childId)
+      return childClassification !== 'exclude' && childClassification === classification
+    })
 
     resources[plural] = {
       components: sortObjectFields(resComponents),
