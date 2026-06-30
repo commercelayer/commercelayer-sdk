@@ -13,6 +13,10 @@ export { type Authorizations, default as authorizations } from './resources/auth
 export { type AvalaraAccounts, default as avalara_accounts } from './resources/avalara_accounts'
 export { type AxerveGateways, default as axerve_gateways } from './resources/axerve_gateways'
 export { type AxervePayments, default as axerve_payments } from './resources/axerve_payments'
+export {
+  type BillingInfoValidationRules,
+  default as billing_info_validation_rules,
+} from './resources/billing_info_validation_rules'
 export { type BingGeocoders, default as bing_geocoders } from './resources/bing_geocoders'
 export { type BraintreeGateways, default as braintree_gateways } from './resources/braintree_gateways'
 export { type BraintreePayments, default as braintree_payments } from './resources/braintree_payments'
@@ -86,6 +90,7 @@ export { default as order_copies, type OrderCopies } from './resources/order_cop
 export { default as order_factories, type OrderFactories } from './resources/order_factories'
 export { default as order_subscription_items, type OrderSubscriptionItems } from './resources/order_subscription_items'
 export { default as order_subscriptions, type OrderSubscriptions } from './resources/order_subscriptions'
+export { default as order_validation_rules, type OrderValidationRules } from './resources/order_validation_rules'
 export { default as orders, type Orders } from './resources/orders'
 export { default as organization, type Organizations } from './resources/organizations'
 export { default as packages, type Packages } from './resources/packages'
@@ -117,6 +122,7 @@ export { default as return_line_items, type ReturnLineItems } from './resources/
 export { default as returns, type Returns } from './resources/returns'
 export { default as satispay_gateways, type SatispayGateways } from './resources/satispay_gateways'
 export { default as satispay_payments, type SatispayPayments } from './resources/satispay_payments'
+export { default as shipment_line_items, type ShipmentLineItems } from './resources/shipment_line_items'
 export { default as shipments, type Shipments } from './resources/shipments'
 export { default as shipping_categories, type ShippingCategories } from './resources/shipping_categories'
 export { default as shipping_method_tiers, type ShippingMethodTiers } from './resources/shipping_method_tiers'

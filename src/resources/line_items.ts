@@ -29,6 +29,7 @@ import type { Order, OrderType } from './orders'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { PercentageDiscountPromotion, PercentageDiscountPromotionType } from './percentage_discount_promotions'
 import type { ReturnLineItem } from './return_line_items'
+import type { ShipmentLineItem } from './shipment_line_items'
 import type { Shipment, ShipmentType } from './shipments'
 import type { Sku, SkuType } from './skus'
 import type { StockLineItem } from './stock_line_items'
@@ -291,9 +292,9 @@ interface LineItem extends Resource {
   line_item_options?: LineItemOption[] | null
   return_line_items?: ReturnLineItem[] | null
   /**
-   * @deprecated This field should not be used as it may be removed in the future without notice
+   * @deprecated
    */
-  shipment_line_items?: object[]
+  shipment_line_items?: ShipmentLineItem[] | null
   stock_reservations?: StockReservation[] | null
   stock_line_items?: StockLineItem[] | null
   stock_transfers?: StockTransfer[] | null
@@ -548,6 +549,23 @@ class LineItems extends ApiResource<LineItem> {
       params,
       options,
     ) as unknown as ListResponse<ReturnLineItem>
+  }
+
+  /**
+   * @deprecated
+   */
+  async shipment_line_items(
+    lineItemId: string | LineItem,
+    params?: QueryParamsList<ShipmentLineItem>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<ShipmentLineItem>> {
+    const _lineItemId = (lineItemId as LineItem).id || (lineItemId as string)
+    return this.resources.fetch<ShipmentLineItem>(
+      { type: 'shipment_line_items' },
+      `line_items/${_lineItemId}/shipment_line_items`,
+      params,
+      options,
+    ) as unknown as ListResponse<ShipmentLineItem>
   }
 
   async stock_reservations(

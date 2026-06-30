@@ -101,15 +101,6 @@ const generate = async (cli: CliOptions) => {
   const isDiffMode = output !== undefined
 
   if (!localSchema) {
-    let currentVersion = '0.0.0'
-
-    try {
-      const currentSchema = apiSchema.current()
-      if (currentSchema?.info?.version) currentVersion = currentSchema.info.version
-    } catch (_err) {
-      console.log('No current local schema available')
-    }
-
     const schemaInfo = await apiSchema.download({ apiHost, apiVersion }).catch((error: Error) => {
       console.log(error.message)
       return undefined
@@ -118,10 +109,8 @@ const generate = async (cli: CliOptions) => {
     if (!schemaInfo) {
       console.log('Unable to download schema')
       return
-    } else if (schemaInfo.version === currentVersion && !isDiffMode) {
-      console.log('No new schema version: ' + currentVersion)
-      return
-    } else console.log(`New schema version: ${currentVersion} --> ${schemaInfo.version}`)
+    }
+    console.log(`Schema release: ${schemaInfo.version}`)
   }
 
   const schemaPath = apiSchema.localPath
@@ -216,25 +205,24 @@ const _tabsString = (num: number): string => {
 const updateSdkVersion = (): void => {
   if (!global.version) return
 
-  const filePath = 'src/commercelayer.ts'
+  // API_SCHEMA_VERSION lives in src/version.ts (alongside SDK_VERSION) so
+  // client.ts can read it without a circular import via commercelayer.ts.
+  const filePath = 'src/version.ts'
 
   const cl = readFileSync(filePath, { encoding: 'utf-8' })
 
   const lines = cl.split('\n')
 
-  // OpenAPI schema version
+  // Build's target API version (e.g. '2026-05' for a unified build,
+  // 'latest' for a legacy build). Customers don't override this — the URL
+  // version segment is purely driven by the generator's output.
+  // The `: string` annotation widens TS's inferred literal type so
+  // comparisons like `API_SCHEMA_VERSION === 'latest'` don't trip TS2367
+  // after regen against a unified host.
   const schemaLine = findLine(SCHEMA_VERSION_CONST, lines)
   const schemaPrefix = schemaLine.text.substring(0, schemaLine.offset).trim()
-  if (schemaLine.index >= 0) lines[schemaLine.index] = `${schemaPrefix} ${SCHEMA_VERSION_CONST} = '${global.version}'`
-
-  // SDK version
-  /*
-	const pkgJson = readFileSync(resolve('.', 'package.json'), { encoding: 'utf-8' })
-	const pkg = JSON.parse(pkgJson)
-	const sdkLine = findLine(SDK_VERSION_CONST, lines)
-	const sdkPrefix = sdkLine.text.substring(0, sdkLine.offset).trim()
-	if (sdkLine.index >= 0) lines[sdkLine.index] = `${sdkPrefix} ${SDK_VERSION_CONST} = '${pkg.version}'`
-	*/
+  if (schemaLine.index >= 0)
+    lines[schemaLine.index] = `${schemaPrefix} ${SCHEMA_VERSION_CONST}: string = '${global.version}'`
 
   writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
 
@@ -739,6 +727,18 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   res = res.replace(/##__RESOURCE_TYPE__##/g, type)
   res = res.replace(/##__RESOURCE_CLASS__##/g, resName)
 
+  // Resource-level JSDoc — `@deprecated` when the resource is version-scoped
+  // to API versions older than the current target, `@since` when introduced
+  // after the catalogue's oldest supported version. Both can apply but in
+  // practice they're mutually exclusive for resources.
+  const resourceDeprecatedSince = resource.deprecatedSince
+    ? ` Last available in API version ${resource.deprecatedSince}.`
+    : ''
+  let resourceJsdoc = ''
+  if (resource.deprecated) resourceJsdoc = `/** @deprecated${resourceDeprecatedSince} */\n`
+  else if (resource.since) resourceJsdoc = `/** @since ${resource.since} */\n`
+  res = res.replace(/##__RESOURCE_DEPRECATED_JSDOC__##/g, resourceJsdoc)
+
   const resourceOperations = operations && operations.length > 0 ? operations.join('\n\n\t') : ''
   res = res.replace(/##__RESOURCE_OPERATIONS__##/, resourceOperations)
 
@@ -880,6 +880,15 @@ const templatedOperation = (
       operation = operation.replace(plh, val)
     })
 
+  // Prepend `@deprecated` or `@since` JSDoc to the method based on the
+  // versions metadata of the underlying relationship.
+  if (op.deprecated) {
+    const lastAvailable = op.deprecatedSince ? ` Last available in API version ${op.deprecatedSince}.` : ''
+    operation = `/**\n * @deprecated${lastAvailable}\n */\n${operation}`
+  } else if (op.since) {
+    operation = `/**\n * @since ${op.since}\n */\n${operation}`
+  }
+
   operation = operation.replace(/\n/g, '\n\t')
 
   return { operation, types }
@@ -941,11 +950,15 @@ const templatedComponent = (
       if (cudModel || a.fetchable) {
         const attrType = fixAttributeType(a)
         if (a.enum) enums[a.name] = attrType
-        if (a.description || a.example) {
+        if (a.description || a.example || a.deprecated || a.since) {
           const desc = a.description && !a.description.endsWith('.') ? `${a.description}.` : a.description
-          fields.push(
-            `/** ${desc ? `\n\t * ${desc}` : ''}${a.example ? `\n\t * @example \`\`\`${JSON.stringify(a.example)}\`\`\`` : ''}\n\t */`,
-          )
+          const descLine = desc ? `\n\t * ${desc}` : ''
+          const sinceLine = a.since ? `\n\t * @since ${a.since}` : ''
+          const deprecatedLine = a.deprecated
+            ? `\n\t * @deprecated${a.deprecatedSince ? ` Last available in API version ${a.deprecatedSince}.` : ''}`
+            : ''
+          const exampleLine = a.example ? `\n\t * @example \`\`\`${JSON.stringify(a.example)}\`\`\`` : ''
+          fields.push(`/** ${descLine}${sinceLine}${deprecatedLine}${exampleLine}\n\t */`)
         }
         fields.push(`${a.name}${a.required ? '' : '?'}: ${attrType}${a.required ? '' : ' | null'}`)
       }
@@ -959,32 +972,43 @@ const templatedComponent = (
   const relationships = Object.values(cmp.relationships)
   const rels: string[] = []
   relationships.forEach((r) => {
-    if (r.deprecated) {
-      const deprecated =
-        '/**\n\t* @deprecated This field should not be used as it may be removed in the future without notice\n\t*/\n\t'
+    // Fallback path: when the target resource was excluded from this build,
+    // there's no proper type module to import — render as `object[]` with
+    // `@deprecated` JSDoc. This is the only case where typing is degraded.
+    if (r.targetExcluded) {
+      const deprecated = '/**\n\t * @deprecated Target resource not available in the current API version.\n\t */\n\t'
       rels.push(`${deprecated}${r.name}?: object${r.cardinality === Cardinality.to_many ? '[]' : ''}`)
-    } else {
-      let resName = r.type
-
-      if (resName !== 'object') {
-        const relStr = cudModel ? 'Rel' : ''
-        if (r.polymorphic && r.oneOf) {
-          resName = r.oneOf.map((o) => `${o}${relStr}`).join(' | ')
-          models.push(...r.oneOf)
-        } else {
-          resName = Inflector.camelize(Inflector.singularize(r.type))
-          models.push(resName)
-          resName += relStr
-        }
-      }
-
-      if (r.cardinality === Cardinality.to_many) {
-        if (r.polymorphic) resName = `Array<${resName}>`
-        else resName += '[]'
-      }
-
-      rels.push(`${r.name}${r.required ? '' : '?'}: ${resName}${r.required ? '' : ' | null'}`)
+      return
     }
+
+    // Proper-type path — used for both current and deprecated relationships.
+    // Deprecated relationships get the `@deprecated` JSDoc; the underlying
+    // type is the real one (the target resource is in the SDK, possibly
+    // with its own `@deprecated` on the class).
+    let resName = r.type
+    if (resName !== 'object') {
+      const relStr = cudModel ? 'Rel' : ''
+      if (r.polymorphic && r.oneOf) {
+        resName = r.oneOf.map((o) => `${o}${relStr}`).join(' | ')
+        models.push(...r.oneOf)
+      } else {
+        resName = Inflector.camelize(Inflector.singularize(r.type))
+        models.push(resName)
+        resName += relStr
+      }
+    }
+    if (r.cardinality === Cardinality.to_many) {
+      if (r.polymorphic) resName = `Array<${resName}>`
+      else resName += '[]'
+    }
+
+    let jsdoc = ''
+    if (r.deprecated) {
+      jsdoc = `/**\n\t * @deprecated${r.deprecatedSince ? ` Last available in API version ${r.deprecatedSince}.` : ''}\n\t */\n\t`
+    } else if (r.since) {
+      jsdoc = `/**\n\t * @since ${r.since}\n\t */\n\t`
+    }
+    rels.push(`${jsdoc}${r.name}${r.required ? '' : '?'}: ${resName}${r.required ? '' : ' | null'}`)
   })
 
   let component = fields.length || rels.length ? templates.model : templates.model_empty

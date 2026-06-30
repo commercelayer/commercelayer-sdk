@@ -20,6 +20,7 @@ import type { Geocoder, GeocoderType } from './geocoders'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
 import type { Merchant, MerchantType } from './merchants'
+import type { OrderValidationRule } from './order_validation_rules'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { PriceList, PriceListType } from './price_lists'
@@ -136,9 +137,9 @@ interface Market extends Resource {
   stores?: Store[] | null
   price_list_schedulers?: PriceListScheduler[] | null
   /**
-   * @deprecated This field should not be used as it may be removed in the future without notice
+   * @deprecated
    */
-  order_validation_rules?: object[]
+  order_validation_rules?: OrderValidationRule[] | null
   attachments?: Attachment[] | null
   event_stores?: EventStore[] | null
 }

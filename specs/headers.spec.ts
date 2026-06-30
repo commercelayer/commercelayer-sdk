@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 import { application, type CommerceLayerClient } from '../src'
-import { CommonData, getClient, handleError, interceptRequest } from '../test/common'
+import { CommonData, getClient, handleError, IS_UNIFIED_BUILD, interceptRequest } from '../test/common'
 
 let cl: CommerceLayerClient
 
@@ -36,7 +36,7 @@ describe('Test headers', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
 
-  test('Response headers', async () => {
+  test.skipIf(IS_UNIFIED_BUILD)('Response headers', async () => {
     const params = { fields: { addresses: CommonData.paramsFields } }
 
     const reader = cl.addRawResponseReader({ headers: true })

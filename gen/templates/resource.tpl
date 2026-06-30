@@ -15,7 +15,7 @@ export type ##__MODEL_RESOURCE_INTERFACE__##Sort = Pick<##__MODEL_RESOURCE_INTER
 ##__MODEL_INTERFACES__##
 
 
-class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOURCE_INTERFACE__##> {
+##__RESOURCE_DEPRECATED_JSDOC__##class ##__RESOURCE_CLASS__## extends ##__RESOURCE_MODEL_TYPE__##<##__MODEL_RESOURCE_INTERFACE__##> {
 
 	static readonly TYPE: ##__MODEL_RESOURCE_INTERFACE__##Type = '##__RESOURCE_TYPE__##' as const
 

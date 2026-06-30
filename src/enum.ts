@@ -14,6 +14,7 @@ const apiResources = [
   'avalara_accounts',
   'axerve_gateways',
   'axerve_payments',
+  'billing_info_validation_rules',
   'bing_geocoders',
   'braintree_gateways',
   'braintree_payments',
@@ -76,6 +77,7 @@ const apiResources = [
   'order_factories',
   'order_subscriptions',
   'order_subscription_items',
+  'order_validation_rules',
   'organizations',
   'packages',
   'parcels',
@@ -104,6 +106,7 @@ const apiResources = [
   'satispay_gateways',
   'satispay_payments',
   'shipments',
+  'shipment_line_items',
   'shipping_categories',
   'shipping_methods',
   'shipping_method_tiers',
@@ -179,6 +182,7 @@ export const creatableResources = [
   'avalara_accounts',
   'axerve_gateways',
   'axerve_payments',
+  'billing_info_validation_rules',
   'bing_geocoders',
   'braintree_gateways',
   'braintree_payments',
@@ -299,6 +303,7 @@ export const updatableResources = [
   'avalara_accounts',
   'axerve_gateways',
   'axerve_payments',
+  'billing_info_validation_rules',
   'bing_geocoders',
   'braintree_gateways',
   'braintree_payments',
@@ -422,6 +427,7 @@ export const deletableResources = [
   'avalara_accounts',
   'axerve_gateways',
   'axerve_payments',
+  'billing_info_validation_rules',
   'bing_geocoders',
   'braintree_gateways',
   'braintree_payments',
@@ -607,6 +613,7 @@ export type ResourceFields = {
   avalara_accounts: models.AvalaraAccount
   axerve_gateways: models.AxerveGateway
   axerve_payments: models.AxervePayment
+  billing_info_validation_rules: models.BillingInfoValidationRule
   bing_geocoders: models.BingGeocoder
   braintree_gateways: models.BraintreeGateway
   braintree_payments: models.BraintreePayment
@@ -669,6 +676,7 @@ export type ResourceFields = {
   order_factories: models.OrderFactory
   order_subscriptions: models.OrderSubscription
   order_subscription_items: models.OrderSubscriptionItem
+  order_validation_rules: models.OrderValidationRule
   organizations: models.Organization
   packages: models.Package
   parcels: models.Parcel
@@ -697,6 +705,7 @@ export type ResourceFields = {
   satispay_gateways: models.SatispayGateway
   satispay_payments: models.SatispayPayment
   shipments: models.Shipment
+  shipment_line_items: models.ShipmentLineItem
   shipping_categories: models.ShippingCategory
   shipping_methods: models.ShippingMethod
   shipping_method_tiers: models.ShippingMethodTier
@@ -743,6 +752,7 @@ export type ResourceSortFields = {
   avalara_accounts: models.AvalaraAccountSort
   axerve_gateways: models.AxerveGatewaySort
   axerve_payments: models.AxervePaymentSort
+  billing_info_validation_rules: models.BillingInfoValidationRuleSort
   bing_geocoders: models.BingGeocoderSort
   braintree_gateways: models.BraintreeGatewaySort
   braintree_payments: models.BraintreePaymentSort
@@ -805,6 +815,7 @@ export type ResourceSortFields = {
   order_factories: models.OrderFactorySort
   order_subscriptions: models.OrderSubscriptionSort
   order_subscription_items: models.OrderSubscriptionItemSort
+  order_validation_rules: models.OrderValidationRuleSort
   organizations: models.OrganizationSort
   packages: models.PackageSort
   parcels: models.ParcelSort
@@ -833,6 +844,7 @@ export type ResourceSortFields = {
   satispay_gateways: models.SatispayGatewaySort
   satispay_payments: models.SatispayPaymentSort
   shipments: models.ShipmentSort
+  shipment_line_items: models.ShipmentLineItemSort
   shipping_categories: models.ShippingCategorySort
   shipping_methods: models.ShippingMethodSort
   shipping_method_tiers: models.ShippingMethodTierSort

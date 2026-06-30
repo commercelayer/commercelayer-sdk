@@ -28,6 +28,12 @@ export type {
   AxervePaymentSort,
   AxervePaymentUpdate,
 } from './resources/axerve_payments'
+export type {
+  BillingInfoValidationRule,
+  BillingInfoValidationRuleCreate,
+  BillingInfoValidationRuleSort,
+  BillingInfoValidationRuleUpdate,
+} from './resources/billing_info_validation_rules'
 export type { BingGeocoder, BingGeocoderCreate, BingGeocoderSort, BingGeocoderUpdate } from './resources/bing_geocoders'
 export type {
   BraintreeGateway,
@@ -284,6 +290,7 @@ export type {
   OrderSubscriptionSort,
   OrderSubscriptionUpdate,
 } from './resources/order_subscriptions'
+export type { OrderValidationRule, OrderValidationRuleSort } from './resources/order_validation_rules'
 export type { Order, OrderCreate, OrderSort, OrderUpdate } from './resources/orders'
 export type { Organization, OrganizationSort } from './resources/organizations'
 export type { Package, PackageCreate, PackageSort, PackageUpdate } from './resources/packages'
@@ -377,6 +384,7 @@ export type {
   SatispayPaymentSort,
   SatispayPaymentUpdate,
 } from './resources/satispay_payments'
+export type { ShipmentLineItem, ShipmentLineItemSort } from './resources/shipment_line_items'
 export type { Shipment, ShipmentCreate, ShipmentSort, ShipmentUpdate } from './resources/shipments'
 export type {
   ShippingCategory,

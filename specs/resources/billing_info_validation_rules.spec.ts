@@ -6,7 +6,12 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type CommerceLayerClient, type ParcelLineItem, parcel_line_items, parcels, stock_line_items } from '../../src'
+import {
+  type BillingInfoValidationRule,
+  billing_info_validation_rules,
+  type CommerceLayerClient,
+  markets,
+} from '../../src'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,
@@ -28,16 +33,14 @@ beforeAll(async () => {
   cl = await getClient()
 })
 
-describe('ParcelLineItems resource', () => {
-  const resourceType = 'parcel_line_items'
-  const resourcePath = 'parcel_line_items'
+describe('BillingInfoValidationRules resource', () => {
+  const resourceType = 'billing_info_validation_rules'
+  const resourcePath = 'billing_info_validation_rules'
 
   /* spec.create.start */
   test(resourceType + '.create', async () => {
     const createAttributes = {
-      quantity: randomValue('integer', 'quantity'),
-      parcel: parcels.relationship(TestData.id),
-      stock_line_item: stock_line_items.relationship(TestData.id),
+      market: markets.relationship(TestData.id),
     }
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -49,13 +52,13 @@ describe('ParcelLineItems resource', () => {
       expect(request.options.method).toBe('POST')
       checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(parcel_line_items.isParcelLineItem(data.data)).toBeTruthy()
+      expect(billing_info_validation_rules.isBillingInfoValidationRule(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await parcel_line_items
+    await billing_info_validation_rules
       .create(resData, params, CommonData.options)
-      .then((res: ParcelLineItem) => expect(res).not.toBeNull())
+      .then((res: BillingInfoValidationRule) => expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
   })
@@ -73,9 +76,9 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await parcel_line_items
+    await billing_info_validation_rules
       .retrieve(id, params, CommonData.options)
-      .then((res: ParcelLineItem) => expect(res).not.toBeNull())
+      .then((res: BillingInfoValidationRule) => expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
   })
@@ -95,9 +98,9 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await parcel_line_items
+    await billing_info_validation_rules
       .update(resData, params, CommonData.options)
-      .then((res: ParcelLineItem) => expect(res).not.toBeNull())
+      .then((res: BillingInfoValidationRule) => expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
   })
@@ -113,7 +116,7 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await parcel_line_items
+    await billing_info_validation_rules
       .delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -131,7 +134,7 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await parcel_line_items
+    await billing_info_validation_rules
       .list(params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
@@ -141,19 +144,19 @@ describe('ParcelLineItems resource', () => {
   /* spec.type.start */
   test(resourceType + '.type', async () => {
     const resource = { id: TestData.id, type: resourceType }
-    expect(parcel_line_items.isParcelLineItem(resource)).toBeTruthy()
+    expect(billing_info_validation_rules.isBillingInfoValidationRule(resource)).toBeTruthy()
 
-    const type = parcel_line_items.type()
+    const type = billing_info_validation_rules.type()
     expect(type).toBe(resourceType)
   })
   /* spec.type.stop */
 
   /* spec.relationship.start */
   test(resourceType + '.relationship', async () => {
-    const relId = parcel_line_items.relationship(TestData.id)
+    const relId = billing_info_validation_rules.relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType }))
 
-    const relResId = parcel_line_items.relationship({ id: TestData.id, type: resourceType })
+    const relResId = billing_info_validation_rules.relationship({ id: TestData.id, type: resourceType })
     expect(isDeepStrictEqual(relResId, { id: TestData.id, type: resourceType }))
   })
   /* spec.relationship.stop */
@@ -186,7 +189,7 @@ describe('ParcelLineItems resource', () => {
     }
     `
 
-    const res = parcel_line_items.parse(payload) as ParcelLineItem
+    const res = billing_info_validation_rules.parse(payload) as BillingInfoValidationRule
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -197,67 +200,48 @@ describe('ParcelLineItems resource', () => {
 
   /* spec.instance start */
   test(resourceType + '.instance', async () => {
-    expect(parcel_line_items)
-    expect(parcel_line_items.type()).toBe(resourceType)
+    expect(billing_info_validation_rules)
+    expect(billing_info_validation_rules.type()).toBe(resourceType)
   })
   /* spec.instance stop */
 
-  /* relationship.parcel start */
-  test(resourceType + '.parcel', async () => {
+  /* relationship.market start */
+  test(resourceType + '.market', async () => {
     const id = TestData.id
-    const params = { fields: { parcels: CommonData.paramsFields } }
+    const params = { fields: { markets: CommonData.paramsFields } }
 
     const _intId = cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourcePath, id, currentAccessToken, 'parcel')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'market')
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await parcel_line_items
-      .parcel(id, params, CommonData.options)
+    await billing_info_validation_rules
+      .market(id, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
   })
-  /* relationship.parcel stop */
+  /* relationship.market stop */
 
-  /* relationship.stock_line_item start */
-  test(resourceType + '.stock_line_item', async () => {
+  /* relationship.attachments start */
+  test(resourceType + '.attachments', async () => {
     const id = TestData.id
-    const params = { fields: { stock_line_items: CommonData.paramsFields } }
+    const params = { fields: { attachments: CommonData.paramsFields } }
 
     const _intId = cl.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourcePath, id, currentAccessToken, 'stock_line_item')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'attachments')
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await parcel_line_items
-      .stock_line_item(id, params, CommonData.options)
+    await billing_info_validation_rules
+      .attachments(id, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))
   })
-  /* relationship.stock_line_item stop */
-
-  /* relationship.shipment_line_item start */
-  test(resourceType + '.shipment_line_item', async () => {
-    const id = TestData.id
-    const params = { fields: { shipment_line_items: CommonData.paramsFields } }
-
-    const _intId = cl.addRequestInterceptor((request) => {
-      expect(request.options.method).toBe('GET')
-      checkCommon(request, resourcePath, id, currentAccessToken, 'shipment_line_item')
-      checkCommonParams(request, params)
-      return interceptRequest()
-    })
-
-    await parcel_line_items
-      .shipment_line_item(id, params, CommonData.options)
-      .catch(handleError)
-      .finally(() => cl.removeInterceptor('request'))
-  })
-  /* relationship.shipment_line_item stop */
+  /* relationship.attachments stop */
 
   /* relationship.event_stores start */
   test(resourceType + '.event_stores', async () => {
@@ -271,7 +255,7 @@ describe('ParcelLineItems resource', () => {
       return interceptRequest()
     })
 
-    await parcel_line_items
+    await billing_info_validation_rules
       .event_stores(id, params, CommonData.options)
       .catch(handleError)
       .finally(() => cl.removeInterceptor('request'))

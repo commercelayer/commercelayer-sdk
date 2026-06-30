@@ -260,6 +260,25 @@ describe('LineItems resource', () => {
   })
   /* relationship.return_line_items stop */
 
+  /* relationship.shipment_line_items start */
+  test(resourceType + '.shipment_line_items', async () => {
+    const id = TestData.id
+    const params = { fields: { shipment_line_items: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'shipment_line_items')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await line_items
+      .shipment_line_items(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.shipment_line_items stop */
+
   /* relationship.stock_reservations start */
   test(resourceType + '.stock_reservations', async () => {
     const id = TestData.id

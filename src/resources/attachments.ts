@@ -24,6 +24,7 @@ import type { GiftCard, GiftCardType } from './gift_cards'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
 import type { Market, MarketType } from './markets'
 import type { Merchant, MerchantType } from './merchants'
+import type { OrderValidationRule, OrderValidationRuleType } from './order_validation_rules'
 import type { Order, OrderType } from './orders'
 import type { Package, PackageType } from './packages'
 import type { Parcel, ParcelType } from './parcels'
@@ -64,6 +65,7 @@ type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 type SkuRel = ResourceRel & { type: SkuType }
 type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
+type OrderValidationRuleRel = ResourceRel & { type: OrderValidationRuleType }
 type BundleRel = ResourceRel & { type: BundleType }
 type SkuListRel = ResourceRel & { type: SkuListType }
 type StockItemRel = ResourceRel & { type: StockItemType }
@@ -126,6 +128,7 @@ interface Attachment extends Resource {
     | TaxCategory
     | Sku
     | ShippingCategory
+    | OrderValidationRule
     | Bundle
     | SkuList
     | StockItem
@@ -186,6 +189,7 @@ interface AttachmentCreate extends ResourceCreate {
     | TaxCategoryRel
     | SkuRel
     | ShippingCategoryRel
+    | OrderValidationRuleRel
     | BundleRel
     | SkuListRel
     | StockItemRel
@@ -244,6 +248,7 @@ interface AttachmentUpdate extends ResourceUpdate {
     | TaxCategoryRel
     | SkuRel
     | ShippingCategoryRel
+    | OrderValidationRuleRel
     | BundleRel
     | SkuListRel
     | StockItemRel

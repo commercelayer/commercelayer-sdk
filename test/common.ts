@@ -8,7 +8,15 @@ import CommerceLayer, {
   type RequestObj,
   type Resource,
 } from '../src'
+import { API_SCHEMA_VERSION } from '../src/commercelayer'
 import getToken from './token'
+
+// On unified-schema builds the SDK embeds the build's target version as a URL
+// path segment (e.g. `/api/2026-05/orders`). Legacy builds carry the literal
+// 'latest' marker from the generator and stay unversioned (`/api/orders`).
+// Tests use this prefix to assemble expected pathnames.
+export const IS_UNIFIED_BUILD = API_SCHEMA_VERSION !== 'latest'
+const API_PATH_PREFIX = IS_UNIFIED_BUILD ? `/api/${API_SCHEMA_VERSION}` : '/api'
 
 dotenv.config()
 
@@ -135,7 +143,9 @@ const randomValue = (type: string, name?: string): any | Array<any> => {
 export { handleError, interceptRequest, randomValue }
 
 const checkCommon = (request: RequestObj, path: string, id?: string, token?: string, relationship?: string) => {
-  expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''))
+  expect(request.url.pathname).toBe(
+    `${API_PATH_PREFIX}/${path}` + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''),
+  )
   const requestOptionsHeaders = request.options.headers as Record<string, string>
   expect(requestOptionsHeaders).toBeDefined()
   if (requestOptionsHeaders) expect(requestOptionsHeaders.Authorization).toContain('Bearer ' + (token || ''))

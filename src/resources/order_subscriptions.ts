@@ -15,6 +15,7 @@ import type { Customer } from './customers'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { Market, MarketType } from './markets'
+import type { OrderCopy } from './order_copies'
 import type { OrderFactory } from './order_factories'
 import type { OrderSubscriptionItem } from './order_subscription_items'
 import type { Order, OrderType } from './orders'
@@ -133,9 +134,9 @@ interface OrderSubscription extends Resource {
   order_subscription_items?: OrderSubscriptionItem[] | null
   order_factories?: OrderFactory[] | null
   /**
-   * @deprecated This field should not be used as it may be removed in the future without notice
+   * @deprecated
    */
-  order_copies?: object[]
+  order_copies?: OrderCopy[] | null
   recurring_order_copies?: RecurringOrderCopy[] | null
   orders?: Order[] | null
   events?: Event[] | null
@@ -381,6 +382,23 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
       params,
       options,
     ) as unknown as ListResponse<OrderFactory>
+  }
+
+  /**
+   * @deprecated
+   */
+  async order_copies(
+    orderSubscriptionId: string | OrderSubscription,
+    params?: QueryParamsList<OrderCopy>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<OrderCopy>> {
+    const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || (orderSubscriptionId as string)
+    return this.resources.fetch<OrderCopy>(
+      { type: 'order_copies' },
+      `order_subscriptions/${_orderSubscriptionId}/order_copies`,
+      params,
+      options,
+    ) as unknown as ListResponse<OrderCopy>
   }
 
   async recurring_order_copies(

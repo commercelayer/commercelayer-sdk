@@ -336,6 +336,25 @@ describe('OrderSubscriptions resource', () => {
   })
   /* relationship.order_factories stop */
 
+  /* relationship.order_copies start */
+  test(resourceType + '.order_copies', async () => {
+    const id = TestData.id
+    const params = { fields: { order_copies: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'order_copies')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await order_subscriptions
+      .order_copies(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.order_copies stop */
+
   /* relationship.recurring_order_copies start */
   test(resourceType + '.recurring_order_copies', async () => {
     const id = TestData.id

@@ -21,6 +21,7 @@ import type { LineItem } from './line_items'
 import type { Order, OrderType } from './orders'
 import type { Parcel } from './parcels'
 import type { Pickup } from './pickups'
+import type { ShipmentLineItem } from './shipment_line_items'
 import type { ShippingCategory, ShippingCategoryType } from './shipping_categories'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { StockLineItem } from './stock_line_items'
@@ -196,9 +197,9 @@ interface Shipment extends Resource {
   delivery_lead_time?: DeliveryLeadTime | null
   pickup?: Pickup | null
   /**
-   * @deprecated This field should not be used as it may be removed in the future without notice
+   * @deprecated
    */
-  shipment_line_items?: object[]
+  shipment_line_items?: ShipmentLineItem[] | null
   stock_line_items?: StockLineItem[] | null
   stock_transfers?: StockTransfer[] | null
   line_items?: LineItem[] | null
@@ -459,6 +460,23 @@ class Shipments extends ApiResource<Shipment> {
       params,
       options,
     ) as unknown as Pickup
+  }
+
+  /**
+   * @deprecated
+   */
+  async shipment_line_items(
+    shipmentId: string | Shipment,
+    params?: QueryParamsList<ShipmentLineItem>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<ShipmentLineItem>> {
+    const _shipmentId = (shipmentId as Shipment).id || (shipmentId as string)
+    return this.resources.fetch<ShipmentLineItem>(
+      { type: 'shipment_line_items' },
+      `shipments/${_shipmentId}/shipment_line_items`,
+      params,
+      options,
+    ) as unknown as ListResponse<ShipmentLineItem>
   }
 
   async stock_line_items(
