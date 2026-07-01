@@ -22,7 +22,11 @@ export const CONFIG: ConfigType = {
   RELATIONSHIP_FUNCTIONS: true,
   TRIGGER_FUNCTIONS: true,
   RESOURCES_FULL_BUNDLE: true,
-  RESOURCES_INSTANCE_STYLE: 'accessors_only',
+  // Bundle clients must be isolated per access token. `leazy_loading` emits
+  // private cache fields + lazy getters that bind each resource to the
+  // client's own adapter (via `.withAdapter(this.adapter)`), instead of
+  // `accessors_only` which returned the shared process-global singletons.
+  RESOURCES_INSTANCE_STYLE: 'leazy_loading',
 }
 CONFIG.RESOURCES_STANDARD_OBJECT = CONFIG.RESOURCES_INSTANCE_STYLE === 'standard_object'
 CONFIG.RESOURCES_LEAZY_LOADING = CONFIG.RESOURCES_INSTANCE_STYLE === 'leazy_loading'

@@ -319,6 +319,18 @@ abstract class ApiResourceBase<R extends Resource> {
     return this.#resources || ApiResourceAdapter.get()
   }
 
+  /**
+   * Returns a copy of this resource instance bound to a specific
+   * `ResourceAdapter`. Used by the bundle client so each client instance
+   * routes requests through its own adapter (its own access token) instead
+   * of the process-global static adapter. Resource classes are type-only
+   * exports, so we clone via `this.constructor` rather than referencing the
+   * class directly.
+   */
+  withAdapter(adapter: ResourceAdapter): this {
+    return new (this.constructor as new (adapter?: ResourceAdapter) => this)(adapter)
+  }
+
   abstract relationship(id: string | ResourceId | null): ResourceRel
 
   protected relationshipOneToOne<RR extends ResourceRel>(id: string | ResourceId | null): RR {
