@@ -18,15 +18,15 @@ interface Import extends Resource {
 	readonly type: ImportType
 
 	/** 
-	 * The type of resource being imported.
+	 * The type of resource being imported. One of 'addresses', 'tags', 'price_lists', 'line_items', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'addresses' | 'tags' | 'price_lists' | 'line_items' | 'orders' | 'tax_categories' | 'skus' | 'shipping_categories' | 'bundles' | 'sku_lists' | 'sku_list_items' | 'stock_items' | 'stock_locations' | 'coupons' | 'customers' | 'customer_addresses' | 'customer_payment_sources' | 'customer_subscriptions' | 'gift_cards' | 'line_item_options' | 'stock_transfers' | 'sku_options' | 'prices' | 'price_tiers'
 	/** 
-	 * The format of the import inputs one of 'json' (default) or 'csv'.
+	 * The format of the import. One of 'csv', or 'json' (default).
 	 * @example ```"json"```
 	 */
-	format?: string | null
+	format?: 'csv' | 'json' | null
 	/** 
 	 * The ID of the parent resource to be associated with imported data.
 	 * @example ```"1234"```
@@ -107,15 +107,15 @@ interface Import extends Resource {
 interface ImportCreate extends ResourceCreate {
 	
 	/** 
-	 * The type of resource being imported.
+	 * The type of resource being imported. One of 'addresses', 'tags', 'price_lists', 'line_items', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'addresses' | 'tags' | 'price_lists' | 'line_items' | 'orders' | 'tax_categories' | 'skus' | 'shipping_categories' | 'bundles' | 'sku_lists' | 'sku_list_items' | 'stock_items' | 'stock_locations' | 'coupons' | 'customers' | 'customer_addresses' | 'customer_payment_sources' | 'customer_subscriptions' | 'gift_cards' | 'line_item_options' | 'stock_transfers' | 'sku_options' | 'prices' | 'price_tiers'
 	/** 
-	 * The format of the import inputs one of 'json' (default) or 'csv'.
+	 * The format of the import. One of 'csv', or 'json' (default).
 	 * @example ```"json"```
 	 */
-	format?: string | null
+	format?: 'csv' | 'json' | null
 	/** 
 	 * The ID of the parent resource to be associated with imported data.
 	 * @example ```"1234"```

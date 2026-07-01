@@ -9,7 +9,6 @@ import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_
 import type { Sku, SkuType } from './skus'
 import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
-import type { Version } from './versions'
 import type { VertexAccount, VertexAccountType } from './vertex_accounts'
 
 
@@ -46,7 +45,6 @@ interface TaxCategory extends Resource {
 	sku?: Sku | null
 	tax_calculator?: AvalaraAccount | StripeTaxAccount | VertexAccount | TaxjarAccount | ManualTaxCalculator | ExternalTaxCalculator | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -113,11 +111,6 @@ class TaxCategories extends ApiResource<TaxCategory> {
 	async attachments(taxCategoryId: string | TaxCategory, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `tax_categories/${_taxCategoryId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(taxCategoryId: string | TaxCategory, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _taxCategoryId = (taxCategoryId as TaxCategory).id || taxCategoryId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `tax_categories/${_taxCategoryId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(taxCategoryId: string | TaxCategory, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

@@ -5,7 +5,6 @@ import type { Attachment } from './attachments'
 import type { DiscountEngineItem } from './discount_engine_items'
 import type { EventStore } from './event_stores'
 import type { Market } from './markets'
-import type { Version } from './versions'
 
 
 type TalonOneAccountType = 'talon_one_accounts'
@@ -38,7 +37,6 @@ interface TalonOneAccount extends Resource {
 	markets?: Market[] | null
 	discount_engine_items?: DiscountEngineItem[] | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -123,11 +121,6 @@ class TalonOneAccounts extends ApiResource<TalonOneAccount> {
 	async attachments(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || talonOneAccountId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `talon_one_accounts/${_talonOneAccountId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _talonOneAccountId = (talonOneAccountId as TalonOneAccount).id || talonOneAccountId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `talon_one_accounts/${_talonOneAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(talonOneAccountId: string | TalonOneAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

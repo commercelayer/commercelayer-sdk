@@ -17,7 +17,6 @@ import type { StockItem } from './stock_items'
 import type { StockLocation } from './stock_locations'
 import type { StockReservation } from './stock_reservations'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 
 
 type SkuType = 'skus'
@@ -105,7 +104,6 @@ interface Sku extends Resource {
 	links?: Link[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	jwt_customer?: Customer | null
 	jwt_markets?: Market[] | null
 	jwt_stock_locations?: StockLocation[] | null
@@ -310,11 +308,6 @@ class Skus extends ApiResource<Sku> {
 	async tags(skuId: string | Sku, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _skuId = (skuId as Sku).id || skuId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `skus/${_skuId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(skuId: string | Sku, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _skuId = (skuId as Sku).id || skuId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `skus/${_skuId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async jwt_customer(skuId: string | Sku, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {

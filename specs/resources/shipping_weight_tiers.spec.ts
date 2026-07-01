@@ -258,28 +258,6 @@ describe('ShippingWeightTiers resource', () => {
 	
 
 	
-	/* relationship.versions start */
-	test(resourceType + '.versions', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
-	
-		const _intId = cl.addRequestInterceptor((request) => {
-			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
-			checkCommonParams(request, params)
-			return interceptRequest()
-		})
-	
-		await shipping_weight_tiers.versions(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => cl.removeInterceptor('request'))
-	
-	})
-	/* relationship.versions stop */
-	
-
-	
 	/* relationship.event_stores start */
 	test(resourceType + '.event_stores', async () => {
 	
@@ -299,6 +277,28 @@ describe('ShippingWeightTiers resource', () => {
 	
 	})
 	/* relationship.event_stores stop */
+	
+
+	
+	/* relationship.events start */
+	test(resourceType + '.events', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { events: CommonData.paramsFields } }
+	
+		const _intId = cl.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'events')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await shipping_weight_tiers.events(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => cl.removeInterceptor('request'))
+	
+	})
+	/* relationship.events stop */
 	
   
 })

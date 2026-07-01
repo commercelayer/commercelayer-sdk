@@ -28,8 +28,6 @@ export type {
   TaggableResourceType,
   UpdatableResource,
   UpdatableResourceType,
-  VersionableResource, 
-  VersionableResourceType
 } from './enum'
 // Error types
 export type { ApiError, SdkError } from './error'

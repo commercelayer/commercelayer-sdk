@@ -13,7 +13,6 @@ import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
 import type { SatispayPayment, SatispayPaymentType } from './satispay_payments'
 import type { StripePayment, StripePaymentType } from './stripe_payments'
-import type { Version } from './versions'
 import type { WireTransfer, WireTransferType } from './wire_transfers'
 
 
@@ -60,7 +59,6 @@ interface CustomerPaymentSource extends Resource {
 	customer?: Customer | null
 	payment_method?: PaymentMethod | null
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -130,11 +128,6 @@ class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
 	async payment_method(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsRetrieve<PaymentMethod>, options?: ResourcesConfig): Promise<PaymentMethod> {
 		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `customer_payment_sources/${_customerPaymentSourceId}/payment_method`, params, options) as unknown as PaymentMethod
-	}
-
-	async versions(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _customerPaymentSourceId = (customerPaymentSourceId as CustomerPaymentSource).id || customerPaymentSourceId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `customer_payment_sources/${_customerPaymentSourceId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(customerPaymentSourceId: string | CustomerPaymentSource, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

@@ -12,7 +12,6 @@ import type { Order, OrderType } from './orders'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { SubscriptionModel } from './subscription_models'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 
 
 type OrderSubscriptionType = 'order_subscriptions'
@@ -113,7 +112,6 @@ interface OrderSubscription extends Resource {
 	orders?: Order[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -295,11 +293,6 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
 	async tags(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `order_subscriptions/${_orderSubscriptionId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _orderSubscriptionId = (orderSubscriptionId as OrderSubscription).id || orderSubscriptionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `order_subscriptions/${_orderSubscriptionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(orderSubscriptionId: string | OrderSubscription, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

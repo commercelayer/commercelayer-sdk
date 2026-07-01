@@ -42,7 +42,6 @@ import type { StockTransfer } from './stock_transfers'
 import type { Store, StoreType } from './stores'
 import type { StripePayment, StripePaymentType } from './stripe_payments'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 import type { Void } from './voids'
 import type { WireTransfer, WireTransferType } from './wire_transfers'
 
@@ -660,7 +659,6 @@ interface Order extends Resource {
 	resource_errors?: ResourceError[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -1265,11 +1263,6 @@ class Orders extends ApiResource<Order> {
 	async tags(orderId: string | Order, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _orderId = (orderId as Order).id || orderId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `orders/${_orderId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(orderId: string | Order, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _orderId = (orderId as Order).id || orderId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `orders/${_orderId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(orderId: string | Order, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

@@ -14,7 +14,6 @@ import type { Order } from './orders'
 import type { PaypalPayment } from './paypal_payments'
 import type { SatispayPayment } from './satispay_payments'
 import type { StripePayment } from './stripe_payments'
-import type { Version } from './versions'
 import type { WireTransfer } from './wire_transfers'
 
 
@@ -94,7 +93,6 @@ interface Transaction extends Resource {
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -117,11 +115,6 @@ class Transactions extends ApiResource<Transaction> {
 	async events(transactionId: string | Transaction, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _transactionId = (transactionId as Transaction).id || transactionId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `transactions/${_transactionId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(transactionId: string | Transaction, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _transactionId = (transactionId as Transaction).id || transactionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `transactions/${_transactionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(transactionId: string | Transaction, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
