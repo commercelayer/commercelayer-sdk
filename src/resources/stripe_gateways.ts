@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
 import type { StripePayment } from './stripe_payments'
-import type { Version } from './versions'
 
 
 type StripeGatewayType = 'stripe_gateways'
@@ -25,6 +24,11 @@ interface StripeGateway extends Resource {
 	 */
 	name: string
 	force_payments?: boolean | null
+	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
 	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
@@ -57,7 +61,6 @@ interface StripeGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	stripe_payments?: StripePayment[] | null
 
@@ -82,6 +85,11 @@ interface StripeGatewayCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway login.
 	 * @example ```"sk_live_xxxx-yyyy-zzzz"```
@@ -125,6 +133,11 @@ interface StripeGatewayUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The account (if any) for which the funds of the PaymentIntent are intended.
 	 * @example ```"acct_xxxx-yyyy-zzzz"```
 	 */
@@ -159,11 +172,6 @@ class StripeGateways extends ApiResource<StripeGateway> {
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `stripe_gateways/${_stripeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `stripe_gateways/${_stripeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
 	async event_stores(stripeGatewayId: string | StripeGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
 		const _stripeGatewayId = (stripeGatewayId as StripeGateway).id || stripeGatewayId as string
 		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `stripe_gateways/${_stripeGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
@@ -180,6 +188,10 @@ class StripeGateways extends ApiResource<StripeGateway> {
 
 	async _enable(id: string | StripeGateway, params?: QueryParamsRetrieve<StripeGateway>, options?: ResourcesConfig): Promise<StripeGateway> {
 		return this.resources.update<StripeGatewayUpdate, StripeGateway>({ id: (typeof id === 'string')? id: id.id, type: StripeGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | StripeGateway, params?: QueryParamsRetrieve<StripeGateway>, options?: ResourcesConfig): Promise<StripeGateway> {
+		return this.resources.update<StripeGatewayUpdate, StripeGateway>({ id: (typeof id === 'string')? id: id.id, type: StripeGateways.TYPE, _check: true }, params, options)
 	}
 
 

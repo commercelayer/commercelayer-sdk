@@ -3,7 +3,6 @@ import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, R
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { Order, OrderType } from './orders'
-import type { Version } from './versions'
 
 
 type WireTransferType = 'wire_transfers'
@@ -26,7 +25,6 @@ interface WireTransfer extends Resource {
 	payment_instrument?: Record<string, any> | null
 
 	order?: Order | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -65,11 +63,6 @@ class WireTransfers extends ApiResource<WireTransfer> {
 	async order(wireTransferId: string | WireTransfer, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
 		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
 		return this.resources.fetch<Order>({ type: 'orders' }, `wire_transfers/${_wireTransferId}/order`, params, options) as unknown as Order
-	}
-
-	async versions(wireTransferId: string | WireTransfer, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _wireTransferId = (wireTransferId as WireTransfer).id || wireTransferId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `wire_transfers/${_wireTransferId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(wireTransferId: string | WireTransfer, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

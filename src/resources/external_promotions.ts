@@ -14,7 +14,6 @@ import type { SkuListPromotionRule, SkuListPromotionRuleType } from './sku_list_
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku } from './skus'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 
 
 type ExternalPromotionType = 'external_promotions'
@@ -106,11 +105,6 @@ interface ExternalPromotion extends Resource {
 	 */
 	disabled_at?: string | null
 	/** 
-	 * The URL to the service that will compute the discount.
-	 * @example ```"https://external_promotion.yourbrand.com"```
-	 */
-	promotion_url: string
-	/** 
 	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
 	 */
@@ -130,6 +124,11 @@ interface ExternalPromotion extends Resource {
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the discount.
+	 * @example ```"https://external_promotion.yourbrand.com"```
+	 */
+	promotion_url: string
 
 	market?: Market | null
 	promotion_rules?: PromotionRule[] | null
@@ -142,7 +141,6 @@ interface ExternalPromotion extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	skus?: Sku[] | null
 
@@ -197,15 +195,15 @@ interface ExternalPromotionCreate extends ResourceCreate {
 	 */
 	_enable?: boolean | null
 	/** 
-	 * The URL to the service that will compute the discount.
-	 * @example ```"https://external_promotion.yourbrand.com"```
-	 */
-	promotion_url: string
-	/** 
 	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the discount.
+	 * @example ```"https://external_promotion.yourbrand.com"```
+	 */
+	promotion_url: string
 
 	market?: MarketRel | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
@@ -274,11 +272,6 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	 */
 	_remove_tags?: string | null
 	/** 
-	 * The URL to the service that will compute the discount.
-	 * @example ```"https://external_promotion.yourbrand.com"```
-	 */
-	promotion_url?: string | null
-	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
@@ -288,6 +281,11 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the discount.
+	 * @example ```"https://external_promotion.yourbrand.com"```
+	 */
+	promotion_url?: string | null
 
 	market?: MarketRel | null
 	order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
@@ -364,11 +362,6 @@ class ExternalPromotions extends ApiResource<ExternalPromotion> {
 	async tags(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `external_promotions/${_externalPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _externalPromotionId = (externalPromotionId as ExternalPromotion).id || externalPromotionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `external_promotions/${_externalPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(externalPromotionId: string | ExternalPromotion, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

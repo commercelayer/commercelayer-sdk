@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 
 import type { EventCallback } from './event_callbacks'
 import type { EventStore } from './event_stores'
-import type { Version } from './versions'
 
 
 type WebhookType = 'webhooks'
@@ -61,7 +60,6 @@ interface Webhook extends Resource {
 	shared_secret: string
 
 	last_event_callbacks?: EventCallback[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -163,11 +161,6 @@ class Webhooks extends ApiResource<Webhook> {
 	async last_event_callbacks(webhookId: string | Webhook, params?: QueryParamsList<EventCallback>, options?: ResourcesConfig): Promise<ListResponse<EventCallback>> {
 		const _webhookId = (webhookId as Webhook).id || webhookId as string
 		return this.resources.fetch<EventCallback>({ type: 'event_callbacks' }, `webhooks/${_webhookId}/last_event_callbacks`, params, options) as unknown as ListResponse<EventCallback>
-	}
-
-	async versions(webhookId: string | Webhook, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _webhookId = (webhookId as Webhook).id || webhookId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `webhooks/${_webhookId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(webhookId: string | Webhook, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

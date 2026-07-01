@@ -4,7 +4,6 @@ import { ApiResource } from '../resource'
 import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
 import type { EventStore } from './event_stores'
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 
 
 type AdyenGatewayType = 'adyen_gateways'
@@ -30,6 +29,11 @@ interface AdyenGateway extends Resource {
 	 * @example ```true```
 	 */
 	force_payments?: boolean | null
+	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
 	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
@@ -76,7 +80,6 @@ interface AdyenGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	adyen_payments?: AdyenPayment[] | null
 
@@ -105,6 +108,11 @@ interface AdyenGatewayCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway merchant account.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -183,6 +191,11 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway merchant account.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
@@ -258,11 +271,6 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `adyen_gateways/${_adyenGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _adyenGatewayId = (adyenGatewayId as AdyenGateway).id || adyenGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `adyen_gateways/${_adyenGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
 	async event_stores(adyenGatewayId: string | AdyenGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
 		const _adyenGatewayId = (adyenGatewayId as AdyenGateway).id || adyenGatewayId as string
 		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `adyen_gateways/${_adyenGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
@@ -279,6 +287,10 @@ class AdyenGateways extends ApiResource<AdyenGateway> {
 
 	async _enable(id: string | AdyenGateway, params?: QueryParamsRetrieve<AdyenGateway>, options?: ResourcesConfig): Promise<AdyenGateway> {
 		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ id: (typeof id === 'string')? id: id.id, type: AdyenGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | AdyenGateway, params?: QueryParamsRetrieve<AdyenGateway>, options?: ResourcesConfig): Promise<AdyenGateway> {
+		return this.resources.update<AdyenGatewayUpdate, AdyenGateway>({ id: (typeof id === 'string')? id: id.id, type: AdyenGateways.TYPE, _check: true }, params, options)
 	}
 
 

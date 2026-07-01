@@ -6,7 +6,6 @@ import type { EventStore } from './event_stores'
 import type { Market, MarketType } from './markets'
 import type { PaymentGateway, PaymentGatewayType } from './payment_gateways'
 import type { Store, StoreType } from './stores'
-import type { Version } from './versions'
 
 
 type PaymentMethodType = 'payment_methods'
@@ -93,7 +92,6 @@ interface PaymentMethod extends Resource {
 	payment_gateway?: PaymentGateway | null
 	store?: Store | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -255,11 +253,6 @@ class PaymentMethods extends ApiResource<PaymentMethod> {
 	async attachments(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `payment_methods/${_paymentMethodId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _paymentMethodId = (paymentMethodId as PaymentMethod).id || paymentMethodId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `payment_methods/${_paymentMethodId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(paymentMethodId: string | PaymentMethod, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

@@ -3,7 +3,6 @@ import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, R
 import { ApiResource } from '../resource'
 import type { EventStore } from './event_stores'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
-import type { Version } from './versions'
 
 
 type TaxRuleType = 'tax_rules'
@@ -82,7 +81,6 @@ interface TaxRule extends Resource {
 	not_zip_code_regex?: string | null
 
 	manual_tax_calculator?: ManualTaxCalculator | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -235,11 +233,6 @@ class TaxRules extends ApiResource<TaxRule> {
 	async manual_tax_calculator(taxRuleId: string | TaxRule, params?: QueryParamsRetrieve<ManualTaxCalculator>, options?: ResourcesConfig): Promise<ManualTaxCalculator> {
 		const _taxRuleId = (taxRuleId as TaxRule).id || taxRuleId as string
 		return this.resources.fetch<ManualTaxCalculator>({ type: 'manual_tax_calculators' }, `tax_rules/${_taxRuleId}/manual_tax_calculator`, params, options) as unknown as ManualTaxCalculator
-	}
-
-	async versions(taxRuleId: string | TaxRule, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _taxRuleId = (taxRuleId as TaxRule).id || taxRuleId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `tax_rules/${_taxRuleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(taxRuleId: string | TaxRule, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

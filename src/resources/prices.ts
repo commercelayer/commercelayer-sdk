@@ -11,7 +11,6 @@ import type { PriceTier, PriceTierType } from './price_tiers'
 import type { PriceVolumeTier } from './price_volume_tiers'
 import type { Sku, SkuType } from './skus'
 import type { StockLocation } from './stock_locations'
-import type { Version } from './versions'
 
 
 type PriceType = 'prices'
@@ -111,7 +110,6 @@ interface Price extends Resource {
 	price_volume_tiers?: PriceVolumeTier[] | null
 	price_frequency_tiers?: PriceFrequencyTier[] | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	jwt_customer?: Customer | null
 	jwt_markets?: Market[] | null
 	jwt_stock_locations?: StockLocation[] | null
@@ -229,11 +227,6 @@ class Prices extends ApiResource<Price> {
 	async attachments(priceId: string | Price, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _priceId = (priceId as Price).id || priceId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `prices/${_priceId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(priceId: string | Price, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _priceId = (priceId as Price).id || priceId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `prices/${_priceId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async jwt_customer(priceId: string | Price, params?: QueryParamsRetrieve<Customer>, options?: ResourcesConfig): Promise<Customer> {
