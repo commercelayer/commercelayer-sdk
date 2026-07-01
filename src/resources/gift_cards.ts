@@ -7,7 +7,6 @@ import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recip
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -131,7 +130,6 @@ interface GiftCard extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -317,11 +315,6 @@ class GiftCards extends ApiResource<GiftCard> {
 	async tags(giftCardId: string | GiftCard, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `gift_cards/${_giftCardId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(giftCardId: string | GiftCard, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _giftCardId = (giftCardId as GiftCard).id || giftCardId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `gift_cards/${_giftCardId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(giftCardId: string | GiftCard, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

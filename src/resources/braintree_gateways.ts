@@ -3,7 +3,6 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { BraintreePayment, BraintreePaymentType } from './braintree_payments'
 
@@ -32,6 +31,11 @@ interface BraintreeGateway extends Resource {
 	 */
 	force_payments?: boolean | null
 	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -58,7 +62,6 @@ interface BraintreeGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	braintree_payments?: BraintreePayment[] | null
 
@@ -87,6 +90,11 @@ interface BraintreeGatewayCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway merchant account ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -151,6 +159,11 @@ interface BraintreeGatewayUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway merchant account ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
@@ -212,11 +225,6 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `braintree_gateways/${_braintreeGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `braintree_gateways/${_braintreeGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
 	async event_stores(braintreeGatewayId: string | BraintreeGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
 		const _braintreeGatewayId = (braintreeGatewayId as BraintreeGateway).id || braintreeGatewayId as string
 		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `braintree_gateways/${_braintreeGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
@@ -233,6 +241,10 @@ class BraintreeGateways extends ApiResource<BraintreeGateway> {
 
 	async _enable(id: string | BraintreeGateway, params?: QueryParamsRetrieve<BraintreeGateway>, options?: ResourcesConfig): Promise<BraintreeGateway> {
 		return this.resources.update<BraintreeGatewayUpdate, BraintreeGateway>({ id: (typeof id === 'string')? id: id.id, type: BraintreeGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | BraintreeGateway, params?: QueryParamsRetrieve<BraintreeGateway>, options?: ResourcesConfig): Promise<BraintreeGateway> {
+		return this.resources.update<BraintreeGatewayUpdate, BraintreeGateway>({ id: (typeof id === 'string')? id: id.id, type: BraintreeGateways.TYPE, _check: true }, params, options)
 	}
 
 

@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Customer, CustomerType } from './customers'
 import type { EventStore } from './event_stores'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 
 
 type GiftCardRecipientType = 'gift_card_recipients'
@@ -40,7 +39,6 @@ interface GiftCardRecipient extends Resource {
 	customer?: Customer | null
 	event_stores?: EventStore[] | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 
 }
 
@@ -120,11 +118,6 @@ class GiftCardRecipients extends ApiResource<GiftCardRecipient> {
 	async attachments(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `gift_card_recipients/${_giftCardRecipientId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(giftCardRecipientId: string | GiftCardRecipient, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _giftCardRecipientId = (giftCardRecipientId as GiftCardRecipient).id || giftCardRecipientId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `gift_card_recipients/${_giftCardRecipientId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 

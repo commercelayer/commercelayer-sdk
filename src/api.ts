@@ -1,6 +1,5 @@
 import type { Resource, ResourceRel } from './resource'
 import type { TagType } from './resources/tags'
-import type { VersionType } from './resources/versions'
 import type * as models from './model'
 
 // ##__API_RESOURCES_START__##
@@ -135,7 +134,6 @@ export { default as TaxCategories } from './resources/tax_categories'
 export { default as TaxRules } from './resources/tax_rules'
 export { default as TaxjarAccounts } from './resources/taxjar_accounts'
 export { default as Transactions } from './resources/transactions'
-export { default as Versions } from './resources/versions'
 export { default as VertexAccounts } from './resources/vertex_accounts'
 export { default as Voids } from './resources/voids'
 export { default as Webhooks } from './resources/webhooks'
@@ -272,7 +270,6 @@ export type ResourceTypeLock =
 |	'tax_rules'
 |	'taxjar_accounts'
 |	'transactions'
-|	'versions'
 |	'vertex_accounts'
 |	'voids'
 |	'webhooks'
@@ -409,7 +406,6 @@ export const resourceList: ResourceTypeLock[] = [
 	'tax_rules',
 	'taxjar_accounts',
 	'transactions',
-	'versions',
 	'vertex_accounts',
 	'voids',
 	'webhooks',
@@ -855,120 +851,6 @@ export type TaggableResource = Resource & {
 }
 
 
-// Versionable resources
-export type VersionableResourceType =
-	// ##__API_RESOURCE_VERSIONABLE_START__##
-	'addresses'
-|	'adjustments'
-|	'adyen_gateways'
-|	'adyen_payments'
-|	'authorizations'
-|	'avalara_accounts'
-|	'axerve_gateways'
-|	'axerve_payments'
-|	'braintree_gateways'
-|	'braintree_payments'
-|	'bundles'
-|	'buy_x_pay_y_promotions'
-|	'captures'
-|	'carrier_accounts'
-|	'checkout_com_gateways'
-|	'checkout_com_payments'
-|	'cleanups'
-|	'coupon_codes_promotion_rules'
-|	'coupon_recipients'
-|	'coupons'
-|	'custom_promotion_rules'
-|	'customer_addresses'
-|	'customer_groups'
-|	'customer_payment_sources'
-|	'customer_subscriptions'
-|	'delivery_lead_times'
-|	'discount_engines'
-|	'exports'
-|	'external_gateways'
-|	'external_payments'
-|	'external_promotions'
-|	'external_tax_calculators'
-|	'fixed_amount_promotions'
-|	'fixed_price_promotions'
-|	'flex_promotions'
-|	'free_gift_promotions'
-|	'free_shipping_promotions'
-|	'gift_card_recipients'
-|	'gift_cards'
-|	'in_stock_subscriptions'
-|	'inventory_models'
-|	'inventory_return_locations'
-|	'inventory_stock_locations'
-|	'klarna_gateways'
-|	'klarna_payments'
-|	'manual_gateways'
-|	'manual_tax_calculators'
-|	'markets'
-|	'merchants'
-|	'order_amount_promotion_rules'
-|	'order_subscriptions'
-|	'orders'
-|	'packages'
-|	'parcel_line_items'
-|	'parcels'
-|	'payment_gateways'
-|	'payment_methods'
-|	'paypal_gateways'
-|	'paypal_payments'
-|	'percentage_discount_promotions'
-|	'price_frequency_tiers'
-|	'price_list_schedulers'
-|	'price_lists'
-|	'price_tiers'
-|	'price_volume_tiers'
-|	'prices'
-|	'promotion_rules'
-|	'promotions'
-|	'refunds'
-|	'reserved_stocks'
-|	'returns'
-|	'satispay_gateways'
-|	'satispay_payments'
-|	'shipments'
-|	'shipping_categories'
-|	'shipping_method_tiers'
-|	'shipping_methods'
-|	'shipping_weight_tiers'
-|	'shipping_zones'
-|	'sku_list_items'
-|	'sku_list_promotion_rules'
-|	'sku_lists'
-|	'sku_options'
-|	'skus'
-|	'stock_items'
-|	'stock_line_items'
-|	'stock_locations'
-|	'stock_transfers'
-|	'stores'
-|	'stripe_gateways'
-|	'stripe_payments'
-|	'stripe_tax_accounts'
-|	'talon_one_accounts'
-|	'tax_calculators'
-|	'tax_categories'
-|	'tax_rules'
-|	'taxjar_accounts'
-|	'transactions'
-|	'vertex_accounts'
-|	'voids'
-|	'webhooks'
-|	'wire_transfers'
-// ##__API_RESOURCE_VERSIONABLE_STOP__##
-
-export type VersionableResource = Resource & {
-	type: VersionableResourceType,
-	versions?: Array<ResourceRel & { type: VersionType }> | null
-}
-
-
-
 export type ResourceFields = {
 	// ##__API_RESOURCE_FIELDS_START__##
 	addresses: models.Address,
@@ -1098,7 +980,6 @@ export type ResourceFields = {
 	tax_rules: models.TaxRule,
 	taxjar_accounts: models.TaxjarAccount,
 	transactions: models.Transaction,
-	versions: models.Version,
 	vertex_accounts: models.VertexAccount,
 	voids: models.Void,
 	webhooks: models.Webhook,
@@ -1236,7 +1117,6 @@ export type ResourceSortFields = {
 	tax_rules: models.TaxRuleSort,
 	taxjar_accounts: models.TaxjarAccountSort,
 	transactions: models.TransactionSort,
-	versions: models.VersionSort,
 	vertex_accounts: models.VertexAccountSort,
 	voids: models.VoidSort,
 	webhooks: models.WebhookSort,

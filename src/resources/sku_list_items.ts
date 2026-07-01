@@ -4,7 +4,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { SkuList, SkuListType } from './sku_lists'
 import type { Sku, SkuType } from './skus'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -40,7 +39,6 @@ interface SkuListItem extends Resource {
 
 	sku_list?: SkuList | null
 	sku?: Sku | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -115,11 +113,6 @@ class SkuListItems extends ApiResource<SkuListItem> {
 	async sku(skuListItemId: string | SkuListItem, params?: QueryParamsRetrieve<Sku>, options?: ResourcesConfig): Promise<Sku> {
 		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
 		return this.resources.fetch<Sku>({ type: 'skus' }, `sku_list_items/${_skuListItemId}/sku`, params, options) as unknown as Sku
-	}
-
-	async versions(skuListItemId: string | SkuListItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _skuListItemId = (skuListItemId as SkuListItem).id || skuListItemId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `sku_list_items/${_skuListItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(skuListItemId: string | SkuListItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

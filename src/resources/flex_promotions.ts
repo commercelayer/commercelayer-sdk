@@ -7,7 +7,6 @@ import type { Coupon } from './coupons'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -96,7 +95,6 @@ interface FlexPromotion extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -257,11 +255,6 @@ class FlexPromotions extends ApiResource<FlexPromotion> {
 	async tags(flexPromotionId: string | FlexPromotion, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _flexPromotionId = (flexPromotionId as FlexPromotion).id || flexPromotionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `flex_promotions/${_flexPromotionId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(flexPromotionId: string | FlexPromotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _flexPromotionId = (flexPromotionId as FlexPromotion).id || flexPromotionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `flex_promotions/${_flexPromotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(flexPromotionId: string | FlexPromotion, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

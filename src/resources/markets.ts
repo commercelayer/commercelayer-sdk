@@ -14,7 +14,6 @@ import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { Store } from './stores'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
 import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
@@ -126,7 +125,6 @@ interface Market extends Resource {
 	stores?: Store[] | null
 	price_list_schedulers?: PriceListScheduler[] | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -345,11 +343,6 @@ class Markets extends ApiResource<Market> {
 	async attachments(marketId: string | Market, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _marketId = (marketId as Market).id || marketId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `markets/${_marketId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(marketId: string | Market, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _marketId = (marketId as Market).id || marketId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `markets/${_marketId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(marketId: string | Market, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

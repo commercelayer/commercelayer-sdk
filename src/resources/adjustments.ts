@@ -2,7 +2,6 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -49,7 +48,6 @@ interface Adjustment extends Resource {
 	 */
 	distribute_discount?: boolean | null
 
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -121,11 +119,6 @@ class Adjustments extends ApiResource<Adjustment> {
 
 	async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Adjustments.TYPE } : id, options)
-	}
-
-	async versions(adjustmentId: string | Adjustment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _adjustmentId = (adjustmentId as Adjustment).id || adjustmentId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `adjustments/${_adjustmentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(adjustmentId: string | Adjustment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

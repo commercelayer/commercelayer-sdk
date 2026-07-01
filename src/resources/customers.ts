@@ -77,10 +77,10 @@ interface Customer extends Resource {
 	 */
 	anonymization_info?: Record<string, any> | null
 	/** 
-	 * Status of the current anonymization request (if any).
+	 * Status of the current anonymization request (if any). One of 'requested', 'started', 'completed', 'failed', or 'cancelled'.
 	 * @example ```"requested"```
 	 */
-	anonymization_status?: string | null
+	anonymization_status?: 'requested' | 'started' | 'completed' | 'failed' | 'cancelled' | null
 
 	customer_group?: CustomerGroup | null
 	customer_addresses?: CustomerAddress[] | null

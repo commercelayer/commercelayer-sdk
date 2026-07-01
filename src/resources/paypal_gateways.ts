@@ -3,7 +3,6 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { PaypalPayment } from './paypal_payments'
 
@@ -31,13 +30,17 @@ interface PaypalGateway extends Resource {
 	 */
 	force_payments?: boolean | null
 	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
 	disabled_at?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	paypal_payments?: PaypalPayment[] | null
 
@@ -66,6 +69,11 @@ interface PaypalGatewayCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway client ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
@@ -103,6 +111,11 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway client ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
@@ -137,11 +150,6 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `paypal_gateways/${_paypalGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `paypal_gateways/${_paypalGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
 	async event_stores(paypalGatewayId: string | PaypalGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
 		const _paypalGatewayId = (paypalGatewayId as PaypalGateway).id || paypalGatewayId as string
 		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `paypal_gateways/${_paypalGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
@@ -158,6 +166,10 @@ class PaypalGateways extends ApiResource<PaypalGateway> {
 
 	async _enable(id: string | PaypalGateway, params?: QueryParamsRetrieve<PaypalGateway>, options?: ResourcesConfig): Promise<PaypalGateway> {
 		return this.resources.update<PaypalGatewayUpdate, PaypalGateway>({ id: (typeof id === 'string')? id: id.id, type: PaypalGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | PaypalGateway, params?: QueryParamsRetrieve<PaypalGateway>, options?: ResourcesConfig): Promise<PaypalGateway> {
+		return this.resources.update<PaypalGatewayUpdate, PaypalGateway>({ id: (typeof id === 'string')? id: id.id, type: PaypalGateways.TYPE, _check: true }, params, options)
 	}
 
 

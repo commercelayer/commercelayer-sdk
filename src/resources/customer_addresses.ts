@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Customer, CustomerType } from './customers'
 import type { Address, AddressType } from './addresses'
 import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -37,7 +36,6 @@ interface CustomerAddress extends Resource {
 	customer?: Customer | null
 	address?: Address | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -94,11 +92,6 @@ class CustomerAddresses extends ApiResource<CustomerAddress> {
 	async events(customerAddressId: string | CustomerAddress, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `customer_addresses/${_customerAddressId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(customerAddressId: string | CustomerAddress, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _customerAddressId = (customerAddressId as CustomerAddress).id || customerAddressId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `customer_addresses/${_customerAddressId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(customerAddressId: string | CustomerAddress, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

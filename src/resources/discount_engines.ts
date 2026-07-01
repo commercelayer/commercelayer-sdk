@@ -5,7 +5,6 @@ import type { QueryParamsList } from '../query'
 import type { Market } from './markets'
 import type { DiscountEngineItem } from './discount_engine_items'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -34,7 +33,6 @@ interface DiscountEngine extends Resource {
 	markets?: Market[] | null
 	discount_engine_items?: DiscountEngineItem[] | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -57,11 +55,6 @@ class DiscountEngines extends ApiResource<DiscountEngine> {
 	async attachments(discountEngineId: string | DiscountEngine, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _discountEngineId = (discountEngineId as DiscountEngine).id || discountEngineId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `discount_engines/${_discountEngineId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(discountEngineId: string | DiscountEngine, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _discountEngineId = (discountEngineId as DiscountEngine).id || discountEngineId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `discount_engines/${_discountEngineId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(discountEngineId: string | DiscountEngine, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

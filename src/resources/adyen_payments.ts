@@ -4,7 +4,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -61,6 +60,11 @@ interface AdyenPayment extends Resource {
 	 */
 	expires_at?: string | null
 	/** 
+	 * The date/time when the Adyen order was closed, meaning all partial payments have been completed (valid for partial payments only).
+	 * @example ```"2018-01-02T12:00:00.000Z"```
+	 */
+	closed_at?: string | null
+	/** 
 	 * Information about the payment instrument used in the transaction.
 	 * @example ```{"issuer":"cl bank","card_type":"visa"}```
 	 */
@@ -68,7 +72,6 @@ interface AdyenPayment extends Resource {
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -138,11 +141,6 @@ class AdyenPayments extends ApiResource<AdyenPayment> {
 	async payment_gateway(adyenPaymentId: string | AdyenPayment, params?: QueryParamsRetrieve<PaymentGateway>, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _adyenPaymentId = (adyenPaymentId as AdyenPayment).id || adyenPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `adyen_payments/${_adyenPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
-	}
-
-	async versions(adyenPaymentId: string | AdyenPayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _adyenPaymentId = (adyenPaymentId as AdyenPayment).id || adyenPaymentId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `adyen_payments/${_adyenPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(adyenPaymentId: string | AdyenPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

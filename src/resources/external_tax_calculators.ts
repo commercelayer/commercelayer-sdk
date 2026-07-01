@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -27,11 +26,6 @@ interface ExternalTaxCalculator extends Resource {
 	 */
 	name: string
 	/** 
-	 * The URL to the service that will compute the taxes.
-	 * @example ```"https://external_calculator.yourbrand.com"```
-	 */
-	tax_calculator_url: string
-	/** 
 	 * The circuit breaker state, by default it is 'closed'. It can become 'open' once the number of consecutive failures overlaps the specified threshold, in such case no further calls to the failing callback are made.
 	 * @example ```"closed"```
 	 */
@@ -51,11 +45,15 @@ interface ExternalTaxCalculator extends Resource {
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the taxes.
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
+	tax_calculator_url: string
 
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -69,15 +67,15 @@ interface ExternalTaxCalculatorCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The URL to the service that will compute the taxes.
-	 * @example ```"https://external_calculator.yourbrand.com"```
-	 */
-	tax_calculator_url: string
-	/** 
 	 * List of related resources that will be included in the request to the external callback. Please do consult the documentation to check on which resource the includes are related (i.e. the order) and the defaults in case no list is provided.
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the taxes.
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
+	tax_calculator_url: string
 	
 }
 
@@ -90,11 +88,6 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The URL to the service that will compute the taxes.
-	 * @example ```"https://external_calculator.yourbrand.com"```
-	 */
-	tax_calculator_url?: string | null
-	/** 
 	 * Send this attribute if you want to reset the circuit breaker associated to this resource to 'closed' state and zero failures count. Cannot be passed by sales channels.
 	 * @example ```true```
 	 */
@@ -104,6 +97,11 @@ interface ExternalTaxCalculatorUpdate extends ResourceUpdate {
 	 * @example ```["order.line_item_options"]```
 	 */
 	external_includes?: string[] | null
+	/** 
+	 * The URL to the service that will compute the taxes.
+	 * @example ```"https://external_calculator.yourbrand.com"```
+	 */
+	tax_calculator_url?: string | null
 	
 }
 
@@ -137,11 +135,6 @@ class ExternalTaxCalculators extends ApiResource<ExternalTaxCalculator> {
 	async events(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `external_tax_calculators/${_externalTaxCalculatorId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _externalTaxCalculatorId = (externalTaxCalculatorId as ExternalTaxCalculator).id || externalTaxCalculatorId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `external_tax_calculators/${_externalTaxCalculatorId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(externalTaxCalculatorId: string | ExternalTaxCalculator, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

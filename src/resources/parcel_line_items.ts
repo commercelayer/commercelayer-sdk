@@ -4,7 +4,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Parcel, ParcelType } from './parcels'
 import type { StockLineItem, StockLineItemType } from './stock_line_items'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -50,7 +49,6 @@ interface ParcelLineItem extends Resource {
 
 	parcel?: Parcel | null
 	stock_line_item?: StockLineItem | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -97,11 +95,6 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
 	async stock_line_item(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsRetrieve<StockLineItem>, options?: ResourcesConfig): Promise<StockLineItem> {
 		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
 		return this.resources.fetch<StockLineItem>({ type: 'stock_line_items' }, `parcel_line_items/${_parcelLineItemId}/stock_line_item`, params, options) as unknown as StockLineItem
-	}
-
-	async versions(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _parcelLineItemId = (parcelLineItemId as ParcelLineItem).id || parcelLineItemId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `parcel_line_items/${_parcelLineItemId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(parcelLineItemId: string | ParcelLineItem, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
