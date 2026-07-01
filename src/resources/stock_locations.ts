@@ -9,7 +9,6 @@ import type { StockItem } from './stock_items'
 import type { StockTransfer } from './stock_transfers'
 import type { Store } from './stores'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -58,7 +57,6 @@ interface StockLocation extends Resource {
 	stock_transfers?: StockTransfer[] | null
 	stores?: Store[] | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -167,11 +165,6 @@ class StockLocations extends ApiResource<StockLocation> {
 	async attachments(stockLocationId: string | StockLocation, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `stock_locations/${_stockLocationId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(stockLocationId: string | StockLocation, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _stockLocationId = (stockLocationId as StockLocation).id || stockLocationId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `stock_locations/${_stockLocationId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(stockLocationId: string | StockLocation, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

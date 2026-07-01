@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { Authorization } from './authorizations'
 import type { Refund } from './refunds'
@@ -128,7 +127,6 @@ interface Capture extends Resource {
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	reference_authorization?: Authorization | null
 	refunds?: Refund[] | null
@@ -188,11 +186,6 @@ class Captures extends ApiResource<Capture> {
 	async events(captureId: string | Capture, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _captureId = (captureId as Capture).id || captureId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `captures/${_captureId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(captureId: string | Capture, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _captureId = (captureId as Capture).id || captureId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `captures/${_captureId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(captureId: string | Capture, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

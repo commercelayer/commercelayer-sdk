@@ -13,7 +13,6 @@ import type { Attachment } from './attachments'
 import type { ResourceError } from './resource_errors'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -116,7 +115,6 @@ interface Return extends Resource {
 	resource_errors?: ResourceError[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -279,11 +277,6 @@ class Returns extends ApiResource<Return> {
 	async tags(returnId: string | Return, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _returnId = (returnId as Return).id || returnId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `returns/${_returnId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(returnId: string | Return, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _returnId = (returnId as Return).id || returnId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `returns/${_returnId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(returnId: string | Return, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

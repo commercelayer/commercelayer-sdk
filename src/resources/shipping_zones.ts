@@ -3,7 +3,6 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -56,7 +55,6 @@ interface ShippingZone extends Resource {
 	not_zip_code_regex?: string | null
 
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -163,11 +161,6 @@ class ShippingZones extends ApiResource<ShippingZone> {
 	async attachments(shippingZoneId: string | ShippingZone, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `shipping_zones/${_shippingZoneId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(shippingZoneId: string | ShippingZone, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _shippingZoneId = (shippingZoneId as ShippingZone).id || shippingZoneId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_zones/${_shippingZoneId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(shippingZoneId: string | ShippingZone, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

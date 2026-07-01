@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Order } from './orders'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { Authorization } from './authorizations'
 import type { AdyenPayment } from './adyen_payments'
@@ -96,7 +95,6 @@ interface Void extends Resource {
 	payment_source?: AdyenPayment | AxervePayment | BraintreePayment | CheckoutComPayment | ExternalPayment | KlarnaPayment | PaypalPayment | SatispayPayment | StripePayment | WireTransfer | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	reference_authorization?: Authorization | null
 
@@ -139,11 +137,6 @@ class Voids extends ApiResource<Void> {
 	async events(voidId: string | Void, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _voidId = (voidId as Void).id || voidId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `voids/${_voidId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(voidId: string | Void, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _voidId = (voidId as Void).id || voidId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `voids/${_voidId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(voidId: string | Void, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

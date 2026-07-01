@@ -4,7 +4,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Order, OrderType } from './orders'
 import type { PaymentGateway } from './payment_gateways'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -78,7 +77,6 @@ interface CheckoutComPayment extends Resource {
 
 	order?: Order | null
 	payment_gateway?: PaymentGateway | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -154,11 +152,6 @@ class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
 	async payment_gateway(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsRetrieve<PaymentGateway>, options?: ResourcesConfig): Promise<PaymentGateway> {
 		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
 		return this.resources.fetch<PaymentGateway>({ type: 'payment_gateways' }, `checkout_com_payments/${_checkoutComPaymentId}/payment_gateway`, params, options) as unknown as PaymentGateway
-	}
-
-	async versions(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _checkoutComPaymentId = (checkoutComPaymentId as CheckoutComPayment).id || checkoutComPaymentId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `checkout_com_payments/${_checkoutComPaymentId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(checkoutComPaymentId: string | CheckoutComPayment, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

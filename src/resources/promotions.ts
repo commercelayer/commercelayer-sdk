@@ -12,7 +12,6 @@ import type { Coupon } from './coupons'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
 import type { Tag } from './tags'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { PromotionRule } from './promotion_rules'
 
@@ -110,7 +109,6 @@ interface Promotion extends Resource {
 	attachments?: Attachment[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -168,11 +166,6 @@ class Promotions extends ApiResource<Promotion> {
 	async tags(promotionId: string | Promotion, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _promotionId = (promotionId as Promotion).id || promotionId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `promotions/${_promotionId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(promotionId: string | Promotion, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _promotionId = (promotionId as Promotion).id || promotionId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `promotions/${_promotionId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(promotionId: string | Promotion, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

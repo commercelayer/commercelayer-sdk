@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -27,7 +26,7 @@ interface VertexAccount extends Resource {
 	 */
 	name: string
 	/** 
-	 * The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.
+	 * The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.
 	 * @example ```"cloud"```
 	 */
 	kind?: 'cloud' | 'on_demand' | 'on_premise' | null
@@ -55,7 +54,6 @@ interface VertexAccount extends Resource {
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -69,7 +67,7 @@ interface VertexAccountCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.
+	 * The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.
 	 * @example ```"cloud"```
 	 */
 	kind?: 'cloud' | 'on_demand' | 'on_premise' | null
@@ -105,7 +103,7 @@ interface VertexAccountUpdate extends ResourceUpdate {
 	 */
 	name?: string | null
 	/** 
-	 * The Vertex account kind. One of 'cloud', 'on_demand', or 'on_premise'.
+	 * The Vertex account kind. One of 'cloud' (default), 'on_demand', or 'on_premise'.
 	 * @example ```"cloud"```
 	 */
 	kind?: 'cloud' | 'on_demand' | 'on_premise' | null
@@ -167,11 +165,6 @@ class VertexAccounts extends ApiResource<VertexAccount> {
 	async events(vertexAccountId: string | VertexAccount, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _vertexAccountId = (vertexAccountId as VertexAccount).id || vertexAccountId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `vertex_accounts/${_vertexAccountId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(vertexAccountId: string | VertexAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _vertexAccountId = (vertexAccountId as VertexAccount).id || vertexAccountId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `vertex_accounts/${_vertexAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(vertexAccountId: string | VertexAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

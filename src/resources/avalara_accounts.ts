@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
 import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { TaxCategory, TaxCategoryType } from './tax_categories'
 
@@ -52,7 +51,6 @@ interface AvalaraAccount extends Resource {
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	tax_categories?: TaxCategory[] | null
 
@@ -164,11 +162,6 @@ class AvalaraAccounts extends ApiResource<AvalaraAccount> {
 	async events(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `avalara_accounts/${_avalaraAccountId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _avalaraAccountId = (avalaraAccountId as AvalaraAccount).id || avalaraAccountId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `avalara_accounts/${_avalaraAccountId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(avalaraAccountId: string | AvalaraAccount, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

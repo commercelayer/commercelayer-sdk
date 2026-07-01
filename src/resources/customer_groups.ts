@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Customer } from './customers'
 import type { Market } from './markets'
 import type { Attachment } from './attachments'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -35,7 +34,6 @@ interface CustomerGroup extends Resource {
 	customers?: Customer[] | null
 	markets?: Market[] | null
 	attachments?: Attachment[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -102,11 +100,6 @@ class CustomerGroups extends ApiResource<CustomerGroup> {
 	async attachments(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Attachment>, options?: ResourcesConfig): Promise<ListResponse<Attachment>> {
 		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
 		return this.resources.fetch<Attachment>({ type: 'attachments' }, `customer_groups/${_customerGroupId}/attachments`, params, options) as unknown as ListResponse<Attachment>
-	}
-
-	async versions(customerGroupId: string | CustomerGroup, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _customerGroupId = (customerGroupId as CustomerGroup).id || customerGroupId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `customer_groups/${_customerGroupId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(customerGroupId: string | CustomerGroup, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

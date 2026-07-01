@@ -13,7 +13,6 @@ import type { Attachment } from './attachments'
 import type { Notification } from './notifications'
 import type { Event } from './events'
 import type { Tag, TagType } from './tags'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -160,7 +159,6 @@ interface ShippingMethod extends Resource {
 	notifications?: Notification[] | null
 	events?: Event[] | null
 	tags?: Tag[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -414,11 +412,6 @@ class ShippingMethods extends ApiResource<ShippingMethod> {
 	async tags(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Tag>, options?: ResourcesConfig): Promise<ListResponse<Tag>> {
 		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
 		return this.resources.fetch<Tag>({ type: 'tags' }, `shipping_methods/${_shippingMethodId}/tags`, params, options) as unknown as ListResponse<Tag>
-	}
-
-	async versions(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _shippingMethodId = (shippingMethodId as ShippingMethod).id || shippingMethodId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `shipping_methods/${_shippingMethodId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(shippingMethodId: string | ShippingMethod, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {

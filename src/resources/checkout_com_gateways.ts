@@ -3,7 +3,6 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { PaymentMethod } from './payment_methods'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 import type { CheckoutComPayment, CheckoutComPaymentType } from './checkout_com_payments'
 
@@ -32,6 +31,11 @@ interface CheckoutComGateway extends Resource {
 	 */
 	force_payments?: boolean | null
 	/** 
+	 * The payment gateway's API credential keys last digits.
+	 * @example ```{"api_key":"********BW989"}```
+	 */
+	credential_keys?: Record<string, any> | null
+	/** 
 	 * Time at which this resource was disabled.
 	 * @example ```"2018-01-01T12:00:00.000Z"```
 	 */
@@ -53,7 +57,6 @@ interface CheckoutComGateway extends Resource {
 	webhook_endpoint_url?: string | null
 
 	payment_methods?: PaymentMethod[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 	checkout_com_payments?: CheckoutComPayment[] | null
 
@@ -82,6 +85,11 @@ interface CheckoutComGatewayCreate extends ResourceCreate {
 	 * @example ```true```
 	 */
 	_enable?: boolean | null
+	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
 	/** 
 	 * The gateway secret key.
 	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
@@ -121,6 +129,11 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
 	 */
 	_enable?: boolean | null
 	/** 
+	 * Send this attribute if you want to check the credentials against the payment gateway's APIs.
+	 * @example ```true```
+	 */
+	_check?: boolean | null
+	/** 
 	 * The gateway secret key.
 	 * @example ```"sk_test_xxxx-yyyy-zzzz"```
 	 */
@@ -157,11 +170,6 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 		return this.resources.fetch<PaymentMethod>({ type: 'payment_methods' }, `checkout_com_gateways/${_checkoutComGatewayId}/payment_methods`, params, options) as unknown as ListResponse<PaymentMethod>
 	}
 
-	async versions(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `checkout_com_gateways/${_checkoutComGatewayId}/versions`, params, options) as unknown as ListResponse<Version>
-	}
-
 	async event_stores(checkoutComGatewayId: string | CheckoutComGateway, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
 		const _checkoutComGatewayId = (checkoutComGatewayId as CheckoutComGateway).id || checkoutComGatewayId as string
 		return this.resources.fetch<EventStore>({ type: 'event_stores' }, `checkout_com_gateways/${_checkoutComGatewayId}/event_stores`, params, options) as unknown as ListResponse<EventStore>
@@ -178,6 +186,10 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
 
 	async _enable(id: string | CheckoutComGateway, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
 		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComGateways.TYPE, _enable: true }, params, options)
+	}
+
+	async _check(id: string | CheckoutComGateway, params?: QueryParamsRetrieve<CheckoutComGateway>, options?: ResourcesConfig): Promise<CheckoutComGateway> {
+		return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>({ id: (typeof id === 'string')? id: id.id, type: CheckoutComGateways.TYPE, _check: true }, params, options)
 	}
 
 

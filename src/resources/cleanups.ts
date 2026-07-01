@@ -3,7 +3,6 @@ import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesCon
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Event } from './events'
-import type { Version } from './versions'
 import type { EventStore } from './event_stores'
 
 
@@ -20,10 +19,10 @@ interface Cleanup extends Resource {
 	readonly type: CleanupType
 
 	/** 
-	 * The type of resource being cleaned.
+	 * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'gift_cards', 'sku_options', or 'prices'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'promotions' | 'skus' | 'bundles' | 'sku_lists' | 'stock_items' | 'gift_cards' | 'sku_options' | 'prices'
 	/** 
 	 * The cleanup job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.
 	 * @example ```"in_progress"```
@@ -71,7 +70,6 @@ interface Cleanup extends Resource {
 	errors_log?: Record<string, any> | null
 
 	events?: Event[] | null
-	versions?: Version[] | null
 	event_stores?: EventStore[] | null
 
 }
@@ -80,10 +78,10 @@ interface Cleanup extends Resource {
 interface CleanupCreate extends ResourceCreate {
 	
 	/** 
-	 * The type of resource being cleaned.
+	 * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'gift_cards', 'sku_options', or 'prices'.
 	 * @example ```"skus"```
 	 */
-	resource_type: string
+	resource_type: 'promotions' | 'skus' | 'bundles' | 'sku_lists' | 'stock_items' | 'gift_cards' | 'sku_options' | 'prices'
 	/** 
 	 * The filters used to select the records to be cleaned.
 	 * @example ```{"code_eq":"AAA"}```
@@ -123,11 +121,6 @@ class Cleanups extends ApiResource<Cleanup> {
 	async events(cleanupId: string | Cleanup, params?: QueryParamsList<Event>, options?: ResourcesConfig): Promise<ListResponse<Event>> {
 		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
 		return this.resources.fetch<Event>({ type: 'events' }, `cleanups/${_cleanupId}/events`, params, options) as unknown as ListResponse<Event>
-	}
-
-	async versions(cleanupId: string | Cleanup, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
-		const _cleanupId = (cleanupId as Cleanup).id || cleanupId as string
-		return this.resources.fetch<Version>({ type: 'versions' }, `cleanups/${_cleanupId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
 
 	async event_stores(cleanupId: string | Cleanup, params?: QueryParamsList<EventStore>, options?: ResourcesConfig): Promise<ListResponse<EventStore>> {
