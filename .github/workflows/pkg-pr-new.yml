@@ -49,12 +49,12 @@ jobs:
           echo "host=$HOST" >> "$GITHUB_OUTPUT"
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
         with:
           version: 10
 
@@ -82,7 +82,7 @@ jobs:
 
       - name: Commit + push to pkg-pr-new-${{ inputs.environment }}
         if: github.event_name == 'workflow_dispatch'
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'chore: regenerate against ${{ inputs.environment }}'
           branch: 'pkg-pr-new-${{ inputs.environment }}'
