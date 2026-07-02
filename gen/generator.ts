@@ -10,9 +10,9 @@ type ConfigType = {
   RELATIONSHIP_FUNCTIONS: boolean
   TRIGGER_FUNCTIONS: boolean
   RESOURCES_FULL_BUNDLE: boolean
-  RESOURCES_INSTANCE_STYLE: 'standard_object' | 'leazy_loading' | 'accessors_only'
+  RESOURCES_INSTANCE_STYLE: 'standard_object' | 'lazy_loading' | 'accessors_only'
   RESOURCES_STANDARD_OBJECT?: boolean
-  RESOURCES_LEAZY_LOADING?: boolean
+  RESOURCES_LAZY_LOADING?: boolean
   RESOURCES_ACCESSORS_ONLY?: boolean
 }
 
@@ -22,10 +22,14 @@ export const CONFIG: ConfigType = {
   RELATIONSHIP_FUNCTIONS: true,
   TRIGGER_FUNCTIONS: true,
   RESOURCES_FULL_BUNDLE: true,
-  RESOURCES_INSTANCE_STYLE: 'accessors_only',
+  // Bundle clients must be isolated per access token. `lazy_loading` emits
+  // private cache fields + lazy getters that bind each resource to the
+  // client's own adapter (via `.withAdapter(this.adapter)`), instead of
+  // `accessors_only` which returned the shared process-global singletons.
+  RESOURCES_INSTANCE_STYLE: 'lazy_loading',
 }
 CONFIG.RESOURCES_STANDARD_OBJECT = CONFIG.RESOURCES_INSTANCE_STYLE === 'standard_object'
-CONFIG.RESOURCES_LEAZY_LOADING = CONFIG.RESOURCES_INSTANCE_STYLE === 'leazy_loading'
+CONFIG.RESOURCES_LAZY_LOADING = CONFIG.RESOURCES_INSTANCE_STYLE === 'lazy_loading'
 CONFIG.RESOURCES_ACCESSORS_ONLY = CONFIG.RESOURCES_INSTANCE_STYLE === 'accessors_only'
 /**** **** **** **** **** **** **** **** ****/
 
@@ -266,7 +270,7 @@ const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
     const iniTplIdx = iniTplLine.offset + '##__CL_RESOURCES_INIT_TEMPLATE::'.length + 1
     const iniTpl = iniTplLine.text.substring(iniTplIdx)
 
-    if (!CONFIG.RESOURCES_LEAZY_LOADING && !CONFIG.RESOURCES_ACCESSORS_ONLY)
+    if (!CONFIG.RESOURCES_LAZY_LOADING && !CONFIG.RESOURCES_ACCESSORS_ONLY)
       Object.entries(resources).forEach(([type, res]) => {
         const fieldName = res.singleton ? Inflector.singularize(type) : type
         let ini = iniTpl
@@ -281,28 +285,28 @@ const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
   const iniStopIdx = findLine('##__CL_RESOURCES_INIT_STOP__##', lines).index
   lines.splice(iniStartIdx, iniStopIdx - iniStartIdx, ...initializations)
 
-  // Leazy Loading
-  const leazyLoaders: string[] = []
+  // Lazy Loading
+  const lazyLoaders: string[] = []
 
   if (CONFIG.RESOURCES_FULL_BUNDLE) {
-    const llTplLine = findLine('##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::', lines)
-    const llTplIdx = llTplLine.offset + '##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE::'.length + 1
+    const llTplLine = findLine('##__CL_RESOURCES_LAZY_LOADING_TEMPLATE::', lines)
+    const llTplIdx = llTplLine.offset + '##__CL_RESOURCES_LAZY_LOADING_TEMPLATE::'.length + 1
     const llTpl = llTplLine.text.substring(llTplIdx)
 
-    if (CONFIG.RESOURCES_LEAZY_LOADING && !CONFIG.RESOURCES_ACCESSORS_ONLY)
+    if (CONFIG.RESOURCES_LAZY_LOADING && !CONFIG.RESOURCES_ACCESSORS_ONLY)
       Object.entries(resources).forEach(([type, res]) => {
         const fieldName = res.singleton ? Inflector.singularize(type) : type
         let ll = llTpl
         ll = ll.replace(/##__TAB__##/g, '\t')
         ll = ll.replace(/##__RESOURCE_TYPE__##/g, fieldName)
         ll = ll.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
-        leazyLoaders.push(ll)
+        lazyLoaders.push(ll)
       })
   }
 
-  const llStartIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_START__##', lines).index + 2
-  const llStopIdx = findLine('##__CL_RESOURCES_LEAZY_LOADING_STOP__##', lines).index
-  lines.splice(llStartIdx, llStopIdx - llStartIdx, ...leazyLoaders)
+  const llStartIdx = findLine('##__CL_RESOURCES_LAZY_LOADING_START__##', lines).index + 2
+  const llStopIdx = findLine('##__CL_RESOURCES_LAZY_LOADING_STOP__##', lines).index
+  lines.splice(llStartIdx, llStopIdx - llStartIdx, ...lazyLoaders)
 
   // Accessors
   const accessors: string[] = []
