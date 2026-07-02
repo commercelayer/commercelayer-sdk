@@ -1,5 +1,5 @@
 import { inspect } from 'node:util'
-import CommerceLayer, { type CommerceLayerClient, type CommerceLayerInitConfig, CommerceLayerStatic } from '../src'
+import { CommerceLayer, type CommerceLayerClient, type CommerceLayerInitConfig, CommerceLayerStatic } from '../src'
 import getToken, { type AccessToken } from './token'
 
 export const getAccessToken = async (env?: string): Promise<AccessToken> => {

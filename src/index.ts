@@ -2,8 +2,19 @@
 // isolated per client). For the lightweight, tree-shakeable single-client
 // model (direct resource imports, one global token) use
 // `@commercelayer/sdk/single-client`.
-export { CommerceLayer, type CommerceLayerBundle, default } from './bundle'
+import { CommerceLayer, type CommerceLayerBundle } from './bundle'
+
 export { SDK_VERSION } from './commercelayer'
+// Preferred: the named export. Clean, and the form we're standardising on.
+export { CommerceLayer, type CommerceLayerBundle }
+
+/**
+ * @deprecated Use the named import instead:
+ * `import { CommerceLayer } from '@commercelayer/sdk'`. The default export is
+ * kept for backwards compatibility and will be removed in a future major.
+ */
+const CommerceLayerDefault = CommerceLayer
+export default CommerceLayerDefault
 
 // Commerce Layer static functions
 export { CommerceLayerStatic } from './static'

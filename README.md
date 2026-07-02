@@ -58,12 +58,12 @@ All requests to Commerce Layer API must be authenticated with an [OAuth2](https:
 
 ### Import
 
-The SDK supports two import approaches. **Use the bundled client by default**, the selective import pattern is available for specific use cases but comes with important caveats described below.
+The SDK offers two import styles. **The default entry is the bundled client** — use it unless you have a specific reason not to. The selective (tree-shakeable) style lives on a separate subpath and carries an important caveat described below.
 
-#### Bundled client import
+#### Bundled client (default)
 
 ```javascript
-import { CommerceLayer } from '@commercelayer/sdk/bundle'
+import { CommerceLayer } from '@commercelayer/sdk'
 
 const cl = CommerceLayer({
   accessToken: 'your-access-token'
@@ -73,12 +73,22 @@ const orderList = await cl.orders.list()
 const skuList = await cl.skus.list()
 ```
 
-All resource accessors are available directly on the client object. This increases your final bundle size but keeps all resource calls scoped to a specific client instance.
-
-#### Selective resource imports
+All resource accessors are available directly on the client object. This increases your final bundle size, but every call is scoped to that specific client instance — so you can safely create and use **multiple clients with different access tokens at the same time** (multi-tenant apps, serverless with connection reuse, etc.):
 
 ```javascript
-import CommerceLayer, { orders, skus } from '@commercelayer/sdk'
+const clUS = CommerceLayer({ accessToken: usToken })
+const clEU = CommerceLayer({ accessToken: euToken })
+
+const [usOrders, euOrders] = await Promise.all([
+  clUS.orders.list(),
+  clEU.orders.list()
+]) // each request uses its own token
+```
+
+#### Selective resource imports (`/single-client`)
+
+```javascript
+import { CommerceLayer, orders, skus } from '@commercelayer/sdk/single-client'
 
 const cl = CommerceLayer({
   accessToken: 'your-access-token'
@@ -88,9 +98,9 @@ const orderList = await orders.list()
 const skuList = await skus.list()
 ```
 
-Only the imported resources are included in your bundle. However, imported resources share a single global SDK configuration. If two requests are in-flight simultaneously with different access tokens (common in serverless environments with connection reuse, or in any multi-tenant context), they may silently use the wrong token.
+Only the imported resources are included in your bundle, so it produces the smallest output. The trade-off: imported resources share **a single global SDK configuration**. If two requests are in-flight simultaneously with different access tokens, they may silently use the wrong token — so this style supports only **one active token at a time**.
 
-It is a good fit for edge/serverless functions or webhook handlers that use only a few resources and a single token active at a time.
+It is a good fit for edge/serverless functions or webhook handlers that use only a few resources and a single token. When you need multiple concurrent tokens, use the bundled client above.
 
 ### Options
 
@@ -128,6 +138,8 @@ Same options can be changed after SDK initialization or passed at runtime while 
 The JavaScript SDK is a wrapper around Commerce Layer API which means you would still be making API requests but with a different syntax. For now, we don't have comprehensive SDK documentation for every single resource our API supports (about 400+ endpoints), hence you will need to rely on our comprehensive [API Reference](https://docs.commercelayer.io/core/v/api-reference) as you go about using this SDK. So for example, if you want to create an order, take a look at the [Order object](https://docs.commercelayer.io/core/v/api-reference/orders/object) or the [Create an order](https://docs.commercelayer.io/core/v/api-reference/orders/create) documentation to see the required attributes and/or relationships. The same goes for every other supported resource.
 
 To show you how things work, we will use the [SKUs](https://docs.commercelayer.io/core/v/api-reference/skus) and [Shipping Categories](https://docs.commercelayer.io/core/v/api-reference/shipping_categories) resource in the following examples. The code snippets below show how to use the SDK when performing the standard CRUD operations provided by our REST API. Kindly check our [API reference](https://docs.commercelayer.io/core/v/api-reference) for the complete list of available **resources** and their **attributes**.
+
+> The examples below use the selective style (`skus.create(...)`, imported from `@commercelayer/sdk/single-client`) for brevity. With the default **bundled client**, call the same methods through the client instance instead — e.g. `cl.skus.create(...)`, `cl.shipping_categories.list(...)`.
 
 ### Create
 
