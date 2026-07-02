@@ -1,5 +1,6 @@
 import { inspect, isDeepStrictEqual } from 'node:util'
 import dotenv from 'dotenv'
+import { API_SCHEMA_VERSION } from '../src/commercelayer'
 import CommerceLayer, {
   type CommerceLayerClient,
   type CommerceLayerConfig,
@@ -7,8 +8,7 @@ import CommerceLayer, {
   type QueryParamsRetrieve,
   type RequestObj,
   type Resource,
-} from '../src'
-import { API_SCHEMA_VERSION } from '../src/commercelayer'
+} from '../src/single-client'
 import getToken from './token'
 
 // On unified-schema builds the SDK embeds the build's target version as a URL

@@ -12,7 +12,7 @@ import {
   delivery_lead_times,
   shipping_methods,
   stock_locations,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

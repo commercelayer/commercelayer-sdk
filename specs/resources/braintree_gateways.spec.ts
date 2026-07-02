@@ -6,7 +6,12 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type BraintreeGateway, braintree_gateways, braintree_payments, type CommerceLayerClient } from '../../src'
+import {
+  type BraintreeGateway,
+  braintree_gateways,
+  braintree_payments,
+  type CommerceLayerClient,
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

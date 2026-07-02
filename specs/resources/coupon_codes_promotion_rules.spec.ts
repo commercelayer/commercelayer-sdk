@@ -12,7 +12,7 @@ import {
   coupon_codes_promotion_rules,
   coupons,
   percentage_discount_promotions,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

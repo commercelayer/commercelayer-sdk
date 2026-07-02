@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import { application, CommerceLayer } from '../src'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
+import { application, CommerceLayer } from '../src/single-client'
 import { handleError, interceptRequest } from '../test/common'
 
 const baseConfig = { organization: 'test-org', accessToken: 'fake-token' } as const

@@ -12,7 +12,7 @@ import {
   inventory_models,
   inventory_return_locations,
   stock_locations,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

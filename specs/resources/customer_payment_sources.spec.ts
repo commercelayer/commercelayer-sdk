@@ -13,7 +13,7 @@ import {
   customer_payment_sources,
   customers,
   payment_methods,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

@@ -16,7 +16,7 @@ import {
   shipping_categories,
   shipping_methods,
   tags,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

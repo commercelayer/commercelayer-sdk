@@ -14,7 +14,7 @@ import {
   order_subscription_items,
   order_subscriptions,
   skus,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

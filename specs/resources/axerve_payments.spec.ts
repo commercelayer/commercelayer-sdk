@@ -6,7 +6,7 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type AxervePayment, axerve_payments, type CommerceLayerClient, orders } from '../../src'
+import { type AxervePayment, axerve_payments, type CommerceLayerClient, orders } from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

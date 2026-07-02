@@ -14,7 +14,7 @@ import {
   skus,
   stock_locations,
   stock_transfers,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

@@ -6,7 +6,12 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type CommerceLayerClient, type ShippingWeightTier, shipping_methods, shipping_weight_tiers } from '../../src'
+import {
+  type CommerceLayerClient,
+  type ShippingWeightTier,
+  shipping_methods,
+  shipping_weight_tiers,
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

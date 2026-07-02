@@ -12,7 +12,7 @@ import {
   type FlexPromotion,
   flex_promotions,
   tags,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

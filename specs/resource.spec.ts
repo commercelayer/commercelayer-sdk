@@ -1,5 +1,12 @@
 import { beforeAll, describe, expect, test } from 'vitest'
-import { application, type CommerceLayerClient, type Customer, customers, type ListResponse, orders } from '../src'
+import {
+  application,
+  type CommerceLayerClient,
+  type Customer,
+  customers,
+  type ListResponse,
+  orders,
+} from '../src/single-client'
 import { getClient, IS_UNIFIED_BUILD } from '../test/common'
 
 let cl: CommerceLayerClient

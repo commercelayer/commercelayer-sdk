@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type CommerceLayerClient, CommerceLayerStatic } from '../src'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
+import { type CommerceLayerClient, CommerceLayerStatic } from '../src/single-client'
 import { getClient } from '../test/common'
 
 let cl: CommerceLayerClient

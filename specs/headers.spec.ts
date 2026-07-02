@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, test } from 'vitest'
-import { application, type CommerceLayerClient } from '../src'
+import { application, type CommerceLayerClient } from '../src/single-client'
 import { CommonData, getClient, handleError, IS_UNIFIED_BUILD, interceptRequest } from '../test/common'
 
 let cl: CommerceLayerClient
