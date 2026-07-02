@@ -1,3 +1,14 @@
+## [8.0.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.7...v8.0.0-beta.8) (2026-07-02)
+
+### Features
+
+* add `@since` JSDoc annotations — counterpart to `@deprecated`. ([c1ff52b](https://github.com/commercelayer/commercelayer-sdk/commit/c1ff52b1213df610fb4d3d45e15e5542594da6bc))
+* add SDK version to request headers ([0d66f57](https://github.com/commercelayer/commercelayer-sdk/commit/0d66f574fbc7b3770ddde86bfb8fd2fdab58f3cb))
+* add support for `versions` attribute in schema ([a54ba3d](https://github.com/commercelayer/commercelayer-sdk/commit/a54ba3d623a907c62ab5b237e20b8076ffc723fc))
+* isolate client config between multiple instances ([39ee08a](https://github.com/commercelayer/commercelayer-sdk/commit/39ee08a33d3251c3c4a37e49a0b95983378559e2))
+* use `bundle` mode as default. Default one will become the `single-client` version ([788655d](https://github.com/commercelayer/commercelayer-sdk/commit/788655d2faf8a0710e75bb36ab7b2c567be5bf2c))
+* use children type for payment settings, promotions, ([7dc99ed](https://github.com/commercelayer/commercelayer-sdk/commit/7dc99edd823924d967d63a556923e0c40d622a0f))
+
 ## [8.0.0-beta.7](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.6...v8.0.0-beta.7) (2026-06-25)
 
 ### ⚠ BREAKING CHANGES
