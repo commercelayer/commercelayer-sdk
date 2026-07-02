@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import CommerceLayer from '../src' // default entry === the bundle client
+import { CommerceLayer } from '../src' // default entry === the bundle client
 import { handleError, interceptRequest } from '../test/common'
 
 // Smoke coverage for the DEFAULT entry (the bundle). The exhaustive

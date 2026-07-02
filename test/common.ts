@@ -1,7 +1,8 @@
 import { inspect, isDeepStrictEqual } from 'node:util'
 import dotenv from 'dotenv'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
-import CommerceLayer, {
+import {
+  CommerceLayer,
   type CommerceLayerClient,
   type CommerceLayerConfig,
   type QueryParamsList,
