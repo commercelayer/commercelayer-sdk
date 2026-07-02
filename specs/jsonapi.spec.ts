@@ -1,7 +1,13 @@
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type CommerceLayerClient, customer_subscriptions, customers, orders, type ResourceTypeLock } from '../src'
 import { denormalize, normalize } from '../src/jsonapi'
+import {
+  type CommerceLayerClient,
+  customer_subscriptions,
+  customers,
+  orders,
+  type ResourceTypeLock,
+} from '../src/single-client'
 import { getClient, TestData } from '../test/common'
 
 let cl: CommerceLayerClient

@@ -5,7 +5,7 @@ import {
   type CommerceLayerInitConfig,
   CommerceLayerStatic,
   customers,
-} from '../src'
+} from '../src/single-client'
 import { getClient, IS_UNIFIED_BUILD, organization } from '../test/common'
 import getAccessToken from '../test/token'
 

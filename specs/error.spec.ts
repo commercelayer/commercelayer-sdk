@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { type CommerceLayerClient, customers, type ErrorObj } from '../src'
 import { ErrorType } from '../src/error'
+import { type CommerceLayerClient, customers, type ErrorObj } from '../src/single-client'
 import { getClient, IS_UNIFIED_BUILD } from '../test/common'
 
 // import { DBG } from '../src/common'

@@ -6,7 +6,7 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type CommerceLayerClient, type OrderValidationRule, order_validation_rules } from '../../src'
+import { type CommerceLayerClient, type OrderValidationRule, order_validation_rules } from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

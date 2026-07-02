@@ -6,7 +6,7 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type Attachment, attachments, type CommerceLayerClient, geocoders } from '../../src'
+import { type Attachment, attachments, type CommerceLayerClient, geocoders } from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

@@ -1,9 +1,7 @@
-// SDK — default entry: the bundle client (all resources on one instance,
-// isolated per client). For the lightweight, tree-shakeable single-client
-// model (direct resource imports, one global token) use
-// `@commercelayer/sdk/single-client`.
-export { CommerceLayer, type CommerceLayerBundle, default } from './bundle'
-export { SDK_VERSION } from './commercelayer'
+// Resource adapters
+export * from './api'
+// SDK
+export { CommerceLayer, default, SDK_VERSION } from './commercelayer'
 
 // Commerce Layer static functions
 export { CommerceLayerStatic } from './static'

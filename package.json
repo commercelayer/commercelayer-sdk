@@ -17,14 +17,24 @@
         "default": "./lib/index.cjs"
       }
     },
-    "./bundle": {
+    "./single-client": {
       "import": {
-        "types": "./lib/bundle.d.ts",
-        "default": "./lib/bundle.js"
+        "types": "./lib/single-client.d.ts",
+        "default": "./lib/single-client.js"
       },
       "require": {
-        "types": "./lib/bundle.d.cts",
-        "default": "./lib/bundle.cjs"
+        "types": "./lib/single-client.d.cts",
+        "default": "./lib/single-client.cjs"
+      }
+    },
+    "./bundle": {
+      "import": {
+        "types": "./lib/bundle-compat.d.ts",
+        "default": "./lib/bundle-compat.js"
+      },
+      "require": {
+        "types": "./lib/bundle-compat.d.cts",
+        "default": "./lib/bundle-compat.cjs"
       }
     }
   },
@@ -39,7 +49,9 @@
     "test": "vitest",
     "test-local": "tsx test/spot.ts",
     "coverage": "vitest run --coverage",
-    "release": "pnpm upgrade && pnpm lint && pnpm build && pnpm test"
+    "release": "pnpm upgrade && pnpm lint && pnpm build && pnpm test",
+    "dep:major": "pnpm dlx npm-check-updates --packageFile '**/package.json' -u",
+    "dep:semver": "pnpm dlx npm-check-updates -t semver --packageFile '**/package.json' -u"
   },
   "keywords": [
     "javascript",
@@ -57,23 +69,23 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.16",
+    "@biomejs/biome": "^2.5.2",
     "@commercelayer/js-auth": "^7.4.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/debug": "^4.1.13",
-    "@types/node": "^25.9.1",
-    "@vitest/coverage-v8": "^4.1.7",
-    "@vitest/eslint-plugin": "^1.6.18",
+    "@types/node": "^25.9.4",
+    "@vitest/coverage-v8": "^4.1.9",
+    "@vitest/eslint-plugin": "^1.6.20",
     "conventional-changelog-conventionalcommits": "^9.3.1",
     "dotenv": "^17.4.2",
     "json-typescript": "^1.1.2",
     "jsonapi-typescript": "^0.1.3",
-    "semantic-release": "^25.0.3",
+    "semantic-release": "^25.0.5",
     "tsup": "^8.5.1",
-    "tsx": "^4.22.3",
+    "tsx": "^4.22.4",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.9"
   },
   "repository": "github:commercelayer/commercelayer-sdk",
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",

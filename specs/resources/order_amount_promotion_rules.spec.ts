@@ -11,7 +11,7 @@ import {
   type OrderAmountPromotionRule,
   order_amount_promotion_rules,
   percentage_discount_promotions,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

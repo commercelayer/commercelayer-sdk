@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type CommerceLayerClient, type Customer, customers } from '../src'
 import { isResourceType } from '../src/resource'
+import { type CommerceLayerClient, type Customer, customers } from '../src/single-client'
 import type { ObjectType } from '../src/types'
 import { sleep, sortObjectFields } from '../src/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'

@@ -13,7 +13,7 @@ import {
   in_stock_subscriptions,
   markets,
   skus,
-} from '../../src'
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,

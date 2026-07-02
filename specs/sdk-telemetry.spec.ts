@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { application, CommerceLayer, SDK_VERSION } from '../src'
+import { application, CommerceLayer, SDK_VERSION } from '../src/single-client'
 import { handleError, interceptRequest } from '../test/common'
 
 const CLIENT_HEADER = 'X-CL-SDK'

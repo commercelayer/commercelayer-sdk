@@ -662,4 +662,5 @@ function CommerceLayer(config: CommerceLayerInitConfig): CommerceLayerBundle {
   return CommerceLayerBundle.get(config)
 }
 
+export default CommerceLayer
 export { CommerceLayer, type CommerceLayerBundle }
