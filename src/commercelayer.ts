@@ -64,10 +64,10 @@ class CommerceLayerClient {
     // ##__CL_RESOURCES_INIT_STOP__##
   }
 
-  // ##__CL_RESOURCES_LEAZY_LOADING_START__##
-  // ##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)) }
+  // ##__CL_RESOURCES_LAZY_LOADING_START__##
+  // ##__CL_RESOURCES_LAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)) }
 
-  // ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
+  // ##__CL_RESOURCES_LAZY_LOADING_STOP__##
 
   // Adapter seam. The base (plain SDK) reports the process-global static
   // adapter so `config()` and the getters below stay in sync with the

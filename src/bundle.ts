@@ -166,8 +166,8 @@ class CommerceLayerBundle extends CommerceLayerClient {
     return this.instanceAdapter
   }
 
-  // ##__CL_RESOURCES_LEAZY_LOADING_START__##
-  // ##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = api.##__RESOURCE_TYPE__##.withAdapter(this.adapter)) }
+  // ##__CL_RESOURCES_LAZY_LOADING_START__##
+  // ##__CL_RESOURCES_LAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = api.##__RESOURCE_TYPE__##.withAdapter(this.adapter)) }
   get addresses(): api.Addresses {
     return this.#addresses || (this.#addresses = api.addresses.withAdapter(this.adapter))
   }
@@ -651,7 +651,7 @@ class CommerceLayerBundle extends CommerceLayerClient {
   get wire_transfers(): api.WireTransfers {
     return this.#wire_transfers || (this.#wire_transfers = api.wire_transfers.withAdapter(this.adapter))
   }
-  // ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
+  // ##__CL_RESOURCES_LAZY_LOADING_STOP__##
 
   // ##__CL_RESOURCES_ACCESSORS_ONLY_START__##
   // ##__CL_RESOURCES_ACCESSORS_ONLY_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return api.##__RESOURCE_TYPE__## }
