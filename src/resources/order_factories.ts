@@ -14,7 +14,7 @@ import type { OrderCopy } from './order_copies'
 import type { Order } from './orders'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 
-type OrderFactoryType = 'order_factories'
+type OrderFactoryType = 'order_factories' | 'order_copies' | 'recurring_order_copies'
 type OrderFactoryRel = ResourceRel & { type: OrderFactoryType }
 
 export type OrderFactorySort = Pick<

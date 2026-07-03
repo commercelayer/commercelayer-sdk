@@ -728,6 +728,22 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   res = res.replace(/##__RESOURCE_MODEL_TYPE__##/g, resModelType)
   res = res.replace(/##__RESPONSE_MODELS__##/g, resMod.size > 0 ? `, ${Array.from(resMod).join(', ')}` : '')
   res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
+
+  // STI parents: the read model is a union of the concrete children (their
+  // `type` is e.g. `bing_geocoders`, not the abstract `geocoders`). Widen the
+  // `<Self>Type` discriminator to also accept those child types. Every
+  // `<Self>Rel` — this resource's own and the copies re-declared in each
+  // resource that relates to it — is `ResourceRel & { type: <Self>Type }`, so
+  // widening the type alias flows everywhere. This lets a fetched resource be
+  // spread straight back into a create/update payload
+  // (`addresses.update({ ...address, id })`) without the caller stripping the
+  // relationship. `.relationship()` still emits the abstract `<parent>` type,
+  // which stays a member of the union.
+  const stiTypeUnion =
+    resource.stiChildren && resource.stiChildren.length > 0
+      ? resource.stiChildren.map((c) => ` | '${Inflector.pluralize(c)}'`).join('')
+      : ''
+  res = res.replace(/##__STI_TYPE_UNION__##/g, stiTypeUnion)
   res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
   res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, singletonResource ? '' : `, ${resModelInterface}Sort`)
 

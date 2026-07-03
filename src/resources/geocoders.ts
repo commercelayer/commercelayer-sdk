@@ -15,7 +15,7 @@ import type { EventStore } from './event_stores'
 import type { GoogleGeocoder } from './google_geocoders'
 import type { Market } from './markets'
 
-type GeocoderType = 'geocoders'
+type GeocoderType = 'geocoders' | 'bing_geocoders' | 'google_geocoders'
 type GeocoderRel = ResourceRel & { type: GeocoderType }
 
 export type GeocoderSort = Pick<GeocoderBase, 'id' | 'name'> & ResourceSort

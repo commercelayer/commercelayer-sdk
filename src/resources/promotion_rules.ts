@@ -22,7 +22,12 @@ import type { OrderAmountPromotionRule } from './order_amount_promotion_rules'
 import type { PercentageDiscountPromotion } from './percentage_discount_promotions'
 import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 
-type PromotionRuleType = 'promotion_rules'
+type PromotionRuleType =
+  | 'promotion_rules'
+  | 'coupon_codes_promotion_rules'
+  | 'custom_promotion_rules'
+  | 'order_amount_promotion_rules'
+  | 'sku_list_promotion_rules'
 type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 
 export type PromotionRuleSort = Pick<PromotionRuleBase, 'id'> & ResourceSort

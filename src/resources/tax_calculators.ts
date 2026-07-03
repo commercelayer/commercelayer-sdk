@@ -19,7 +19,14 @@ import type { StripeTaxAccount } from './stripe_tax_accounts'
 import type { TaxjarAccount } from './taxjar_accounts'
 import type { VertexAccount } from './vertex_accounts'
 
-type TaxCalculatorType = 'tax_calculators'
+type TaxCalculatorType =
+  | 'tax_calculators'
+  | 'avalara_accounts'
+  | 'external_tax_calculators'
+  | 'manual_tax_calculators'
+  | 'stripe_tax_accounts'
+  | 'taxjar_accounts'
+  | 'vertex_accounts'
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 
 export type TaxCalculatorSort = Pick<TaxCalculatorBase, 'id' | 'name'> & ResourceSort

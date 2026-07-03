@@ -21,7 +21,18 @@ import type { PaypalGateway } from './paypal_gateways'
 import type { SatispayGateway } from './satispay_gateways'
 import type { StripeGateway } from './stripe_gateways'
 
-type PaymentGatewayType = 'payment_gateways'
+type PaymentGatewayType =
+  | 'payment_gateways'
+  | 'adyen_gateways'
+  | 'axerve_gateways'
+  | 'braintree_gateways'
+  | 'checkout_com_gateways'
+  | 'external_gateways'
+  | 'klarna_gateways'
+  | 'manual_gateways'
+  | 'paypal_gateways'
+  | 'satispay_gateways'
+  | 'stripe_gateways'
 type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 
 export type PaymentGatewaySort = Pick<PaymentGatewayBase, 'id' | 'name' | 'disabled_at'> & ResourceSort

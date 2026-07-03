@@ -27,7 +27,7 @@ import type { StripePayment } from './stripe_payments'
 import type { Void } from './voids'
 import type { WireTransfer } from './wire_transfers'
 
-type TransactionType = 'transactions'
+type TransactionType = 'transactions' | 'authorizations' | 'captures' | 'refunds' | 'voids'
 type TransactionRel = ResourceRel & { type: TransactionType }
 
 export type TransactionSort = Pick<TransactionBase, 'id' | 'number' | 'amount_cents'> & ResourceSort
