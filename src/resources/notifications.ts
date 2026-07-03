@@ -25,6 +25,11 @@ type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 export type NotificationSort = Pick<Notification, 'id' | 'name' | 'flash'> & ResourceSort
 // export type NotificationFilter = Pick<Notification, 'id' | 'name' | 'flash'> & ResourceFilter
 
+/**
+ * The Notification object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/notifications endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/notifications/object
+ */
 interface Notification extends Resource {
   readonly type: NotificationType
 

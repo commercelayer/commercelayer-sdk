@@ -27,6 +27,11 @@ type SkuRel = ResourceRel & { type: SkuType }
 export type StockLineItemSort = Pick<StockLineItem, 'id' | 'quantity'> & ResourceSort
 // export type StockLineItemFilter = Pick<StockLineItem, 'id' | 'sku_code' | 'quantity'> & ResourceFilter
 
+/**
+ * The Stock line item object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stock_line_items endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/stock_line_items/object
+ */
 interface StockLineItem extends Resource {
   readonly type: StockLineItemType
 

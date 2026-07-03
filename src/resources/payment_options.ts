@@ -21,6 +21,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type PaymentOptionSort = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type'> & ResourceSort
 // export type PaymentOptionFilter = Pick<PaymentOption, 'id' | 'name' | 'payment_source_type' | 'data'> & ResourceFilter
 
+/**
+ * The Payment option object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_options endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/payment_options/object
+ */
 interface PaymentOption extends Resource {
   readonly type: PaymentOptionType
 

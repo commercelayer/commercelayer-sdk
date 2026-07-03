@@ -28,6 +28,11 @@ export type SkuOptionSort = Pick<
   ResourceSort
 // export type SkuOptionFilter = Pick<SkuOption, 'id' | 'name' | 'currency_code' | 'description' | 'price_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilter
 
+/**
+ * The SKU option object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/sku_options endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/sku_options/object
+ */
 interface SkuOption extends Resource {
   readonly type: SkuOptionType
 

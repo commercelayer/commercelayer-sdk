@@ -50,6 +50,11 @@ export type FreeShippingPromotionSort = Pick<
   ResourceSort
 // export type FreeShippingPromotionFilter = Pick<FreeShippingPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Free shipping promotion object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/free_shipping_promotions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/free_shipping_promotions/object
+ */
 interface FreeShippingPromotion extends Resource {
   readonly type: FreeShippingPromotionType
 

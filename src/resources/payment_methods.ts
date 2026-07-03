@@ -29,6 +29,11 @@ export type PaymentMethodSort = Pick<
   ResourceSort
 // export type PaymentMethodFilter = Pick<PaymentMethod, 'id' | 'name' | 'payment_source_type' | 'currency_code' | 'price_amount_cents' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Payment method object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_methods endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/payment_methods/object
+ */
 interface PaymentMethod extends Resource {
   readonly type: PaymentMethodType
 

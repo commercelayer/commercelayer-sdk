@@ -52,6 +52,11 @@ type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 export type MarketSort = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceSort
 // export type MarketFilter = Pick<Market, 'id' | 'name' | 'code' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Market object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/markets endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/markets/object
+ */
 interface Market extends Resource {
   readonly type: MarketType
 

@@ -29,6 +29,11 @@ export type ParcelSort = Pick<
   ResourceSort
 // export type ParcelFilter = Pick<Parcel, 'id' | 'weight' | 'contents_explanation' | 'shipping_label_url' | 'shipping_label_file_type' | 'shipping_label_size' | 'shipping_label_resolution' | 'tracking_number' | 'tracking_status' | 'tracking_status_detail' | 'tracking_status_updated_at' | 'carrier_weight_oz' | 'incoterm' | 'delivery_confirmation'> & ResourceFilter
 
+/**
+ * The Parcel object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/parcels endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/parcels/object
+ */
 interface Parcel extends Resource {
   readonly type: ParcelType
 

@@ -21,6 +21,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type CheckoutComPaymentSort = Pick<CheckoutComPayment, 'id'> & ResourceSort
 // export type CheckoutComPaymentFilter = Pick<CheckoutComPayment, 'id'> & ResourceFilter
 
+/**
+ * The Checkout.com payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/checkout_com_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/checkout_com_payments/object
+ */
 interface CheckoutComPayment extends Resource {
   readonly type: CheckoutComPaymentType
 

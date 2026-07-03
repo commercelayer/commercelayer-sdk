@@ -30,6 +30,11 @@ export type GiftCardSort = Pick<
   ResourceSort
 // export type GiftCardFilter = Pick<GiftCard, 'id' | 'status' | 'code' | 'currency_code' | 'balance_cents' | 'balance_max_cents' | 'single_use' | 'rechargeable' | 'expires_at'> & ResourceFilter
 
+/**
+ * The Gift card object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/gift_cards endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/gift_cards/object
+ */
 interface GiftCard extends Resource {
   readonly type: GiftCardType
 

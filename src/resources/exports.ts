@@ -32,6 +32,11 @@ export type ExportSort = Pick<
   ResourceSort
 // export type ExportFilter = Pick<Export, 'id' | 'resource_type' | 'format' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'processed_count' | 'attachment_url' | 'errors_log'> & ResourceFilter
 
+/**
+ * The Export object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/exports endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/exports/object
+ */
 interface Export extends Resource {
   readonly type: ExportType
 

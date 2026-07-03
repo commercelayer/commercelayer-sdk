@@ -20,6 +20,11 @@ type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 export type TaxRuleSort = Pick<TaxRule, 'id' | 'name' | 'tax_rate'> & ResourceSort
 // export type TaxRuleFilter = Pick<TaxRule, 'id' | 'name' | 'tax_rate' | 'freight_taxable' | 'payment_method_taxable' | 'gift_card_taxable' | 'adjustment_taxable'> & ResourceFilter
 
+/**
+ * The Tax rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/tax_rules endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/tax_rules/object
+ */
 interface TaxRule extends Resource {
   readonly type: TaxRuleType
 

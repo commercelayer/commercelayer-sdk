@@ -30,6 +30,11 @@ export type CouponSort = Pick<
   ResourceSort
 // export type CouponFilter = Pick<Coupon, 'id' | 'code' | 'customer_single_use' | 'usage_limit' | 'usage_count' | 'expires_at'> & ResourceFilter
 
+/**
+ * The Coupon object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/coupons endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/coupons/object
+ */
 interface Coupon extends Resource {
   readonly type: CouponType
 

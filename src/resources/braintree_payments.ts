@@ -21,6 +21,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type BraintreePaymentSort = Pick<BraintreePayment, 'id'> & ResourceSort
 // export type BraintreePaymentFilter = Pick<BraintreePayment, 'id'> & ResourceFilter
 
+/**
+ * The Braintree payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/braintree_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/braintree_payments/object
+ */
 interface BraintreePayment extends Resource {
   readonly type: BraintreePaymentType
 

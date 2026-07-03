@@ -22,6 +22,11 @@ type PriceRel = ResourceRel & { type: PriceType }
 export type PriceVolumeTierSort = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort
 // export type PriceVolumeTierFilter = Pick<PriceVolumeTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
+/**
+ * The Price volume tier object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/price_volume_tiers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/price_volume_tiers/object
+ */
 interface PriceVolumeTier extends Resource {
   readonly type: PriceVolumeTierType
 

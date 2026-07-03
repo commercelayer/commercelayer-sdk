@@ -22,6 +22,11 @@ type SkuRel = ResourceRel & { type: SkuType }
 export type SkuListItemSort = Pick<SkuListItem, 'id' | 'position' | 'quantity'> & ResourceSort
 // export type SkuListItemFilter = Pick<SkuListItem, 'id' | 'position' | 'quantity'> & ResourceFilter
 
+/**
+ * The SKU list item object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/sku_list_items endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/sku_list_items/object
+ */
 interface SkuListItem extends Resource {
   readonly type: SkuListItemType
 

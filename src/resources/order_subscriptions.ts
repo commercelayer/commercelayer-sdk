@@ -47,6 +47,11 @@ export type OrderSubscriptionSort = Pick<
   ResourceSort
 // export type OrderSubscriptionFilter = Pick<OrderSubscription, 'id' | 'number' | 'status' | 'frequency' | 'customer_email' | 'starts_at' | 'expires_at' | 'last_run_at' | 'next_run_at' | 'occurrencies' | 'errors_count' | 'succeeded_on_last_run'> & ResourceFilter
 
+/**
+ * The Order subscription object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/order_subscriptions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/order_subscriptions/object
+ */
 interface OrderSubscription extends Resource {
   readonly type: OrderSubscriptionType
 

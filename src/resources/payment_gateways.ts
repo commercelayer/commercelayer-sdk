@@ -38,6 +38,11 @@ type PaymentGatewayRel = ResourceRel & { type: PaymentGatewayType }
 export type PaymentGatewaySort = Pick<PaymentGatewayBase, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type PaymentGatewayFilter = Pick<PaymentGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Payment gateway object is returned as part of the response body of each successful list or retrieve API call to the /api/payment_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/payment_gateways/object
+ */
 type PaymentGateway =
   | AdyenGateway
   | AxerveGateway

@@ -33,6 +33,11 @@ type PromotionRuleRel = ResourceRel & { type: PromotionRuleType }
 export type PromotionRuleSort = Pick<PromotionRuleBase, 'id'> & ResourceSort
 // export type PromotionRuleFilter = Pick<PromotionRule, 'id'> & ResourceFilter
 
+/**
+ * The Promotion rule object is returned as part of the response body of each successful list or retrieve API call to the /api/promotion_rules endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/promotion_rules/object
+ */
 type PromotionRule = CouponCodesPromotionRule | CustomPromotionRule | OrderAmountPromotionRule | SkuListPromotionRule
 
 interface PromotionRuleBase extends Resource {

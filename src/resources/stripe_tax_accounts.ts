@@ -23,6 +23,11 @@ type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 export type StripeTaxAccountSort = Pick<StripeTaxAccount, 'id' | 'name'> & ResourceSort
 // export type StripeTaxAccountFilter = Pick<StripeTaxAccount, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Stripe tax account object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stripe_tax_accounts endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/stripe_tax_accounts/object
+ */
 interface StripeTaxAccount extends Resource {
   readonly type: StripeTaxAccountType
 

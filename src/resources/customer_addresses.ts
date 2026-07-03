@@ -23,6 +23,11 @@ type AddressRel = ResourceRel & { type: AddressType }
 export type CustomerAddressSort = Pick<CustomerAddress, 'id'> & ResourceSort
 // export type CustomerAddressFilter = Pick<CustomerAddress, 'id'> & ResourceFilter
 
+/**
+ * The Customer address object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/customer_addresses endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/customer_addresses/object
+ */
 interface CustomerAddress extends Resource {
   readonly type: CustomerAddressType
 

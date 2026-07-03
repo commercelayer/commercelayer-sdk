@@ -37,6 +37,11 @@ type SkuListRel = ResourceRel & { type: SkuListType }
 export type SkuListPromotionRuleSort = Pick<SkuListPromotionRule, 'id'> & ResourceSort
 // export type SkuListPromotionRuleFilter = Pick<SkuListPromotionRule, 'id'> & ResourceFilter
 
+/**
+ * The SKU list promotion rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/sku_list_promotion_rules endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/sku_list_promotion_rules/object
+ */
 interface SkuListPromotionRule extends Resource {
   readonly type: SkuListPromotionRuleType
 

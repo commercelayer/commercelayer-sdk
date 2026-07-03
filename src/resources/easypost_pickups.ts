@@ -26,6 +26,11 @@ export type EasypostPickupSort = Pick<
   ResourceSort
 // export type EasypostPickupFilter = Pick<EasypostPickup, 'id' | 'status' | 'min_datetime' | 'max_datetime' | 'purchase_started_at' | 'purchase_completed_at'> & ResourceFilter
 
+/**
+ * The Easypost pickup object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/easypost_pickups endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/easypost_pickups/object
+ */
 interface EasypostPickup extends Resource {
   readonly type: EasypostPickupType
 

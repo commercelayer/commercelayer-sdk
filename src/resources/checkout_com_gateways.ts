@@ -21,6 +21,11 @@ type CheckoutComPaymentRel = ResourceRel & { type: CheckoutComPaymentType }
 export type CheckoutComGatewaySort = Pick<CheckoutComGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type CheckoutComGatewayFilter = Pick<CheckoutComGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Checkout.com gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/checkout_com_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/checkout_com_gateways/object
+ */
 interface CheckoutComGateway extends Resource {
   readonly type: CheckoutComGatewayType
 

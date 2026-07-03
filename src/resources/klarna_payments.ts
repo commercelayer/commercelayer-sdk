@@ -21,6 +21,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type KlarnaPaymentSort = Pick<KlarnaPayment, 'id'> & ResourceSort
 // export type KlarnaPaymentFilter = Pick<KlarnaPayment, 'id' | 'mismatched_amounts'> & ResourceFilter
 
+/**
+ * The Klarna payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/klarna_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/klarna_payments/object
+ */
 interface KlarnaPayment extends Resource {
   readonly type: KlarnaPaymentType
 

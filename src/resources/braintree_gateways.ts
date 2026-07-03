@@ -21,6 +21,11 @@ type BraintreePaymentRel = ResourceRel & { type: BraintreePaymentType }
 export type BraintreeGatewaySort = Pick<BraintreeGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type BraintreeGatewayFilter = Pick<BraintreeGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Braintree gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/braintree_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/braintree_gateways/object
+ */
 interface BraintreeGateway extends Resource {
   readonly type: BraintreeGatewayType
 

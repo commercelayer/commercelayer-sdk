@@ -21,6 +21,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type AxervePaymentSort = Pick<AxervePayment, 'id'> & ResourceSort
 // export type AxervePaymentFilter = Pick<AxervePayment, 'id'> & ResourceFilter
 
+/**
+ * The Axerve payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/axerve_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/axerve_payments/object
+ */
 interface AxervePayment extends Resource {
   readonly type: AxervePaymentType
 

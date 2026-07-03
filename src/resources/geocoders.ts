@@ -21,6 +21,11 @@ type GeocoderRel = ResourceRel & { type: GeocoderType }
 export type GeocoderSort = Pick<GeocoderBase, 'id' | 'name'> & ResourceSort
 // export type GeocoderFilter = Pick<Geocoder, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Geocoder object is returned as part of the response body of each successful list or retrieve API call to the /api/geocoders endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/geocoders/object
+ */
 type Geocoder = BingGeocoder | GoogleGeocoder
 
 interface GeocoderBase extends Resource {

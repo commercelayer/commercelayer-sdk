@@ -27,6 +27,11 @@ export type RecurringOrderCopySort = Pick<
   ResourceSort
 // export type RecurringOrderCopyFilter = Pick<RecurringOrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
+/**
+ * The Recurring order copy object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/recurring_order_copies endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/recurring_order_copies/object
+ */
 interface RecurringOrderCopy extends Resource {
   readonly type: RecurringOrderCopyType
 

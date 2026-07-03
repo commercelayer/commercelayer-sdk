@@ -23,6 +23,11 @@ export type PackageSort = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'wid
   ResourceSort
 // export type PackageFilter = Pick<Package, 'id' | 'name' | 'code' | 'length' | 'width' | 'height' | 'unit_of_length'> & ResourceFilter
 
+/**
+ * The Package object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/packages endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/packages/object
+ */
 interface Package extends Resource {
   readonly type: PackageType
 

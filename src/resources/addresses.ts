@@ -23,6 +23,11 @@ type TagRel = ResourceRel & { type: TagType }
 export type AddressSort = Pick<Address, 'id' | 'city' | 'state_code' | 'country_code'> & ResourceSort
 // export type AddressFilter = Pick<Address, 'id' | 'business' | 'first_name' | 'last_name' | 'company' | 'line_1' | 'line_2' | 'city' | 'zip_code' | 'state_code' | 'country_code' | 'phone' | 'email' | 'notes' | 'lat' | 'lng' | 'billing_info'> & ResourceFilter
 
+/**
+ * The Address object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/addresses endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/addresses/object
+ */
 interface Address extends Resource {
   readonly type: AddressType
 

@@ -21,6 +21,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type StripePaymentSort = Pick<StripePayment, 'id'> & ResourceSort
 // export type StripePaymentFilter = Pick<StripePayment, 'id'> & ResourceFilter
 
+/**
+ * The Stripe payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stripe_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/stripe_payments/object
+ */
 interface StripePayment extends Resource {
   readonly type: StripePaymentType
 

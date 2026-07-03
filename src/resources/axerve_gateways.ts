@@ -21,6 +21,11 @@ type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
 export type AxerveGatewaySort = Pick<AxerveGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type AxerveGatewayFilter = Pick<AxerveGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Axerve gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/axerve_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/axerve_gateways/object
+ */
 interface AxerveGateway extends Resource {
   readonly type: AxerveGatewayType
 

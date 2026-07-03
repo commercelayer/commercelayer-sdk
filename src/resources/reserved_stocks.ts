@@ -19,6 +19,11 @@ type ReservedStockRel = ResourceRel & { type: ReservedStockType }
 export type ReservedStockSort = Pick<ReservedStock, 'id' | 'quantity'> & ResourceSort
 // export type ReservedStockFilter = Pick<ReservedStock, 'id' | 'quantity'> & ResourceFilter
 
+/**
+ * The Reserved stock object is returned as part of the response body of each successful list or retrieve API call to the /api/reserved_stocks endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/reserved_stocks/object
+ */
 interface ReservedStock extends Resource {
   readonly type: ReservedStockType
 

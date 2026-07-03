@@ -21,6 +21,11 @@ type MarketRel = ResourceRel & { type: MarketType }
 export type CarrierAccountSort = Pick<CarrierAccount, 'id' | 'name'> & ResourceSort
 // export type CarrierAccountFilter = Pick<CarrierAccount, 'id' | 'name' | 'easypost_type'> & ResourceFilter
 
+/**
+ * The Carrier account object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/carrier_accounts endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/carrier_accounts/object
+ */
 interface CarrierAccount extends Resource {
   readonly type: CarrierAccountType
 

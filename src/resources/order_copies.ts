@@ -26,6 +26,11 @@ export type OrderCopySort = Pick<
   ResourceSort
 // export type OrderCopyFilter = Pick<OrderCopy, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
+/**
+ * The Order copy object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/order_copies endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/order_copies/object
+ */
 interface OrderCopy extends Resource {
   readonly type: OrderCopyType
 

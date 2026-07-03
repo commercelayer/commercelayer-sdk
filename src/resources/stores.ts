@@ -27,6 +27,11 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 export type StoreSort = Pick<Store, 'id' | 'name' | 'code'> & ResourceSort
 // export type StoreFilter = Pick<Store, 'id' | 'name' | 'code'> & ResourceFilter
 
+/**
+ * The Store object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stores endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/stores/object
+ */
 interface Store extends Resource {
   readonly type: StoreType
 

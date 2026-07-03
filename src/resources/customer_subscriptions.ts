@@ -21,6 +21,11 @@ type CustomerSubscriptionRel = ResourceRel & { type: CustomerSubscriptionType }
 export type CustomerSubscriptionSort = Pick<CustomerSubscription, 'id'> & ResourceSort
 // export type CustomerSubscriptionFilter = Pick<CustomerSubscription, 'id'> & ResourceFilter
 
+/**
+ * The Customer subscription object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/customer_subscriptions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/customer_subscriptions/object
+ */
 interface CustomerSubscription extends Resource {
   readonly type: CustomerSubscriptionType
 

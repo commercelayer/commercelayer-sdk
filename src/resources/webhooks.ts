@@ -20,6 +20,11 @@ type WebhookRel = ResourceRel & { type: WebhookType }
 export type WebhookSort = Pick<Webhook, 'id' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceSort
 // export type WebhookFilter = Pick<Webhook, 'id' | 'name' | 'topic' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
+/**
+ * The Webhook object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/webhooks endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/webhooks/object
+ */
 interface Webhook extends Resource {
   readonly type: WebhookType
 

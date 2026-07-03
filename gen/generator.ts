@@ -3,7 +3,31 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { basename } from 'node:path'
 import Inflector from './inflector'
 import { updateLicense } from './license'
+import { RESOURCE_NAME_OVERRIDES } from './resource-names'
 import apiSchema, { type Attribute, Cardinality, type Component, type Operation, type Resource } from './schema'
+
+const capitalizeFirst = (s: string): string => (s.length > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s)
+
+const ACTION_ORDER = ['list', 'retrieve', 'create', 'update', 'delete'] as const
+
+// Renders the resource's CRUD actions in canonical order for the description
+// sentence, e.g. `list, retrieve, create, update or delete` — or `list or
+// retrieve` / `retrieve` for narrower resources. Falls back to the full set
+// if actions are unknown.
+const actionsPhrase = (actions?: readonly string[]): string => {
+  const ordered = ACTION_ORDER.filter((a) => (actions ?? ACTION_ORDER).includes(a))
+  const list = ordered.length > 0 ? ordered : [...ACTION_ORDER]
+  if (list.length === 1) return list[0] as string
+  return `${list.slice(0, -1).join(', ')} or ${list.at(-1)}`
+}
+
+// Human-readable, title-cased singular object name for a resource. Uses the
+// curated name map (acronyms/brand casing preserved) and falls back to a
+// mechanical humanize of the singular id for anything not in the map.
+const resourceObjectName = (type: string): string => {
+  const name = RESOURCE_NAME_OVERRIDES[type] ?? Inflector.singularize(type).replace(/_/g, ' ')
+  return capitalizeFirst(name)
+}
 
 type ConfigType = {
   LOCAL_SCHEMA: boolean
@@ -842,6 +866,22 @@ const generateResource = (type: string, name: string, resource: Resource): strin
     for (const c of childClassNames) declaredImportsModels.add(c)
     sortSource = baseName
   }
+  // Resource-level description JSDoc. public/resources ships no resource
+  // description, so we synthesise one above the exported read model (the
+  // interface, or the union alias for STI parents). Endpoint is the singular
+  // path for singletons (`/api/organization`), the plural type otherwise.
+  const objectName = resourceObjectName(type)
+  const endpoint = singletonResource ? Inflector.singularize(type) : type
+  // Lifecycle tags on the read model, mirroring what attributes/relationships
+  // carry: `@since` when the resource was introduced after the oldest
+  // supported version, `@deprecated` when it's version-scoped to older API
+  // versions (or flagged deprecated in the legacy schema).
+  const resSinceLine = resource.since ? `\n * @since ${resource.since}` : ''
+  const resDeprecatedLine = resource.deprecated
+    ? `\n * @deprecated${resource.deprecatedSince ? ` Last available in API version ${resource.deprecatedSince}.` : ''}`
+    : ''
+  const descriptionJsdoc = `/**\n * The ${objectName} object is returned as part of the response body of each successful ${actionsPhrase(resource.actions)} API call to the /api/${endpoint} endpoint.${resSinceLine}\n * ${resDeprecatedLine}\n * @link https://docs.commercelayer.io/core-api-reference/${type}/object\n */`
+  modelInterfaces[0] = `${descriptionJsdoc}\n${modelInterfaces[0]}`
   res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
   res = res.replace(/##__SORT_SOURCE__##/g, sortSource)
   res = res.replace(/##__IMPORT_RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))

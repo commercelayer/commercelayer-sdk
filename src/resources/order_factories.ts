@@ -24,6 +24,11 @@ export type OrderFactorySort = Pick<
   ResourceSort
 // export type OrderFactoryFilter = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
 
+/**
+ * The Order factory object is returned as part of the response body of each successful list or retrieve API call to the /api/order_factories endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/order_factories/object
+ */
 type OrderFactory = OrderCopy | RecurringOrderCopy
 
 interface OrderFactoryBase extends Resource {

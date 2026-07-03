@@ -23,6 +23,11 @@ type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 export type DeliveryLeadTimeSort = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days'> & ResourceSort
 // export type DeliveryLeadTimeFilter = Pick<DeliveryLeadTime, 'id' | 'min_hours' | 'max_hours' | 'min_days' | 'max_days'> & ResourceFilter
 
+/**
+ * The Delivery lead time object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/delivery_lead_times endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/delivery_lead_times/object
+ */
 interface DeliveryLeadTime extends Resource {
   readonly type: DeliveryLeadTimeType
 

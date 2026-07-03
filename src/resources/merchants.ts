@@ -22,6 +22,11 @@ type AddressRel = ResourceRel & { type: AddressType }
 export type MerchantSort = Pick<Merchant, 'id' | 'name'> & ResourceSort
 // export type MerchantFilter = Pick<Merchant, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Merchant object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/merchants endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/merchants/object
+ */
 interface Merchant extends Resource {
   readonly type: MerchantType
 

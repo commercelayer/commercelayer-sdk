@@ -21,6 +21,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type SatispayPaymentSort = Pick<SatispayPayment, 'id' | 'payment_id' | 'flow' | 'status'> & ResourceSort
 // export type SatispayPaymentFilter = Pick<SatispayPayment, 'id' | 'payment_id' | 'flow' | 'status'> & ResourceFilter
 
+/**
+ * The Satispay payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/satispay_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/satispay_payments/object
+ */
 interface SatispayPayment extends Resource {
   readonly type: SatispayPaymentType
 

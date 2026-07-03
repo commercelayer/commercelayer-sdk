@@ -23,6 +23,11 @@ export type PriceFrequencyTierSort = Pick<PriceFrequencyTier, 'id' | 'name' | 'u
   ResourceSort
 // export type PriceFrequencyTierFilter = Pick<PriceFrequencyTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
+/**
+ * The Price frequency tier object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/price_frequency_tiers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/price_frequency_tiers/object
+ */
 interface PriceFrequencyTier extends Resource {
   readonly type: PriceFrequencyTierType
 

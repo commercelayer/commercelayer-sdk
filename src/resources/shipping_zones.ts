@@ -20,6 +20,11 @@ type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
 export type ShippingZoneSort = Pick<ShippingZone, 'id' | 'name'> & ResourceSort
 // export type ShippingZoneFilter = Pick<ShippingZone, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Shipping zone object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/shipping_zones endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/shipping_zones/object
+ */
 interface ShippingZone extends Resource {
   readonly type: ShippingZoneType
 

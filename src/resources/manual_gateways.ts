@@ -19,6 +19,11 @@ type ManualGatewayRel = ResourceRel & { type: ManualGatewayType }
 export type ManualGatewaySort = Pick<ManualGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type ManualGatewayFilter = Pick<ManualGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Manual gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/manual_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/manual_gateways/object
+ */
 interface ManualGateway extends Resource {
   readonly type: ManualGatewayType
 

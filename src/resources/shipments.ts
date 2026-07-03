@@ -59,6 +59,11 @@ export type ShipmentSort = Pick<
   ResourceSort
 // export type ShipmentFilter = Pick<Shipment, 'id' | 'number' | 'status' | 'cost_amount_cents' | 'get_rates_started_at' | 'get_rates_completed_at' | 'purchase_started_at' | 'purchase_completed_at' | 'purchase_failed_at' | 'on_hold_at' | 'picking_at' | 'packing_at' | 'ready_to_ship_at' | 'shipped_at' | 'delivered_at'> & ResourceFilter
 
+/**
+ * The Shipment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/shipments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/shipments/object
+ */
 interface Shipment extends Resource {
   readonly type: ShipmentType
 

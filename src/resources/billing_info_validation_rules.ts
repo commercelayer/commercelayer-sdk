@@ -21,6 +21,12 @@ type MarketRel = ResourceRel & { type: MarketType }
 export type BillingInfoValidationRuleSort = Pick<BillingInfoValidationRule, 'id'> & ResourceSort
 // export type BillingInfoValidationRuleFilter = Pick<BillingInfoValidationRule, 'id'> & ResourceFilter
 
+/**
+ * The Billing info validation rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/billing_info_validation_rules endpoint.
+ *
+ * @deprecated
+ * @link https://docs.commercelayer.io/core-api-reference/billing_info_validation_rules/object
+ */
 interface BillingInfoValidationRule extends Resource {
   readonly type: BillingInfoValidationRuleType
 

@@ -20,6 +20,11 @@ type PaypalGatewayRel = ResourceRel & { type: PaypalGatewayType }
 export type PaypalGatewaySort = Pick<PaypalGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type PaypalGatewayFilter = Pick<PaypalGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Paypal gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/paypal_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/paypal_gateways/object
+ */
 interface PaypalGateway extends Resource {
   readonly type: PaypalGatewayType
 

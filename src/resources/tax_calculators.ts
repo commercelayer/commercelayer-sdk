@@ -32,6 +32,11 @@ type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 export type TaxCalculatorSort = Pick<TaxCalculatorBase, 'id' | 'name'> & ResourceSort
 // export type TaxCalculatorFilter = Pick<TaxCalculator, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Tax calculator object is returned as part of the response body of each successful list or retrieve API call to the /api/tax_calculators endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/tax_calculators/object
+ */
 type TaxCalculator =
   | AvalaraAccount
   | ExternalTaxCalculator

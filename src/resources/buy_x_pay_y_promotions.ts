@@ -53,6 +53,11 @@ export type BuyXPayYPromotionSort = Pick<
   ResourceSort
 // export type BuyXPayYPromotionFilter = Pick<BuyXPayYPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at' | 'x' | 'y'> & ResourceFilter
 
+/**
+ * The Buy x pay y promotion object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/buy_x_pay_y_promotions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/buy_x_pay_y_promotions/object
+ */
 interface BuyXPayYPromotion extends Resource {
   readonly type: BuyXPayYPromotionType
 

@@ -22,6 +22,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type ExternalPaymentSort = Pick<ExternalPayment, 'id'> & ResourceSort
 // export type ExternalPaymentFilter = Pick<ExternalPayment, 'id' | 'payment_source_token'> & ResourceFilter
 
+/**
+ * The External payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/external_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/external_payments/object
+ */
 interface ExternalPayment extends Resource {
   readonly type: ExternalPaymentType
 

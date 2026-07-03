@@ -21,6 +21,11 @@ type CustomerPasswordResetRel = ResourceRel & { type: CustomerPasswordResetType 
 export type CustomerPasswordResetSort = Pick<CustomerPasswordReset, 'id'> & ResourceSort
 // export type CustomerPasswordResetFilter = Pick<CustomerPasswordReset, 'id' | 'reset_password_token' | 'reset_password_at'> & ResourceFilter
 
+/**
+ * The Customer password reset object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/customer_password_resets endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/customer_password_resets/object
+ */
 interface CustomerPasswordReset extends Resource {
   readonly type: CustomerPasswordResetType
 

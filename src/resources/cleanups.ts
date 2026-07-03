@@ -31,6 +31,11 @@ export type CleanupSort = Pick<
   ResourceSort
 // export type CleanupFilter = Pick<Cleanup, 'id' | 'resource_type' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'records_count' | 'errors_count' | 'processed_count' | 'errors_log'> & ResourceFilter
 
+/**
+ * The Cleanup object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/cleanups endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/cleanups/object
+ */
 interface Cleanup extends Resource {
   readonly type: CleanupType
 

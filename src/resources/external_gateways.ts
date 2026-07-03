@@ -24,6 +24,11 @@ export type ExternalGatewaySort = Pick<
   ResourceSort
 // export type ExternalGatewayFilter = Pick<ExternalGateway, 'id' | 'name' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
+/**
+ * The External gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/external_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/external_gateways/object
+ */
 interface ExternalGateway extends Resource {
   readonly type: ExternalGatewayType
 

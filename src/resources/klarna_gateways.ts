@@ -21,6 +21,11 @@ type KlarnaPaymentRel = ResourceRel & { type: KlarnaPaymentType }
 export type KlarnaGatewaySort = Pick<KlarnaGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type KlarnaGatewayFilter = Pick<KlarnaGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Klarna gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/klarna_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/klarna_gateways/object
+ */
 interface KlarnaGateway extends Resource {
   readonly type: KlarnaGatewayType
 
