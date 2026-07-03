@@ -14,7 +14,7 @@ import type { EventStore } from './event_stores'
 import type { Market } from './markets'
 import type { TalonOneAccount } from './talon_one_accounts'
 
-type DiscountEngineType = 'discount_engines'
+type DiscountEngineType = 'discount_engines' | 'talon_one_accounts'
 type DiscountEngineRel = ResourceRel & { type: DiscountEngineType }
 
 export type DiscountEngineSort = Pick<DiscountEngineBase, 'id' | 'name'> & ResourceSort

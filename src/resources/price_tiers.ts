@@ -14,7 +14,7 @@ import type { PriceFrequencyTier } from './price_frequency_tiers'
 import type { PriceVolumeTier } from './price_volume_tiers'
 import type { Price } from './prices'
 
-type PriceTierType = 'price_tiers'
+type PriceTierType = 'price_tiers' | 'price_frequency_tiers' | 'price_volume_tiers'
 type PriceTierRel = ResourceRel & { type: PriceTierType }
 
 export type PriceTierSort = Pick<PriceTierBase, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceSort

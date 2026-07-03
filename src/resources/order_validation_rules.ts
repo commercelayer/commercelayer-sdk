@@ -13,7 +13,7 @@ import type { BillingInfoValidationRule } from './billing_info_validation_rules'
 import type { EventStore } from './event_stores'
 import type { Market } from './markets'
 
-type OrderValidationRuleType = 'order_validation_rules'
+type OrderValidationRuleType = 'order_validation_rules' | 'billing_info_validation_rules'
 type OrderValidationRuleRel = ResourceRel & { type: OrderValidationRuleType }
 
 export type OrderValidationRuleSort = Pick<OrderValidationRuleBase, 'id'> & ResourceSort

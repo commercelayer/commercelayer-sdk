@@ -14,7 +14,7 @@ import type { Event } from './events'
 import type { Parcel } from './parcels'
 import type { Shipment } from './shipments'
 
-type PickupType = 'pickups'
+type PickupType = 'pickups' | 'easypost_pickups'
 type PickupRel = ResourceRel & { type: PickupType }
 
 export type PickupSort = Pick<PickupBase, 'id' | 'status'> & ResourceSort

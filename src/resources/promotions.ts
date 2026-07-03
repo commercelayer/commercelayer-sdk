@@ -29,7 +29,16 @@ import type { SkuListPromotionRule } from './sku_list_promotion_rules'
 import type { SkuList } from './sku_lists'
 import type { Tag } from './tags'
 
-type PromotionType = 'promotions'
+type PromotionType =
+  | 'promotions'
+  | 'buy_x_pay_y_promotions'
+  | 'external_promotions'
+  | 'fixed_amount_promotions'
+  | 'fixed_price_promotions'
+  | 'flex_promotions'
+  | 'free_gift_promotions'
+  | 'free_shipping_promotions'
+  | 'percentage_discount_promotions'
 type PromotionRel = ResourceRel & { type: PromotionType }
 
 export type PromotionSort = Pick<

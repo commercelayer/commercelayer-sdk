@@ -13,7 +13,7 @@ import type { EventStore } from './event_stores'
 import type { ShippingMethod } from './shipping_methods'
 import type { ShippingWeightTier } from './shipping_weight_tiers'
 
-type ShippingMethodTierType = 'shipping_method_tiers'
+type ShippingMethodTierType = 'shipping_method_tiers' | 'shipping_weight_tiers'
 type ShippingMethodTierRel = ResourceRel & { type: ShippingMethodTierType }
 
 export type ShippingMethodTierSort = Pick<ShippingMethodTierBase, 'id' | 'name' | 'up_to' | 'price_amount_cents'> &
