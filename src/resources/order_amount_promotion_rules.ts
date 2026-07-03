@@ -34,6 +34,11 @@ type FlexPromotionRel = ResourceRel & { type: FlexPromotionType }
 export type OrderAmountPromotionRuleSort = Pick<OrderAmountPromotionRule, 'id'> & ResourceSort
 // export type OrderAmountPromotionRuleFilter = Pick<OrderAmountPromotionRule, 'id'> & ResourceFilter
 
+/**
+ * The Order amount promotion rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/order_amount_promotion_rules endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/order_amount_promotion_rules/object
+ */
 interface OrderAmountPromotionRule extends Resource {
   readonly type: OrderAmountPromotionRuleType
 

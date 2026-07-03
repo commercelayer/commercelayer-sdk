@@ -21,6 +21,11 @@ type CustomerRel = ResourceRel & { type: CustomerType }
 export type CouponRecipientSort = Pick<CouponRecipient, 'id' | 'email'> & ResourceSort
 // export type CouponRecipientFilter = Pick<CouponRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilter
 
+/**
+ * The Coupon recipient object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/coupon_recipients endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/coupon_recipients/object
+ */
 interface CouponRecipient extends Resource {
   readonly type: CouponRecipientType
 

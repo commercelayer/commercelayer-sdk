@@ -31,6 +31,11 @@ type VoidRel = ResourceRel & { type: VoidType }
 export type VoidSort = Pick<Void, 'id' | 'number' | 'amount_cents'> & ResourceSort
 // export type VoidFilter = Pick<Void, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
+/**
+ * The Void object is returned as part of the response body of each successful list, retrieve or update API call to the /api/voids endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/voids/object
+ */
 interface Void extends Resource {
   readonly type: VoidType
 

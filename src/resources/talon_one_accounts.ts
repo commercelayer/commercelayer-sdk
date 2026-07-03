@@ -21,6 +21,11 @@ type TalonOneAccountRel = ResourceRel & { type: TalonOneAccountType }
 export type TalonOneAccountSort = Pick<TalonOneAccount, 'id' | 'name'> & ResourceSort
 // export type TalonOneAccountFilter = Pick<TalonOneAccount, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Talon.one account object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/talon_one_accounts endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/talon_one_accounts/object
+ */
 interface TalonOneAccount extends Resource {
   readonly type: TalonOneAccountType
 

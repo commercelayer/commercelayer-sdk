@@ -17,6 +17,11 @@ type EventCallbackRel = ResourceRel & { type: EventCallbackType }
 export type EventCallbackSort = Pick<EventCallback, 'id' | 'response_code' | 'response_message'> & ResourceSort
 // export type EventCallbackFilter = Pick<EventCallback, 'id' | 'callback_url' | 'response_code' | 'response_message'> & ResourceFilter
 
+/**
+ * The Event callback object is returned as part of the response body of each successful list or retrieve API call to the /api/event_callbacks endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/event_callbacks/object
+ */
 interface EventCallback extends Resource {
   readonly type: EventCallbackType
 

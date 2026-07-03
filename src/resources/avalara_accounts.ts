@@ -23,6 +23,11 @@ type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 export type AvalaraAccountSort = Pick<AvalaraAccount, 'id' | 'name'> & ResourceSort
 // export type AvalaraAccountFilter = Pick<AvalaraAccount, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Avalara account object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/avalara_accounts endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/avalara_accounts/object
+ */
 interface AvalaraAccount extends Resource {
   readonly type: AvalaraAccountType
 

@@ -51,6 +51,11 @@ export type PercentageDiscountPromotionSort = Pick<
   ResourceSort
 // export type PercentageDiscountPromotionFilter = Pick<PercentageDiscountPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Percentage discount promotion object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/percentage_discount_promotions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/percentage_discount_promotions/object
+ */
 interface PercentageDiscountPromotion extends Resource {
   readonly type: PercentageDiscountPromotionType
 

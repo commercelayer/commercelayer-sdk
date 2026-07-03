@@ -21,6 +21,11 @@ type SatispayPaymentRel = ResourceRel & { type: SatispayPaymentType }
 export type SatispayGatewaySort = Pick<SatispayGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type SatispayGatewayFilter = Pick<SatispayGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Satispay gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/satispay_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/satispay_gateways/object
+ */
 interface SatispayGateway extends Resource {
   readonly type: SatispayGatewayType
 

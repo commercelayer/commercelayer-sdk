@@ -28,6 +28,11 @@ export type StockLocationSort = Pick<StockLocation, 'id' | 'name' | 'code' | 'la
   ResourceSort
 // export type StockLocationFilter = Pick<StockLocation, 'id' | 'name' | 'code' | 'label_format' | 'suppress_etd'> & ResourceFilter
 
+/**
+ * The Stock location object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stock_locations endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/stock_locations/object
+ */
 interface StockLocation extends Resource {
   readonly type: StockLocationType
 

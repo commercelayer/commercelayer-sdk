@@ -19,6 +19,12 @@ type OrderValidationRuleRel = ResourceRel & { type: OrderValidationRuleType }
 export type OrderValidationRuleSort = Pick<OrderValidationRuleBase, 'id'> & ResourceSort
 // export type OrderValidationRuleFilter = Pick<OrderValidationRule, 'id'> & ResourceFilter
 
+/**
+ * The Order validation rule object is returned as part of the response body of each successful list or retrieve API call to the /api/order_validation_rules endpoint.
+ *
+ * @deprecated
+ * @link https://docs.commercelayer.io/core-api-reference/order_validation_rules/object
+ */
 type OrderValidationRule = BillingInfoValidationRule
 
 interface OrderValidationRuleBase extends Resource {

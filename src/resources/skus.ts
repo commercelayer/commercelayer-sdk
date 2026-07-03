@@ -35,6 +35,11 @@ type TagRel = ResourceRel & { type: TagType }
 export type SkuSort = Pick<Sku, 'id' | 'code' | 'name' | 'do_not_ship' | 'do_not_track'> & ResourceSort
 // export type SkuFilter = Pick<Sku, 'id' | 'code' | 'name' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track'> & ResourceFilter
 
+/**
+ * The SKU object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/skus endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/skus/object
+ */
 interface Sku extends Resource {
   readonly type: SkuType
 

@@ -46,6 +46,11 @@ export type ReturnSort = Pick<
   ResourceSort
 // export type ReturnFilter = Pick<Return, 'id' | 'number' | 'status' | 'skus_count' | 'approved_at' | 'cancelled_at' | 'shipped_at' | 'rejected_at' | 'received_at' | 'refunded_at' | 'archived_at'> & ResourceFilter
 
+/**
+ * The Return object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/returns endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/returns/object
+ */
 interface Return extends Resource {
   readonly type: ReturnType
 

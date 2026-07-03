@@ -20,6 +20,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type WireTransferSort = Pick<WireTransfer, 'id'> & ResourceSort
 // export type WireTransferFilter = Pick<WireTransfer, 'id'> & ResourceFilter
 
+/**
+ * The Wire transfer object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/wire_transfers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/wire_transfers/object
+ */
 interface WireTransfer extends Resource {
   readonly type: WireTransferType
 

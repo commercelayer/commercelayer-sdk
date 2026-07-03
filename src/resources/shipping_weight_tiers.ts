@@ -23,6 +23,11 @@ export type ShippingWeightTierSort = Pick<ShippingWeightTier, 'id' | 'name' | 'u
   ResourceSort
 // export type ShippingWeightTierFilter = Pick<ShippingWeightTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
+/**
+ * The Shipping weight tier object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/shipping_weight_tiers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/shipping_weight_tiers/object
+ */
 interface ShippingWeightTier extends Resource {
   readonly type: ShippingWeightTierType
 

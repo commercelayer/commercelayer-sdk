@@ -21,6 +21,11 @@ type GoogleGeocoderRel = ResourceRel & { type: GoogleGeocoderType }
 export type GoogleGeocoderSort = Pick<GoogleGeocoder, 'id' | 'name'> & ResourceSort
 // export type GoogleGeocoderFilter = Pick<GoogleGeocoder, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Google geocoder object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/google_geocoders endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/google_geocoders/object
+ */
 interface GoogleGeocoder extends Resource {
   readonly type: GoogleGeocoderType
 

@@ -25,6 +25,11 @@ type SkuRel = ResourceRel & { type: SkuType }
 export type InStockSubscriptionSort = Pick<InStockSubscription, 'id' | 'status' | 'stock_threshold'> & ResourceSort
 // export type InStockSubscriptionFilter = Pick<InStockSubscription, 'id' | 'status' | 'stock_threshold'> & ResourceFilter
 
+/**
+ * The In stock subscription object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/in_stock_subscriptions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/in_stock_subscriptions/object
+ */
 interface InStockSubscription extends Resource {
   readonly type: InStockSubscriptionType
 

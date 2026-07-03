@@ -22,6 +22,11 @@ type InventoryModelRel = ResourceRel & { type: InventoryModelType }
 export type InventoryReturnLocationSort = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceSort
 // export type InventoryReturnLocationFilter = Pick<InventoryReturnLocation, 'id' | 'priority'> & ResourceFilter
 
+/**
+ * The Inventory return location object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/inventory_return_locations endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/inventory_return_locations/object
+ */
 interface InventoryReturnLocation extends Resource {
   readonly type: InventoryReturnLocationType
 

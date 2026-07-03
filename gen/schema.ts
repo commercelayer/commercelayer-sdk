@@ -12,6 +12,8 @@ type ApiSchema = {
 type Resource = {
   components: ComponentMap
   operations: Record<string, Operation>
+  /** Raw CRUD actions from `attributes.actions`, used for the resource-level description. */
+  actions?: readonly ('list' | 'retrieve' | 'create' | 'update' | 'delete')[]
   deprecated?: boolean
   deprecatedSince?: string
   since?: string
@@ -783,6 +785,7 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
     resources[plural] = {
       components: sortObjectFields(resComponents),
       operations,
+      actions: res.attributes.actions,
       deprecated: classification === 'deprecated' ? true : undefined,
       // Only attach "Last available in API version X" when we actually know
       // the version (unified shape); legacy payloads carry no such info.

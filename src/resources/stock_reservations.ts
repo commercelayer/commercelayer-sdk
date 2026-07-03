@@ -26,6 +26,11 @@ type StockItemRel = ResourceRel & { type: StockItemType }
 export type StockReservationSort = Pick<StockReservation, 'id' | 'status' | 'quantity' | 'expires_at'> & ResourceSort
 // export type StockReservationFilter = Pick<StockReservation, 'id' | 'status' | 'quantity' | 'expires_at'> & ResourceFilter
 
+/**
+ * The Stock reservation object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stock_reservations endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/stock_reservations/object
+ */
 interface StockReservation extends Resource {
   readonly type: StockReservationType
 

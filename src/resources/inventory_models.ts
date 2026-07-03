@@ -25,6 +25,11 @@ export type InventoryModelSort = Pick<
   ResourceSort
 // export type InventoryModelFilter = Pick<InventoryModel, 'id' | 'name' | 'strategy' | 'stock_locations_cutoff' | 'stock_reservation_cutoff'> & ResourceFilter
 
+/**
+ * The Inventory model object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/inventory_models endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/inventory_models/object
+ */
 interface InventoryModel extends Resource {
   readonly type: InventoryModelType
 

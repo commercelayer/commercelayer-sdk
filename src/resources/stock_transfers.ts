@@ -41,6 +41,11 @@ export type StockTransferSort = Pick<
   ResourceSort
 // export type StockTransferFilter = Pick<StockTransfer, 'id' | 'number' | 'status' | 'quantity' | 'on_hold_at' | 'picking_at' | 'in_transit_at' | 'completed_at' | 'cancelled_at'> & ResourceFilter
 
+/**
+ * The Stock transfer object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stock_transfers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/stock_transfers/object
+ */
 interface StockTransfer extends Resource {
   readonly type: StockTransferType
 

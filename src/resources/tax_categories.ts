@@ -33,6 +33,11 @@ type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType 
 export type TaxCategorySort = Pick<TaxCategory, 'id' | 'code'> & ResourceSort
 // export type TaxCategoryFilter = Pick<TaxCategory, 'id' | 'code'> & ResourceFilter
 
+/**
+ * The Tax category object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/tax_categories endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/tax_categories/object
+ */
 interface TaxCategory extends Resource {
   readonly type: TaxCategoryType
 

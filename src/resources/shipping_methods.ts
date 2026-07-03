@@ -47,6 +47,11 @@ export type ShippingMethodSort = Pick<
   ResourceSort
 // export type ShippingMethodFilter = Pick<ShippingMethod, 'id' | 'name' | 'scheme' | 'currency_code' | 'price_amount_cents' | 'free_over_amount_cents' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
+/**
+ * The Shipping method object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/shipping_methods endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/shipping_methods/object
+ */
 interface ShippingMethod extends Resource {
   readonly type: ShippingMethodType
 

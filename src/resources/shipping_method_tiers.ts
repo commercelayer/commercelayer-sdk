@@ -20,6 +20,11 @@ export type ShippingMethodTierSort = Pick<ShippingMethodTierBase, 'id' | 'name' 
   ResourceSort
 // export type ShippingMethodTierFilter = Pick<ShippingMethodTier, 'id' | 'name' | 'up_to' | 'price_amount_cents'> & ResourceFilter
 
+/**
+ * The Shipping method tier object is returned as part of the response body of each successful list or retrieve API call to the /api/shipping_method_tiers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/shipping_method_tiers/object
+ */
 type ShippingMethodTier = ShippingWeightTier
 
 interface ShippingMethodTierBase extends Resource {

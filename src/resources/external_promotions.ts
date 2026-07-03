@@ -53,6 +53,11 @@ export type ExternalPromotionSort = Pick<
   ResourceSort
 // export type ExternalPromotionFilter = Pick<ExternalPromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
+/**
+ * The External promotion object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/external_promotions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/external_promotions/object
+ */
 interface ExternalPromotion extends Resource {
   readonly type: ExternalPromotionType
 

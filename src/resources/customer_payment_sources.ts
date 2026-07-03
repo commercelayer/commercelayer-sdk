@@ -42,6 +42,11 @@ type WireTransferRel = ResourceRel & { type: WireTransferType }
 export type CustomerPaymentSourceSort = Pick<CustomerPaymentSource, 'id'> & ResourceSort
 // export type CustomerPaymentSourceFilter = Pick<CustomerPaymentSource, 'id' | 'name' | 'payment_source_token'> & ResourceFilter
 
+/**
+ * The Customer payment source object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/customer_payment_sources endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/customer_payment_sources/object
+ */
 interface CustomerPaymentSource extends Resource {
   readonly type: CustomerPaymentSourceType
 

@@ -27,6 +27,11 @@ export type PriceListSchedulerSort = Pick<
   ResourceSort
 // export type PriceListSchedulerFilter = Pick<PriceListScheduler, 'id' | 'name' | 'starts_at' | 'expires_at' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Price list scheduler object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/price_list_schedulers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/price_list_schedulers/object
+ */
 interface PriceListScheduler extends Resource {
   readonly type: PriceListSchedulerType
 

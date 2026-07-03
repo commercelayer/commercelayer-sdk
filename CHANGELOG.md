@@ -1,3 +1,10 @@
+## [8.0.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.8...v8.0.0-beta.9) (2026-07-03)
+
+### Bug Fixes
+
+* add concrete children to STI parent ([c55a136](https://github.com/commercelayer/commercelayer-sdk/commit/c55a136ad525a97a9088a4fcdc901aa117bdffbc))
+* add concrete children to STI parent ([#372](https://github.com/commercelayer/commercelayer-sdk/issues/372)) ([b8362d9](https://github.com/commercelayer/commercelayer-sdk/commit/b8362d9f12ac4980d987abf0fa9823f6bb901430))
+
 ## [8.0.0-beta.8](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.7...v8.0.0-beta.8) (2026-07-02)
 
 ### Features

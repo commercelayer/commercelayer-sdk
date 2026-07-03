@@ -21,6 +21,11 @@ type OrderRel = ResourceRel & { type: OrderType }
 export type AdyenPaymentSort = Pick<AdyenPayment, 'id'> & ResourceSort
 // export type AdyenPaymentFilter = Pick<AdyenPayment, 'id'> & ResourceFilter
 
+/**
+ * The Adyen payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/adyen_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/adyen_payments/object
+ */
 interface AdyenPayment extends Resource {
   readonly type: AdyenPaymentType
 

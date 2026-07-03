@@ -21,6 +21,12 @@ type ShipmentLineItemRel = ResourceRel & { type: ShipmentLineItemType }
 export type ShipmentLineItemSort = Pick<ShipmentLineItem, 'id' | 'quantity'> & ResourceSort
 // export type ShipmentLineItemFilter = Pick<ShipmentLineItem, 'id' | 'sku_code' | 'quantity'> & ResourceFilter
 
+/**
+ * The Shipment line item object is returned as part of the response body of each successful list or retrieve API call to the /api/shipment_line_items endpoint.
+ *
+ * @deprecated
+ * @link https://docs.commercelayer.io/core-api-reference/shipment_line_items/object
+ */
 interface ShipmentLineItem extends Resource {
   readonly type: ShipmentLineItemType
 

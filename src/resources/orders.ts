@@ -116,6 +116,11 @@ export type OrderSort = Pick<
   ResourceSort
 // export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'payment_source_details' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'expires_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
+/**
+ * The Order object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/orders endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/orders/object
+ */
 interface Order extends Resource {
   readonly type: OrderType
 

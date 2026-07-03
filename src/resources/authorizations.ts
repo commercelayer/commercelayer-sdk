@@ -32,6 +32,11 @@ type AuthorizationRel = ResourceRel & { type: AuthorizationType }
 export type AuthorizationSort = Pick<Authorization, 'id' | 'number' | 'amount_cents'> & ResourceSort
 // export type AuthorizationFilter = Pick<Authorization, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
+/**
+ * The Authorization object is returned as part of the response body of each successful list, retrieve or update API call to the /api/authorizations endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/authorizations/object
+ */
 interface Authorization extends Resource {
   readonly type: AuthorizationType
 

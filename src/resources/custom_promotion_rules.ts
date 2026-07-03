@@ -34,6 +34,11 @@ type FlexPromotionRel = ResourceRel & { type: FlexPromotionType }
 export type CustomPromotionRuleSort = Pick<CustomPromotionRule, 'id'> & ResourceSort
 // export type CustomPromotionRuleFilter = Pick<CustomPromotionRule, 'id'> & ResourceFilter
 
+/**
+ * The Custom promotion rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/custom_promotion_rules endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/custom_promotion_rules/object
+ */
 interface CustomPromotionRule extends Resource {
   readonly type: CustomPromotionRuleType
 

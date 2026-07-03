@@ -58,6 +58,11 @@ export type PromotionSort = Pick<
   ResourceSort
 // export type PromotionFilter = Pick<Promotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Promotion object is returned as part of the response body of each successful list or retrieve API call to the /api/promotions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/promotions/object
+ */
 type Promotion =
   | BuyXPayYPromotion
   | ExternalPromotion

@@ -33,6 +33,11 @@ type TransactionRel = ResourceRel & { type: TransactionType }
 export type TransactionSort = Pick<TransactionBase, 'id' | 'number' | 'amount_cents'> & ResourceSort
 // export type TransactionFilter = Pick<Transaction, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
+/**
+ * The Transaction object is returned as part of the response body of each successful list or retrieve API call to the /api/transactions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/transactions/object
+ */
 type Transaction = Authorization | Capture | Refund | Void
 
 interface TransactionBase extends Resource {

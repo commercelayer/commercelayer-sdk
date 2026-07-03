@@ -21,6 +21,11 @@ type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 export type AdyenGatewaySort = Pick<AdyenGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type AdyenGatewayFilter = Pick<AdyenGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Adyen gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/adyen_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/adyen_gateways/object
+ */
 interface AdyenGateway extends Resource {
   readonly type: AdyenGatewayType
 

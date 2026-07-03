@@ -34,6 +34,11 @@ export type CustomerSort = Pick<Customer, 'id' | 'email' | 'status' | 'total_ord
   ResourceSort
 // export type CustomerFilter = Pick<Customer, 'id' | 'email' | 'status' | 'total_orders_count' | 'anonymization_status'> & ResourceFilter
 
+/**
+ * The Customer object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/customers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/customers/object
+ */
 interface Customer extends Resource {
   readonly type: CustomerType
 

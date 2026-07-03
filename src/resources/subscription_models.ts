@@ -21,6 +21,11 @@ type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
 export type SubscriptionModelSort = Pick<SubscriptionModel, 'id' | 'name' | 'strategy'> & ResourceSort
 // export type SubscriptionModelFilter = Pick<SubscriptionModel, 'id' | 'name' | 'strategy' | 'auto_activate' | 'auto_cancel'> & ResourceFilter
 
+/**
+ * The Subscription model object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/subscription_models endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/subscription_models/object
+ */
 interface SubscriptionModel extends Resource {
   readonly type: SubscriptionModelType
 

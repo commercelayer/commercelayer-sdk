@@ -96,6 +96,11 @@ type ShippingZoneRel = ResourceRel & { type: ShippingZoneType }
 export type AttachmentSort = Pick<Attachment, 'id' | 'name'> & ResourceSort
 // export type AttachmentFilter = Pick<Attachment, 'id' | 'name' | 'description'> & ResourceFilter
 
+/**
+ * The Attachment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/attachments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/attachments/object
+ */
 interface Attachment extends Resource {
   readonly type: AttachmentType
 

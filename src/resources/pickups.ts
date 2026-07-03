@@ -20,6 +20,11 @@ type PickupRel = ResourceRel & { type: PickupType }
 export type PickupSort = Pick<PickupBase, 'id' | 'status'> & ResourceSort
 // export type PickupFilter = Pick<Pickup, 'id' | 'status'> & ResourceFilter
 
+/**
+ * The Pickup object is returned as part of the response body of each successful list or retrieve API call to the /api/pickups endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/pickups/object
+ */
 type Pickup = EasypostPickup
 
 interface PickupBase extends Resource {

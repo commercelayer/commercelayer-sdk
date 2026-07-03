@@ -21,6 +21,11 @@ type CustomerRel = ResourceRel & { type: CustomerType }
 export type GiftCardRecipientSort = Pick<GiftCardRecipient, 'id' | 'email'> & ResourceSort
 // export type GiftCardRecipientFilter = Pick<GiftCardRecipient, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceFilter
 
+/**
+ * The Gift card recipient object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/gift_card_recipients endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/gift_card_recipients/object
+ */
 interface GiftCardRecipient extends Resource {
   readonly type: GiftCardRecipientType
 

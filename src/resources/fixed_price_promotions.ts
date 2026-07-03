@@ -51,6 +51,11 @@ export type FixedPricePromotionSort = Pick<
   ResourceSort
 // export type FixedPricePromotionFilter = Pick<FixedPricePromotion, 'id' | 'name' | 'currency_code' | 'exclusive' | 'priority' | 'starts_at' | 'expires_at' | 'total_usage_limit' | 'total_usage_count' | 'total_usage_reached' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Fixed price promotion object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/fixed_price_promotions endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/fixed_price_promotions/object
+ */
 interface FixedPricePromotion extends Resource {
   readonly type: FixedPricePromotionType
 

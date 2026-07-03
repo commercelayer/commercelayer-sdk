@@ -19,6 +19,11 @@ type DiscountEngineItemRel = ResourceRel & { type: DiscountEngineItemType }
 export type DiscountEngineItemSort = Pick<DiscountEngineItem, 'id'> & ResourceSort
 // export type DiscountEngineItemFilter = Pick<DiscountEngineItem, 'id' | 'body'> & ResourceFilter
 
+/**
+ * The Discount engine item object is returned as part of the response body of each successful list or retrieve API call to the /api/discount_engine_items endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/discount_engine_items/object
+ */
 interface DiscountEngineItem extends Resource {
   readonly type: DiscountEngineItemType
 

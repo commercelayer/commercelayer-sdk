@@ -75,6 +75,11 @@ export type LineItemSort = Pick<
   ResourceSort
 // export type LineItemFilter = Pick<LineItem, 'id' | 'sku_code' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'compare_at_amount_cents' | 'options_amount_cents' | 'discount_cents' | 'total_amount_cents' | 'tax_amount_cents' | 'name' | 'image_url' | 'item_type' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
+/**
+ * The Line item object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/line_items endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/line_items/object
+ */
 interface LineItem extends Resource {
   readonly type: LineItemType
 

@@ -23,6 +23,11 @@ export type ReturnLineItemSort = Pick<ReturnLineItem, 'id' | 'quantity' | 'total
   ResourceSort
 // export type ReturnLineItemFilter = Pick<ReturnLineItem, 'id' | 'quantity' | 'total_amount_cents' | 'return_reason' | 'restocked_at'> & ResourceFilter
 
+/**
+ * The Return line item object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/return_line_items endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/return_line_items/object
+ */
 interface ReturnLineItem extends Resource {
   readonly type: ReturnLineItemType
 

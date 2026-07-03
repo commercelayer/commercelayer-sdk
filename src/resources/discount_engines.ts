@@ -20,6 +20,11 @@ type DiscountEngineRel = ResourceRel & { type: DiscountEngineType }
 export type DiscountEngineSort = Pick<DiscountEngineBase, 'id' | 'name'> & ResourceSort
 // export type DiscountEngineFilter = Pick<DiscountEngine, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Discount engine object is returned as part of the response body of each successful list or retrieve API call to the /api/discount_engines endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/discount_engines/object
+ */
 type DiscountEngine = TalonOneAccount
 
 interface DiscountEngineBase extends Resource {

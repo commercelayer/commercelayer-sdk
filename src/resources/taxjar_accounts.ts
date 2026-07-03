@@ -23,6 +23,11 @@ type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 export type TaxjarAccountSort = Pick<TaxjarAccount, 'id' | 'name'> & ResourceSort
 // export type TaxjarAccountFilter = Pick<TaxjarAccount, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Taxjar account object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/taxjar_accounts endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/taxjar_accounts/object
+ */
 interface TaxjarAccount extends Resource {
   readonly type: TaxjarAccountType
 

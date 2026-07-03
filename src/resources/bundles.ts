@@ -31,6 +31,11 @@ export type BundleSort = Pick<
   ResourceSort
 // export type BundleFilter = Pick<Bundle, 'id' | 'code' | 'name' | 'currency_code' | 'description' | 'image_url' | 'do_not_ship' | 'do_not_track' | 'price_amount_cents' | 'compare_at_amount_cents'> & ResourceFilter
 
+/**
+ * The Bundle object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/bundles endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/bundles/object
+ */
 interface Bundle extends Resource {
   readonly type: BundleType
 

@@ -36,6 +36,11 @@ export type ImportSort = Pick<
   ResourceSort
 // export type ImportFilter = Pick<Import, 'id' | 'resource_type' | 'format' | 'parent_resource_id' | 'status' | 'started_at' | 'completed_at' | 'interrupted_at' | 'inputs_size' | 'errors_count' | 'warnings_count' | 'destroyed_count' | 'processed_count' | 'errors_log' | 'warnings_log' | 'attachment_url'> & ResourceFilter
 
+/**
+ * The Import object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/imports endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/imports/object
+ */
 interface Import extends Resource {
   readonly type: ImportType
 

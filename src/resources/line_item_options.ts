@@ -29,6 +29,11 @@ export type LineItemOptionSort = Pick<
   ResourceSort
 // export type LineItemOptionFilter = Pick<LineItemOption, 'id' | 'name' | 'quantity' | 'currency_code' | 'unit_amount_cents' | 'delay_hours' | 'delay_days'> & ResourceFilter
 
+/**
+ * The Line item option object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/line_item_options endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/line_item_options/object
+ */
 interface LineItemOption extends Resource {
   readonly type: LineItemOptionType
 

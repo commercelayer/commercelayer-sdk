@@ -19,6 +19,11 @@ type AdjustmentRel = ResourceRel & { type: AdjustmentType }
 export type AdjustmentSort = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceSort
 // export type AdjustmentFilter = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceFilter
 
+/**
+ * The Adjustment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/adjustments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/adjustments/object
+ */
 interface Adjustment extends Resource {
   readonly type: AdjustmentType
 

@@ -33,6 +33,11 @@ type CaptureRel = ResourceRel & { type: CaptureType }
 export type CaptureSort = Pick<Capture, 'id' | 'number' | 'amount_cents'> & ResourceSort
 // export type CaptureFilter = Pick<Capture, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
+/**
+ * The Capture object is returned as part of the response body of each successful list, retrieve or update API call to the /api/captures endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/captures/object
+ */
 interface Capture extends Resource {
   readonly type: CaptureType
 

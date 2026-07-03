@@ -20,6 +20,11 @@ type StripeGatewayRel = ResourceRel & { type: StripeGatewayType }
 export type StripeGatewaySort = Pick<StripeGateway, 'id' | 'name' | 'disabled_at'> & ResourceSort
 // export type StripeGatewayFilter = Pick<StripeGateway, 'id' | 'name' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Stripe gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stripe_gateways endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/stripe_gateways/object
+ */
 interface StripeGateway extends Resource {
   readonly type: StripeGatewayType
 

@@ -25,6 +25,11 @@ export type ExternalTaxCalculatorSort = Pick<
   ResourceSort
 // export type ExternalTaxCalculatorFilter = Pick<ExternalTaxCalculator, 'id' | 'name' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
+/**
+ * The External tax calculator object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/external_tax_calculators endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/external_tax_calculators/object
+ */
 interface ExternalTaxCalculator extends Resource {
   readonly type: ExternalTaxCalculatorType
 

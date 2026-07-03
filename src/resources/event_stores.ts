@@ -7,6 +7,11 @@ type EventStoreRel = ResourceRel & { type: EventStoreType }
 export type EventStoreSort = Pick<EventStore, 'id'> & ResourceSort
 // export type EventStoreFilter = Pick<EventStore, 'id'> & ResourceFilter
 
+/**
+ * The Event store object is returned as part of the response body of each successful retrieve API call to the /api/event_stores endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/event_stores/object
+ */
 interface EventStore extends Resource {
   readonly type: EventStoreType
 

@@ -17,6 +17,11 @@ type OrganizationRel = ResourceRel & { type: OrganizationType }
 export type OrganizationSort = Pick<Organization, 'id'> & ResourceSort
 // export type OrganizationFilter = Pick<Organization, 'id'> & ResourceFilter
 
+/**
+ * The Organization object is returned as part of the response body of each successful retrieve API call to the /api/organization endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/organizations/object
+ */
 interface Organization extends Resource {
   readonly type: OrganizationType
 

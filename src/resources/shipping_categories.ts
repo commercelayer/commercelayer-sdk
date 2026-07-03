@@ -20,6 +20,11 @@ type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
 export type ShippingCategorySort = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceSort
 // export type ShippingCategoryFilter = Pick<ShippingCategory, 'id' | 'name' | 'code'> & ResourceFilter
 
+/**
+ * The Shipping category object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/shipping_categories endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/shipping_categories/object
+ */
 interface ShippingCategory extends Resource {
   readonly type: ShippingCategoryType
 

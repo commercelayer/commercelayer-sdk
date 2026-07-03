@@ -19,6 +19,11 @@ type TagRel = ResourceRel & { type: TagType }
 export type TagSort = Pick<Tag, 'id' | 'name'> & ResourceSort
 // export type TagFilter = Pick<Tag, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Tag object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/tags endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/tags/object
+ */
 interface Tag extends Resource {
   readonly type: TagType
 

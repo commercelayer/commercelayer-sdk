@@ -21,6 +21,11 @@ type BingGeocoderRel = ResourceRel & { type: BingGeocoderType }
 export type BingGeocoderSort = Pick<BingGeocoder, 'id' | 'name'> & ResourceSort
 // export type BingGeocoderFilter = Pick<BingGeocoder, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Bing geocoder object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/bing_geocoders endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/bing_geocoders/object
+ */
 interface BingGeocoder extends Resource {
   readonly type: BingGeocoderType
 

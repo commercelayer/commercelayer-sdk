@@ -21,6 +21,11 @@ type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 export type CustomerGroupSort = Pick<CustomerGroup, 'id' | 'name' | 'code'> & ResourceSort
 // export type CustomerGroupFilter = Pick<CustomerGroup, 'id' | 'name' | 'code'> & ResourceFilter
 
+/**
+ * The Customer group object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/customer_groups endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/customer_groups/object
+ */
 interface CustomerGroup extends Resource {
   readonly type: CustomerGroupType
 

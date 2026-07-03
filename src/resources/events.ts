@@ -19,6 +19,11 @@ type EventRel = ResourceRel & { type: EventType }
 export type EventSort = Pick<Event, 'id' | 'name'> & ResourceSort
 // export type EventFilter = Pick<Event, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Event object is returned as part of the response body of each successful list, retrieve or update API call to the /api/events endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/events/object
+ */
 interface Event extends Resource {
   readonly type: EventType
 

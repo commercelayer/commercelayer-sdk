@@ -21,6 +21,11 @@ type PriceListRel = ResourceRel & { type: PriceListType }
 export type PriceListSort = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included'> & ResourceSort
 // export type PriceListFilter = Pick<PriceList, 'id' | 'name' | 'code' | 'currency_code' | 'tax_included' | 'rules'> & ResourceFilter
 
+/**
+ * The Price list object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/price_lists endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/price_lists/object
+ */
 interface PriceList extends Resource {
   readonly type: PriceListType
 

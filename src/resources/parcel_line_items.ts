@@ -24,6 +24,11 @@ type ShipmentLineItemRel = ResourceRel & { type: ShipmentLineItemType }
 export type ParcelLineItemSort = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceSort
 // export type ParcelLineItemFilter = Pick<ParcelLineItem, 'id' | 'quantity'> & ResourceFilter
 
+/**
+ * The Parcel line item object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/parcel_line_items endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/parcel_line_items/object
+ */
 interface ParcelLineItem extends Resource {
   readonly type: ParcelLineItemType
 

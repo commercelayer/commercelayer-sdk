@@ -21,6 +21,11 @@ type VertexAccountRel = ResourceRel & { type: VertexAccountType }
 export type VertexAccountSort = Pick<VertexAccount, 'id' | 'name'> & ResourceSort
 // export type VertexAccountFilter = Pick<VertexAccount, 'id' | 'name'> & ResourceFilter
 
+/**
+ * The Vertex account object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/vertex_accounts endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/vertex_accounts/object
+ */
 interface VertexAccount extends Resource {
   readonly type: VertexAccountType
 

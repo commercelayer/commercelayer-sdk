@@ -19,6 +19,11 @@ type ResourceErrorRel = ResourceRel & { type: ResourceErrorType }
 export type ResourceErrorSort = Pick<ResourceError, 'id' | 'name' | 'code'> & ResourceSort
 // export type ResourceErrorFilter = Pick<ResourceError, 'id' | 'name' | 'code' | 'message'> & ResourceFilter
 
+/**
+ * The Resource error object is returned as part of the response body of each successful list or retrieve API call to the /api/resource_errors endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/resource_errors/object
+ */
 interface ResourceError extends Resource {
   readonly type: ResourceErrorType
 

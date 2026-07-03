@@ -26,6 +26,11 @@ export type LinkSort = Pick<Link, 'id' | 'name' | 'starts_at' | 'expires_at' | '
   ResourceSort
 // export type LinkFilter = Pick<Link, 'id' | 'name' | 'client_id' | 'scope' | 'starts_at' | 'expires_at' | 'item_type' | 'params' | 'disabled_at'> & ResourceFilter
 
+/**
+ * The Link object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/links endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/links/object
+ */
 interface Link extends Resource {
   readonly type: LinkType
 

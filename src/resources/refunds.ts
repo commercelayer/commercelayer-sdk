@@ -32,6 +32,11 @@ type RefundRel = ResourceRel & { type: RefundType }
 export type RefundSort = Pick<Refund, 'id' | 'number' | 'amount_cents'> & ResourceSort
 // export type RefundFilter = Pick<Refund, 'id' | 'number' | 'currency_code' | 'amount_cents' | 'succeeded' | 'message' | 'error_code' | 'error_detail' | 'token' | 'gateway_transaction_id'> & ResourceFilter
 
+/**
+ * The Refund object is returned as part of the response body of each successful list, retrieve or update API call to the /api/refunds endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/refunds/object
+ */
 interface Refund extends Resource {
   readonly type: RefundType
 

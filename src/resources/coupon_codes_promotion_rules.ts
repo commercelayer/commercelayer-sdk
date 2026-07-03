@@ -36,6 +36,11 @@ type CouponRel = ResourceRel & { type: CouponType }
 export type CouponCodesPromotionRuleSort = Pick<CouponCodesPromotionRule, 'id'> & ResourceSort
 // export type CouponCodesPromotionRuleFilter = Pick<CouponCodesPromotionRule, 'id'> & ResourceFilter
 
+/**
+ * The Coupon codes promotion rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/coupon_codes_promotion_rules endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/coupon_codes_promotion_rules/object
+ */
 interface CouponCodesPromotionRule extends Resource {
   readonly type: CouponCodesPromotionRuleType
 
