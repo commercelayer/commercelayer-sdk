@@ -1,3 +1,10 @@
+## [7.12.1](https://github.com/commercelayer/commercelayer-sdk/compare/v7.12.0...v7.12.1) (2026-07-17)
+
+### Bug Fixes
+
+* isolate client config between multiple instances ([8e6389e](https://github.com/commercelayer/commercelayer-sdk/commit/8e6389ef9515d415069877cafc325a1c00dca8f0))
+* update packages ([f55bc4c](https://github.com/commercelayer/commercelayer-sdk/commit/f55bc4c948e1000c7717a86c49f15d047887ddff))
+
 ## [7.12.0](https://github.com/commercelayer/commercelayer-sdk/compare/v7.11.0...v7.12.0) (2026-07-01)
 
 ### Features
