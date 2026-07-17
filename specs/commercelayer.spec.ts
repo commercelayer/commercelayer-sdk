@@ -1,15 +1,15 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 import {
   CommerceLayer,
-  type CommerceLayerClient,
   type CommerceLayerInitConfig,
+  type CommerceLayerSingleClient,
   CommerceLayerStatic,
   customers,
 } from '../src/single-client'
 import { getClient, IS_UNIFIED_BUILD, organization } from '../test/common'
 import getAccessToken from '../test/token'
 
-let cl: CommerceLayerClient
+let cl: CommerceLayerSingleClient
 
 beforeAll(async () => {
   cl = await getClient()

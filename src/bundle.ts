@@ -1,11 +1,11 @@
 import * as api from './api'
-import { CommerceLayerClient, type CommerceLayerInitConfig } from './commercelayer'
+import { type CommerceLayerInitConfig, CommerceLayerSingleClient } from './commercelayer'
 import Debug from './debug'
 import type { ResourceAdapter } from './resource'
 
 const debug = Debug('bundle')
 
-class CommerceLayerBundle extends CommerceLayerClient {
+class CommerceLayerClient extends CommerceLayerSingleClient {
   // ##__CL_RESOURCES_DEF_START__##
   // ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
   #addresses?: api.Addresses
@@ -153,10 +153,10 @@ class CommerceLayerBundle extends CommerceLayerClient {
     // ##__CL_RESOURCES_INIT_STOP__##
   }
 
-  static get(config?: CommerceLayerInitConfig): CommerceLayerBundle {
-    if (config) return (CommerceLayerBundle.cl = new CommerceLayerBundle(config))
-    else if (!CommerceLayerBundle.cl) throw new Error('CommerceLayer bundle client not initialized')
-    return CommerceLayerBundle.cl as CommerceLayerBundle
+  static get(config?: CommerceLayerInitConfig): CommerceLayerClient {
+    if (config) return (CommerceLayerClient.cl = new CommerceLayerClient(config))
+    else if (!CommerceLayerClient.cl) throw new Error('CommerceLayer bundle client not initialized')
+    return CommerceLayerClient.cl as CommerceLayerClient
   }
 
   // Bundle clients are isolated: route this instance's requests, config and
@@ -658,9 +658,15 @@ class CommerceLayerBundle extends CommerceLayerClient {
   // ##__CL_RESOURCES_ACCESSORS_ONLY_STOP__##
 }
 
-function CommerceLayer(config: CommerceLayerInitConfig): CommerceLayerBundle {
-  return CommerceLayerBundle.get(config)
+function CommerceLayer(config: CommerceLayerInitConfig): CommerceLayerClient {
+  return CommerceLayerClient.get(config)
 }
 
+/**
+ * @deprecated Renamed to `CommerceLayerClient`. This alias is kept for
+ * backwards compatibility and will be removed in a future major.
+ */
+type CommerceLayerBundle = CommerceLayerClient
+
 export default CommerceLayer
-export { CommerceLayer, type CommerceLayerBundle }
+export { CommerceLayer, type CommerceLayerBundle, type CommerceLayerClient }

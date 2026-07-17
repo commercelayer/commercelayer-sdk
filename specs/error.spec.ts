@@ -1,11 +1,11 @@
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import { ErrorType } from '../src/error'
-import { type CommerceLayerClient, customers, type ErrorObj } from '../src/single-client'
+import { type CommerceLayerSingleClient, customers, type ErrorObj } from '../src/single-client'
 import { getClient, IS_UNIFIED_BUILD } from '../test/common'
 
 // import { DBG } from '../src/common'
 
-let cl: CommerceLayerClient
+let cl: CommerceLayerSingleClient
 
 beforeAll(async () => {
   cl = await getClient({})

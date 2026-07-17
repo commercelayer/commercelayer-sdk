@@ -2,11 +2,13 @@
 // isolated per client). For the lightweight, tree-shakeable single-client
 // model (direct resource imports, one global token) use
 // `@commercelayer/sdk/single-client`.
-import { CommerceLayer, type CommerceLayerBundle } from './bundle'
+import { CommerceLayer, type CommerceLayerBundle, type CommerceLayerClient } from './bundle'
 
 export { SDK_VERSION } from './commercelayer'
 // Preferred: the named export. Clean, and the form we're standardising on.
-export { CommerceLayer, type CommerceLayerBundle }
+// `CommerceLayerClient` is the bundled client type (sdk6 naming);
+// `CommerceLayerBundle` is a deprecated alias kept for backwards compatibility.
+export { CommerceLayer, type CommerceLayerBundle, type CommerceLayerClient }
 
 /**
  * @deprecated Use the named import instead:
@@ -22,7 +24,7 @@ export { CommerceLayerStatic } from './static'
 /** ** TYPES ** **/
 
 // Commerce Layer client type
-export type { CommerceLayerClient, CommerceLayerConfig, CommerceLayerInitConfig } from './commercelayer'
+export type { CommerceLayerConfig, CommerceLayerInitConfig } from './commercelayer'
 // Resource API types
 export type {
   CreatableResource,

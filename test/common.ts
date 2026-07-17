@@ -3,8 +3,8 @@ import dotenv from 'dotenv'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
 import {
   CommerceLayer,
-  type CommerceLayerClient,
   type CommerceLayerConfig,
+  type CommerceLayerSingleClient,
   type QueryParamsList,
   type QueryParamsRetrieve,
   type RequestObj,
@@ -67,7 +67,7 @@ export const CommonData = {
 
 let currentAccessToken: string
 
-const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerClient> => {
+const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerSingleClient> => {
   let accessToken: string
   if (config.accessToken) accessToken = config.accessToken
   else {
@@ -87,14 +87,14 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerCli
   return client
 }
 
-const fakeClient = async (): Promise<CommerceLayerClient> => {
+const fakeClient = async (): Promise<CommerceLayerSingleClient> => {
   const accessToken = 'fake-access-token'
   const client = CommerceLayer({ organization, accessToken, domain })
   currentAccessToken = accessToken
   return client
 }
 
-const getClient = (config?: CommerceLayerConfig): Promise<CommerceLayerClient> => {
+const getClient = (config?: CommerceLayerConfig): Promise<CommerceLayerSingleClient> => {
   return config ? initClient(config) : fakeClient()
 }
 

@@ -9,7 +9,7 @@ import { beforeAll, describe, expect, test } from 'vitest'
 import {
   type AvalaraAccount,
   avalara_accounts,
-  type CommerceLayerClient,
+  type CommerceLayerSingleClient,
   tax_categories,
 } from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,7 +27,7 @@ import {
   TestData,
 } from '../../test/common'
 
-let cl: CommerceLayerClient
+let cl: CommerceLayerSingleClient
 
 beforeAll(async () => {
   cl = await getClient()

@@ -1,9 +1,9 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
-import { type CommerceLayerClient, CommerceLayerStatic } from '../src/single-client'
+import { type CommerceLayerSingleClient, CommerceLayerStatic } from '../src/single-client'
 import { getClient } from '../test/common'
 
-let cl: CommerceLayerClient
+let cl: CommerceLayerSingleClient
 
 beforeAll(async () => {
   cl = await getClient()
