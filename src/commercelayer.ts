@@ -6,7 +6,7 @@ import Debug from './debug'
 import { getResources } from './enum'
 import { type ApiError, isApiError } from './error'
 import type { ErrorInterceptor, HeadersObj, InterceptorManager, InterceptorType, RawResponseReader, RequestInterceptor, ResponseInterceptor, ResponseObj } from './interceptor'
-import { ApiResourceAdapter, type ResourcesInitConfig } from './resource'
+import { ApiResourceAdapter, type ResourceAdapter, type ResourcesInitConfig } from './resource'
 
 const debug = Debug('commercelayer')
 
@@ -32,6 +32,12 @@ class CommerceLayerClient {
 
 	protected static cl: CommerceLayerClient
 
+	// The ResourceAdapter created for this specific client instance. Every
+	// `CommerceLayer(config)` call builds a fresh adapter (its own ApiClient
+	// with its own access token). The bundle client reads this so two clients
+	// stay isolated; see the `adapter` seam below.
+	protected readonly instanceAdapter: ResourceAdapter
+
 	// ##__CL_RESOURCES_DEF_START__##
 	// ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
 
@@ -50,7 +56,11 @@ class CommerceLayerClient {
 
 		debug('new commercelayer instance %O', config)
 
-		ApiResourceAdapter.init(config)
+		// `init` builds a new adapter AND sets the process-global static one.
+		// We keep the return value so the bundle can bind resources to this
+		// exact adapter; the static assignment stays for the plain SDK, whose
+		// directly-imported resource singletons resolve through it.
+		this.instanceAdapter = ApiResourceAdapter.init(config)
 
 		// ##__CL_RESOURCES_INIT_START__##
 		// ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
@@ -63,10 +73,14 @@ class CommerceLayerClient {
 
 	// ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
 
-	// private get adapter(): ResourceAdapter { return ApiResourceAdapter.get() }
-	get currentOrganization(): string { return ApiResourceAdapter.get().client?.currentOrganization }
-	get currentAccessToken(): string { return ApiResourceAdapter.get().client?.currentAccessToken }
-	private get interceptors(): InterceptorManager { return ApiResourceAdapter.get().client?.interceptors }
+	// Adapter seam. The base (plain SDK) reports the process-global static
+	// adapter so `config()` and the getters below stay in sync with the
+	// directly-imported resource singletons — unchanged behaviour. The bundle
+	// overrides this to return its own `instanceAdapter`, isolating clients.
+	protected get adapter(): ResourceAdapter { return ApiResourceAdapter.get() }
+	get currentOrganization(): string { return this.adapter.client?.currentOrganization }
+	get currentAccessToken(): string { return this.adapter.client?.currentAccessToken }
+	private get interceptors(): InterceptorManager { return this.adapter.client?.interceptors }
 
 
 	private localConfig(_config: Partial<SdkConfig>): void {
@@ -81,7 +95,7 @@ class CommerceLayerClient {
 		// CommerceLayer config
 		this.localConfig(config)
 		// ResourceAdapter config
-		ApiResourceAdapter.config(config)
+		this.adapter.config(config)
 
 		return this
 
