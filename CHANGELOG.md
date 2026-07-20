@@ -1,3 +1,13 @@
+## [8.0.0-beta.10](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.9...v8.0.0-beta.10) (2026-07-20)
+
+### Features
+
+* add resources description and link to the documentation ([85a3e44](https://github.com/commercelayer/commercelayer-sdk/commit/85a3e442cb49393b073419ed373edc5444edeae0))
+
+### Bug Fixes
+
+* rename `CommerceLayerBundle` to `CommerceLayerClient` ([775c6f4](https://github.com/commercelayer/commercelayer-sdk/commit/775c6f41790a9685f26797122ee05188d1dc50fc))
+
 ## [8.0.0-beta.9](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.8...v8.0.0-beta.9) (2026-07-03)
 
 ### Bug Fixes
