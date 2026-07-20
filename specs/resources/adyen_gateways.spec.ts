@@ -6,7 +6,12 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { type AdyenGateway, adyen_gateways, adyen_payments, type CommerceLayerClient } from '../../src/single-client'
+import {
+  type AdyenGateway,
+  adyen_gateways,
+  adyen_payments,
+  type CommerceLayerSingleClient,
+} from '../../src/single-client'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,
@@ -22,7 +27,7 @@ import {
   TestData,
 } from '../../test/common'
 
-let cl: CommerceLayerClient
+let cl: CommerceLayerSingleClient
 
 beforeAll(async () => {
   cl = await getClient()

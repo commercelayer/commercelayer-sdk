@@ -21,8 +21,10 @@ export { CommerceLayerStatic } from './static'
 
 /** ** TYPES ** **/
 
-// Commerce Layer client type
-export type { CommerceLayerClient, CommerceLayerConfig, CommerceLayerInitConfig } from './commercelayer'
+// Commerce Layer client type — the single-token client (no resource
+// accessors; import resources directly). Named distinctly from the bundle's
+// `CommerceLayerClient`.
+export type { CommerceLayerConfig, CommerceLayerInitConfig, CommerceLayerSingleClient } from './commercelayer'
 // Resource API types
 export type {
   CreatableResource,

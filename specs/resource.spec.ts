@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, test } from 'vitest'
 import {
   application,
-  type CommerceLayerClient,
+  type CommerceLayerSingleClient,
   type Customer,
   customers,
   type ListResponse,
@@ -9,7 +9,7 @@ import {
 } from '../src/single-client'
 import { getClient, IS_UNIFIED_BUILD } from '../test/common'
 
-let cl: CommerceLayerClient
+let cl: CommerceLayerSingleClient
 let customerList: ListResponse<Customer>
 let tempId: string
 

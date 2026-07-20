@@ -9,7 +9,7 @@ import { beforeAll, describe, expect, test } from 'vitest'
 import {
   adjustments,
   bundles,
-  type CommerceLayerClient,
+  type CommerceLayerSingleClient,
   type OrderSubscriptionItem,
   order_subscription_items,
   order_subscriptions,
@@ -30,7 +30,7 @@ import {
   TestData,
 } from '../../test/common'
 
-let cl: CommerceLayerClient
+let cl: CommerceLayerSingleClient
 
 beforeAll(async () => {
   cl = await getClient()

@@ -28,20 +28,20 @@ type SdkConfig = {
 type CommerceLayerInitConfig = SdkConfig & ResourcesInitConfig
 type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
 
-class CommerceLayerClient {
+class CommerceLayerSingleClient {
   readonly apiSchemaVersion = API_SCHEMA_VERSION
 
-  protected static cl: CommerceLayerClient
+  protected static cl: CommerceLayerSingleClient
 
   // ##__CL_RESOURCES_DEF_START__##
   // ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
 
   // ##__CL_RESOURCES_DEF_STOP__##
 
-  static get(config?: CommerceLayerInitConfig): CommerceLayerClient {
-    if (config) return (CommerceLayerClient.cl = new CommerceLayerClient(config))
-    else if (!CommerceLayerClient.cl) throw new Error('CommerceLayer client not initialized')
-    return CommerceLayerClient.cl
+  static get(config?: CommerceLayerInitConfig): CommerceLayerSingleClient {
+    if (config) return (CommerceLayerSingleClient.cl = new CommerceLayerSingleClient(config))
+    else if (!CommerceLayerSingleClient.cl) throw new Error('CommerceLayer client not initialized')
+    return CommerceLayerSingleClient.cl
   }
 
   // The ResourceAdapter created for this specific client instance. Every
@@ -172,10 +172,10 @@ class CommerceLayerClient {
   }
 }
 
-const CommerceLayer = (config: CommerceLayerInitConfig): CommerceLayerClient => {
-  return CommerceLayerClient.get(config)
+const CommerceLayer = (config: CommerceLayerInitConfig): CommerceLayerSingleClient => {
+  return CommerceLayerSingleClient.get(config)
 }
 
 export default CommerceLayer
 export type { CommerceLayerConfig, CommerceLayerInitConfig }
-export { CommerceLayer, CommerceLayerClient }
+export { CommerceLayer, CommerceLayerSingleClient }

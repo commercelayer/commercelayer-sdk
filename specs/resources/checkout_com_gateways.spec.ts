@@ -8,7 +8,7 @@ import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
 import {
   type CheckoutComGateway,
-  type CommerceLayerClient,
+  type CommerceLayerSingleClient,
   checkout_com_gateways,
   checkout_com_payments,
 } from '../../src/single-client'
@@ -27,7 +27,7 @@ import {
   TestData,
 } from '../../test/common'
 
-let cl: CommerceLayerClient
+let cl: CommerceLayerSingleClient
 
 beforeAll(async () => {
   cl = await getClient()
