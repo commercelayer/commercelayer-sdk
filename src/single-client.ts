@@ -5,7 +5,13 @@ export * from './api'
 import { CommerceLayer } from './commercelayer'
 
 // Preferred: the named export. Clean, and the form we're standardising on.
-export { CommerceLayer, SDK_VERSION } from './commercelayer'
+export {
+  API_SCHEMA_VERSION,
+  API_SUPPORTED_VERSIONS,
+  type ApiVersion,
+  CommerceLayer,
+  SDK_VERSION,
+} from './commercelayer'
 
 /**
  * @deprecated Use the named import instead:

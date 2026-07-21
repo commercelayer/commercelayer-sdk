@@ -13,11 +13,11 @@ import type {
   ResponseObj,
 } from './interceptor'
 import { ApiResourceAdapter, type ResourceAdapter, type ResourcesInitConfig } from './resource'
-import { API_SCHEMA_VERSION, SDK_VERSION } from './version'
+import { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION } from './version'
 
 const debug = Debug('commercelayer')
 
-export { API_SCHEMA_VERSION, SDK_VERSION }
+export { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION }
 
 // SDK local configuration
 type SdkConfig = {
@@ -25,11 +25,24 @@ type SdkConfig = {
   telemetry?: boolean
 }
 
-type CommerceLayerInitConfig = SdkConfig & ResourcesInitConfig
+/**
+ * The `apiVersion` init option, conditioned on how the SDK was generated:
+ * - **Version-aware (unified) builds** — {@link API_SUPPORTED_VERSIONS} is
+ *   non-empty — **require** `apiVersion`. The chosen value becomes a URL path
+ *   segment (`/api/2026-05/orders`), keeping requests aligned with the version
+ *   the types were generated for.
+ * - **Legacy builds** — empty {@link API_SUPPORTED_VERSIONS}, so {@link ApiVersion}
+ *   is `never` — take **no** `apiVersion` argument. The API is unversioned
+ *   (`/api/orders`).
+ */
+type ApiVersionConfig = [ApiVersion] extends [never] ? { apiVersion?: never } : { apiVersion: ApiVersion }
+
+type CommerceLayerInitConfig = SdkConfig & ApiVersionConfig & ResourcesInitConfig
 type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
 
 class CommerceLayerSingleClient {
   readonly apiSchemaVersion = API_SCHEMA_VERSION
+  readonly apiSupportedVersions = API_SUPPORTED_VERSIONS
 
   protected static cl: CommerceLayerSingleClient
 
@@ -82,6 +95,10 @@ class CommerceLayerSingleClient {
   }
   get currentAccessToken(): string {
     return this.adapter.client?.currentAccessToken
+  }
+  /** The API version pinned via `apiVersion`, or `undefined` when requests are unversioned. */
+  get currentApiVersion(): string | undefined {
+    return this.adapter.client?.currentApiVersion
   }
   private get interceptors(): InterceptorManager {
     return this.adapter.client?.interceptors
