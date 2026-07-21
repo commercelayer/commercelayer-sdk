@@ -5,6 +5,8 @@ import Inflector from './inflector'
 
 type ApiSchema = {
   version: string
+  /** Every API version the catalogue knows about (sorted, oldest→newest). Empty for legacy payloads. */
+  supportedVersions: readonly string[]
   resources: Record<string, Resource>
   components: ComponentMap
 }
@@ -800,7 +802,7 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
 
   console.log('Public resources schema correctly parsed.')
 
-  return { version: targetVersion, resources, components }
+  return { version: targetVersion, supportedVersions, resources, components }
 }
 
 export default {

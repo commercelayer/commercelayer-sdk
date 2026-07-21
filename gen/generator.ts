@@ -58,6 +58,7 @@ CONFIG.RESOURCES_ACCESSORS_ONLY = CONFIG.RESOURCES_INSTANCE_STYLE === 'accessors
 /**** **** **** **** **** **** **** **** ****/
 
 const SCHEMA_VERSION_CONST = 'API_SCHEMA_VERSION'
+const SUPPORTED_VERSIONS_CONST = 'API_SUPPORTED_VERSIONS'
 // const SDK_VERSION_CONST = 'SDK_VERSION'
 const RESOURCE_COMMON_FIELDS = ['type', 'id', 'reference', 'reference_origin', 'metadata', 'created_at', 'updated_at']
 
@@ -76,6 +77,7 @@ const templates: { [key: string]: string } = {}
 
 const global: {
   version?: string
+  supportedVersions?: readonly string[]
 } = {}
 
 const loadTemplates = (): void => {
@@ -151,6 +153,7 @@ const generate = async (cli: CliOptions) => {
 
   const schema = apiSchema.parse(schemaPath, { apiHost, apiVersion })
   global.version = schema.version
+  global.supportedVersions = schema.supportedVersions
 
   loadTemplates()
 
@@ -241,9 +244,10 @@ const updateSdkVersion = (): void => {
 
   const lines = cl.split('\n')
 
-  // Build's target API version (e.g. '2026-05' for a unified build,
-  // 'latest' for a legacy build). Customers don't override this — the URL
-  // version segment is purely driven by the generator's output.
+  // Build's target API version (e.g. '2026-05' for a unified build, 'latest'
+  // for a legacy build) — the version the emitted types are generated for.
+  // It no longer drives the request URL: the URL version segment is chosen at
+  // runtime via the optional `apiVersion` init option (omit → unversioned).
   // The `: string` annotation widens TS's inferred literal type so
   // comparisons like `API_SCHEMA_VERSION === 'latest'` don't trip TS2367
   // after regen against a unified host.
@@ -251,6 +255,16 @@ const updateSdkVersion = (): void => {
   const schemaPrefix = schemaLine.text.substring(0, schemaLine.offset).trim()
   if (schemaLine.index >= 0)
     lines[schemaLine.index] = `${schemaPrefix} ${SCHEMA_VERSION_CONST}: string = '${global.version}'`
+
+  // The versions a caller may pass as `apiVersion`, as a readonly tuple so
+  // `ApiVersion` narrows to their union (empty tuple → `never` on legacy
+  // builds, where the API is unversioned and the option is unusable).
+  const supportedLine = findLine(SUPPORTED_VERSIONS_CONST, lines)
+  const supportedPrefix = supportedLine.text.substring(0, supportedLine.offset).trim()
+  if (supportedLine.index >= 0) {
+    const tuple = (global.supportedVersions ?? []).map((v) => `'${v}'`).join(', ')
+    lines[supportedLine.index] = `${supportedPrefix} ${SUPPORTED_VERSIONS_CONST} = [${tuple}] as const`
+  }
 
   writeFileSync(filePath, lines.join('\n'), { encoding: 'utf-8' })
 

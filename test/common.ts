@@ -12,12 +12,12 @@ import {
 } from '../src/single-client'
 import getToken from './token'
 
-// On unified-schema builds the SDK embeds the build's target version as a URL
-// path segment (e.g. `/api/2026-05/orders`). Legacy builds carry the literal
-// 'latest' marker from the generator and stay unversioned (`/api/orders`).
-// Tests use this prefix to assemble expected pathnames.
+// A version segment only appears in the URL when a client is initialized with
+// `apiVersion` (e.g. `/api/2026-05/orders`). The test clients here don't set
+// it, so requests stay unversioned (`/api/orders`) on every build. The
+// `apiVersion` path routing itself is covered by `specs/api-version-url.spec.ts`.
 export const IS_UNIFIED_BUILD = API_SCHEMA_VERSION !== 'latest'
-const API_PATH_PREFIX = IS_UNIFIED_BUILD ? `/api/${API_SCHEMA_VERSION}` : '/api'
+const API_PATH_PREFIX = '/api'
 
 dotenv.config()
 

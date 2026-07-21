@@ -1,18 +1,42 @@
 import { describe, expect, test } from 'vitest'
-import { API_SCHEMA_VERSION } from '../src/commercelayer'
+import type { CommerceLayerInitConfig } from '../src/commercelayer'
 import { application, CommerceLayer } from '../src/single-client'
 import { handleError, interceptRequest } from '../test/common'
 
 const baseConfig = { organization: 'test-org', accessToken: 'fake-token' } as const
 
-const isUnifiedBuild = API_SCHEMA_VERSION !== 'latest'
-
-describe('API schema version in request URL', () => {
-  test('unified builds embed the build target as a path segment; legacy stays unversioned', async () => {
+describe('apiVersion in request URL', () => {
+  test('omitting apiVersion keeps requests unversioned', async () => {
     const client = CommerceLayer(baseConfig)
-    const expected = isUnifiedBuild ? `/api/${API_SCHEMA_VERSION}/application` : '/api/application'
     client.addRequestInterceptor((request) => {
-      expect(request.url.pathname).toBe(expected)
+      expect(request.url.pathname).toBe('/api/application')
+      return interceptRequest()
+    })
+    await application
+      .retrieve({})
+      .catch(handleError)
+      .finally(() => client.removeInterceptor('request'))
+  })
+
+  test('setting apiVersion adds it as a path segment', async () => {
+    // On a legacy build `ApiVersion` is `never`, so cast past the public type
+    // constraint to exercise the runtime URL logic build-agnostically.
+    const client = CommerceLayer({ ...baseConfig, apiVersion: '2099-01' } as CommerceLayerInitConfig)
+    client.addRequestInterceptor((request) => {
+      expect(request.url.pathname).toBe('/api/2099-01/application')
+      return interceptRequest()
+    })
+    await application
+      .retrieve({})
+      .catch(handleError)
+      .finally(() => client.removeInterceptor('request'))
+  })
+
+  test('apiVersion can be changed via config()', async () => {
+    const client = CommerceLayer(baseConfig)
+    client.config({ apiVersion: '2099-02' } as Partial<CommerceLayerInitConfig>)
+    client.addRequestInterceptor((request) => {
+      expect(request.url.pathname).toBe('/api/2099-02/application')
       return interceptRequest()
     })
     await application

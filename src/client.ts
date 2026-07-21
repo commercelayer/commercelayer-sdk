@@ -5,19 +5,19 @@ import type { Fetch, FetchClientOptions, FetchRequestOptions, FetchResponse } fr
 import { fetchURL } from './fetch'
 import type { InterceptorManager } from './interceptor'
 import { extractTokenData, isTokenExpired } from './util'
-import { API_SCHEMA_VERSION, SDK_VERSION } from './version'
+import { SDK_VERSION } from './version'
 
 const CLIENT_HEADER_NAME = 'X-CL-SDK'
 
 const debug = Debug('client')
 
-// Unified builds embed the schema version as a URL path segment
-// (`/api/2026-05/orders`). Legacy builds carry the literal 'latest' marker
-// from the generator and stay unversioned (`/api/orders`).
-const URL_VERSION_SEGMENT = API_SCHEMA_VERSION === 'latest' ? '' : `/${API_SCHEMA_VERSION}`
-
-const baseURL = (organization: string, domain?: string): string => {
-  return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api${URL_VERSION_SEGMENT}`
+// The API version is chosen at runtime via the optional `apiVersion` init
+// option. When set it becomes a URL path segment (`/api/2026-05/orders`);
+// when omitted the request stays unversioned (`/api/orders`) and the API
+// resolves the organization's default version.
+const baseURL = (organization: string, domain?: string, apiVersion?: string): string => {
+  const versionSegment = apiVersion ? `/${apiVersion}` : ''
+  return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api${versionSegment}`
 }
 
 type RequestParams = Record<string, string | number | boolean>
@@ -39,6 +39,7 @@ type ApiConfig = {
   organization?: string
   domain?: string
   accessToken: string
+  apiVersion?: string
 }
 
 type ApiClientInitConfig = ApiConfig & RequestConfig
@@ -64,13 +65,15 @@ class ApiClient {
   #accessToken: string
   #organization: string
   #domain?: string
+  #apiVersion?: string
   readonly #clientConfig: RequestConfig
   readonly #interceptors: InterceptorManager
 
   private constructor(options: ApiClientInitConfig) {
     debug('new client instance %O', options)
 
-    this.#baseUrl = baseURL(options.organization ?? '', options.domain)
+    this.#apiVersion = options.apiVersion
+    this.#baseUrl = baseURL(options.organization ?? '', options.domain, this.#apiVersion)
     this.#accessToken = options.accessToken
     this.#organization = options.organization ?? '' // organization is always defined
     this.#domain = options.domain
@@ -137,8 +140,13 @@ class ApiClient {
     if (config.refreshToken) this.#clientConfig.refreshToken = config.refreshToken
 
     // API Client config
-    if (config.organization || config.domain)
-      this.#baseUrl = baseURL(config.organization || this.#organization, config.domain || this.#domain)
+    if (config.apiVersion !== undefined) this.#apiVersion = config.apiVersion
+    if (config.organization || config.domain || config.apiVersion !== undefined)
+      this.#baseUrl = baseURL(
+        config.organization || this.#organization,
+        config.domain || this.#domain,
+        this.#apiVersion,
+      )
     if (config.organization) this.#organization = config.organization
     if (config.domain) this.#domain = config.domain
     if (config.accessToken) {
@@ -162,7 +170,10 @@ class ApiClient {
     if (options?.userAgent) debug('User-Agent header ignored in request config')
 
     // URL
-    const baseUrl = options?.organization ? baseURL(options.organization, options.domain) : this.#baseUrl
+    const baseUrl =
+      options?.organization || options?.apiVersion !== undefined
+        ? baseURL(options.organization || this.#organization, options.domain, options.apiVersion ?? this.#apiVersion)
+        : this.#baseUrl
     const url = new URL(`${baseUrl}/${path}`)
 
     // Body
@@ -254,6 +265,11 @@ class ApiClient {
 
   get currentOrganization(): string {
     return this.#organization
+  }
+
+  /** The API version pinned via `apiVersion`, or `undefined` when requests are unversioned. */
+  get currentApiVersion(): string | undefined {
+    return this.#apiVersion
   }
 }
 

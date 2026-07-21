@@ -13,16 +13,23 @@ import type {
   ResponseObj,
 } from './interceptor'
 import { ApiResourceAdapter, type ResourceAdapter, type ResourcesInitConfig } from './resource'
-import { API_SCHEMA_VERSION, SDK_VERSION } from './version'
+import { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION } from './version'
 
 const debug = Debug('commercelayer')
 
-export { API_SCHEMA_VERSION, SDK_VERSION }
+export { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION }
 
 // SDK local configuration
 type SdkConfig = {
   /** Set to `false` to omit the `X-CL-SDK` request header that identifies the SDK and its version. Defaults to `true`. */
   telemetry?: boolean
+  /**
+   * Pin requests to a specific API version, added as a URL path segment
+   * (`/api/2026-05/orders`). Accepts any value in {@link API_SUPPORTED_VERSIONS}.
+   * When omitted, requests are unversioned (`/api/orders`) and the API resolves
+   * the organization's default version.
+   */
+  apiVersion?: ApiVersion
 }
 
 type CommerceLayerInitConfig = SdkConfig & ResourcesInitConfig
@@ -30,6 +37,7 @@ type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
 
 class CommerceLayerSingleClient {
   readonly apiSchemaVersion = API_SCHEMA_VERSION
+  readonly apiSupportedVersions = API_SUPPORTED_VERSIONS
 
   protected static cl: CommerceLayerSingleClient
 
@@ -82,6 +90,10 @@ class CommerceLayerSingleClient {
   }
   get currentAccessToken(): string {
     return this.adapter.client?.currentAccessToken
+  }
+  /** The API version pinned via `apiVersion`, or `undefined` when requests are unversioned. */
+  get currentApiVersion(): string | undefined {
+    return this.adapter.client?.currentApiVersion
   }
   private get interceptors(): InterceptorManager {
     return this.adapter.client?.interceptors

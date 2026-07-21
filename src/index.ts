@@ -4,7 +4,7 @@
 // `@commercelayer/sdk/single-client`.
 import { CommerceLayer, type CommerceLayerBundle, type CommerceLayerClient } from './bundle'
 
-export { SDK_VERSION } from './commercelayer'
+export { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION } from './commercelayer'
 // Preferred: the named export. Clean, and the form we're standardising on.
 // `CommerceLayerClient` is the bundled client type (sdk6 naming);
 // `CommerceLayerBundle` is a deprecated alias kept for backwards compatibility.
