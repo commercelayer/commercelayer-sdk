@@ -159,17 +159,13 @@ type PublicResource = {
     filters?: Record<string, unknown>
     parent_resource?: string
     /**
-     * API versions the resource lives in. Synonymous with `meta.api_versions`
-     * (same array, always identical). The parser reads `meta.api_versions`
-     * canonically. Unified schema only.
+     * API versions the resource lives in. The parser reads this as the
+     * canonical source of a resource's version info. Unified schema only —
+     * absent in the legacy payload.
      */
     versions?: string[]
-    /** Legacy schema only — replaced by `meta.api_versions` in the unified shape. */
+    /** Legacy schema only — superseded by `versions` in the unified shape. */
     deprecated?: boolean
-  }
-  /** Unified schema only — absent in the legacy payload. */
-  meta?: {
-    api_versions?: string[]
   }
 }
 
@@ -667,12 +663,12 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
   const raw = readFileSync(path, { encoding: 'utf-8' })
   const doc = JSON.parse(raw) as PublicResourcesDoc
 
-  // Shape detection. Unified payloads carry `meta.api_versions` on every
-  // resource; legacy payloads (e.g. production today) don't have a per-resource
-  // `meta` block at all. Lenient rule: any resource with the field flips us
-  // into unified mode. In a hypothetical mixed payload, resources without
-  // the field are treated as version-agnostic (always included).
-  const isUnified = doc.data.some((r) => r.meta?.api_versions != null)
+  // Shape detection. Unified payloads carry `attributes.versions` on every
+  // resource; legacy payloads (e.g. production today) omit it entirely.
+  // Lenient rule: any resource with the field flips us into unified mode. In
+  // a hypothetical mixed payload, resources without the field are treated as
+  // version-agnostic (always included).
+  const isUnified = doc.data.some((r) => r.attributes.versions != null)
   console.log(`Schema shape: ${isUnified ? 'unified' : 'legacy'}`)
   if (doc.meta?.version) console.log(`Schema release: ${doc.meta.version}`)
 
@@ -683,11 +679,11 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
     )
   }
 
-  // Union of every resource's api_versions, sorted; first/last entries
+  // Union of every resource's `versions`, sorted; first/last entries
   // are the oldest/newest API versions the catalogue knows about. Empty
   // when the payload is legacy.
   const supportedVersions: readonly string[] = isUnified
-    ? Array.from(new Set(doc.data.flatMap((r) => r.meta?.api_versions ?? []))).sort()
+    ? Array.from(new Set(doc.data.flatMap((r) => r.attributes.versions ?? []))).sort()
     : []
 
   let targetVersion: string
@@ -716,7 +712,7 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
   // marker so callers keep getting type imports.
   const resourceClassifications = new Map<string, Classification>()
   for (const res of doc.data) {
-    const versioned = classifyVersions(res.meta?.api_versions, targetVersion)
+    const versioned = classifyVersions(res.attributes.versions, targetVersion)
     if (versioned === 'deprecated' || versioned === 'exclude') {
       resourceClassifications.set(res.id, versioned)
     } else if (res.attributes.deprecated === true) {
@@ -765,7 +761,7 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
     if (operations.update)
       resComponents[`${cam}Update`] = buildComponent(ctx, 'update', targetVersion, oldestSupported, excludedClassNames)
 
-    const apiVersions = res.meta?.api_versions
+    const apiVersions = res.attributes.versions
     // If this resource is an STI parent (other resources declare it as
     // `parent_resource`), collect the children whose own modules will be
     // generated. Drop:

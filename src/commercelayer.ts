@@ -23,16 +23,21 @@ export { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSIO
 type SdkConfig = {
   /** Set to `false` to omit the `X-CL-SDK` request header that identifies the SDK and its version. Defaults to `true`. */
   telemetry?: boolean
-  /**
-   * Pin requests to a specific API version, added as a URL path segment
-   * (`/api/2026-05/orders`). Accepts any value in {@link API_SUPPORTED_VERSIONS}.
-   * When omitted, requests are unversioned (`/api/orders`) and the API resolves
-   * the organization's default version.
-   */
-  apiVersion?: ApiVersion
 }
 
-type CommerceLayerInitConfig = SdkConfig & ResourcesInitConfig
+/**
+ * The `apiVersion` init option, conditioned on how the SDK was generated:
+ * - **Version-aware (unified) builds** — {@link API_SUPPORTED_VERSIONS} is
+ *   non-empty — **require** `apiVersion`. The chosen value becomes a URL path
+ *   segment (`/api/2026-05/orders`), keeping requests aligned with the version
+ *   the types were generated for.
+ * - **Legacy builds** — empty {@link API_SUPPORTED_VERSIONS}, so {@link ApiVersion}
+ *   is `never` — take **no** `apiVersion` argument. The API is unversioned
+ *   (`/api/orders`).
+ */
+type ApiVersionConfig = [ApiVersion] extends [never] ? { apiVersion?: never } : { apiVersion: ApiVersion }
+
+type CommerceLayerInitConfig = SdkConfig & ApiVersionConfig & ResourcesInitConfig
 type CommerceLayerConfig = Partial<CommerceLayerInitConfig>
 
 class CommerceLayerSingleClient {
