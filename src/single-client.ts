@@ -60,6 +60,7 @@ export type {
   QueryFields,
   QueryFilter,
   QueryInclude,
+  QueryPageCursor,
   QueryPageNumber,
   QueryPageSize,
   QueryParams,

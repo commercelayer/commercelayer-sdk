@@ -44,18 +44,34 @@ export type QueryFilter = Record<string, string | number | boolean | object | Ar
 
 export type QueryPageNumber = number
 export type QueryPageSize = PositiveNumberRange<25>
+export type QueryPageCursor = string
 
 export interface QueryParamsList<R extends Resource = Resource> extends QueryParamsRetrieve<R> {
   sort?: QuerySort<R>
   filters?: QueryFilter
   pageNumber?: QueryPageNumber
   pageSize?: QueryPageSize
+  /**
+   * Cursor for cursor-based pagination — returns the records after the given cursor.
+   * Only cursor-paginated resources (e.g. `event_stores`) honor it; offset-paginated
+   * resources ignore it. Emitted as the `page[after]` query parameter.
+   */
+  pageAfter?: QueryPageCursor
+  /**
+   * Cursor for cursor-based pagination — returns the records before the given cursor.
+   * Only cursor-paginated resources honor it; offset-paginated resources ignore it.
+   * Emitted as the `page[before]` query parameter.
+   */
+  pageBefore?: QueryPageCursor
 }
 
 export type QueryParams<R extends Resource = Resource> = QueryParamsRetrieve<R> | QueryParamsList<R>
 
 const isParamsList = <R extends Resource>(params: any): params is QueryParamsList<R> => {
-  return params && (params.filters || params.pageNumber || params.pageSize || params.sort)
+  return (
+    params &&
+    (params.filters || params.pageNumber || params.pageSize || params.sort || params.pageAfter || params.pageBefore)
+  )
 }
 
 type QueryStringParams = Record<string, string>
@@ -91,6 +107,9 @@ const generateQueryStringParams = <R extends Resource>(
     // Page
     if (params.pageNumber) qp['page[number]'] = String(params.pageNumber)
     if (params.pageSize) qp['page[size]'] = String(params.pageSize)
+    // Cursor pagination — offset-paginated resources ignore these
+    if (params.pageAfter) qp['page[after]'] = String(params.pageAfter)
+    if (params.pageBefore) qp['page[before]'] = String(params.pageBefore)
     // Filters
     if (params.filters) {
       Object.entries(params.filters).forEach(([p, v]) => {
