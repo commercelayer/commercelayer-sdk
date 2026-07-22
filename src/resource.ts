@@ -123,19 +123,20 @@ const parseCursorLink = (url?: string): PageCursor | undefined => {
   return after != null || before != null ? { before, after } : undefined
 }
 
-// Builds the discriminated list meta. Cursor mode is chosen only when the
-// response has no offset `page_count` AND carries prev/next cursor links (from
-// which `page[after]`/`page[before]` are parsed); a non-paginated array with
-// neither falls back to offset mode (NaN counts), preserving prior behaviour.
+// Builds the discriminated list meta. The pagination mode is decided by the
+// presence of `meta.page_count`: offset collections always return it (even for
+// a single page), whereas cursor collections (e.g. `event_stores`) never do —
+// they carry `page[after]`/`page[before]` cursors in `links` instead, and only
+// when further pages exist. So a single-page cursor response (no `links`) is
+// still `mode: 'cursor'` with an empty `cursor` (no prev/next).
 const buildListMeta = <R extends Resource>(
   res: DocWithData,
   links: ResponseLinks,
   params?: QueryParamsList<R>,
 ): ListMeta => {
   const recordsPerPage = params?.pageSize || config.default.pageSize
-  const hasCursorLinks = links?.next != null || links?.prev != null
 
-  if (res.meta?.page_count == null && hasCursorLinks) {
+  if (res.meta?.page_count == null) {
     return {
       mode: 'cursor',
       recordsPerPage,

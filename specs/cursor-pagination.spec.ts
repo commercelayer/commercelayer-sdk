@@ -24,6 +24,12 @@ const cursorBody = (nextUrl: string) => ({
   links: { next: nextUrl },
 })
 
+// Single-page cursor response: empty meta, no `links` (nothing before/after).
+const cursorSinglePageBody = () => ({
+  data: [{ id: '1234567891234-0', type: 'event_stores', attributes: { resource_type: 'skus', event: 'update' } }],
+  meta: {},
+})
+
 const offsetBody = () => ({
   data: [{ id: 'SKU1', type: 'skus', attributes: { code: 'TSHIRT' } }],
   meta: { record_count: 42, page_count: 5, page_number: 2, page_size: 10 },
@@ -88,6 +94,17 @@ describe('cursor pagination — response meta', () => {
     expect(list.hasPrevPage()).toBe(false)
     expect(Number.isNaN(list.pageCount)).toBe(true)
     expect(Number.isNaN(list.recordCount)).toBe(true)
+  })
+
+  test('single-page cursor response (no links) is still mode: cursor', async () => {
+    const list = await skus.event_stores('xYZkjABcde', { pageSize: 25 }, { fetch: fakeFetch(cursorSinglePageBody()) })
+
+    expect(list.meta.mode).toBe('cursor')
+    if (list.meta.mode === 'cursor') {
+      expect(list.meta.cursor.next).toBeUndefined()
+      expect(list.meta.cursor.prev).toBeUndefined()
+    }
+    expect(list.hasNextPage()).toBe(false)
   })
 
   test('offset response builds offset meta and working accessors', async () => {
