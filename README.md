@@ -294,15 +294,40 @@ When you fetch a collection of resources, you get paginated results. You can req
   const skuList = await skus.list({ pageNumber: 3, pageSize: 5 })
 
   // Get the total number of SKUs in the collection
-  const skuCount = skus.meta.recordCount
+  const skuCount = skuList.meta.recordCount
 
   // Get the total number of pages
-  const pageCount = skus.meta.pageCount
+  const pageCount = skuList.meta.pageCount
 ```
 
 > PS: the default page number is **1**, the default page size is **10**, and the maximum page size allowed is **25**.
 
 ℹ️ Check our API reference for more information on how [pagination](https://docs.commercelayer.io/developers/pagination) works.
+</details>
+
+<details>
+<summary>How to fetch a cursor-paginated collection (e.g. event stores)</summary>
+<br />
+
+A few resources — such as [event stores](https://docs.commercelayer.io/core-api-reference/event_stores) — use **cursor-based** pagination instead of page numbers. Navigate with `pageAfter` (and `pageBefore`), and read the cursor for the next page from `meta.cursor`, which is present only on cursor-paginated responses:
+
+```javascript
+  const skuId = 'xYZkjABcde'
+
+  // Event stores are fetched as a relationship of a resource
+  let page = await skus.event_stores(skuId, { pageSize: 10 })
+  const events = [...page]
+
+  // Follow the cursor until there are no more pages
+  while (page.meta.cursor?.next) {
+    page = await skus.event_stores(skuId, { pageAfter: page.meta.cursor.next.after })
+    events.push(...page)
+  }
+```
+
+> PS: the default page size is **10** and the maximum is **25**. On cursor-paginated responses the offset fields (`meta.pageCount`/`meta.recordCount`) are `NaN` and `hasNextPage()` returns `false`, so check `meta.cursor.next` instead. The `pageAfter`/`pageBefore` params are always accepted at the type level; offset-paginated resources simply ignore them.
+
+ℹ️ See the [event stores pagination](https://docs.commercelayer.io/core-api-reference/event_stores#pagination) reference for details.
 </details>
 
 <details>

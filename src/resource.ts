@@ -40,11 +40,22 @@ interface ResourceUpdate extends ResourceBase {
   readonly id: string
 }
 
+type PageCursor = { readonly before?: string; readonly after?: string }
+
+// Flat, non-discriminated (mirrors the poc-js-sdk shape). The offset fields are
+// always present so the historical `meta.*` interface keeps resolving as
+// `number` — they're `NaN` on cursor-paginated responses. `cursor` is present
+// only on cursor-paginated responses (e.g. `event_stores`), parsed from the
+// response `links`; its presence is how you tell the two pagination styles apart.
 type ListMeta = {
   readonly pageCount: number
   readonly recordCount: number
   readonly currentPage: number
   readonly recordsPerPage: number
+  readonly cursor?: {
+    readonly prev?: PageCursor
+    readonly next?: PageCursor
+  }
 }
 
 class ListResponse<R extends Resource = Resource> extends Array<R> {
@@ -89,6 +100,57 @@ class ListResponse<R extends Resource = Resource> extends Array<R> {
 
   get pageCount(): number {
     return this.meta.pageCount
+  }
+}
+
+type ResponseLinks = { next?: string; prev?: string } | undefined
+
+const parseCursorLink = (url?: string): PageCursor | undefined => {
+  if (!url) return undefined
+  let params: URLSearchParams
+  try {
+    params = new URL(url).searchParams
+  } catch {
+    return undefined
+  }
+  const after = params.get('page[after]') ?? undefined
+  const before = params.get('page[before]') ?? undefined
+  return after != null || before != null ? { before, after } : undefined
+}
+
+// Builds the list meta. The pagination style is decided by the presence of
+// `meta.page_count`: offset collections always return it (even for a single
+// page), whereas cursor collections (e.g. `event_stores`) never do — they carry
+// `page[after]`/`page[before]` cursors in `links` instead, and only when further
+// pages exist. So a single-page cursor response (no `links`) still gets a
+// `cursor` (with no prev/next), which is how callers detect cursor pagination.
+const buildListMeta = <R extends Resource>(
+  res: DocWithData,
+  links: ResponseLinks,
+  params?: QueryParamsList<R>,
+): ListMeta => {
+  const recordsPerPage = params?.pageSize || config.default.pageSize
+
+  if (res.meta?.page_count == null) {
+    return {
+      // Offset fields aren't applicable to cursor pagination; kept as NaN so the
+      // shared `meta.*` interface still resolves (see ListMeta).
+      pageCount: NaN,
+      recordCount: NaN,
+      currentPage: NaN,
+      recordsPerPage,
+      cursor: {
+        prev: parseCursorLink(links?.prev),
+        next: parseCursorLink(links?.next),
+      },
+    }
+  }
+
+  return {
+    pageCount: Number(res.meta?.page_count),
+    recordCount: Number(res.meta?.record_count),
+    currentPage: params?.pageNumber || config.default.pageNumber,
+    recordsPerPage,
   }
 }
 
@@ -221,20 +283,16 @@ class ResourceAdapter {
     const queryParams = generateQueryStringParams(params, resource)
     if (options?.params) Object.assign(queryParams, options?.params)
 
-    // Load balancer performance optimization
-    if (!queryParams['page[number]']) queryParams['page[number]'] = '1'
+    // Load balancer performance optimization — skipped for cursor pagination,
+    // which must not be mixed with an implicit page[number].
+    const usesCursor = queryParams['page[after]'] != null || queryParams['page[before]'] != null
+    if (!usesCursor && !queryParams['page[number]']) queryParams['page[number]'] = '1'
 
     const res = await this.#client.request('GET', `${resource.type}`, undefined, { ...options, params: queryParams })
+    const links: ResponseLinks = res.links
     const r = denormalize<R>(res as DocWithData) as R[]
 
-    const meta: ListMeta = {
-      pageCount: Number(res.meta?.page_count),
-      recordCount: Number(res.meta?.record_count),
-      currentPage: params?.pageNumber || config.default.pageNumber,
-      recordsPerPage: params?.pageSize || config.default.pageSize,
-    }
-
-    return new ListResponse(meta, r)
+    return new ListResponse(buildListMeta<R>(res as DocWithData, links, params), r)
   }
 
   async create<C extends ResourceCreate, R extends Resource>(
@@ -291,17 +349,12 @@ class ResourceAdapter {
     if (options?.params) Object.assign(queryParams, options?.params)
 
     const res = await this.#client.request('GET', path, undefined, { ...options, params: queryParams })
+    const links: ResponseLinks = res.links
     const r = denormalize<R>(res as DocWithData)
 
     if (Array.isArray(r)) {
       const p = params as QueryParamsList<R>
-      const meta: ListMeta = {
-        pageCount: Number(res.meta?.page_count),
-        recordCount: Number(res.meta?.record_count),
-        currentPage: p?.pageNumber || config.default.pageNumber,
-        recordsPerPage: p?.pageSize || config.default.pageSize,
-      }
-      return new ListResponse(meta, r)
+      return new ListResponse(buildListMeta<R>(res as DocWithData, links, p), r)
     } else return r
   }
 }
