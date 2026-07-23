@@ -1,3 +1,10 @@
+## [8.0.0-beta.11](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.10...v8.0.0-beta.11) (2026-07-23)
+
+### Features
+
+* add `apiVersion` option to client config ([2d00f2f](https://github.com/commercelayer/commercelayer-sdk/commit/2d00f2f41b0f5fbb30ae639e55d9cce9f7d65317))
+* add cursor pagination for event_stores ([172d55b](https://github.com/commercelayer/commercelayer-sdk/commit/172d55b91b6d0733fef133ad0fbc5daeeba8eca1))
+
 ## [8.0.0-beta.10](https://github.com/commercelayer/commercelayer-sdk/compare/v8.0.0-beta.9...v8.0.0-beta.10) (2026-07-20)
 
 ### Features
