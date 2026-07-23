@@ -42,26 +42,21 @@ interface ResourceUpdate extends ResourceBase {
 
 type PageCursor = { readonly before?: string; readonly after?: string }
 
-// Discriminated on `mode`: offset-paginated responses carry page/record counts;
-// cursor-paginated responses (e.g. `event_stores`) carry the prev/next cursors
-// parsed from the response `links`. The offset accessors on `ListResponse` return
-// `NaN`/`false` in cursor mode; cursor consumers read `meta.cursor` directly.
-type ListMeta =
-  | {
-      readonly mode: 'offset'
-      readonly pageCount: number
-      readonly recordCount: number
-      readonly currentPage: number
-      readonly recordsPerPage: number
-    }
-  | {
-      readonly mode: 'cursor'
-      readonly recordsPerPage: number
-      readonly cursor: {
-        readonly prev?: PageCursor
-        readonly next?: PageCursor
-      }
-    }
+// Flat, non-discriminated (mirrors the poc-js-sdk shape). The offset fields are
+// always present so the historical `meta.*` interface keeps resolving as
+// `number` — they're `NaN` on cursor-paginated responses. `cursor` is present
+// only on cursor-paginated responses (e.g. `event_stores`), parsed from the
+// response `links`; its presence is how you tell the two pagination styles apart.
+type ListMeta = {
+  readonly pageCount: number
+  readonly recordCount: number
+  readonly currentPage: number
+  readonly recordsPerPage: number
+  readonly cursor?: {
+    readonly prev?: PageCursor
+    readonly next?: PageCursor
+  }
+}
 
 class ListResponse<R extends Resource = Resource> extends Array<R> {
   readonly meta: ListMeta
@@ -84,27 +79,27 @@ class ListResponse<R extends Resource = Resource> extends Array<R> {
   }
 
   hasNextPage(): boolean {
-    return this.meta.mode === 'offset' ? this.meta.currentPage < this.meta.pageCount : false
+    return this.meta.currentPage < this.meta.pageCount
   }
 
   hasPrevPage(): boolean {
-    return this.meta.mode === 'offset' ? this.meta.currentPage > 1 : false
+    return this.meta.currentPage > 1
   }
 
   getRecordCount(): number {
-    return this.meta.mode === 'offset' ? this.meta.recordCount : NaN
+    return this.meta.recordCount
   }
 
   getPageCount(): number {
-    return this.meta.mode === 'offset' ? this.meta.pageCount : NaN
+    return this.meta.pageCount
   }
 
   get recordCount(): number {
-    return this.meta.mode === 'offset' ? this.meta.recordCount : NaN
+    return this.meta.recordCount
   }
 
   get pageCount(): number {
-    return this.meta.mode === 'offset' ? this.meta.pageCount : NaN
+    return this.meta.pageCount
   }
 }
 
@@ -123,12 +118,12 @@ const parseCursorLink = (url?: string): PageCursor | undefined => {
   return after != null || before != null ? { before, after } : undefined
 }
 
-// Builds the discriminated list meta. The pagination mode is decided by the
-// presence of `meta.page_count`: offset collections always return it (even for
-// a single page), whereas cursor collections (e.g. `event_stores`) never do —
-// they carry `page[after]`/`page[before]` cursors in `links` instead, and only
-// when further pages exist. So a single-page cursor response (no `links`) is
-// still `mode: 'cursor'` with an empty `cursor` (no prev/next).
+// Builds the list meta. The pagination style is decided by the presence of
+// `meta.page_count`: offset collections always return it (even for a single
+// page), whereas cursor collections (e.g. `event_stores`) never do — they carry
+// `page[after]`/`page[before]` cursors in `links` instead, and only when further
+// pages exist. So a single-page cursor response (no `links`) still gets a
+// `cursor` (with no prev/next), which is how callers detect cursor pagination.
 const buildListMeta = <R extends Resource>(
   res: DocWithData,
   links: ResponseLinks,
@@ -138,7 +133,11 @@ const buildListMeta = <R extends Resource>(
 
   if (res.meta?.page_count == null) {
     return {
-      mode: 'cursor',
+      // Offset fields aren't applicable to cursor pagination; kept as NaN so the
+      // shared `meta.*` interface still resolves (see ListMeta).
+      pageCount: NaN,
+      recordCount: NaN,
+      currentPage: NaN,
       recordsPerPage,
       cursor: {
         prev: parseCursorLink(links?.prev),
@@ -148,7 +147,6 @@ const buildListMeta = <R extends Resource>(
   }
 
   return {
-    mode: 'offset',
     pageCount: Number(res.meta?.page_count),
     recordCount: Number(res.meta?.record_count),
     currentPage: params?.pageNumber || config.default.pageNumber,
@@ -432,7 +430,7 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
       pageSize: 1,
     }
     const response = await this.list(params, options)
-    return Promise.resolve(response.recordCount)
+    return Promise.resolve(response.meta.recordCount)
   }
 }
 

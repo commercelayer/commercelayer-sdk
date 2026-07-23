@@ -77,45 +77,42 @@ describe('cursor pagination — request', () => {
 })
 
 describe('cursor pagination — response meta', () => {
-  test('cursor response parses links.next into discriminated cursor meta', async () => {
+  test('cursor response parses links.next into meta.cursor', async () => {
     const next =
       'https://test-org.commercelayer.io/api/skus/xYZkjABcde/event_stores?page[after]=CURSOR123&page[size]=10'
     const list = await skus.event_stores('xYZkjABcde', { pageSize: 10 }, { fetch: fakeFetch(cursorBody(next)) })
 
-    expect(list.meta.mode).toBe('cursor')
-    if (list.meta.mode === 'cursor') {
-      expect(list.meta.cursor.next?.after).toBe('CURSOR123')
-      expect(list.meta.cursor.next?.before).toBeUndefined()
-      expect(list.meta.cursor.prev).toBeUndefined()
-      expect(list.meta.recordsPerPage).toBe(10)
-    }
-    // offset accessors are inert in cursor mode
+    // cursor pagination is detected by the presence of meta.cursor — no narrowing
+    expect(list.meta.cursor).toBeDefined()
+    expect(list.meta.cursor?.next?.after).toBe('CURSOR123')
+    expect(list.meta.cursor?.next?.before).toBeUndefined()
+    expect(list.meta.cursor?.prev).toBeUndefined()
+    expect(list.meta.recordsPerPage).toBe(10)
+    // the offset interface still resolves; values are NaN/false in cursor mode
     expect(list.hasNextPage()).toBe(false)
     expect(list.hasPrevPage()).toBe(false)
+    expect(Number.isNaN(list.meta.recordCount)).toBe(true)
     expect(Number.isNaN(list.pageCount)).toBe(true)
     expect(Number.isNaN(list.recordCount)).toBe(true)
   })
 
-  test('single-page cursor response (no links) is still mode: cursor', async () => {
+  test('single-page cursor response (no links) still exposes meta.cursor', async () => {
     const list = await skus.event_stores('xYZkjABcde', { pageSize: 25 }, { fetch: fakeFetch(cursorSinglePageBody()) })
 
-    expect(list.meta.mode).toBe('cursor')
-    if (list.meta.mode === 'cursor') {
-      expect(list.meta.cursor.next).toBeUndefined()
-      expect(list.meta.cursor.prev).toBeUndefined()
-    }
+    expect(list.meta.cursor).toBeDefined()
+    expect(list.meta.cursor?.next).toBeUndefined()
+    expect(list.meta.cursor?.prev).toBeUndefined()
     expect(list.hasNextPage()).toBe(false)
   })
 
   test('offset response builds offset meta and working accessors', async () => {
     const list = await skus.list({ pageNumber: 2, pageSize: 10 }, { fetch: fakeFetch(offsetBody()) })
 
-    expect(list.meta.mode).toBe('offset')
-    if (list.meta.mode === 'offset') {
-      expect(list.meta.pageCount).toBe(5)
-      expect(list.meta.recordCount).toBe(42)
-      expect(list.meta.currentPage).toBe(2)
-    }
+    expect(list.meta.cursor).toBeUndefined()
+    // the historical meta.* interface resolves directly, no narrowing
+    expect(list.meta.pageCount).toBe(5)
+    expect(list.meta.recordCount).toBe(42)
+    expect(list.meta.currentPage).toBe(2)
     expect(list.pageCount).toBe(5)
     expect(list.recordCount).toBe(42)
     expect(list.hasNextPage()).toBe(true)
