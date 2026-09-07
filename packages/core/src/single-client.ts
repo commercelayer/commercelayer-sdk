@@ -27,6 +27,41 @@ export { CommerceLayerStatic } from './static'
 
 /** ** TYPES ** **/
 
+// Error types
+export type { ApiError, SdkError } from '@runtime/error'
+// Raw response reader and request/response interceptors
+export type { ErrorObj, HeadersObj, RequestObj, ResponseObj } from '@runtime/interceptor'
+// Query filter types
+export type {
+  QueryFields,
+  QueryFilter,
+  QueryInclude,
+  QueryPageCursor,
+  QueryPageNumber,
+  QueryPageSize,
+  QueryParams,
+  QueryParamsList,
+  QueryParamsRetrieve,
+  QuerySort,
+} from '@runtime/query'
+// Resource types
+export type {
+  ApiResource,
+  ApiSingleton,
+  ListMeta,
+  ListResponse,
+  Metadata,
+  Resource,
+  ResourceCreate,
+  ResourceFilter,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  ResourcesConfig,
+  ResourcesInitConfig,
+  ResourceType,
+  ResourceUpdate,
+} from '@runtime/resource'
 // Commerce Layer client type — the single-token client (no resource
 // accessors; import resources directly). Named distinctly from the bundle's
 // `CommerceLayerClient`.
@@ -49,40 +84,5 @@ export type {
   UpdatableResource,
   UpdatableResourceType,
 } from './enum'
-// Error types
-export type { ApiError, SdkError } from './error'
-// Raw response reader and request/response interceptors
-export type { ErrorObj, HeadersObj, RequestObj, ResponseObj } from './interceptor'
 // Resource model types
 export type * from './model'
-// Query filter types
-export type {
-  QueryFields,
-  QueryFilter,
-  QueryInclude,
-  QueryPageCursor,
-  QueryPageNumber,
-  QueryPageSize,
-  QueryParams,
-  QueryParamsList,
-  QueryParamsRetrieve,
-  QuerySort,
-} from './query'
-// Resource types
-export type {
-  ApiResource,
-  ApiSingleton,
-  ListMeta,
-  ListResponse,
-  Metadata,
-  Resource,
-  ResourceCreate,
-  ResourceFilter,
-  ResourceId,
-  ResourceRel,
-  ResourceSort,
-  ResourcesConfig,
-  ResourcesInitConfig,
-  ResourceType,
-  ResourceUpdate,
-} from './resource'

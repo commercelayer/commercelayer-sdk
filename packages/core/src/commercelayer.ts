@@ -1,7 +1,5 @@
-import Debug from './debug'
-// import * as api from './api'
-import { getResources } from './enum'
-import { type ApiError, isApiError } from './error'
+import Debug from '@runtime/debug'
+import { type ApiError, isApiError } from '@runtime/error'
 import type {
   ErrorInterceptor,
   HeadersObj,
@@ -11,8 +9,10 @@ import type {
   RequestInterceptor,
   ResponseInterceptor,
   ResponseObj,
-} from './interceptor'
-import { ApiResourceAdapter, type ResourceAdapter, type ResourcesInitConfig } from './resource'
+} from '@runtime/interceptor'
+import { ApiResourceAdapter, type ResourceAdapter, type ResourcesInitConfig } from '@runtime/resource'
+// import * as api from './api'
+import { getResources } from './enum'
 import { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION } from './version'
 
 const debug = Debug('commercelayer')

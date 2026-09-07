@@ -1,5 +1,5 @@
-import type { Resource, ResourceId, ResourceRel, ResourceSort /* ResourceFilter */ } from '../resource'
-import { ApiResource } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort /* ResourceFilter */ } from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
 
 type EventStoreType = 'event_stores'
 type EventStoreRel = ResourceRel & { type: EventStoreType }

@@ -803,7 +803,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, singletonResource ? '' : `, ${resModelInterface}Sort`)
 
   const importQueryModels =
-    qryMod.size > 0 ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
+    qryMod.size > 0 ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '@runtime/query'` : ''
   res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
 
   // Resource definition

@@ -1,4 +1,4 @@
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
 import type {
   ListResponse,
   Resource,
@@ -8,8 +8,8 @@ import type {
   ResourceSort,
   /* ResourceFilter */ ResourcesConfig,
   ResourceUpdate,
-} from '../resource'
-import { ApiResource } from '../resource'
+} from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
 
 import type { CouponCodesPromotionRule, CouponCodesPromotionRuleType } from './coupon_codes_promotion_rules'
 import type { CouponRecipient, CouponRecipientType } from './coupon_recipients'

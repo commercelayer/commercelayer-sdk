@@ -1,7 +1,17 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { sortObjectFields } from '../src/util'
 import Inflector from './inflector'
+
+// Local copy of the object-key sorter. Deliberately not imported from the SDK
+// runtime: the generator is a build-time tool and must not depend on the
+// package it generates.
+const sortObjectFields = <T extends Record<string, unknown>>(obj: T): T =>
+  Object.keys(obj)
+    .sort()
+    .reduce((acc, key) => {
+      ;(acc as Record<string, unknown>)[key] = obj[key]
+      return acc
+    }, {} as T)
 
 type ApiSchema = {
   version: string

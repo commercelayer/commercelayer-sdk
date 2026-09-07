@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest'
+import { SDK_TARGET } from '../src/registry'
 import { application, CommerceLayer, SDK_VERSION } from '../src/single-client'
 import { handleError, interceptRequest } from '../test/common'
 
@@ -6,11 +7,11 @@ const CLIENT_HEADER = 'X-CL-SDK'
 const baseConfig = { organization: 'test-org', accessToken: 'fake-token' } as const
 
 describe('SDK client identification header', () => {
-  test('sends `js/<version>` by default', async () => {
+  test('sends `js/<target>-v<version>` by default', async () => {
     const client = CommerceLayer(baseConfig)
     client.addRequestInterceptor((request) => {
       const headers = request.options.headers as Record<string, string>
-      expect(headers[CLIENT_HEADER]).toBe(`js/${SDK_VERSION}`)
+      expect(headers[CLIENT_HEADER]).toBe(`js/${SDK_TARGET}-v${SDK_VERSION}`)
       return interceptRequest()
     })
     await application
@@ -36,7 +37,7 @@ describe('SDK client identification header', () => {
     const client = CommerceLayer(baseConfig)
     client.addRequestInterceptor((request) => {
       const headers = request.options.headers as Record<string, string>
-      expect(headers[CLIENT_HEADER]).toBe(`js/${SDK_VERSION}`)
+      expect(headers[CLIENT_HEADER]).toBe(`js/${SDK_TARGET}-v${SDK_VERSION}`)
       return interceptRequest()
     })
     await application

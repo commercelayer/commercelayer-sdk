@@ -1,4 +1,4 @@
-import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
 import type {
   ListResponse,
   Resource,
@@ -7,8 +7,8 @@ import type {
   ResourceSort,
   /* ResourceFilter */ ResourcesConfig,
   ResourceUpdate,
-} from '../resource'
-import { ApiResource } from '../resource'
+} from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
 import type { AdyenPayment } from './adyen_payments'
 import type { Attachment } from './attachments'
 import type { AxervePayment } from './axerve_payments'

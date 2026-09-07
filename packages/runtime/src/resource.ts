@@ -1,7 +1,7 @@
-import ApiClient, { type ApiClientInitConfig } from './client'
+import { type ResourceTypeLock, resourceList } from '#registry'
+import ApiClient, { type ApiClientInitConfig, type Method } from './client'
 import config from './config'
 import Debug from './debug'
-import { type ResourceTypeLock, resourceList } from './enum'
 import { SdkError } from './error'
 import { type DocWithData, denormalize, normalize } from './jsonapi'
 import type { QueryFilter, QueryParams, QueryParamsList, QueryParamsRetrieve } from './query'
@@ -335,6 +335,28 @@ class ResourceAdapter {
   async delete(resource: ResourceId, options?: ResourcesConfig): Promise<void> {
     debug('delete: %o, %O', resource, options || {})
     await this.#client.request('DELETE', `${resource.type}/${resource.id}`, undefined, options)
+  }
+
+  /**
+   * Calls a non-CRUD endpoint hosted at a sub-path of a resource, e.g.
+   * `POST memberships/:id/resend`. These endpoints are not described by the
+   * public resources schema, so they are declared in a target config and
+   * emitted from it — see docs/adr/0005.
+   */
+  async action(
+    cmd: Extract<Method, 'POST' | 'PATCH'>,
+    path: string,
+    payload?: any,
+    options?: ResourcesConfig,
+  ): Promise<void> {
+    debug('action: %o %o, %O', cmd, path, options || {})
+
+    const queryParams = {}
+    if (options?.params) Object.assign(queryParams, options.params)
+
+    const data = payload && isResourceId(payload) ? normalize(payload) : payload
+
+    await this.#client.request(cmd, path, data, { ...options, params: queryParams })
   }
 
   async fetch<R extends Resource>(

@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from 'node:util'
+import { denormalize, normalize } from '@runtime/jsonapi'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { denormalize, normalize } from '../src/jsonapi'
 import {
   type CommerceLayerSingleClient,
   customer_subscriptions,

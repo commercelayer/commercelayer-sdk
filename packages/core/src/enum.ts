@@ -1,5 +1,5 @@
+import type { Resource, ResourceRel } from '@runtime/resource'
 import type * as models from './model'
-import type { Resource, ResourceRel } from './resource'
 import type { TagType } from './resources/tags'
 
 const apiResources = [

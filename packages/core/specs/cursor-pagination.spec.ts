@@ -1,5 +1,5 @@
+import type { Fetch } from '@runtime/fetch'
 import { beforeEach, describe, expect, test } from 'vitest'
-import type { Fetch } from '../src/fetch'
 import { CommerceLayer, skus } from '../src/single-client'
 
 const config = { organization: 'test-org', accessToken: 'fake-token' } as const

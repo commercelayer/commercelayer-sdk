@@ -1,8 +1,8 @@
+import { isResourceType } from '@runtime/resource'
+import type { ObjectType } from '@runtime/types'
+import { sleep, sortObjectFields } from '@runtime/util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import { isResourceType } from '../src/resource'
 import { type CommerceLayerSingleClient, type Customer, customers } from '../src/single-client'
-import type { ObjectType } from '../src/types'
-import { sleep, sortObjectFields } from '../src/util'
 import { checkParam, getClient, handleError, interceptRequest, TestData } from '../test/common'
 
 let cl: CommerceLayerSingleClient

@@ -1,7 +1,7 @@
+import Debug from '@runtime/debug'
+import type { ResourceAdapter } from '@runtime/resource'
 import * as api from './api'
 import { type CommerceLayerInitConfig, CommerceLayerSingleClient } from './commercelayer'
-import Debug from './debug'
-import type { ResourceAdapter } from './resource'
 
 const debug = Debug('bundle')
 

@@ -1,5 +1,5 @@
+import { ErrorType } from '@runtime/error'
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
-import { ErrorType } from '../src/error'
 import { type CommerceLayerSingleClient, customers, type ErrorObj } from '../src/single-client'
 import { getClient, IS_UNIFIED_BUILD } from '../test/common'
 

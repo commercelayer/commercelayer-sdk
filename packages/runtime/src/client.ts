@@ -1,3 +1,4 @@
+import { SDK_TARGET, SDK_VERSION } from '#registry'
 import config from './config'
 import Debug from './debug'
 import { ErrorType, handleError, isExpiredTokenError, SdkError } from './error'
@@ -5,7 +6,6 @@ import type { Fetch, FetchClientOptions, FetchRequestOptions, FetchResponse } fr
 import { fetchURL } from './fetch'
 import type { InterceptorManager } from './interceptor'
 import { extractTokenData, isTokenExpired } from './util'
-import { SDK_VERSION } from './version'
 
 const CLIENT_HEADER_NAME = 'X-CL-SDK'
 
@@ -96,7 +96,7 @@ class ApiClient {
     }
 
     // SDK client identification — opt out via { telemetry: false } at init time
-    if (options.telemetry !== false) headers[CLIENT_HEADER_NAME] = `js/${SDK_VERSION}`
+    if (options.telemetry !== false) headers[CLIENT_HEADER_NAME] = `js/${SDK_TARGET}-v${SDK_VERSION}`
 
     // Set User-Agent
     if (options.userAgent) headers['User-Agent'] = options.userAgent

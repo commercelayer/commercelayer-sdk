@@ -1,5 +1,5 @@
-import type { Resource, ResourceId, ResourceRel, ResourceSort /* ResourceFilter */ } from '../resource'
-import { ApiSingleton } from '../resource'
+import type { Resource, ResourceId, ResourceRel, ResourceSort /* ResourceFilter */ } from '@runtime/resource'
+import { ApiSingleton } from '@runtime/resource'
 
 type ApplicationType = 'applications'
 type ApplicationRel = ResourceRel & { type: ApplicationType }

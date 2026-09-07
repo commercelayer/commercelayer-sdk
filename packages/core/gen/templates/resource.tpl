@@ -1,5 +1,5 @@
-import { ##__RESOURCE_MODEL_TYPE__## } from '../resource'
-import type { ##__IMPORT_RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__##, ResourceSort, /* ResourceFilter */ } from '../resource'
+import { ##__RESOURCE_MODEL_TYPE__## } from '@runtime/resource'
+import type { ##__IMPORT_RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__##, ResourceSort, /* ResourceFilter */ } from '@runtime/resource'
 ##__IMPORT_QUERY_MODELS__##
 
 ##__IMPORT_RESOURCE_MODELS__##

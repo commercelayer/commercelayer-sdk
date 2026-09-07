@@ -1,5 +1,5 @@
+import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from '#registry'
 import Debug from './debug'
-import type { ResourceFields, ResourceSortFields, ResourceTypeLock } from './enum'
 import { ErrorType, SdkError } from './error'
 import type { Resource, ResourceType } from './resource'
 import type { PositiveNumberRange, StringKey } from './types'

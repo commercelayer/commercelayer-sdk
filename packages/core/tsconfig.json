@@ -14,7 +14,9 @@
     // "sourceMap": true,                           /* Generates corresponding '.map' file. */
     // "outFile": "./",                             /* Concatenate and emit output to single file. */
     "outDir": "lib/cjs" /* Redirect output structure to the directory. */,
-    "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    /* No `rootDir`: the shared runtime lives outside this package's src/, and
+       pinning rootDir to ./src makes tsc reject those files (TS6059). tsup
+       performs the emit, and tsc runs with noEmit, so it serves no purpose. */
     // "composite": true,                           /* Enable project compilation */
     // "tsBuildInfoFile": "./",                     /* Specify file to store incremental compilation information */
     "removeComments": false, /* Do not emit comments to output. */
@@ -40,8 +42,13 @@
     // "noPropertyAccessFromIndexSignature": true,  /* Require undeclared properties from index signatures to use element accesses. */
     /* Module Resolution Options */
     "moduleResolution": "bundler" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
-    // "baseUrl": "./",                             /* Base directory to resolve non-absolute module names. */
-    // "paths": {},                                 /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+    "baseUrl": "./",
+    /* Binds the shared runtime's `#registry` import to this target's generated
+       catalogue, so QueryParamsList<Order> and friends stay precise here. */
+    "paths": {
+      "#registry": ["./src/registry.ts"],
+      "@runtime/*": ["../runtime/src/*.ts"]
+    },
     // "rootDirs": [],                              /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                             /* List of folders to include type definitions from. */                          
     "types": ["vitest/globals", "node"],                    /* Type declaration files to be included in compilation. */
