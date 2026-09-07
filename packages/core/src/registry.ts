@@ -9,10 +9,10 @@
  */
 
 // Generated per target — the resource catalogue and its field/sort type maps.
-export type { ResourceFields, ResourceSortFields, ResourceTypeLock } from './enum'
-export { resourceList } from './enum'
+export type { ResourceFields, ResourceSortFields, ResourceTypeLock } from '../gen/enum'
+export { resourceList } from '../gen/enum'
 // Generated per target — this package's own version, from its package.json.
-export { SDK_VERSION } from './version'
+export { SDK_VERSION } from '../gen/version'
 
 /**
  * Telemetry target name, sent as `X-CL-SDK: js/<SDK_TARGET>-v<SDK_VERSION>` —

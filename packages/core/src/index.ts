@@ -2,7 +2,7 @@
 // isolated per client). For the lightweight, tree-shakeable single-client
 // model (direct resource imports, one global token) use
 // `@commercelayer/sdk/single-client`.
-import { CommerceLayer, type CommerceLayerBundle, type CommerceLayerClient } from './bundle'
+import { CommerceLayer, type CommerceLayerBundle, type CommerceLayerClient } from '../gen/bundle'
 
 export { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION } from './commercelayer'
 // Preferred: the named export. Clean, and the form we're standardising on.
@@ -58,8 +58,6 @@ export type {
   ResourceType,
   ResourceUpdate,
 } from '@runtime/resource'
-// Commerce Layer client type
-export type { CommerceLayerConfig, CommerceLayerInitConfig } from './commercelayer'
 // Resource API types
 export type {
   CreatableResource,
@@ -77,6 +75,8 @@ export type {
   TaggableResourceType,
   UpdatableResource,
   UpdatableResourceType,
-} from './enum'
+} from '../gen/enum'
 // Resource model types
-export type * from './model'
+export type * from '../gen/model'
+// Commerce Layer client type
+export type { CommerceLayerConfig, CommerceLayerInitConfig } from './commercelayer'

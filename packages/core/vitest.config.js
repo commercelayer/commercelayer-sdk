@@ -17,12 +17,12 @@ export default defineConfig({
   },
   test: {
     testTimeout: GLOBAL_TIMEOUT,
-    include: ['specs/**/*.spec.ts'],
+    include: ['specs/**/*.spec.ts', 'gen/specs/**/*.spec.ts'],
     exclude: ['**/node_modules/**'],
     globals: true,
     coverage: {
       reporter: ['text', 'json', 'html'],
-      include: ['src/**/*.ts'],
+      include: ['src/**/*.ts', 'gen/**/*.ts'],
     },
     watch: false,
   },

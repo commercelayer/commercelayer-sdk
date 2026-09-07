@@ -5,7 +5,7 @@
 // imports from this path and nudge callers to the default entry. The impl in
 // `./bundle` is intentionally NOT deprecated (the default root re-exports it).
 
-import CommerceLayerBundleFactory, { type CommerceLayerBundle as CommerceLayerBundleImpl } from './bundle'
+import CommerceLayerBundleFactory, { type CommerceLayerBundle as CommerceLayerBundleImpl } from '../gen/bundle'
 
 /**
  * @deprecated Import from `@commercelayer/sdk` instead — the bundle is now the

@@ -8,9 +8,10 @@
   "files": {
     "includes": [
       "./packages/*/src/**",
+      "./packages/*/gen/**",
       "./packages/*/test/**",
       "./packages/*/specs/**",
-      "./packages/*/gen/**",
+      "./packages/*/templates/**",
       "!**/gen/public_resources.json"
     ]
   },

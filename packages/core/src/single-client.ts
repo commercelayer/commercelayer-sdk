@@ -1,5 +1,5 @@
 // Resource adapters
-export * from './api'
+export * from '../gen/api'
 
 // SDK
 import { CommerceLayer } from './commercelayer'
@@ -62,10 +62,6 @@ export type {
   ResourceType,
   ResourceUpdate,
 } from '@runtime/resource'
-// Commerce Layer client type — the single-token client (no resource
-// accessors; import resources directly). Named distinctly from the bundle's
-// `CommerceLayerClient`.
-export type { CommerceLayerConfig, CommerceLayerInitConfig, CommerceLayerSingleClient } from './commercelayer'
 // Resource API types
 export type {
   CreatableResource,
@@ -83,6 +79,10 @@ export type {
   TaggableResourceType,
   UpdatableResource,
   UpdatableResourceType,
-} from './enum'
+} from '../gen/enum'
 // Resource model types
-export type * from './model'
+export type * from '../gen/model'
+// Commerce Layer client type — the single-token client (no resource
+// accessors; import resources directly). Named distinctly from the bundle's
+// `CommerceLayerClient`.
+export type { CommerceLayerConfig, CommerceLayerInitConfig, CommerceLayerSingleClient } from './commercelayer'

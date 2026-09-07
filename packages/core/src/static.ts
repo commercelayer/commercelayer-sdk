@@ -1,8 +1,16 @@
 import { type ApiError, isApiError, isSdkError, type SdkError } from '@runtime/error'
 import { isTokenExpired } from '@runtime/util'
+import type { ResourceTypeLock } from '../gen/enum'
+import {
+  getResources,
+  getSingletons,
+  isCreatable,
+  isDeletable,
+  isSingleton,
+  isTaggable,
+  isUpdatable,
+} from '../gen/enum'
 import { API_SCHEMA_VERSION } from './commercelayer'
-import type { ResourceTypeLock } from './enum'
-import { getResources, getSingletons, isCreatable, isDeletable, isSingleton, isTaggable, isUpdatable } from './enum'
 
 /* Static functions */
 export const CommerceLayerStatic = {

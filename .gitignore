@@ -1,7 +1,9 @@
 build/
 dist/
 
-**/gen/public_resources.json
+# The public/resources snapshot is COMMITTED (docs/adr/0004): it makes any
+# commit reproducible offline and lets the drift check regenerate with --local
+# instead of depending on the live API.
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos

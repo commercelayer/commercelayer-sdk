@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { CommerceLayer } from '../src/bundle'
+import { CommerceLayer } from '../gen/bundle'
 import { handleError, interceptRequest } from '../test/common'
 
 // Regression test for the beta-8 singleton bug: two bundle clients created

@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, test } from 'vitest'
-import { CommerceLayer, type CommerceLayerBundle } from '../src/bundle'
+import { CommerceLayer, type CommerceLayerBundle } from '../gen/bundle'
 import { domain, IS_UNIFIED_BUILD, organization } from '../test/common'
 import getToken from '../test/token'
 

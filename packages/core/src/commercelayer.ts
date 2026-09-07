@@ -11,9 +11,9 @@ import type {
   ResponseObj,
 } from '@runtime/interceptor'
 import { ApiResourceAdapter, type ResourceAdapter, type ResourcesInitConfig } from '@runtime/resource'
-// import * as api from './api'
-import { getResources } from './enum'
-import { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION } from './version'
+// import * as api from '../gen/api'
+import { getResources } from '../gen/enum'
+import { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION } from '../gen/version'
 
 const debug = Debug('commercelayer')
 
@@ -46,11 +46,6 @@ class CommerceLayerSingleClient {
 
   protected static cl: CommerceLayerSingleClient
 
-  // ##__CL_RESOURCES_DEF_START__##
-  // ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
-
-  // ##__CL_RESOURCES_DEF_STOP__##
-
   static get(config?: CommerceLayerInitConfig): CommerceLayerSingleClient {
     if (config) return (CommerceLayerSingleClient.cl = new CommerceLayerSingleClient(config))
     else if (!CommerceLayerSingleClient.cl) throw new Error('CommerceLayer client not initialized')
@@ -71,16 +66,7 @@ class CommerceLayerSingleClient {
     // exact adapter; the static assignment stays for the plain SDK, whose
     // directly-imported resource singletons resolve through it.
     this.instanceAdapter = ApiResourceAdapter.init(config)
-
-    // ##__CL_RESOURCES_INIT_START__##
-    // ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
-    // ##__CL_RESOURCES_INIT_STOP__##
   }
-
-  // ##__CL_RESOURCES_LAZY_LOADING_START__##
-  // ##__CL_RESOURCES_LAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)) }
-
-  // ##__CL_RESOURCES_LAZY_LOADING_STOP__##
 
   // Adapter seam. The base (plain SDK) reports the process-global static
   // adapter so `config()` and the getters below stay in sync with the

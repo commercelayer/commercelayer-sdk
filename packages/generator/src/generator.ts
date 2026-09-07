@@ -84,6 +84,28 @@ const global: {
   target?: TargetConfig
 } = {}
 
+/**
+ * Resolves `##__IF_<FLAG>__##` / `##__END_IF_<FLAG>__##` regions in a template
+ * against the target config. When the flag is false the whole region is
+ * dropped; when true only the markers are. Lets one template serve targets
+ * that differ structurally — provisioning has no `tags` resource, so emitting
+ * an empty taggable block would leave a dangling import and a `never` type.
+ */
+const applyConditionals = (tpl: string, target: TargetConfig): string => {
+  const flags: Record<string, boolean> = {
+    TAGGABLE: target.taggable,
+    SINGLE_CLIENT: target.singleClient,
+  }
+  let out = tpl
+  for (const [flag, enabled] of Object.entries(flags)) {
+    const region = new RegExp(`[ \\t]*// ##__IF_${flag}__##\\n([\\s\\S]*?)[ \\t]*// ##__END_IF_${flag}__##\\n`, 'g')
+    out = out.replace(region, (_m, body: string) => (enabled ? body : ''))
+  }
+  const stray = out.match(/##__(?:END_)?IF_[A-Z_]+__##/)
+  if (stray) throw new Error(`Unresolved template conditional: ${stray[0]}. Add the flag to applyConditionals.`)
+  return out
+}
+
 const loadTemplates = (): void => {
   // Templates ship with the generator, so resolve them relative to this module
   // — not the working directory, which is the SDK package being generated.
@@ -180,16 +202,17 @@ const generate = async (cli: CliOptions) => {
   global.supportedVersions = schema.supportedVersions
 
   loadTemplates()
+  for (const [name, tpl] of Object.entries(templates)) templates[name] = applyConditionals(tpl, target)
 
   // Initialize source dir
-  const resDir = output || 'src/resources'
+  const resDir = output || 'gen/resources'
   if (existsSync(resDir)) rmSync(resDir, { recursive: true })
   mkdirSync(resDir, { recursive: true })
 
   // Initialize test dir. In diff mode the specs sit beside the resources rather
   // than being grafted under `specs/` — an absolute --output used to produce
   // paths like `specs/private/tmp/...` inside the repo.
-  const testDir = isDiffMode ? `${resDir.replace(/\/+$/, '')}-specs` : 'specs/resources'
+  const testDir = isDiffMode ? `${resDir.replace(/\/+$/, '')}-specs` : 'gen/specs'
   if (existsSync(testDir)) rmSync(testDir, { recursive: true })
   mkdirSync(testDir, { recursive: true })
 
@@ -262,11 +285,12 @@ const _tabsString = (num: number): string => {
 const updateSdkVersion = (): void => {
   if (!global.version) return
 
-  // API_SCHEMA_VERSION lives in src/version.ts (alongside SDK_VERSION) so
-  // client.ts can read it without a circular import via commercelayer.ts.
-  const filePath = 'src/version.ts'
+  // API_SCHEMA_VERSION lives alongside SDK_VERSION so the runtime's client can
+  // read it (via #registry) without a circular import through commercelayer.ts.
+  // Rendered whole from the generator's template — see docs/adr/0004.
+  const filePath = 'gen/version.ts'
 
-  const cl = readFileSync(filePath, { encoding: 'utf-8' })
+  const cl = templates.version
 
   const lines = cl.split('\n')
 
@@ -298,9 +322,11 @@ const updateSdkVersion = (): void => {
 }
 
 const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
-  const filePath = 'src/bundle.ts'
+  // Rendered whole from the generator's template into gen/. Nothing in src/
+  // is read or written: see docs/adr/0004.
+  const filePath = 'gen/bundle.ts'
 
-  const cl = readFileSync(filePath, { encoding: 'utf-8' })
+  const cl = templates.bundle
 
   const lines = cl.split('\n')
 
@@ -401,9 +427,14 @@ const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
 }
 
 const updateModelTypes = (resources: Record<string, ApiRes>): void => {
-  const filePath = 'src/model.ts'
+  // Rendered whole from the generator's template into gen/. Nothing in src/
+  // is read or written: see docs/adr/0004.
+  const filePath = 'gen/model.ts'
 
-  const cl = readFileSync(filePath, { encoding: 'utf-8' })
+  // `model_types`, not `model`: templates/model.tpl already renders a single
+  // resource's interface. Template names are a flat namespace keyed by
+  // filename, so a barrel template must not reuse an existing name.
+  const cl = templates.model_types
 
   const lines = cl.split('\n')
 
@@ -436,9 +467,11 @@ const updateModelTypes = (resources: Record<string, ApiRes>): void => {
 }
 
 const updateApiResources = (resources: Record<string, ApiRes>): void => {
-  const filePath = 'src/enum.ts'
+  // Rendered whole from the generator's template into gen/. Nothing in src/
+  // is read or written: see docs/adr/0004.
+  const filePath = 'gen/enum.ts'
 
-  const cl = readFileSync(filePath, { encoding: 'utf-8' })
+  const cl = templates.enum
 
   const lines = cl.split('\n')
 
@@ -519,9 +552,11 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 }
 
 const updateAdapters = (resources: Record<string, ApiRes>): void => {
-  const filePath = 'src/api.ts'
+  // Rendered whole from the generator's template into gen/. Nothing in src/
+  // is read or written: see docs/adr/0004.
+  const filePath = 'gen/api.ts'
 
-  const cl = readFileSync(filePath, { encoding: 'utf-8' })
+  const cl = templates.api
 
   const lines = cl.split('\n')
 
