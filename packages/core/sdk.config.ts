@@ -16,7 +16,12 @@ const config: TargetConfig = {
   },
   docsPath: 'core-api-reference',
   clientName: 'CommerceLayer',
+  // Base class defined in src/commercelayer.ts, extended by the generated
+  // bundle client. Public via ./single-client, so it cannot be renamed.
+  clientBaseName: 'CommerceLayerSingleClient',
   staticName: 'CommerceLayerStatic',
+  // sdk6 consumers imported `CommerceLayerBundle`; kept as a deprecated alias.
+  bundleAlias: 'CommerceLayerBundle',
   // Core publishes the tree-shakeable single-client entry alongside the bundle.
   singleClient: true,
   taggable: true,

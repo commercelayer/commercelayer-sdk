@@ -316,6 +316,13 @@ class ResourceAdapter {
     resource: U & ResourceId,
     params?: QueryParamsRetrieve<R>,
     options?: ResourcesConfig,
+    /**
+     * Singular path override for singleton resources, e.g. `user` rather than
+     * `users/{id}`. Mirrors `singleton()` above. Core never needed it — both
+     * its singletons are retrieve-only — but the Provisioning API's `user` is
+     * updatable, and without this the request targets `/users/{id}` and 404s.
+     */
+    path?: string,
   ): Promise<R> {
     debug('update: %o, %O, %O', resource, params || {}, options || {})
 
@@ -323,7 +330,7 @@ class ResourceAdapter {
     if (options?.params) Object.assign(queryParams, options?.params)
 
     const data = normalize(resource)
-    const res = await this.#client.request('PATCH', `${resource.type}/${resource.id}`, data, {
+    const res = await this.#client.request('PATCH', path || `${resource.type}/${resource.id}`, data, {
       ...options,
       params: queryParams,
     })

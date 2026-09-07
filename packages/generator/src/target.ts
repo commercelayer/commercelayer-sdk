@@ -36,8 +36,27 @@ export type TargetConfig = {
    * `core-api-reference`.
    */
   docsPath: string
-  /** Client factory and class name, e.g. `CommerceLayer`. */
+  /**
+   * Fixed API subdomain, e.g. `provisioning` for
+   * `https://provisioning.commercelayer.io/api`. Omit for organization-scoped
+   * APIs like Core, where the subdomain is the organization slug and
+   * `organization` becomes a required init option.
+   */
+  apiSubdomain?: string
+  /** Client factory function name, e.g. `CommerceLayer`. */
   clientName: string
+  /**
+   * Name of the base client class that `src/commercelayer.ts` defines and the
+   * generated bundle client extends, e.g. `CommerceLayerSingleClient`. Internal
+   * to each package, so it need not match `clientName`.
+   */
+  clientBaseName: string
+  /**
+   * Deprecated type alias for the bundle client, kept for backwards
+   * compatibility. Core has `CommerceLayerBundle` from its sdk6 era; targets
+   * without that history omit this.
+   */
+  bundleAlias?: string
   /** Static helper object name, e.g. `CommerceLayerStatic`. */
   staticName: string
   /**
@@ -67,7 +86,7 @@ const DEFAULTS = {
   actions: {} as Readonly<Record<string, readonly CustomAction[]>>,
 } satisfies Partial<TargetConfig>
 
-const REQUIRED = ['docsPath', 'clientName', 'staticName'] as const
+const REQUIRED = ['docsPath', 'clientName', 'clientBaseName', 'staticName'] as const
 
 /**
  * Loads and validates `./sdk.config.ts` from the working directory. Missing

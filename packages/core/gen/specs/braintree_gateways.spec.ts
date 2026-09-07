@@ -6,12 +6,7 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import {
-  type BraintreeGateway,
-  braintree_gateways,
-  braintree_payments,
-  type CommerceLayerSingleClient,
-} from '../../src/single-client'
+import type { CommerceLayerSingleClient } from '../../src/commercelayer'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,
@@ -26,6 +21,8 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
+import { braintree_gateways, braintree_payments } from '../api'
+import type { BraintreeGateway } from '../model'
 
 let cl: CommerceLayerSingleClient
 

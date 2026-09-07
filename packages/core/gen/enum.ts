@@ -1,3 +1,5 @@
+// ResourceRel is only referenced by TaggableResource, so it must be imported
+// inside the conditional or it is unused on targets without a tags resource.
 import type { Resource, ResourceRel } from '@runtime/resource'
 import type * as models from './model'
 import type { TagType } from './resources/tags'

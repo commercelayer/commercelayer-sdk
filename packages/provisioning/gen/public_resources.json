@@ -1,0 +1,3395 @@
+{
+    "data": [
+        {
+            "id": "api_credential",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "desc": "The API credential internal name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "My app"
+                    },
+                    "kind": {
+                        "type": "string",
+                        "desc": "The API credential kind, can be one of: `webapp`, `sales_channel`, `integration` or the kind of app you want to fork (e.g. `orders`, `imports`, etc.).",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "sales_channel"
+                    },
+                    "confidential": {
+                        "type": "boolean",
+                        "desc": "Indicates if the API credential it's confidential.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "redirect_uri": {
+                        "type": "string",
+                        "desc": "The API credential redirect URI.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "https://bluebrand.com/img/logo.svg"
+                    },
+                    "client_id": {
+                        "type": "string",
+                        "desc": "The API credential unique ID.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "xxxx-yyyy-zzzz"
+                    },
+                    "client_secret": {
+                        "type": "string",
+                        "desc": "The API credential unique secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "xxxx-yyyy-zzzz"
+                    },
+                    "scopes": {
+                        "type": "string",
+                        "desc": "The API credential scopes.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "market:all market:9 market:122 market:6 stock_location:6 stock_location:33"
+                    },
+                    "expires_in": {
+                        "type": "integer",
+                        "desc": "The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "7200"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "desc": "Indicates the environment the resource belongs to (one of `test` or `live`).",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "test"
+                    },
+                    "custom": {
+                        "type": "boolean",
+                        "desc": "Indicates if the API credential is used to create a custom app (e.g. fork a hosted app).",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The organization associated to the API credential.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::ApiCredentialResource",
+                        "class_name": "Organization"
+                    },
+                    "role": {
+                        "type": "has_one",
+                        "desc": "The role associated to the API credential.",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::ApiCredentialResource",
+                        "class_name": "Role"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "name",
+                    "kind",
+                    "confidential",
+                    "redirect_uri",
+                    "client_id",
+                    "scopes",
+                    "expires_in",
+                    "mode",
+                    "custom",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "organization_id",
+                    "role_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "application_membership",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "filters": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that contains restrictions and scopes of the application membership.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "market_id_in": [
+                                202,
+                                203
+                            ]
+                        }
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "api_credential": {
+                        "type": "has_one",
+                        "desc": "The API credential associated to the application membership.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "class_name": "ApiCredential",
+                        "parent_resource": "V1::ApplicationMembershipResource"
+                    },
+                    "membership": {
+                        "type": "has_one",
+                        "desc": "The membership associated to the application membership.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::ApplicationMembershipResource",
+                        "class_name": "Membership"
+                    },
+                    "membership_profile": {
+                        "type": "has_one",
+                        "desc": "The membership profile associated to the application membership.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::ApplicationMembershipResource",
+                        "class_name": "MembershipProfile"
+                    },
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The organization associated to the membership.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::ApplicationMembershipResource",
+                        "class_name": "Organization"
+                    },
+                    "role": {
+                        "type": "has_one",
+                        "desc": "The role associated to the application membership.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::ApplicationMembershipResource",
+                        "class_name": "Role"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "filters",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "api_credential_id",
+                    "membership_id",
+                    "membership_profile_id",
+                    "organization_id",
+                    "role_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "billing_profile",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "retrieve"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "email": {
+                        "type": "string",
+                        "desc": "The billing profile email.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "commercelayer@commercelayer.io"
+                    },
+                    "stripe_id": {
+                        "type": "string",
+                        "desc": "The Stripe identification of the billing profile.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "bp_62727272"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "subscriptions": {
+                        "type": "has_many",
+                        "desc": "The subscriptions associated to the billing profile.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::BillingProfileResource",
+                        "class_name": "Subscription"
+                    },
+                    "user": {
+                        "type": "has_one",
+                        "desc": "The user associated to the billing profile.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::BillingProfileResource",
+                        "class_name": "User"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "email",
+                    "stripe_id",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "subscriptions_id",
+                    "user_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "identity_provider",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "desc": "The name of the Identity provider.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Org auth0"
+                    },
+                    "client_id": {
+                        "type": "string",
+                        "desc": "The client ID used for the auth workflow.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "a6CDk5v1ZV99GrtOcfYVEZRnDDt"
+                    },
+                    "client_secret": {
+                        "type": "string",
+                        "desc": "The client secret used for the auth workflow.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "s6CD55v1ZV99ArtOcfYVEZRnDDf"
+                    },
+                    "issuer": {
+                        "type": "string",
+                        "desc": "The issuer used for the auth workflow.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "https://dev.auth987.com/"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The identity provider status. One of `pending` (default), `verified` or `error`.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "pending",
+                        "enum": [
+                            "pending",
+                            "verified",
+                            "error"
+                        ],
+                        "aasm": true
+                    },
+                    "domains": {
+                        "type": "string",
+                        "desc": "The list of domains in scope (comma-separated).",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "dev.auth987.com,stg.auth987.com"
+                    },
+                    "token_url": {
+                        "type": "string",
+                        "desc": "The token URL used for the auth workflow.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "https://dev.auth987.com/oauth/token"
+                    },
+                    "authorize_url": {
+                        "type": "string",
+                        "desc": "The authorize URL used for the auth workflow.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "https://dev.auth987.com/authorize"
+                    },
+                    "jwks_url": {
+                        "type": "string",
+                        "desc": "The JWKS key store URL used for the auth workflow.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "https://dev.auth987.com/.well-known/jwks.json"
+                    },
+                    "txt_record": {
+                        "type": "string",
+                        "desc": "The TXT record value used to check the domain.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "cl-verification=a6CDk5v"
+                    },
+                    "organization": {
+                        "type": "string",
+                        "desc": "The organization identifier for authorize params.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "org_76gsfs5gd"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    },
+                    "_disable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as disabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true",
+                        "conditions": {
+                            "include": "CoreMixins::Concerns::Disabled"
+                        }
+                    },
+                    "_enable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as enabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true",
+                        "conditions": {
+                            "include": "CoreMixins::Concerns::Disabled"
+                        }
+                    },
+                    "disabled_at": {
+                        "type": "datetime",
+                        "desc": "Time at which this resource was disabled.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "conditions": {
+                            "include": "CoreMixins::Concerns::Disabled"
+                        }
+                    }
+                },
+                "relationships": {
+                    "user": {
+                        "type": "has_one",
+                        "desc": "The user associated to the identity provider.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::IdentityProviderResource",
+                        "class_name": "User"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "name",
+                    "client_id",
+                    "client_secret",
+                    "issuer",
+                    "status",
+                    "domains",
+                    "token_url",
+                    "authorize_url",
+                    "jwks_url",
+                    "txt_record",
+                    "organization",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "disabled_at",
+                    "q",
+                    "user_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to",
+                    "disabled_at_from",
+                    "disabled_at_to"
+                ]
+            }
+        },
+        {
+            "id": "membership",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "user_email": {
+                        "type": "string",
+                        "desc": "The user email.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "commercelayer@commercelayer.io"
+                    },
+                    "user_first_name": {
+                        "type": "string",
+                        "desc": "The user first name.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "John"
+                    },
+                    "user_last_name": {
+                        "type": "string",
+                        "desc": "The user last name.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "Doe"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The memberships status. One of `pending` (default), `active`.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "pending",
+                        "enum": [
+                            "pending",
+                            "active"
+                        ],
+                        "aasm": true
+                    },
+                    "owner": {
+                        "type": "boolean",
+                        "desc": "Indicates if the user it's the owner of the organization.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "test_enabled": {
+                        "type": "boolean",
+                        "desc": "Reflects the organization's access scope, either test_access or all_access.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": true
+                    },
+                    "access_scope": {
+                        "type": "string",
+                        "desc": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "live_access",
+                        "enum": [
+                            "live_access",
+                            "test_access",
+                            "all_access"
+                        ]
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The organization associated to the membership.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::MembershipResource",
+                        "class_name": "Organization"
+                    },
+                    "role": {
+                        "type": "has_one",
+                        "desc": "The role associated to the membership.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::MembershipResource",
+                        "class_name": "Role"
+                    },
+                    "application_memberships": {
+                        "type": "has_many",
+                        "desc": "The application memberships associated to the membership.",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::MembershipResource",
+                        "class_name": "ApplicationMembership"
+                    },
+                    "membership_profile": {
+                        "type": "has_one",
+                        "desc": "The membership profile associated to the membership.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::MembershipResource",
+                        "class_name": "MembershipProfile"
+                    },
+                    "versions": {
+                        "type": "has_many",
+                        "desc": "The associated changes.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "conditions": {
+                            "include": "CoreMixins::Concerns::Versionable"
+                        },
+                        "parent_resource": "V1::MembershipResource",
+                        "class_name": "Version"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "user_email",
+                    "status",
+                    "owner",
+                    "access_scope",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "organization_id",
+                    "role_id",
+                    "application_memberships_id",
+                    "membership_profile_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "membership_profile",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "desc": "The membership profile name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Marketing group"
+                    },
+                    "test_enabled": {
+                        "type": "boolean",
+                        "desc": "Reflects the organization's access scope, either test_access or all_access.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": true
+                    },
+                    "access_scope": {
+                        "type": "string",
+                        "desc": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "live_access",
+                        "enum": [
+                            "live_access",
+                            "test_access",
+                            "all_access"
+                        ]
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The organization associated to the membership.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::MembershipProfileResource",
+                        "class_name": "Organization"
+                    },
+                    "application_memberships": {
+                        "type": "has_many",
+                        "desc": "The application memberships associated to the membership profile.",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::MembershipProfileResource",
+                        "class_name": "ApplicationMembership"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "name",
+                    "access_scope",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "organization_id",
+                    "application_memberships_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "organization",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "desc": "The organization's internal name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "The Blue Brand"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "desc": "The organization's slug name.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "the-blue-brand"
+                    },
+                    "domain": {
+                        "type": "string",
+                        "desc": "The organization's domain.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "the-blue-brand.commercelayer.io"
+                    },
+                    "support_phone": {
+                        "type": "string",
+                        "desc": "The organization's support phone.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "+01 30800857"
+                    },
+                    "support_email": {
+                        "type": "string",
+                        "desc": "The organization's support email.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "support@bluebrand.com"
+                    },
+                    "logo_url": {
+                        "type": "string",
+                        "desc": "The URL to the organization's logo.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://bluebrand.com/img/logo.svg"
+                    },
+                    "favicon_url": {
+                        "type": "string",
+                        "desc": "The URL to the organization's favicon.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://bluebrand.com/img/favicon.ico"
+                    },
+                    "primary_color": {
+                        "type": "string",
+                        "desc": "The organization's primary color.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "#C8984E"
+                    },
+                    "contrast_color": {
+                        "type": "string",
+                        "desc": "The organization's contrast color. Format is HEX (starts with `#` and is followed by six letters and/or numbers).",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "#FFFFCC"
+                    },
+                    "gtm_id": {
+                        "type": "string",
+                        "desc": "The organization's Google Tag Manager ID.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "GTM-5FJXX6"
+                    },
+                    "gtm_id_test": {
+                        "type": "string",
+                        "desc": "The organization's Google Tag Manager ID for test.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "GTM-5FJXX7"
+                    },
+                    "region": {
+                        "type": "string",
+                        "desc": "The region where the organization is located. The default value is `eu-west-1`.",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "eu-west-1"
+                    },
+                    "can_switch_live": {
+                        "type": "boolean",
+                        "desc": "Indicates if the organization can switch to live mode.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "subscription_info": {
+                        "type": "object",
+                        "desc": "Information about the current subscription such as the plan type, limits, and subscription totals counter.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": {
+                            "plan_type": "growth",
+                            "limits": {
+                                "markets": 5,
+                                "skus": 10000,
+                                "organizations": 2,
+                                "memberships": 5
+                            },
+                            "totals": {
+                                "organizations": 1,
+                                "markets": 0,
+                                "memberships": 2,
+                                "skus": 0
+                            }
+                        }
+                    },
+                    "config": {
+                        "type": "object",
+                        "desc": "The organization's configuration.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": {
+                            "mfe": {
+                                "language": "it-IT",
+                                "default": {
+                                    "links": {
+                                        "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
+                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:access_token",
+                                        "identity": "https://example.com/login",
+                                        "microstore": "https://example.com/microstore/?accessToken=:access_token",
+                                        "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
+                                    },
+                                    "checkout": {
+                                        "optional_billing_info": false,
+                                        "thankyou_page": "https://example.com/thanks/:lang/:order_id",
+                                        "billing_countries": [
+                                            {
+                                                "value": "ES",
+                                                "label": "Espana"
+                                            },
+                                            {
+                                                "value": "IT",
+                                                "label": "Italia"
+                                            },
+                                            {
+                                                "value": "US",
+                                                "label": "Unites States of America"
+                                            }
+                                        ],
+                                        "shipping_countries": [
+                                            {
+                                                "value": "ES",
+                                                "label": "Espana"
+                                            },
+                                            {
+                                                "value": "IT",
+                                                "label": "Italia"
+                                            },
+                                            {
+                                                "value": "US",
+                                                "label": "Unites States of America"
+                                            }
+                                        ],
+                                        "billing_states": {
+                                            "FR": [
+                                                {
+                                                    "value": "PA",
+                                                    "label": "Paris"
+                                                },
+                                                {
+                                                    "value": "LY",
+                                                    "label": "Lyon"
+                                                },
+                                                {
+                                                    "value": "NI",
+                                                    "label": "Nice"
+                                                },
+                                                {
+                                                    "value": "MA",
+                                                    "label": "Marseille"
+                                                },
+                                                {
+                                                    "value": "BO",
+                                                    "label": "Bordeaux"
+                                                }
+                                            ]
+                                        },
+                                        "shipping_states": {
+                                            "FR": [
+                                                {
+                                                    "value": "PA",
+                                                    "label": "Paris"
+                                                },
+                                                {
+                                                    "value": "LY",
+                                                    "label": "Lyon"
+                                                },
+                                                {
+                                                    "value": "NI",
+                                                    "label": "Nice"
+                                                },
+                                                {
+                                                    "value": "MA",
+                                                    "label": "Marseille"
+                                                },
+                                                {
+                                                    "value": "BO",
+                                                    "label": "Bordeaux"
+                                                }
+                                            ]
+                                        },
+                                        "default_country": "US"
+                                    },
+                                    "urls": {
+                                        "privacy": "https://example.com/privacy/:lang",
+                                        "terms": "https://example.com/terms/:lang"
+                                    }
+                                },
+                                "market:id:ZKcv13rT": {
+                                    "links": {
+                                        "cart": "https://example.com/custom-cart/:order_id?accessToken=:access_token"
+                                    },
+                                    "checkout": {
+                                        "thankyou_page": "https://example.com/thanks/:order_id"
+                                    }
+                                }
+                            },
+                            "well-known": {
+                                "shopping": {
+                                    "catalog_mcp_url": "https://catalog-mcp.example.com/mcp",
+                                    "client_id": "abc123example",
+                                    "locale_scopes": {
+                                        "it-IT": {
+                                            "id": "ZKcv13rT"
+                                        },
+                                        "en-US": {
+                                            "id": "ZKcv13rT"
+                                        }
+                                    },
+                                    "ui": {
+                                        "domain": "",
+                                        "csp": {
+                                            "resourceDomains": [
+                                                "https://data.commercelayer.app",
+                                                "https://cdn.brand.com"
+                                            ],
+                                            "baseUriDomains": [],
+                                            "connectDomains": [],
+                                            "frameDomains": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "api_auth_redirect": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Enables the redirect on the new Auth API.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "api_fragment_caching_enabled": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables fragment caching for resources with related directive.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "api_rules_engine": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables the rules engine for flex promotions and price list rules.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "api_rules_engine_max_conditions_size": {
+                        "type": "integer",
+                        "default": 150,
+                        "desc": "The fallback maximum number of conditions within a rules payload on a ruleable object, default is {API_RULES_ENGINE_MAX_CONDITIONS_SIZE}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "150"
+                    },
+                    "api_rules_engine_max_rules_size": {
+                        "type": "integer",
+                        "default": 15,
+                        "desc": "The fallback maximum number of rules within a rules payload on a ruleable object, default is {API_RULES_ENGINE_MAX_RULES_SIZE}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "15"
+                    },
+                    "api_new_auth": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Forces the usage of the new Authentication API.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "api_purge_single_resource": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables the purge of cached single resources when list is purged.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "api_max_regex_length": {
+                        "type": "integer",
+                        "default": 5000,
+                        "desc": "The maximum length for the regular expressions, default is {API_MAX_REGEX_LENGTH}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "5000"
+                    },
+                    "addresses_avs_check": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Indicates if AVS checking will be enforced during payment workflow by passing specific attributes, default is {ADDRESSES_AVS_CHECK}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "addresses_phone_required": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Indicates if the phone attribute is required for addresses, default is {ADDRESSES_PHONE_REQUIRED}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "orders_sales_channel_guest_only": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Indicates if a sales channel application without customer can read and update just guest orders.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "orders_min_rebuild_shipments_lapse": {
+                        "type": "float",
+                        "default": 0,
+                        "desc": "The minimum lapse in fraction of seconds to be observed between two consecutive shipments rebuilt. If shipments rebuilt is triggered within the minimum lapse, the update is performed, but no rebuilt is done.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "0.0"
+                    },
+                    "orders_min_refresh_lapse": {
+                        "type": "float",
+                        "default": 0,
+                        "desc": "The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "0.0"
+                    },
+                    "orders_autorefresh_cutoff_test": {
+                        "type": "integer",
+                        "default": 50,
+                        "desc": "The maximum number line items allowed for a test order before disabling the autorefresh option.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "50"
+                    },
+                    "orders_autorefresh_cutoff_live": {
+                        "type": "integer",
+                        "default": 500,
+                        "desc": "The maximum number line items allowed for a live order before disabling the autorefresh option.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "500"
+                    },
+                    "orders_number_editable_test": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables orders number editing as a string in test (for enterprise plans only).",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "orders_number_editable_live": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables orders number editing as a string in live (for enterprise plans only).",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "orders_number_as_reference": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Enables to use the order number as payment reference on supported gateways.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "orders_invalid_coupon_errors": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Enables raising of API errors in case the provided coupon code is invalid, default is {ORDERS_INVALID_COUPON_ERRORS}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "orders_invalid_gift_card_errors": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Enables raising of API errors in case the provided gift card code is invalid, default is {ORDERS_INVALID_GIFT_CARD_ERRORS}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "orders_validate_shipping_stock": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables the validation of the generated stock line items and stock transfers before placing the order, default is {ORDERS_VALIDATE_SHIPPING_STOCK}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "bundles_max_items_count": {
+                        "type": "integer",
+                        "default": 10,
+                        "desc": "The maximum number of SKUs allowed for bundles, default is {BUNDLES_MAX_ITEMS_COUNT}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "10"
+                    },
+                    "coupons_min_code_length": {
+                        "type": "integer",
+                        "default": 8,
+                        "desc": "The minimum length for coupon code, default is {COUPONS_MIN_CODE_LENGTH}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "8"
+                    },
+                    "coupons_max_code_length": {
+                        "type": "integer",
+                        "default": 40,
+                        "desc": "The maximum length for coupon code, default is {COUPONS_MAX_CODE_LENGTH}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "40"
+                    },
+                    "gift_cards_exact_code_matching": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables matching the gift card code by its exact value, instead of by its first charachters, default is {GIFT_CARDS_EXACT_CODE_MATCHING}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "gift_cards_min_code_length": {
+                        "type": "integer",
+                        "default": 8,
+                        "desc": "The minimum length for gift card code, default is {GIFT_CARDS_MIN_CODE_LENGTH}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "8"
+                    },
+                    "gift_cards_max_code_length": {
+                        "type": "integer",
+                        "default": 40,
+                        "desc": "The maximum length for gift card code, default is {GIFT_CARDS_MAX_CODE_LENGTH}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "40"
+                    },
+                    "cleanups_max_concurrent_count": {
+                        "type": "integer",
+                        "default": 10,
+                        "desc": "The maximum number of concurrent cleanups allowed for your organization, default is {CLEANUPS_MAX_CONCURRENT_COUNT}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "10"
+                    },
+                    "exports_max_concurrent_count": {
+                        "type": "integer",
+                        "default": 10,
+                        "desc": "The maximum number of concurrent exports allowed for your organization, default is {EXPORTS_MAX_CONCURRENT_COUNT}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "10"
+                    },
+                    "imports_max_concurrent_count": {
+                        "type": "integer",
+                        "default": 10,
+                        "desc": "The maximum number of concurrent imports allowed for your organization, default is {IMPORTS_MAX_CONCURRENT_COUNT}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "10"
+                    },
+                    "imports_purge_cache": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Enables purging of cached resources upon succeeded imports.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "imports_skip_errors": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Disables the interruption of the import in case its errors exceeds the 10% threshold, default is {IMPORTS_SKIP_ERRORS}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "inventory_models_max_stock_locations_cutoff": {
+                        "type": "integer",
+                        "default": 10,
+                        "desc": "The maximum number for stock locations cutoff, default is {INVENTORY_MODELS_MAX_STOCK_LOCATIONS_CUTOFF}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "10"
+                    },
+                    "promotions_max_concurrent_count": {
+                        "type": "integer",
+                        "default": 10,
+                        "desc": "The maximum number of active concurrent promotions allowed for your organization, default is {PROMOTIONS_MAX_CONCURRENT_COUNT}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "10"
+                    },
+                    "promotions_max_conditions_size": {
+                        "type": "integer",
+                        "default": 150,
+                        "desc": "The maximum number of conditions within a rules payload on a promotion object, default is {PROMOTIONS_MAX_CONDITIONS_SIZE}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "150"
+                    },
+                    "promotions_max_rules_size": {
+                        "type": "integer",
+                        "default": 15,
+                        "desc": "The maximum number of rules within a rules payload on a promotion object, default is {PROMOTIONS_MAX_RULES_SIZE}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "15"
+                    },
+                    "price_lists_max_conditions_size": {
+                        "type": "integer",
+                        "default": 150,
+                        "desc": "The maximum number of conditions within a rules payload on a price list object, default is {PRICE_LISTS_MAX_CONDITIONS_SIZE}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "150"
+                    },
+                    "price_lists_max_rules_size": {
+                        "type": "integer",
+                        "default": 15,
+                        "desc": "The maximum number of rules within a rules payload on a price list object, default is {PRICE_LISTS_MAX_RULES_SIZE}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "15"
+                    },
+                    "imports_trigger_webhooks": {
+                        "type": "integer",
+                        "default": false,
+                        "desc": "Enables triggering of webhooks during imports, default is {IMPORTS_TRIGGER_WEBHOOKS}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "discount_engines_enabled": {
+                        "type": "boolean",
+                        "default": false,
+                        "addon": true,
+                        "desc": "Enables the use of an external discount engine in place of the standard one, default is {DISCOUNT_ENGINES_ENABLED}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "discount_engines_errors": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables raising of API errors in case of discount engine failure, default is {DISCOUNT_ENGINES_ERRORS}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "tags_max_name_length": {
+                        "type": "integer",
+                        "default": 25,
+                        "desc": "The maximum length for the tag name, default is {TAGS_MAX_NAME_LENGTH}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "25"
+                    },
+                    "tags_max_allowed_number": {
+                        "type": "integer",
+                        "default": 10,
+                        "desc": "The maximum allowed number of tags for each resource, default is {TAGS_MAX_ALLOWED_NUMBER}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "10"
+                    },
+                    "tax_calculators_errors": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables raising of API errors in case of tax calculation failure, default is {TAX_CALCULATORS_ERRORS}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "external_promotions_errors": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables raising of API errors in case of external promotion failure, default is {EXTERNAL_PROMOTIONS_ERRORS}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "external_prices_errors": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Enables raising of API errors in case of external price failure, default is {EXTERNAL_PRICES_ERRORS}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "skus_discovery": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables the Sku discovery by similarity search.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "payment_gateways_transaction_on_event": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables the creation of the authorization when the gateway event is received, even if there is no reference on Commerce Layer.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "memberships": {
+                        "type": "has_many",
+                        "desc": "The memberships associated to the organization.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::OrganizationResource",
+                        "class_name": "Membership"
+                    },
+                    "roles": {
+                        "type": "has_many",
+                        "desc": "The roles associated to the organization.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::OrganizationResource",
+                        "class_name": "Role"
+                    },
+                    "permissions": {
+                        "type": "has_many",
+                        "desc": "The permissions associated to the organization.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::OrganizationResource",
+                        "class_name": "Permission"
+                    },
+                    "api_credentials": {
+                        "type": "has_many",
+                        "desc": "The API credentials associated to the organization.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::OrganizationResource",
+                        "class_name": "ApiCredential"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "name",
+                    "slug",
+                    "domain",
+                    "contrast_color",
+                    "region",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "memberships_id",
+                    "roles_id",
+                    "permissions_id",
+                    "api_credentials_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "permission",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "can_create": {
+                        "type": "boolean",
+                        "desc": "Determines if the permission have access to create rights.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false
+                    },
+                    "can_read": {
+                        "type": "boolean",
+                        "desc": "Determines if the permission have access to read rights.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false
+                    },
+                    "can_update": {
+                        "type": "boolean",
+                        "desc": "Determines if the permission have access to update rights.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false
+                    },
+                    "can_destroy": {
+                        "type": "boolean",
+                        "desc": "Determines if the permission have access to destroy rights.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false
+                    },
+                    "subject": {
+                        "type": "string",
+                        "desc": "The resource where this permission is applied.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false
+                    },
+                    "restrictions": {
+                        "type": "object",
+                        "desc": "An object that contains additional restrictions.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The organization associated to the permission.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::PermissionResource",
+                        "class_name": "Organization"
+                    },
+                    "role": {
+                        "type": "has_one",
+                        "desc": "The role associated to the permission.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::PermissionResource",
+                        "class_name": "Role"
+                    },
+                    "versions": {
+                        "type": "has_many",
+                        "desc": "The associated changes.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "conditions": {
+                            "include": "CoreMixins::Concerns::Versionable"
+                        },
+                        "parent_resource": "V1::PermissionResource",
+                        "class_name": "Version"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "can_create",
+                    "can_read",
+                    "can_update",
+                    "can_destroy",
+                    "subject",
+                    "restrictions",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "organization_id",
+                    "role_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "plan",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "list",
+                    "retrieve"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "enterprise": {
+                        "type": "boolean",
+                        "desc": "Indicates if the plan it's an enterprise one.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false
+                    },
+                    "price_cents": {
+                        "type": "integer",
+                        "desc": "Indicates the plan price, in cents.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "5000"
+                    },
+                    "currency_code": {
+                        "type": "string",
+                        "desc": "The currency used in the `price_cents` field.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "USD"
+                    },
+                    "extra": {
+                        "type": "object",
+                        "desc": "An object that contains additional specifications.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    },
+                    "name": {
+                        "type": "string",
+                        "desc": "The plan name.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "Developer"
+                    },
+                    "limits": {
+                        "type": "object",
+                        "desc": "The limits associated to the plan.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": {
+                            "markets": 5,
+                            "skus": 10000,
+                            "organizations": 2,
+                            "memberships": 5
+                        }
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {},
+                "filters": [
+                    "id",
+                    "enterprise",
+                    "price_cents",
+                    "currency_code",
+                    "name",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "role",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "desc": "The role name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Custom role"
+                    },
+                    "kind": {
+                        "type": "string",
+                        "desc": "The kind of role, one of: `custom`, `admin`, `read_only`",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "default": "custom",
+                        "example": "custom"
+                    },
+                    "_add_missing_base_permissions": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to update the role base permissions.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The organization associated to the role.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::RoleResource",
+                        "class_name": "Organization"
+                    },
+                    "permissions": {
+                        "type": "has_many",
+                        "desc": "The permissions associated to the role.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::RoleResource",
+                        "class_name": "Permission"
+                    },
+                    "memberships": {
+                        "type": "has_many",
+                        "desc": "The memberships associated to the role.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::RoleResource",
+                        "class_name": "Membership"
+                    },
+                    "api_credentials": {
+                        "type": "has_many",
+                        "desc": "The API credentials associated to the role.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::RoleResource",
+                        "class_name": "ApiCredential"
+                    },
+                    "versions": {
+                        "type": "has_many",
+                        "desc": "The associated changes.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "conditions": {
+                            "include": "CoreMixins::Concerns::Versionable"
+                        },
+                        "parent_resource": "V1::RoleResource",
+                        "class_name": "Version"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "name",
+                    "kind",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "organization_id",
+                    "permissions_id",
+                    "memberships_id",
+                    "api_credentials_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "subscription",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "plan_type": {
+                        "type": "string",
+                        "desc": "The plan type associated to this subscription.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "developer"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The subscription status. One of `draft` (default), `pending`, `activated`, `expired`, `canceled` or `error`.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "pending",
+                        "enum": [
+                            "draft",
+                            "pending",
+                            "activated",
+                            "expired",
+                            "canceled",
+                            "error"
+                        ],
+                        "aasm": true
+                    },
+                    "stripe_id": {
+                        "type": "string",
+                        "desc": "The Stripe identifier of the subscription.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "sub_097542425"
+                    },
+                    "totals": {
+                        "type": "object",
+                        "desc": "The number of current organizations, markets, memberships, and SKUs associated with the subscription.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": {
+                            "organizations": 1,
+                            "markets": 0,
+                            "memberships": 0,
+                            "skus": 0
+                        }
+                    },
+                    "cancellable": {
+                        "type": "boolean",
+                        "desc": "Indicates if the subscription can be cancelled.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "account_type": {
+                        "type": "string",
+                        "desc": "Indicates the billing context associated to the subscription.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "inc"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "plan": {
+                        "type": "has_one",
+                        "desc": "The plan associated to the subscription.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::SubscriptionResource",
+                        "class_name": "Plan"
+                    },
+                    "billing_profile": {
+                        "type": "has_one",
+                        "desc": "The billing profile associated to the subscription.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::SubscriptionResource",
+                        "class_name": "BillingProfile"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "plan_type",
+                    "status",
+                    "stripe_id",
+                    "cancellable",
+                    "account_type",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "plan_id",
+                    "billing_profile_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "user",
+            "type": "resources",
+            "attributes": {
+                "singleton": true,
+                "deprecated": false,
+                "actions": [
+                    "retrieve",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "email": {
+                        "type": "string",
+                        "desc": "The user email.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "user@commercelayer.io"
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "desc": "The user first name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "desc": "The user last name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Doe"
+                    },
+                    "time_zone": {
+                        "type": "string",
+                        "desc": "The user preferred timezone.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "UTC"
+                    },
+                    "otp_required_for_login": {
+                        "type": "boolean",
+                        "desc": "The user 2FA setting.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": true
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {},
+                "filters": [
+                    "id",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "time_zone",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        },
+        {
+            "id": "version",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "deprecated": false,
+                "actions": [
+                    "list",
+                    "retrieve"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "item_type": {
+                        "type": "string",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "deprecated": true
+                    },
+                    "resource_type": {
+                        "type": "string",
+                        "desc": "The type of the versioned resource.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "roles"
+                    },
+                    "resource_id": {
+                        "type": "string",
+                        "desc": "The versioned resource ID.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "PzdJhdLdYV"
+                    },
+                    "event": {
+                        "type": "string",
+                        "desc": "The event which generates the version.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "update"
+                    },
+                    "ip_address": {
+                        "type": "string",
+                        "desc": "The request remote IP.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "127.0.0.1"
+                    },
+                    "user_agent": {
+                        "type": "string",
+                        "desc": "The request User Agent.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "Chrome/108.0.0.0 Safari/537.36"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "desc": "The request ID.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "2284362d2b024dc8a8736770ab2a7050bd35487c"
+                    },
+                    "changes": {
+                        "type": "object",
+                        "desc": "The object changes payload.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "{ \"name\": [\"previous\", \"new\"] }"
+                    },
+                    "who": {
+                        "type": "object",
+                        "desc": "Information about who triggered the change, only showed when it's from a JWT token.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "{ \"application\": { \"id\": \"DNOPYiZYpn\", \"kind\": \"integration\", \"public\": true }}"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {},
+                "filters": [
+                    "id",
+                    "resource_type",
+                    "resource_id",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ]
+            }
+        }
+    ],
+    "meta": {
+        "record_count": 13,
+        "page_count": 1
+    }
+}

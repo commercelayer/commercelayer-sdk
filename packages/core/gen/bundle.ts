@@ -669,4 +669,5 @@ function CommerceLayer(config: CommerceLayerInitConfig): CommerceLayerClient {
 type CommerceLayerBundle = CommerceLayerClient
 
 export default CommerceLayer
-export { CommerceLayer, type CommerceLayerBundle, type CommerceLayerClient }
+export type { CommerceLayerBundle }
+export { CommerceLayer, type CommerceLayerClient }

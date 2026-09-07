@@ -78,6 +78,48 @@ importers:
         specifier: ^4.1.9
         version: 4.1.9(@types/node@25.9.4)(@vitest/coverage-v8@4.1.9)(vite@7.3.1(@types/node@25.9.4)(tsx@4.22.4)(yaml@2.9.0))
 
+  packages/provisioning:
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^2.5.2
+        version: 2.5.2
+      '@commercelayer/js-auth':
+        specifier: ^7.4.2
+        version: 7.4.2
+      '@commercelayer/sdk-generator':
+        specifier: workspace:*
+        version: link:../generator
+      '@types/debug':
+        specifier: ^4.1.13
+        version: 4.1.13
+      '@types/node':
+        specifier: ^25.9.4
+        version: 25.9.4
+      '@vitest/coverage-v8':
+        specifier: ^4.1.9
+        version: 4.1.9(vitest@4.1.9)
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
+      json-typescript:
+        specifier: ^1.1.2
+        version: 1.1.2
+      jsonapi-typescript:
+        specifier: ^0.1.3
+        version: 0.1.3
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.9)(tsx@4.22.4)(typescript@5.9.3)(yaml@2.9.0)
+      tsx:
+        specifier: ^4.22.4
+        version: 4.22.4
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^4.1.9
+        version: 4.1.9(@types/node@25.9.4)(@vitest/coverage-v8@4.1.9)(vite@7.3.1(@types/node@25.9.4)(tsx@4.22.4)(yaml@2.9.0))
+
   packages/runtime:
     devDependencies:
       '@types/debug':

@@ -91,10 +91,19 @@ const global: {
  * that differ structurally — provisioning has no `tags` resource, so emitting
  * an empty taggable block would leave a dangling import and a `never` type.
  */
-const applyConditionals = (tpl: string, target: TargetConfig): string => {
+/**
+ * Resolves `##__IF_<FLAG>__##` / `##__END_IF_<FLAG>__##` regions and the
+ * target's naming placeholders in a template. Conditional regions are dropped
+ * when the flag is false and unwrapped when true; an unresolved marker raises
+ * rather than shipping. Lets one template serve targets that differ
+ * structurally — provisioning has no `tags` resource, so emitting an empty
+ * taggable block would leave a dangling import and a `never` type.
+ */
+const prepareTemplate = (tpl: string, target: TargetConfig): string => {
   const flags: Record<string, boolean> = {
     TAGGABLE: target.taggable,
     SINGLE_CLIENT: target.singleClient,
+    BUNDLE_ALIAS: Boolean(target.bundleAlias),
   }
   let out = tpl
   for (const [flag, enabled] of Object.entries(flags)) {
@@ -102,7 +111,16 @@ const applyConditionals = (tpl: string, target: TargetConfig): string => {
     out = out.replace(region, (_m, body: string) => (enabled ? body : ''))
   }
   const stray = out.match(/##__(?:END_)?IF_[A-Z_]+__##/)
-  if (stray) throw new Error(`Unresolved template conditional: ${stray[0]}. Add the flag to applyConditionals.`)
+  if (stray) throw new Error(`Unresolved template conditional: ${stray[0]}. Add the flag to prepareTemplate.`)
+
+  // Target naming. Applied before any per-resource substitution so the values
+  // cannot collide with resource placeholders.
+  out = out
+    .replace(/##__CLIENT_FACTORY__##/g, target.clientName)
+    .replace(/##__CLIENT_CLASS__##/g, `${target.clientName}Client`)
+    .replace(/##__CLIENT_BASE__##/g, target.clientBaseName)
+    .replace(/##__CLIENT_STATIC__##/g, target.staticName)
+    .replace(/##__BUNDLE_ALIAS__##/g, target.bundleAlias ?? '')
   return out
 }
 
@@ -202,7 +220,7 @@ const generate = async (cli: CliOptions) => {
   global.supportedVersions = schema.supportedVersions
 
   loadTemplates()
-  for (const [name, tpl] of Object.entries(templates)) templates[name] = applyConditionals(tpl, target)
+  for (const [name, tpl] of Object.entries(templates)) templates[name] = prepareTemplate(tpl, target)
 
   // Initialize source dir
   const resDir = output || 'gen/resources'
@@ -661,6 +679,10 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
   spec = copyrightHeader(spec)
 
   const pathAndName = singleton ? Inflector.singularize(type) : type
+  // A singleton's update targets the singular path with no id, so the spec
+  // must not assert one. Decided at emit time rather than via a runtime
+  // isSingleton() check, which would need the target's static helper imported.
+  spec = spec.replace(/##__SPEC_UPDATE_ID__##/g, singleton ? 'undefined' : 'resData.id')
   const importInstances: string[] = [pathAndName /* fixReservedWord(pathAndName) */]
 
   spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
@@ -723,6 +745,39 @@ const copyrightHeader = (template: string): string => {
   if (global.version) template = template.replace(/##__SCHEMA_VERSION__##/g, global.version)
 
   return template
+}
+
+/**
+ * Emits the target's declared custom actions onto a resource class. These are
+ * non-CRUD endpoints at a sub-path of a resource (`POST memberships/:id/resend`)
+ * which the public resources schema cannot describe, so they come from the
+ * target config — see docs/adr/0005.
+ *
+ * Payload types are named, not generated: the package hand-writes and exports
+ * them, and the generated method references the name.
+ */
+const customActions = (type: string, resModelInterface: string, operations: string[]): Set<string> => {
+  const declared = new Set<string>()
+  const actions = global.target?.actions?.[type]
+  if (!actions?.length) return declared
+
+  const resId = `${Inflector.singularize(Inflector.underscore(type))}Id`
+  for (const action of actions) {
+    const hasPayload = Boolean(action.payload)
+    let op = templates.action
+    op = op.replace(/##__ACTION_NAME__##/g, action.name)
+    op = op.replace(/##__RESOURCE_ID__##/g, resId)
+    op = op.replace(/##__RESOURCE_MODEL__##/g, resModelInterface)
+    op = op.replace(/##__ACTION_COMMAND__##/g, action.method)
+    // Emits a template-literal path into the generated source, e.g.
+    // `memberships/${_membershipId}/resend` — so the `${` must survive as text.
+    op = op.replace(/##__ACTION_PATH__##/g, type + '/' + '${_' + resId + '}' + '/' + action.path)
+    op = op.replace(/##__ACTION_PAYLOAD_PARAM__##/g, hasPayload ? `, payload: ${action.payload}` : '')
+    op = op.replace(/##__ACTION_PAYLOAD_ARG__##/g, hasPayload ? '{ ...payload }' : '{}')
+    operations.push(op)
+    if (hasPayload) declared.add(action.payload as string)
+  }
+  return declared
 }
 
 const triggerFunctions = (type: string, name: string, resource: Resource, operations: string[]): void => {
@@ -832,6 +887,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
   // Trigger functions (only boolean)
   if (CONFIG.TRIGGER_FUNCTIONS) triggerFunctions(type, resName, resource, operations)
+
+  // Custom actions declared by the target config
+  const actionPayloadTypes = customActions(type, resModelInterface, operations)
 
   if (operations && operations.length > 0) declaredImportsCommon.add('ResourcesConfig')
 
@@ -1005,6 +1063,15 @@ const generateResource = (type: string, name: string, resource: Resource): strin
     )
   const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
   res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
+
+  // Custom action payload types are hand-written and exported by the package,
+  // not generated: the config names them, src/actions.ts declares them.
+  res = res.replace(
+    /##__IMPORT_ACTION_PAYLOADS__##/g,
+    actionPayloadTypes.size > 0
+      ? `import type { ${Array.from(actionPayloadTypes).sort().join(', ')} } from '../../src/actions'`
+      : '',
+  )
 
   // Singleton path override
   res = res.replace(

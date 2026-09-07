@@ -80,7 +80,12 @@ const pubDir = join(work, 'package')
 let ok = true
 for (const e of entries) {
   console.log(`\n  ${e.key}`)
-  const pubJs = e.js && join(pubDir, e.js)
+  // Older packages have no exports map: `main` is CJS and `module` is ESM.
+  // Importing the CJS build yields interop noise (`module.exports`), so prefer
+  // the published package's own ESM entry when comparing the root entry point.
+  const pubPkg = JSON.parse(readFileSync(join(pubDir, 'package.json'), 'utf8'))
+  const pubRootEsm = pubPkg.exports?.['.']?.import?.default ?? pubPkg.module ?? pubPkg.main
+  const pubJs = e.key === '.' && pubRootEsm ? join(pubDir, pubRootEsm) : e.js && join(pubDir, e.js)
   const locJs = e.js && join(pkgDir, e.js)
   if (pubJs && existsSync(pubJs) && existsSync(locJs)) {
     const [a, b] = await Promise.all([import(pubJs), import(locJs)])
@@ -89,7 +94,9 @@ for (const e of entries) {
     console.log('     runtime exports: not comparable (missing build)')
     ok = false
   }
-  ok = diff('type surface', declaredNames(e.dts && join(pubDir, e.dts)), declaredNames(e.dts && join(pkgDir, e.dts))) && ok
+  const pubDts =
+    e.key === '.' && !pubPkg.exports ? join(pubDir, pubPkg.types ?? e.dts) : e.dts && join(pubDir, e.dts)
+  ok = diff('type surface', declaredNames(pubDts), declaredNames(e.dts && join(pkgDir, e.dts))) && ok
 }
 
 console.log(ok ? '\nPublic surface unchanged.' : '\nPublic surface DIFFERS — review above.')

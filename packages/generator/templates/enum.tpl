@@ -1,6 +1,9 @@
-import type { Resource, ResourceRel } from '@runtime/resource'
+import type { Resource } from '@runtime/resource'
 import type * as models from './model'
 // ##__IF_TAGGABLE__##
+// ResourceRel is only referenced by TaggableResource, so it must be imported
+// inside the conditional or it is unused on targets without a tags resource.
+import type { ResourceRel } from '@runtime/resource'
 import type { TagType } from './resources/tags'
 // ##__END_IF_TAGGABLE__##
 

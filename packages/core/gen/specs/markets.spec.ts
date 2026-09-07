@@ -6,21 +6,7 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import {
-  avalara_accounts,
-  type CommerceLayerSingleClient,
-  customer_groups,
-  discount_engines,
-  geocoders,
-  inventory_models,
-  type Market,
-  markets,
-  merchants,
-  payment_methods,
-  price_lists,
-  shipping_methods,
-  subscription_models,
-} from '../../src/single-client'
+import type { CommerceLayerSingleClient } from '../../src/commercelayer'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,
@@ -35,6 +21,20 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
+import {
+  avalara_accounts,
+  customer_groups,
+  discount_engines,
+  geocoders,
+  inventory_models,
+  markets,
+  merchants,
+  payment_methods,
+  price_lists,
+  shipping_methods,
+  subscription_models,
+} from '../api'
+import type { Market } from '../model'
 
 let cl: CommerceLayerSingleClient
 

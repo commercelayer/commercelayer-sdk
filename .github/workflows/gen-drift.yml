@@ -1,0 +1,77 @@
+name: Generated code drift
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+# Enforces docs/adr/0004: gen/ contains only generated output, and deleting it
+# then regenerating must reproduce it exactly. Catches hand-edits to generated
+# files and output that is stale relative to its committed schema snapshot.
+#
+# Regeneration uses --local, i.e. the snapshot committed alongside the output,
+# not the live API. That makes the check branch-agnostic — it passes the same
+# way on main and on a pkg-pr-new-<env> branch generated against staging — and
+# immune to the API moving underneath it.
+jobs:
+  drift:
+    name: gen/ is reproducible
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Wipe generated output
+        # The committed schema snapshot is the input, so it has to survive the
+        # wipe. Everything else under gen/ is reproducible from it.
+        run: |
+          set -euo pipefail
+          for pkg in packages/*/; do
+            [ -d "${pkg}gen" ] || continue
+            snapshot="${pkg}gen/public_resources.json"
+            if [ -f "$snapshot" ]; then
+              mv "$snapshot" "${pkg}snapshot.tmp"
+              rm -rf "${pkg}gen"
+              mkdir -p "${pkg}gen"
+              mv "${pkg}snapshot.tmp" "$snapshot"
+            else
+              rm -rf "${pkg}gen"
+            fi
+          done
+
+      - name: Regenerate from the committed snapshot
+        # generate-local, not generate: the point is to reproduce the committed
+        # output from the committed input, never to fetch the live API.
+        run: pnpm -r generate-local
+
+      - name: Fail on any difference
+        run: |
+          if ! git diff --exit-code -- 'packages/*/gen/**'; then
+            echo '::error::gen/ is not reproducible from its committed schema snapshot.'
+            echo 'Either a generated file was hand-edited, or the output is stale.'
+            echo 'Run `pnpm -r generate` and commit the result.'
+            exit 1
+          fi
+          # Generation must not create untracked files either.
+          untracked=$(git ls-files --others --exclude-standard -- 'packages/*/gen/**')
+          if [ -n "$untracked" ]; then
+            echo '::error::Regeneration produced untracked files under gen/:'
+            echo "$untracked"
+            exit 1
+          fi

@@ -20,3 +20,9 @@ export { SDK_VERSION } from '../gen/version'
  * so Core API and Provisioning API traffic is distinguishable.
  */
 export const SDK_TARGET = 'core'
+
+/**
+ * Fixed API subdomain, or `undefined` when the API is organization-scoped and
+ * the organization slug forms the subdomain. Core is organization-scoped.
+ */
+export const API_SUBDOMAIN: string | undefined = undefined

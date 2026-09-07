@@ -1,11 +1,11 @@
 import Debug from '@runtime/debug'
 import type { ResourceAdapter } from '@runtime/resource'
 import * as api from './api'
-import { type CommerceLayerInitConfig, CommerceLayerSingleClient } from '../src/commercelayer'
+import { type CommerceLayerInitConfig, ##__CLIENT_BASE__## } from '../src/commercelayer'
 
 const debug = Debug('bundle')
 
-class CommerceLayerClient extends CommerceLayerSingleClient {
+class ##__CLIENT_CLASS__## extends ##__CLIENT_BASE__## {
   // ##__CL_RESOURCES_DEF_START__##
   // ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
   // ##__CL_RESOURCES_DEF_STOP__##
@@ -19,10 +19,10 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
     // ##__CL_RESOURCES_INIT_STOP__##
   }
 
-  static get(config?: CommerceLayerInitConfig): CommerceLayerClient {
-    if (config) return (CommerceLayerClient.cl = new CommerceLayerClient(config))
-    else if (!CommerceLayerClient.cl) throw new Error('CommerceLayer bundle client not initialized')
-    return CommerceLayerClient.cl as CommerceLayerClient
+  static get(config?: CommerceLayerInitConfig): ##__CLIENT_CLASS__## {
+    if (config) return (##__CLIENT_CLASS__##.cl = new ##__CLIENT_CLASS__##(config))
+    else if (!##__CLIENT_CLASS__##.cl) throw new Error('##__CLIENT_FACTORY__## bundle client not initialized')
+    return ##__CLIENT_CLASS__##.cl as ##__CLIENT_CLASS__##
   }
 
   // Bundle clients are isolated: route this instance's requests, config and
@@ -41,15 +41,20 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   // ##__CL_RESOURCES_ACCESSORS_ONLY_STOP__##
 }
 
-function CommerceLayer(config: CommerceLayerInitConfig): CommerceLayerClient {
-  return CommerceLayerClient.get(config)
+function ##__CLIENT_FACTORY__##(config: CommerceLayerInitConfig): ##__CLIENT_CLASS__## {
+  return ##__CLIENT_CLASS__##.get(config)
 }
 
+// ##__IF_BUNDLE_ALIAS__##
 /**
- * @deprecated Renamed to `CommerceLayerClient`. This alias is kept for
+ * @deprecated Renamed to `##__CLIENT_CLASS__##`. This alias is kept for
  * backwards compatibility and will be removed in a future major.
  */
-type CommerceLayerBundle = CommerceLayerClient
+type ##__BUNDLE_ALIAS__## = ##__CLIENT_CLASS__##
+// ##__END_IF_BUNDLE_ALIAS__##
 
-export default CommerceLayer
-export { CommerceLayer, type CommerceLayerBundle, type CommerceLayerClient }
+export default ##__CLIENT_FACTORY__##
+export { ##__CLIENT_FACTORY__##, type ##__CLIENT_CLASS__## }
+// ##__IF_BUNDLE_ALIAS__##
+export type { ##__BUNDLE_ALIAS__## }
+// ##__END_IF_BUNDLE_ALIAS__##

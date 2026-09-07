@@ -6,13 +6,7 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import {
-  type CommerceLayerSingleClient,
-  percentage_discount_promotions,
-  type SkuListPromotionRule,
-  sku_list_promotion_rules,
-  sku_lists,
-} from '../../src/single-client'
+import type { CommerceLayerSingleClient } from '../../src/commercelayer'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,
@@ -27,6 +21,8 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
+import { percentage_discount_promotions, sku_list_promotion_rules, sku_lists } from '../api'
+import type { SkuListPromotionRule } from '../model'
 
 let cl: CommerceLayerSingleClient
 

@@ -6,12 +6,7 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
-import {
-  type BillingInfoValidationRule,
-  billing_info_validation_rules,
-  type CommerceLayerSingleClient,
-  markets,
-} from '../../src/single-client'
+import type { CommerceLayerSingleClient } from '../../src/commercelayer'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,
@@ -26,6 +21,8 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
+import { billing_info_validation_rules, markets } from '../api'
+import type { BillingInfoValidationRule } from '../model'
 
 let cl: CommerceLayerSingleClient
 

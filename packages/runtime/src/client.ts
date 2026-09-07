@@ -1,4 +1,4 @@
-import { SDK_TARGET, SDK_VERSION } from '#registry'
+import { API_SUBDOMAIN, SDK_TARGET, SDK_VERSION } from '#registry'
 import config from './config'
 import Debug from './debug'
 import { ErrorType, handleError, isExpiredTokenError, SdkError } from './error'
@@ -17,7 +17,10 @@ const debug = Debug('client')
 // resolves the organization's default version.
 const baseURL = (organization: string, domain?: string, apiVersion?: string): string => {
   const versionSegment = apiVersion ? `/${apiVersion}` : ''
-  return `https://${organization.toLowerCase()}.${domain || config.default.domain}/api${versionSegment}`
+  // Organization-scoped APIs (Core) put the organization slug in the subdomain;
+  // targets with a fixed subdomain (Provisioning) ignore it entirely.
+  const subdomain = API_SUBDOMAIN ?? organization.toLowerCase()
+  return `https://${subdomain}.${domain || config.default.domain}/api${versionSegment}`
 }
 
 type RequestParams = Record<string, string | number | boolean>
@@ -56,8 +59,11 @@ class ApiClient {
       if (!options.domain && tokenData?.domain) options.domain = tokenData.domain
     }
 
-    for (const attr of config.client.requiredAttributes)
-      if (!options[attr]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
+    // `organization` is only required when it forms the subdomain.
+    const required = API_SUBDOMAIN
+      ? config.client.requiredAttributes.filter((a) => a !== 'organization')
+      : config.client.requiredAttributes
+    for (const attr of required) if (!options[attr]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
     return new ApiClient(options)
   }
 
