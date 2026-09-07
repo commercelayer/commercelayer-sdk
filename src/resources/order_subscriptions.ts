@@ -61,10 +61,10 @@ interface OrderSubscription extends Resource {
    */
   number?: string | null
   /**
-   * The subscription status. One of 'draft' (default), 'inactive', 'active', 'running', or 'cancelled'.
+   * The subscription status. One of 'draft' (default), 'pending', 'inactive', 'active', 'running', or 'cancelled'.
    * @example ```"draft"```
    */
-  status: 'draft' | 'inactive' | 'active' | 'running' | 'cancelled'
+  status: 'draft' | 'pending' | 'inactive' | 'active' | 'running' | 'cancelled'
   /**
    * The frequency of the subscription. Use one of the supported within 'hourly', 'daily', 'weekly', 'monthly', 'two-month', 'three-month', 'four-month', 'six-month', 'yearly', or provide your custom crontab expression (min unit is hour). Must be supported by existing associated subscription_model.
    * @example ```"monthly"```

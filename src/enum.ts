@@ -163,7 +163,7 @@ export type RetrievableResource = Resource & {
 export type ListableResourceType = Exclude<
   ResourceTypeLock,
   // ##__API_RESOURCE_NOT_LISTABLE_START__##
-  'applications' | 'organizations'
+  'applications' | 'event_stores' | 'organizations'
   // ##__API_RESOURCE_NOT_LISTABLE_STOP__##
 >
 

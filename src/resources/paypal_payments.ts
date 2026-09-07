@@ -110,6 +110,11 @@ interface PaypalPaymentUpdate extends ResourceUpdate {
    * @example ```"ABCDEFGHG123456"```
    */
   paypal_payer_id?: string | null
+  /**
+   * Send this attribute if you want to refresh the payment's pending transactions and reconcile their status with PayPal.
+   * @example ```true```
+   */
+  _refresh?: boolean | null
 
   order?: OrderRel | null
 }
@@ -185,6 +190,18 @@ class PaypalPayments extends ApiResource<PaypalPayment> {
       params,
       options,
     ) as unknown as ListResponse<EventStore>
+  }
+
+  async _refresh(
+    id: string | PaypalPayment,
+    params?: QueryParamsRetrieve<PaypalPayment>,
+    options?: ResourcesConfig,
+  ): Promise<PaypalPayment> {
+    return this.resources.update<PaypalPaymentUpdate, PaypalPayment>(
+      { id: typeof id === 'string' ? id : id.id, type: PaypalPayments.TYPE, _refresh: true },
+      params,
+      options,
+    )
   }
 
   isPaypalPayment(resource: any): resource is PaypalPayment {

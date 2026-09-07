@@ -258,4 +258,28 @@ describe('PaypalPayments resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* relationship.event_stores stop */
+
+  /* trigger._refresh start */
+  test(resourceType + '._refresh', async () => {
+    let triggerAttr = '_refresh'
+    if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+
+    const triggerValue = true
+    const attributes = { [triggerAttr]: triggerValue }
+    const id = TestData.id
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, id)
+      return interceptRequest()
+    })
+
+    await paypal_payments
+      ._refresh(id, {}, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* trigger._refresh stop */
 })

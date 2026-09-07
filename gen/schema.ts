@@ -183,6 +183,15 @@ type SchemaInfo = {
 type GeneratorOptions = {
   apiHost?: string
   apiVersion?: string
+  /**
+   * Resources to leave out of the generated SDK regardless of their version
+   * metadata, as singular ids or plural types (`plan` or `plans`). Used for
+   * endpoints the API publishes on `public/resources` but that we don't want
+   * to expose yet. Forces `Classification.exclude`, so these resources get
+   * no module, no spec and no `enum.ts`/`api.ts`/`model.ts` entry, and any
+   * relationship pointing at them degrades via `targetExcluded`.
+   */
+  exclude?: readonly string[]
 }
 
 // Hardcoded array item types for the 15 array fields in public/resources.
@@ -710,10 +719,33 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
   // in legacy mode it falls back to the boolean `attributes.deprecated`.
   // Either way, "deprecated" resources stay in the SDK with an @deprecated
   // marker so callers keep getting type imports.
+  // Manually hidden resources, normalised to singular ids so callers can pass
+  // either form. Unknown names are a hard error: a typo here would silently
+  // ship a resource we meant to hide.
+  const manuallyExcluded = new Set<string>()
+  if (opts.exclude?.length) {
+    const knownIds = new Set(doc.data.map((r) => r.id))
+    const unknown: string[] = []
+    for (const name of opts.exclude) {
+      const id = knownIds.has(name) ? name : Inflector.singularize(name)
+      if (knownIds.has(id)) manuallyExcluded.add(id)
+      else unknown.push(name)
+    }
+    if (unknown.length > 0) {
+      throw new Error(
+        `--exclude names resources not present in the schema: [${unknown.join(', ')}]. ` +
+          `Check for typos against the ${doc.data.length} resources in ${path}.`,
+      )
+    }
+    console.log(`Excluded resources: ${Array.from(manuallyExcluded).sort().join(', ')}`)
+  }
+
   const resourceClassifications = new Map<string, Classification>()
   for (const res of doc.data) {
     const versioned = classifyVersions(res.attributes.versions, targetVersion)
-    if (versioned === 'deprecated' || versioned === 'exclude') {
+    if (manuallyExcluded.has(res.id)) {
+      resourceClassifications.set(res.id, 'exclude')
+    } else if (versioned === 'deprecated' || versioned === 'exclude') {
       resourceClassifications.set(res.id, versioned)
     } else if (res.attributes.deprecated === true) {
       resourceClassifications.set(res.id, 'deprecated')

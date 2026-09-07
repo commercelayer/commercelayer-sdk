@@ -45,7 +45,7 @@ interface VertexAccount extends Resource {
    */
   baseurl?: string | null
   /**
-   * The OAuth audience sent with the token request, when required by the deployment.
+   * The OAuth audience sent with the token request. Defaults to 'verx://migration-api' for 'cloud' kind unless set explicitly.
    * @example ```"verx://xyz"```
    */
   audience?: string | null
@@ -88,7 +88,7 @@ interface VertexAccountCreate extends ResourceCreate {
    */
   baseurl?: string | null
   /**
-   * The OAuth audience sent with the token request, when required by the deployment.
+   * The OAuth audience sent with the token request. Defaults to 'verx://migration-api' for 'cloud' kind unless set explicitly.
    * @example ```"verx://xyz"```
    */
   audience?: string | null
@@ -126,7 +126,7 @@ interface VertexAccountUpdate extends ResourceUpdate {
    */
   baseurl?: string | null
   /**
-   * The OAuth audience sent with the token request, when required by the deployment.
+   * The OAuth audience sent with the token request. Defaults to 'verx://migration-api' for 'cloud' kind unless set explicitly.
    * @example ```"verx://xyz"```
    */
   audience?: string | null

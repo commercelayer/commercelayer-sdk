@@ -40,6 +40,11 @@ interface TalonOneAccount extends Resource {
    */
   manage_gift_cards?: boolean | null
   /**
+   * A hash of additional options passed through to the discount engine's API requests (e.g. Talon.One's `storeIntegrationId`).
+   * @example ```{"storeIntegrationId":"STORE-001"}```
+   */
+  options?: Record<string, any> | null
+  /**
    * The API endpoint as computed by specified baseurl.
    * @example ```"https://my_baseurl.talon.one/v2"```
    */
@@ -63,6 +68,11 @@ interface TalonOneAccountCreate extends ResourceCreate {
    */
   manage_gift_cards?: boolean | null
   /**
+   * A hash of additional options passed through to the discount engine's API requests (e.g. Talon.One's `storeIntegrationId`).
+   * @example ```{"storeIntegrationId":"STORE-001"}```
+   */
+  options?: Record<string, any> | null
+  /**
    * The Talon.One account API key.
    * @example ```"TALON_ONE_API_KEY"```
    */
@@ -85,6 +95,11 @@ interface TalonOneAccountUpdate extends ResourceUpdate {
    * @example ```true```
    */
   manage_gift_cards?: boolean | null
+  /**
+   * A hash of additional options passed through to the discount engine's API requests (e.g. Talon.One's `storeIntegrationId`).
+   * @example ```{"storeIntegrationId":"STORE-001"}```
+   */
+  options?: Record<string, any> | null
   /**
    * The Talon.One account API key.
    * @example ```"TALON_ONE_API_KEY"```

@@ -22,8 +22,8 @@ type StockItemRel = ResourceRel & { type: StockItemType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 type SkuRel = ResourceRel & { type: SkuType }
 
-export type StockItemSort = Pick<StockItem, 'id' | 'quantity'> & ResourceSort
-// export type StockItemFilter = Pick<StockItem, 'id' | 'quantity'> & ResourceFilter
+export type StockItemSort = Pick<StockItem, 'id' | 'quantity' | 'low_quantity'> & ResourceSort
+// export type StockItemFilter = Pick<StockItem, 'id' | 'quantity' | 'low_quantity'> & ResourceFilter
 
 /**
  * The Stock item object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stock_items endpoint.
@@ -43,6 +43,11 @@ interface StockItem extends Resource {
    * @example ```100```
    */
   quantity: number
+  /**
+   * The stock item quantity level below which it is considered low on stock. When set, the item can be filtered with the `low_stock` scope.
+   * @example ```10```
+   */
+  low_quantity?: number | null
 
   stock_location?: StockLocation | null
   sku?: Sku | null
@@ -63,6 +68,11 @@ interface StockItemCreate extends ResourceCreate {
    * @example ```100```
    */
   quantity: number
+  /**
+   * The stock item quantity level below which it is considered low on stock. When set, the item can be filtered with the `low_stock` scope.
+   * @example ```10```
+   */
+  low_quantity?: number | null
 
   stock_location: StockLocationRel
   sku?: SkuRel | null
@@ -79,6 +89,11 @@ interface StockItemUpdate extends ResourceUpdate {
    * @example ```100```
    */
   quantity?: number | null
+  /**
+   * The stock item quantity level below which it is considered low on stock. When set, the item can be filtered with the `low_stock` scope.
+   * @example ```10```
+   */
+  low_quantity?: number | null
   /**
    * Send this attribute if you want to validate the stock item quantity against the existing reserved stock one, returns an error in case the former is smaller. Cannot be passed by sales channels.
    * @example ```true```

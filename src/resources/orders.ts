@@ -316,6 +316,21 @@ interface Order extends Resource {
    */
   formatted_discount_amount?: string | null
   /**
+   * The order's subtotal amount with the discounts applied without considering shipment, in cents.
+   * @example ```4500```
+   */
+  subtotal_after_discount_cents?: number | null
+  /**
+   * The order's subtotal amount with the discounts applied without considering shipment, float.
+   * @example ```45```
+   */
+  subtotal_after_discount_float?: number | null
+  /**
+   * The order's subtotal amount with the discounts applied without considering shipment, formatted.
+   * @example ```"€45,00"```
+   */
+  formatted_subtotal_after_discount?: string | null
+  /**
    * The sum of all the adjustments applied to the order, in cents.
    * @example ```1500```
    */

@@ -104,6 +104,7 @@ type CliOptions = {
   apiHost?: string
   apiVersion?: string
   output?: string
+  exclude?: readonly string[]
 }
 
 const parseCliOptions = (argv: string[]): CliOptions => {
@@ -114,16 +115,21 @@ const parseCliOptions = (argv: string[]): CliOptions => {
     if (idx >= 0 && idx + 1 < argv.length) return argv[idx + 1]
     return undefined
   }
+  const exclude = get('exclude')
+    ?.split(',')
+    .map((r) => r.trim())
+    .filter((r) => r.length > 0)
   return {
     localSchema: argv.indexOf('--local') > -1,
     apiHost: get('api-host'),
     apiVersion: get('api-version'),
     output: get('output'),
+    exclude: exclude?.length ? exclude : undefined,
   }
 }
 
 const generate = async (cli: CliOptions) => {
-  const { localSchema, apiHost, apiVersion, output } = cli
+  const { localSchema, apiHost, apiVersion, output, exclude } = cli
 
   console.log(`>> Local schema: ${localSchema}\n`)
   CONFIG.LOCAL_SCHEMA = localSchema
@@ -151,7 +157,7 @@ const generate = async (cli: CliOptions) => {
 
   console.log('Generating SDK resources from schema ' + schemaPath)
 
-  const schema = apiSchema.parse(schemaPath, { apiHost, apiVersion })
+  const schema = apiSchema.parse(schemaPath, { apiHost, apiVersion, exclude })
   global.version = schema.version
   global.supportedVersions = schema.supportedVersions
 
@@ -419,7 +425,7 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
   const types: string[] = []
 
   const singletons: string[] = []
-  const listables: string[] = []
+  const notListables: string[] = []
   const creatables: string[] = []
   const updatables: string[] = []
   const deletables: string[] = []
@@ -435,7 +441,10 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
     types.push(tabType)
 
     if (res.singleton) singletons.push(tabType)
-    if (res.operations.includes('list')) listables.push(tabType)
+    // Singletons carry an empty `operations` array, so they land here too —
+    // which is why filling this block from `singletons` happened to work for
+    // the Core API, where every non-listable resource is also a singleton.
+    if (!res.operations.includes('list')) notListables.push(tabType)
     if (res.operations.includes('create')) creatables.push(tabType)
     if (res.operations.includes('update')) updatables.push(tabType)
     if (res.operations.includes('delete')) deletables.push(tabType)
@@ -455,7 +464,9 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
   const rlStartIdx = findLine('##__API_RESOURCE_NOT_LISTABLE_START__##', lines).index + 1
   const rlStopIdx = findLine('##__API_RESOURCE_NOT_LISTABLE_STOP__##', lines).index
-  lines.splice(rlStartIdx, rlStopIdx - rlStartIdx, singletons.join('\n|'))
+  // `never` keeps `Exclude<ResourceTypeLock, ...>` valid when every resource
+  // is listable — an empty block would leave a dangling comma.
+  lines.splice(rlStartIdx, rlStopIdx - rlStartIdx, notListables.length > 0 ? notListables.join('\n|') : '\tnever')
 
   const rcStartIdx = findLine('##__API_RESOURCE_CREATABLE_START__##', lines).index + 1
   const rcStopIdx = findLine('##__API_RESOURCE_CREATABLE_STOP__##', lines).index
@@ -721,7 +732,13 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   const resMod = new Set<string>() // Resource generic models (Es. ResponseList)
   // const relMod = new Set<string>()	// Relationships models
   Object.entries(resource.operations).forEach(([opName, op]) => {
-    const tpl = op.singleton ? templates.singleton : templates[opName]
+    // Singleton resources address a singular path, so any operation that
+    // takes a path needs the `this.path()` override. Prefer a
+    // `singleton_<op>` template when one exists and fall back to the plain
+    // singleton (retrieve) template — without the lookup, a singleton's
+    // `update` rendered the retrieve template and the real `update` fell
+    // through to the base class, which targets `/<plural>/{id}` and 404s.
+    const tpl = op.singleton ? (templates[`singleton_${opName}`] ?? templates.singleton) : templates[opName]
     if (op.singleton) resModelType = 'ApiSingleton'
     if (tpl) {
       if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')

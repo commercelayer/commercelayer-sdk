@@ -40,6 +40,11 @@ interface DiscountEngineBase extends Resource {
    * @example ```true```
    */
   manage_gift_cards?: boolean | null
+  /**
+   * A hash of additional options passed through to the discount engine's API requests (e.g. Talon.One's `storeIntegrationId`).
+   * @example ```{"storeIntegrationId":"STORE-001"}```
+   */
+  options?: Record<string, any> | null
 
   markets?: Market[] | null
   discount_engine_items?: DiscountEngineItem[] | null
