@@ -1,0 +1,25 @@
+{
+  "name": "@commercelayer/sdk-generator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Generates the Commerce Layer SDKs from each target's public resources schema. Not published.",
+  "exports": {
+    "./target": "./src/target.ts",
+    "./*": "./src/*.ts"
+  },
+  "bin": {
+    "sdk-generate": "./src/generator.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.9.4",
+    "tsx": "^4.22.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.9"
+  }
+}

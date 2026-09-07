@@ -9,8 +9,16 @@ on:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
+      package:
+        description: 'SDK package to regenerate'
+        type: choice
+        required: true
+        default: '@commercelayer/sdk'
+        options:
+          - '@commercelayer/sdk'
+          - '@commercelayer/provisioning-sdk'
       environment:
-        description: 'Environment to regenerate the SDK against'
+        description: 'Environment to regenerate the SDK against (resolved from that package sdk.config.ts)'
         type: choice
         required: true
         default: production
@@ -35,19 +43,6 @@ jobs:
     name: pkg.pr.new
     runs-on: ubuntu-latest
     steps:
-      - name: Resolve host from environment
-        id: env
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          case "${{ inputs.environment }}" in
-            production)  HOST=core.commercelayer.io ;;
-            staging)     HOST=core.commercelayer.co ;;
-            staging1)    HOST=core.stg1.commercelayer.co ;;
-            staging2)    HOST=core.stg2.commercelayer.co ;;
-            staging3)    HOST=core.stg3.commercelayer.co ;;
-          esac
-          echo "host=$HOST" >> "$GITHUB_OUTPUT"
-
       - name: Checkout
         uses: actions/checkout@v7
         with:
@@ -67,24 +62,26 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Regenerate SDK against ${{ inputs.environment }}
+      - name: Regenerate ${{ inputs.package }} against ${{ inputs.environment }}
         if: github.event_name == 'workflow_dispatch'
         run: |
-          ARGS="--api-host=${{ steps.env.outputs.host }}"
+          ARGS="--env=${{ inputs.environment }}"
           if [ -n "${{ inputs.api_version }}" ]; then
             ARGS="$ARGS --api-version=${{ inputs.api_version }}"
           fi
-          # Invoke tsx directly: `pnpm generate` is `tsx gen/generator.ts && pnpm check`,
-          # and pnpm appends user args to the LAST command in a chained script — so
-          # `pnpm generate --api-host=…` would pass the flag to `pnpm check` instead.
-          pnpm --filter @commercelayer/sdk exec tsx gen/generator.ts $ARGS
+          # Invoke tsx directly: `pnpm generate` chains `&& pnpm check`, and pnpm
+          # appends user args to the LAST command in the chain — so
+          # `pnpm generate --env=…` would hand the flag to `pnpm check` instead.
+          # --env resolves through the package's own sdk.config.ts environments map,
+          # so this step needs no knowledge of which API it is generating.
+          pnpm --filter ${{ inputs.package }} exec tsx ../generator/src/generator.ts $ARGS
           pnpm check
 
       - name: Commit + push to pkg-pr-new-${{ inputs.environment }}
         if: github.event_name == 'workflow_dispatch'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: 'chore: regenerate against ${{ inputs.environment }}'
+          commit_message: 'chore: regenerate ${{ inputs.package }} against ${{ inputs.environment }}'
           branch: 'pkg-pr-new-${{ inputs.environment }}'
           push_options: '--force'
           create_branch: true

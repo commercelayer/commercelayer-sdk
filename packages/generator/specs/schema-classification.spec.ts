@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import apiSchema from '../gen/schema'
+import apiSchema from '../src/schema'
 
 const FIXTURE = 'test/fixtures/public/classification.json'
 const LEGACY_FIXTURE = 'test/fixtures/public/legacy.json'

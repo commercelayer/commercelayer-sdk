@@ -1,10 +1,12 @@
 import { execSync } from 'node:child_process'
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { basename } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import Inflector from './inflector'
 import { updateLicense } from './license'
 import { RESOURCE_NAME_OVERRIDES } from './resource-names'
 import apiSchema, { type Attribute, Cardinality, type Component, type Operation, type Resource } from './schema'
+import { loadTargetConfig, resolveHost, type TargetConfig } from './target'
 
 const capitalizeFirst = (s: string): string => (s.length > 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s)
 
@@ -78,10 +80,14 @@ const templates: { [key: string]: string } = {}
 const global: {
   version?: string
   supportedVersions?: readonly string[]
+  /** Target config for the package currently being generated. */
+  target?: TargetConfig
 } = {}
 
 const loadTemplates = (): void => {
-  const tplDir = './gen/templates'
+  // Templates ship with the generator, so resolve them relative to this module
+  // — not the working directory, which is the SDK package being generated.
+  const tplDir = fileURLToPath(new URL('../templates', import.meta.url))
   const tplList = readdirSync(tplDir, { encoding: 'utf-8' }).filter((f) => f.endsWith('.tpl'))
   tplList.forEach((t) => {
     const tplName = basename(t).replace('.tpl', '')
@@ -101,10 +107,14 @@ function formatCode(sourcePath: string): void {
 
 type CliOptions = {
   localSchema: boolean
+  /** Selects a host from the target config's `environments` map. */
+  env?: string
+  /** Raw host override, bypassing the environments map entirely. */
   apiHost?: string
   apiVersion?: string
   output?: string
-  exclude?: readonly string[]
+  /** Target config path, relative to the working directory. */
+  config?: string
 }
 
 const parseCliOptions = (argv: string[]): CliOptions => {
@@ -115,21 +125,29 @@ const parseCliOptions = (argv: string[]): CliOptions => {
     if (idx >= 0 && idx + 1 < argv.length) return argv[idx + 1]
     return undefined
   }
-  const exclude = get('exclude')
-    ?.split(',')
-    .map((r) => r.trim())
-    .filter((r) => r.length > 0)
   return {
     localSchema: argv.indexOf('--local') > -1,
+    env: get('env'),
     apiHost: get('api-host'),
     apiVersion: get('api-version'),
     output: get('output'),
-    exclude: exclude?.length ? exclude : undefined,
+    config: get('config'),
   }
 }
 
 const generate = async (cli: CliOptions) => {
-  const { localSchema, apiHost, apiVersion, output, exclude } = cli
+  const { localSchema, apiHost, apiVersion, output } = cli
+
+  // Loaded before anything else: the target decides the host, the docs links,
+  // the client names and which resources are hidden.
+  const target = await loadTargetConfig(cli.config)
+  global.target = target
+
+  // Effective host: --api-host beats --env beats the production default.
+  const host = resolveHost(target, { apiHost, env: cli.env })
+  console.log(`Target: ${target.clientName} [${cli.env ?? (apiHost ? 'custom' : 'production')}: ${host}]`)
+
+  const exclude = target.exclude
 
   console.log(`>> Local schema: ${localSchema}\n`)
   CONFIG.LOCAL_SCHEMA = localSchema
@@ -137,7 +155,7 @@ const generate = async (cli: CliOptions) => {
   const isDiffMode = output !== undefined
 
   if (!localSchema) {
-    const schemaInfo = await apiSchema.download({ apiHost, apiVersion }).catch((error: Error) => {
+    const schemaInfo = await apiSchema.download({ apiHost: host, apiVersion }).catch((error: Error) => {
       console.log(error.message)
       return undefined
     })
@@ -157,7 +175,7 @@ const generate = async (cli: CliOptions) => {
 
   console.log('Generating SDK resources from schema ' + schemaPath)
 
-  const schema = apiSchema.parse(schemaPath, { apiHost, apiVersion, exclude })
+  const schema = apiSchema.parse(schemaPath, { apiHost: host, apiVersion, exclude })
   global.version = schema.version
   global.supportedVersions = schema.supportedVersions
 
@@ -168,8 +186,10 @@ const generate = async (cli: CliOptions) => {
   if (existsSync(resDir)) rmSync(resDir, { recursive: true })
   mkdirSync(resDir, { recursive: true })
 
-  // Initialize test dir (mirror the output dir suffix when in diff mode)
-  const testDir = isDiffMode ? `specs/${resDir.replace(/^src\//, '')}` : 'specs/resources'
+  // Initialize test dir. In diff mode the specs sit beside the resources rather
+  // than being grafted under `specs/` — an absolute --output used to produce
+  // paths like `specs/private/tmp/...` inside the repo.
+  const testDir = isDiffMode ? `${resDir.replace(/\/+$/, '')}-specs` : 'specs/resources'
   if (existsSync(testDir)) rmSync(testDir, { recursive: true })
   mkdirSync(testDir, { recursive: true })
 
@@ -911,7 +931,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   const resDeprecatedLine = resource.deprecated
     ? `\n * @deprecated${resource.deprecatedSince ? ` Last available in API version ${resource.deprecatedSince}.` : ''}`
     : ''
-  const descriptionJsdoc = `/**\n * The ${objectName} object is returned as part of the response body of each successful ${actionsPhrase(resource.actions)} API call to the /api/${endpoint} endpoint.${resSinceLine}\n * ${resDeprecatedLine}\n * @link https://docs.commercelayer.io/core-api-reference/${type}/object\n */`
+  const descriptionJsdoc = `/**\n * The ${objectName} object is returned as part of the response body of each successful ${actionsPhrase(resource.actions)} API call to the /api/${endpoint} endpoint.${resSinceLine}\n * ${resDeprecatedLine}\n * @link https://docs.commercelayer.io/${global.target?.docsPath}/${type}/object\n */`
   modelInterfaces[0] = `${descriptionJsdoc}\n${modelInterfaces[0]}`
   res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
   res = res.replace(/##__SORT_SOURCE__##/g, sortSource)
