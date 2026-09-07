@@ -77,7 +77,7 @@ jobs:
           # Invoke tsx directly: `pnpm generate` is `tsx gen/generator.ts && pnpm check`,
           # and pnpm appends user args to the LAST command in a chained script — so
           # `pnpm generate --api-host=…` would pass the flag to `pnpm check` instead.
-          pnpm tsx gen/generator.ts $ARGS
+          pnpm --filter @commercelayer/sdk exec tsx gen/generator.ts $ARGS
           pnpm check
 
       - name: Commit + push to pkg-pr-new-${{ inputs.environment }}
@@ -95,7 +95,7 @@ jobs:
         run: pnpm build
 
       - name: Publish preview
-        run: npx pkg-pr-new publish --no-template
+        run: npx pkg-pr-new publish --no-template './packages/*'
 
       - name: Open PR to main (production dispatch only)
         if: github.event_name == 'workflow_dispatch' && inputs.environment == 'production'

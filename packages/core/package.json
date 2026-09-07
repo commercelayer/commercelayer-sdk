@@ -1,0 +1,87 @@
+{
+  "name": "@commercelayer/sdk",
+  "version": "8.0.0-beta.11",
+  "main": "lib/index.cjs",
+  "types": "lib/index.d.ts",
+  "module": "lib/index.js",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
+      }
+    },
+    "./single-client": {
+      "import": {
+        "types": "./lib/single-client.d.ts",
+        "default": "./lib/single-client.js"
+      },
+      "require": {
+        "types": "./lib/single-client.d.cts",
+        "default": "./lib/single-client.cjs"
+      }
+    },
+    "./bundle": {
+      "import": {
+        "types": "./lib/bundle-compat.d.ts",
+        "default": "./lib/bundle-compat.js"
+      },
+      "require": {
+        "types": "./lib/bundle-compat.d.cts",
+        "default": "./lib/bundle-compat.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
+    "build": "tsup",
+    "generate": "tsx gen/generator.ts && pnpm check",
+    "generate-local": "tsx gen/generator.ts -- --local && pnpm check",
+    "lint": "biome check --enforce-assist=true",
+    "check": "biome check --enforce-assist=true --write",
+    "test": "vitest",
+    "test-local": "tsx test/spot.ts",
+    "coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "javascript",
+    "ecommerce",
+    "jamstack",
+    "commercelayer"
+  ],
+  "author": "Pierluigi Viti <pierluigi@commercelayer.io>",
+  "license": "MIT",
+  "description": "Commerce Layer Javascript SDK",
+  "files": [
+    "lib/**/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.2",
+    "@commercelayer/js-auth": "^7.4.2",
+    "@types/debug": "^4.1.13",
+    "@types/node": "^25.9.4",
+    "@vitest/coverage-v8": "^4.1.9",
+    "@vitest/eslint-plugin": "^1.6.20",
+    "dotenv": "^17.4.2",
+    "json-typescript": "^1.1.2",
+    "jsonapi-typescript": "^0.1.3",
+    "tsup": "^8.5.1",
+    "tsx": "^4.22.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.9"
+  },
+  "repository": "github:commercelayer/commercelayer-sdk",
+  "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",
+  "publishConfig": {
+    "access": "public"
+  }
+}

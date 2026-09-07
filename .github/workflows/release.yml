@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    branches: [main, beta, prerelease]
+
+# Lerna pushes the version commit and its tags, so unlike the previous
+# semantic-release job this needs contents:write and persisted credentials.
+# id-token:write is kept for npm OIDC trusted publishing.
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm -r build
+
+      - name: Run specs
+        env:
+          CL_SDK_ORGANIZATION: sdk-test-org
+          CL_SDK_CLIENT_ID: ${{secrets.CL_SDK_CLIENT_ID}}
+          CL_SDK_CLIENT_SECRET: ${{secrets.CL_SDK_CLIENT_SECRET}}
+          CL_SDK_ACCESS_TOKEN_EXPIRED: ${{secrets.CL_SDK_ACCESS_TOKEN_EXPIRED}}
+        run: pnpm -r test
+
+      - name: Configure git identity
+        run: |
+          git config user.name  'commercelayer-ci'
+          git config user.email 'ci@commercelayer.io'
+
+      # Mirrors the channels the old .releaserc declared: main -> latest,
+      # beta -> beta prerelease, prerelease -> rc prerelease. Each package's
+      # version line advances independently (lerna.json: version=independent).
+      - name: Resolve release flags
+        id: flags
+        run: |
+          case "${GITHUB_REF_NAME}" in
+            main)       FLAGS='--conventional-commits' ;;
+            beta)       FLAGS='--conventional-commits --conventional-prerelease --preid beta --dist-tag beta' ;;
+            prerelease) FLAGS='--conventional-commits --conventional-prerelease --preid rc --dist-tag rc' ;;
+          esac
+          echo "flags=$FLAGS" >> "$GITHUB_OUTPUT"
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
+        run: pnpm lerna publish ${{ steps.flags.outputs.flags }} --yes
