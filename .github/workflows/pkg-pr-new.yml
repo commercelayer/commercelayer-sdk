@@ -9,16 +9,8 @@ on:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
-      package:
-        description: 'SDK package to regenerate'
-        type: choice
-        required: true
-        default: '@commercelayer/sdk'
-        options:
-          - '@commercelayer/sdk'
-          - '@commercelayer/provisioning-sdk'
       environment:
-        description: 'Environment to regenerate the SDK against (resolved from that package sdk.config.ts)'
+        description: 'Environment to regenerate both SDKs against (resolved from each package sdk.config.ts)'
         type: choice
         required: true
         default: production
@@ -62,9 +54,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Regenerate ${{ inputs.package }} against ${{ inputs.environment }}
+      - name: Regenerate both SDKs against ${{ inputs.environment }}
         if: github.event_name == 'workflow_dispatch'
         run: |
+          set -euo pipefail
           ARGS="--env=${{ inputs.environment }}"
           if [ -n "${{ inputs.api_version }}" ]; then
             ARGS="$ARGS --api-version=${{ inputs.api_version }}"
@@ -72,16 +65,20 @@ jobs:
           # Invoke tsx directly: `pnpm generate` chains `&& pnpm check`, and pnpm
           # appends user args to the LAST command in the chain — so
           # `pnpm generate --env=…` would hand the flag to `pnpm check` instead.
-          # --env resolves through the package's own sdk.config.ts environments map,
-          # so this step needs no knowledge of which API it is generating.
-          pnpm --filter ${{ inputs.package }} exec tsx ../sdk-generator/src/generator.ts $ARGS
+          # --env resolves through each package's own sdk.config.ts environments
+          # map, so this step needs no knowledge of which API it is generating.
+          for pkg in @commercelayer/sdk @commercelayer/provisioning-sdk; do
+            echo "::group::regenerate $pkg"
+            pnpm --filter "$pkg" exec tsx ../sdk-generator/src/generator.ts $ARGS
+            echo '::endgroup::'
+          done
           pnpm check
 
       - name: Commit + push to pkg-pr-new-${{ inputs.environment }}
         if: github.event_name == 'workflow_dispatch'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: 'chore: regenerate ${{ inputs.package }} against ${{ inputs.environment }}'
+          commit_message: 'chore: regenerate SDKs against ${{ inputs.environment }}'
           branch: 'pkg-pr-new-${{ inputs.environment }}'
           push_options: '--force'
           create_branch: true
@@ -106,8 +103,24 @@ jobs:
           FULL='${{ github.event.pull_request.head.sha || github.sha }}'
           SHA="${FULL:0:7}"
           REPO='${{ github.repository }}'
+          ENV='${{ inputs.environment }}'
+          API_VERSION='${{ inputs.api_version }}'
           {
             echo '### Preview packages'
+            echo
+            # `environment` only exists on workflow_dispatch. On push and
+            # pull_request the regenerate step is skipped, so the preview is
+            # built from whatever the branch already contains — say so rather
+            # than implying it was generated against production.
+            # A list, not consecutive lines: GitHub-flavored markdown folds a
+            # single newline into the same paragraph, which would run the two
+            # fields together on one line.
+            if [ -n "$ENV" ]; then
+              echo "- **Environment:** \`${ENV}\`"
+              [ -n "$API_VERSION" ] && echo "- **API version:** \`${API_VERSION}\`"
+            else
+              echo '- **Environment:** as committed — no regeneration on this event'
+            fi
             echo
             echo 'The short URLs printed above resolve via package name, which is stale for'
             echo 'provisioning since it moved repos. Use these:'
