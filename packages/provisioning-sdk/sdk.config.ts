@@ -5,6 +5,7 @@ import type { TargetConfig } from '@commercelayer/sdk-generator/target'
  * cannot express.
  */
 const config: TargetConfig = {
+  name: 'provisioning',
   environments: {
     production: 'provisioning.commercelayer.io',
     staging: 'provisioning.commercelayer.co',

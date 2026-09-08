@@ -26,6 +26,11 @@ export type CustomAction = {
 
 export type TargetConfig = {
   /**
+   * Short target name, used for telemetry (`X-CL-SDK: js/<name>-v<version>`)
+   * and as the Target binding's identity. One word, lowercase.
+   */
+  name: string
+  /**
    * Hosts serving `/api/public/resources`, keyed by environment name. Must
    * include `production`, which is the default when no `--env` is passed.
    * Each target declares its own map so CI does not hardcode one API's hosts.
@@ -86,7 +91,7 @@ const DEFAULTS = {
   actions: {} as Readonly<Record<string, readonly CustomAction[]>>,
 } satisfies Partial<TargetConfig>
 
-const REQUIRED = ['docsPath', 'clientName', 'clientBaseName', 'staticName'] as const
+const REQUIRED = ['name', 'docsPath', 'clientName', 'clientBaseName', 'staticName'] as const
 
 /**
  * Loads and validates `./sdk.config.ts` from the working directory. Missing

@@ -3,7 +3,6 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Inflector from './inflector'
-import { updateLicense } from './license'
 import { RESOURCE_NAME_OVERRIDES } from './resource-names'
 import apiSchema, { type Attribute, Cardinality, type Component, type Operation, type Resource } from './schema'
 import { loadTargetConfig, resolveHost, type TargetConfig } from './target'
@@ -59,6 +58,7 @@ CONFIG.RESOURCES_LAZY_LOADING = CONFIG.RESOURCES_INSTANCE_STYLE === 'lazy_loadin
 CONFIG.RESOURCES_ACCESSORS_ONLY = CONFIG.RESOURCES_INSTANCE_STYLE === 'accessors_only'
 /**** **** **** **** **** **** **** **** ****/
 
+const COPYRIGHT = '\u00a9 Commerce Layer Inc.'
 const SCHEMA_VERSION_CONST = 'API_SCHEMA_VERSION'
 const SUPPORTED_VERSIONS_CONST = 'API_SUPPORTED_VERSIONS'
 // const SDK_VERSION_CONST = 'SDK_VERSION'
@@ -271,7 +271,7 @@ const generate = async (cli: CliOptions) => {
     updateSdkBundle(resources)
 
     updateSdkVersion()
-    updateLicense()
+    updateTargetBinding()
   }
 
   formatCode(resDir)
@@ -298,6 +298,30 @@ const _tabsString = (num: number): string => {
   let str = ''
   for (let i = 0; i < num; i++) str += '\t'
   return str
+}
+
+/**
+ * Emits the Target binding — the value-level facts the Runtime needs about this
+ * target, plus a re-export of the type-level maps. Generated so the Target
+ * config is the single source: before this, the same facts were hand-maintained
+ * in `src/registry.ts` and `apiSubdomain` was read by nothing.
+ */
+const updateTargetBinding = (): void => {
+  const target = global.target
+  if (!target) return
+  const filePath = 'gen/binding.ts'
+
+  let cl = templates.binding
+  cl = cl.replace(/##__BINDING_SUBDOMAIN__##/g, target.apiSubdomain ? `'${target.apiSubdomain}'` : 'undefined')
+  cl = cl.replace(/##__BINDING_NAME__##/g, target.name)
+  cl = cl.replace(/##__BINDING_SCHEMA_VERSION__##/g, global.version ?? 'latest')
+  cl = cl.replace(
+    /##__BINDING_SUPPORTED_VERSIONS__##/g,
+    (global.supportedVersions ?? []).map((v) => `'${v}'`).join(', '),
+  )
+
+  writeFileSync(filePath, copyrightHeader(cl), { encoding: 'utf-8' })
+  console.log('Target binding generated.')
 }
 
 const updateSdkVersion = (): void => {
@@ -735,17 +759,13 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
   return spec
 }
 
-const copyrightHeader = (template: string): string => {
-  // Header
-  const now = new Date()
-  const year = String(now.getFullYear())
-  const date = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${year}`
-  template = template.replace(/##__CURRENT_YEAR__##/g, year)
-  template = template.replace(/##__CURRENT_DATE__##/g, date)
-  if (global.version) template = template.replace(/##__SCHEMA_VERSION__##/g, global.version)
-
-  return template
-}
+/**
+ * Prepends the copyright header. Deliberately reads no clock: generated output
+ * must be a function of its input only, or the drift check fails on 1 January
+ * across every generated file with nothing having changed. The year lives in
+ * LICENSE, which a human maintains.
+ */
+const copyrightHeader = (template: string): string => template.replace(/##__COPYRIGHT__##/g, COPYRIGHT)
 
 /**
  * Emits the target's declared custom actions onto a resource class. These are

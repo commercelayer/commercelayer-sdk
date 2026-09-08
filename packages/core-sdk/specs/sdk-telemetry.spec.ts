@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { SDK_TARGET } from '../src/registry'
+import { binding } from '../gen/binding'
 import { application, CommerceLayer, SDK_VERSION } from '../src/single-client'
 import { handleError, interceptRequest } from '../test/common'
 
@@ -11,7 +11,7 @@ describe('SDK client identification header', () => {
     const client = CommerceLayer(baseConfig)
     client.addRequestInterceptor((request) => {
       const headers = request.options.headers as Record<string, string>
-      expect(headers[CLIENT_HEADER]).toBe(`js/${SDK_TARGET}-v${SDK_VERSION}`)
+      expect(headers[CLIENT_HEADER]).toBe(`js/${binding.name}-v${SDK_VERSION}`)
       return interceptRequest()
     })
     await application
@@ -37,7 +37,7 @@ describe('SDK client identification header', () => {
     const client = CommerceLayer(baseConfig)
     client.addRequestInterceptor((request) => {
       const headers = request.options.headers as Record<string, string>
-      expect(headers[CLIENT_HEADER]).toBe(`js/${SDK_TARGET}-v${SDK_VERSION}`)
+      expect(headers[CLIENT_HEADER]).toBe(`js/${binding.name}-v${SDK_VERSION}`)
       return interceptRequest()
     })
     await application

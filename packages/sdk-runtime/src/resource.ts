@@ -1,4 +1,4 @@
-import { type ResourceTypeLock, resourceList } from '#registry'
+import { binding, type ResourceTypeLock } from '#registry'
 import ApiClient, { type ApiClientInitConfig, type Method } from './client'
 import config from './config'
 import Debug from './debug'
@@ -472,9 +472,9 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 export { ApiResource, ApiResourceAdapter, ApiSingleton, type ResourceAdapter }
 
 export const isResourceId = (resource: any): resource is ResourceId => {
-  return resource?.type && resource.id && resourceList.includes(resource.type as ResourceTypeLock)
+  return resource?.type && resource.id && binding.resourceList.includes(resource.type as ResourceTypeLock)
 }
 
 export const isResourceType = (resource: any): resource is ResourceType => {
-  return resource?.type && resourceList.includes(resource.type as ResourceTypeLock)
+  return resource?.type && binding.resourceList.includes(resource.type as ResourceTypeLock)
 }

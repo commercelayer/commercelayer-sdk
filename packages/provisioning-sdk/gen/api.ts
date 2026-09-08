@@ -1,7 +1,7 @@
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_INSTANCE__##, type ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2026 Commerce Layer Inc.
+ * © Commerce Layer Inc.
  **/
 export { type ApiCredentials, default as api_credentials } from './resources/api_credentials'
 export { type ApplicationMemberships, default as application_memberships } from './resources/application_memberships'

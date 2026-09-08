@@ -5,6 +5,7 @@ import type { TargetConfig } from '@commercelayer/sdk-generator/target'
  * express.
  */
 const config: TargetConfig = {
+  name: 'core',
   // Each target owns its host map, so CI can pass `--env=staging1` without
   // knowing which API it is generating.
   environments: {

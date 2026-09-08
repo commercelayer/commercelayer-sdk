@@ -1,4 +1,4 @@
-import { API_SUBDOMAIN, SDK_TARGET, SDK_VERSION } from '#registry'
+import { binding } from '#registry'
 import config from './config'
 import Debug from './debug'
 import { ErrorType, handleError, isExpiredTokenError, SdkError } from './error'
@@ -19,7 +19,7 @@ const baseURL = (organization: string, domain?: string, apiVersion?: string): st
   const versionSegment = apiVersion ? `/${apiVersion}` : ''
   // Organization-scoped APIs (Core) put the organization slug in the subdomain;
   // targets with a fixed subdomain (Provisioning) ignore it entirely.
-  const subdomain = API_SUBDOMAIN ?? organization.toLowerCase()
+  const subdomain = binding.subdomain ?? organization.toLowerCase()
   return `https://${subdomain}.${domain || config.default.domain}/api${versionSegment}`
 }
 
@@ -60,7 +60,7 @@ class ApiClient {
     }
 
     // `organization` is only required when it forms the subdomain.
-    const required = API_SUBDOMAIN
+    const required = binding.subdomain
       ? config.client.requiredAttributes.filter((a) => a !== 'organization')
       : config.client.requiredAttributes
     for (const attr of required) if (!options[attr]) throw new SdkError({ message: `Undefined '${attr}' parameter` })
@@ -102,7 +102,7 @@ class ApiClient {
     }
 
     // SDK client identification — opt out via { telemetry: false } at init time
-    if (options.telemetry !== false) headers[CLIENT_HEADER_NAME] = `js/${SDK_TARGET}-v${SDK_VERSION}`
+    if (options.telemetry !== false) headers[CLIENT_HEADER_NAME] = `js/${binding.name}-v${binding.sdkVersion}`
 
     // Set User-Agent
     if (options.userAgent) headers['User-Agent'] = options.userAgent

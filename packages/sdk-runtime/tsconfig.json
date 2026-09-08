@@ -12,13 +12,12 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      // Dev-time only: typecheck and editor resolution against a real target
-      // rather than a synthetic stub, which models the generic field/sort maps
-      // too narrowly and produces errors no real binding hits. Creates no
-      // dependency — the runtime ships bundled into whichever package builds it.
-      "#registry": ["../core-sdk/src/registry.ts"],
+      // The Runtime typechecks against its own fixture binding, not a
+      // consumer's: it must not name one of its own consumers, and a real
+      // package's gen/binding.ts is wiped by the drift check.
+      "#registry": ["./test/fixtures/binding.ts"],
       "@runtime/*": ["./src/*.ts"]
     }
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }

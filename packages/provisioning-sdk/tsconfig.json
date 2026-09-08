@@ -46,7 +46,7 @@
     /* Binds the shared runtime's `#registry` import to this target's generated
        catalogue, so QueryParamsList<Order> and friends stay precise here. */
     "paths": {
-      "#registry": ["./src/registry.ts"],
+      "#registry": ["./gen/binding.ts"],
       "@runtime/*": ["../sdk-runtime/src/*.ts"]
     },
     // "rootDirs": [],                              /* List of root folders whose combined content represents the structure of the project at runtime. */

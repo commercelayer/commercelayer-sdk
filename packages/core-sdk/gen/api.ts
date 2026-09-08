@@ -1,7 +1,7 @@
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_INSTANCE__##, type ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2026 Commerce Layer Inc.
+ * © Commerce Layer Inc.
  **/
 export { type Addresses, default as addresses } from './resources/addresses'
 export { type Adjustments, default as adjustments } from './resources/adjustments'
