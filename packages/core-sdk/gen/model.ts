@@ -301,7 +301,20 @@ export type {
   ParcelLineItemUpdate,
 } from './resources/parcel_line_items'
 export type { Parcel, ParcelCreate, ParcelSort, ParcelUpdate } from './resources/parcels'
+export type {
+  PaymentAuthorization,
+  PaymentAuthorizationCreate,
+  PaymentAuthorizationSort,
+  PaymentAuthorizationUpdate,
+} from './resources/payment_authorizations'
+export type {
+  PaymentCapture,
+  PaymentCaptureCreate,
+  PaymentCaptureSort,
+  PaymentCaptureUpdate,
+} from './resources/payment_captures'
 export type { PaymentGateway, PaymentGatewaySort } from './resources/payment_gateways'
+export type { PaymentLink, PaymentLinkCreate, PaymentLinkSort, PaymentLinkUpdate } from './resources/payment_links'
 export type {
   PaymentMethod,
   PaymentMethodCreate,
@@ -314,6 +327,64 @@ export type {
   PaymentOptionSort,
   PaymentOptionUpdate,
 } from './resources/payment_options'
+export type {
+  PaymentRefund,
+  PaymentRefundCreate,
+  PaymentRefundSort,
+  PaymentRefundUpdate,
+} from './resources/payment_refunds'
+export type { PaymentRule, PaymentRuleCreate, PaymentRuleSort, PaymentRuleUpdate } from './resources/payment_rules'
+export type {
+  PaymentSession,
+  PaymentSessionCreate,
+  PaymentSessionSort,
+  PaymentSessionUpdate,
+} from './resources/payment_sessions'
+export type {
+  PaymentSettingAdyen,
+  PaymentSettingAdyenCreate,
+  PaymentSettingAdyenSort,
+  PaymentSettingAdyenUpdate,
+} from './resources/payment_setting_adyens'
+export type {
+  PaymentSettingBraintree,
+  PaymentSettingBraintreeCreate,
+  PaymentSettingBraintreeSort,
+  PaymentSettingBraintreeUpdate,
+} from './resources/payment_setting_braintrees'
+export type {
+  PaymentSettingExternal,
+  PaymentSettingExternalCreate,
+  PaymentSettingExternalSort,
+  PaymentSettingExternalUpdate,
+} from './resources/payment_setting_externals'
+export type {
+  PaymentSettingGiftCard,
+  PaymentSettingGiftCardCreate,
+  PaymentSettingGiftCardSort,
+  PaymentSettingGiftCardUpdate,
+} from './resources/payment_setting_gift_cards'
+export type {
+  PaymentSettingManual,
+  PaymentSettingManualCreate,
+  PaymentSettingManualSort,
+  PaymentSettingManualUpdate,
+} from './resources/payment_setting_manuals'
+export type {
+  PaymentSettingStripe,
+  PaymentSettingStripeCreate,
+  PaymentSettingStripeSort,
+  PaymentSettingStripeUpdate,
+} from './resources/payment_setting_stripes'
+export type { PaymentSetting, PaymentSettingSort } from './resources/payment_settings'
+export type { PaymentTransaction, PaymentTransactionSort } from './resources/payment_transactions'
+export type { PaymentVoid, PaymentVoidCreate, PaymentVoidSort, PaymentVoidUpdate } from './resources/payment_voids'
+export type {
+  PaymentWallet,
+  PaymentWalletCreate,
+  PaymentWalletSort,
+  PaymentWalletUpdate,
+} from './resources/payment_wallets'
 export type {
   PaypalGateway,
   PaypalGatewayCreate,
@@ -372,6 +443,12 @@ export type {
   ReturnLineItemUpdate,
 } from './resources/return_line_items'
 export type { Return, ReturnCreate, ReturnSort, ReturnUpdate } from './resources/returns'
+export type {
+  RulesTaxCalculator,
+  RulesTaxCalculatorCreate,
+  RulesTaxCalculatorSort,
+  RulesTaxCalculatorUpdate,
+} from './resources/rules_tax_calculators'
 export type {
   SatispayGateway,
   SatispayGatewayCreate,
@@ -473,6 +550,12 @@ export type {
   TalonOneAccountSort,
   TalonOneAccountUpdate,
 } from './resources/talon_one_accounts'
+export type {
+  TaxBusinessRule,
+  TaxBusinessRuleCreate,
+  TaxBusinessRuleSort,
+  TaxBusinessRuleUpdate,
+} from './resources/tax_business_rules'
 export type { TaxCalculator, TaxCalculatorSort } from './resources/tax_calculators'
 export type { TaxCategory, TaxCategoryCreate, TaxCategorySort, TaxCategoryUpdate } from './resources/tax_categories'
 export type { TaxRule, TaxRuleCreate, TaxRuleSort, TaxRuleUpdate } from './resources/tax_rules'

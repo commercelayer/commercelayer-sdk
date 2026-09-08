@@ -15,6 +15,7 @@ import type { AvalaraAccount, AvalaraAccountType } from './avalara_accounts'
 import type { EventStore } from './event_stores'
 import type { ExternalTaxCalculator, ExternalTaxCalculatorType } from './external_tax_calculators'
 import type { ManualTaxCalculator, ManualTaxCalculatorType } from './manual_tax_calculators'
+import type { RulesTaxCalculator, RulesTaxCalculatorType } from './rules_tax_calculators'
 import type { Sku, SkuType } from './skus'
 import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
 import type { TaxjarAccount, TaxjarAccountType } from './taxjar_accounts'
@@ -29,6 +30,7 @@ type VertexAccountRel = ResourceRel & { type: VertexAccountType }
 type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
 type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
+type RulesTaxCalculatorRel = ResourceRel & { type: RulesTaxCalculatorType }
 
 export type TaxCategorySort = Pick<TaxCategory, 'id' | 'code'> & ResourceSort
 // export type TaxCategoryFilter = Pick<TaxCategory, 'id' | 'code'> & ResourceFilter
@@ -60,6 +62,7 @@ interface TaxCategory extends Resource {
     | TaxjarAccount
     | ManualTaxCalculator
     | ExternalTaxCalculator
+    | RulesTaxCalculator
     | null
   attachments?: Attachment[] | null
   event_stores?: EventStore[] | null
@@ -85,6 +88,7 @@ interface TaxCategoryCreate extends ResourceCreate {
     | TaxjarAccountRel
     | ManualTaxCalculatorRel
     | ExternalTaxCalculatorRel
+    | RulesTaxCalculatorRel
 }
 
 interface TaxCategoryUpdate extends ResourceUpdate {

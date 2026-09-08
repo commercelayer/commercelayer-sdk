@@ -86,9 +86,25 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #packages?: api.Packages
   #parcels?: api.Parcels
   #parcel_line_items?: api.ParcelLineItems
+  #payment_authorizations?: api.PaymentAuthorizations
+  #payment_captures?: api.PaymentCaptures
   #payment_gateways?: api.PaymentGateways
+  #payment_links?: api.PaymentLinks
   #payment_methods?: api.PaymentMethods
   #payment_options?: api.PaymentOptions
+  #payment_refunds?: api.PaymentRefunds
+  #payment_rules?: api.PaymentRules
+  #payment_sessions?: api.PaymentSessions
+  #payment_settings?: api.PaymentSettings
+  #payment_setting_adyens?: api.PaymentSettingAdyens
+  #payment_setting_braintrees?: api.PaymentSettingBraintrees
+  #payment_setting_externals?: api.PaymentSettingExternals
+  #payment_setting_gift_cards?: api.PaymentSettingGiftCards
+  #payment_setting_manuals?: api.PaymentSettingManuals
+  #payment_setting_stripes?: api.PaymentSettingStripes
+  #payment_transactions?: api.PaymentTransactions
+  #payment_voids?: api.PaymentVoids
+  #payment_wallets?: api.PaymentWallets
   #paypal_gateways?: api.PaypalGateways
   #paypal_payments?: api.PaypalPayments
   #percentage_discount_promotions?: api.PercentageDiscountPromotions
@@ -107,6 +123,7 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #resource_errors?: api.ResourceErrors
   #returns?: api.Returns
   #return_line_items?: api.ReturnLineItems
+  #rules_tax_calculators?: api.RulesTaxCalculators
   #satispay_gateways?: api.SatispayGateways
   #satispay_payments?: api.SatispayPayments
   #shipments?: api.Shipments
@@ -133,6 +150,7 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #subscription_models?: api.SubscriptionModels
   #tags?: api.Tags
   #talon_one_accounts?: api.TalonOneAccounts
+  #tax_business_rules?: api.TaxBusinessRules
   #tax_calculators?: api.TaxCalculators
   #tax_categories?: api.TaxCategories
   #tax_rules?: api.TaxRules
@@ -466,14 +484,85 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   get parcel_line_items(): api.ParcelLineItems {
     return this.#parcel_line_items || (this.#parcel_line_items = api.parcel_line_items.withAdapter(this.adapter))
   }
+  get payment_authorizations(): api.PaymentAuthorizations {
+    return (
+      this.#payment_authorizations ||
+      (this.#payment_authorizations = api.payment_authorizations.withAdapter(this.adapter))
+    )
+  }
+  get payment_captures(): api.PaymentCaptures {
+    return this.#payment_captures || (this.#payment_captures = api.payment_captures.withAdapter(this.adapter))
+  }
   get payment_gateways(): api.PaymentGateways {
     return this.#payment_gateways || (this.#payment_gateways = api.payment_gateways.withAdapter(this.adapter))
+  }
+  get payment_links(): api.PaymentLinks {
+    return this.#payment_links || (this.#payment_links = api.payment_links.withAdapter(this.adapter))
   }
   get payment_methods(): api.PaymentMethods {
     return this.#payment_methods || (this.#payment_methods = api.payment_methods.withAdapter(this.adapter))
   }
   get payment_options(): api.PaymentOptions {
     return this.#payment_options || (this.#payment_options = api.payment_options.withAdapter(this.adapter))
+  }
+  get payment_refunds(): api.PaymentRefunds {
+    return this.#payment_refunds || (this.#payment_refunds = api.payment_refunds.withAdapter(this.adapter))
+  }
+  get payment_rules(): api.PaymentRules {
+    return this.#payment_rules || (this.#payment_rules = api.payment_rules.withAdapter(this.adapter))
+  }
+  get payment_sessions(): api.PaymentSessions {
+    return this.#payment_sessions || (this.#payment_sessions = api.payment_sessions.withAdapter(this.adapter))
+  }
+  get payment_settings(): api.PaymentSettings {
+    return this.#payment_settings || (this.#payment_settings = api.payment_settings.withAdapter(this.adapter))
+  }
+  get payment_setting_adyens(): api.PaymentSettingAdyens {
+    return (
+      this.#payment_setting_adyens ||
+      (this.#payment_setting_adyens = api.payment_setting_adyens.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_braintrees(): api.PaymentSettingBraintrees {
+    return (
+      this.#payment_setting_braintrees ||
+      (this.#payment_setting_braintrees = api.payment_setting_braintrees.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_externals(): api.PaymentSettingExternals {
+    return (
+      this.#payment_setting_externals ||
+      (this.#payment_setting_externals = api.payment_setting_externals.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_gift_cards(): api.PaymentSettingGiftCards {
+    return (
+      this.#payment_setting_gift_cards ||
+      (this.#payment_setting_gift_cards = api.payment_setting_gift_cards.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_manuals(): api.PaymentSettingManuals {
+    return (
+      this.#payment_setting_manuals ||
+      (this.#payment_setting_manuals = api.payment_setting_manuals.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_stripes(): api.PaymentSettingStripes {
+    return (
+      this.#payment_setting_stripes ||
+      (this.#payment_setting_stripes = api.payment_setting_stripes.withAdapter(this.adapter))
+    )
+  }
+  get payment_transactions(): api.PaymentTransactions {
+    return (
+      this.#payment_transactions || (this.#payment_transactions = api.payment_transactions.withAdapter(this.adapter))
+    )
+  }
+  get payment_voids(): api.PaymentVoids {
+    return this.#payment_voids || (this.#payment_voids = api.payment_voids.withAdapter(this.adapter))
+  }
+  get payment_wallets(): api.PaymentWallets {
+    return this.#payment_wallets || (this.#payment_wallets = api.payment_wallets.withAdapter(this.adapter))
   }
   get paypal_gateways(): api.PaypalGateways {
     return this.#paypal_gateways || (this.#paypal_gateways = api.paypal_gateways.withAdapter(this.adapter))
@@ -538,6 +627,11 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   }
   get return_line_items(): api.ReturnLineItems {
     return this.#return_line_items || (this.#return_line_items = api.return_line_items.withAdapter(this.adapter))
+  }
+  get rules_tax_calculators(): api.RulesTaxCalculators {
+    return (
+      this.#rules_tax_calculators || (this.#rules_tax_calculators = api.rules_tax_calculators.withAdapter(this.adapter))
+    )
   }
   get satispay_gateways(): api.SatispayGateways {
     return this.#satispay_gateways || (this.#satispay_gateways = api.satispay_gateways.withAdapter(this.adapter))
@@ -623,6 +717,9 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   }
   get talon_one_accounts(): api.TalonOneAccounts {
     return this.#talon_one_accounts || (this.#talon_one_accounts = api.talon_one_accounts.withAdapter(this.adapter))
+  }
+  get tax_business_rules(): api.TaxBusinessRules {
+    return this.#tax_business_rules || (this.#tax_business_rules = api.tax_business_rules.withAdapter(this.adapter))
   }
   get tax_calculators(): api.TaxCalculators {
     return this.#tax_calculators || (this.#tax_calculators = api.tax_calculators.withAdapter(this.adapter))

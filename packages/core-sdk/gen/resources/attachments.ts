@@ -28,8 +28,12 @@ import type { OrderValidationRule, OrderValidationRuleType } from './order_valid
 import type { Order, OrderType } from './orders'
 import type { Package, PackageType } from './packages'
 import type { Parcel, ParcelType } from './parcels'
+import type { PaymentLink, PaymentLinkType } from './payment_links'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { PaymentOption, PaymentOptionType } from './payment_options'
+import type { PaymentSession, PaymentSessionType } from './payment_sessions'
+import type { PaymentTransaction, PaymentTransactionType } from './payment_transactions'
+import type { PaymentWallet, PaymentWalletType } from './payment_wallets'
 import type { PriceList, PriceListType } from './price_lists'
 import type { PriceTier, PriceTierType } from './price_tiers'
 import type { Price, PriceType } from './prices'
@@ -53,15 +57,16 @@ import type { Transaction, TransactionType } from './transactions'
 
 type AttachmentType = 'attachments'
 type AttachmentRel = ResourceRel & { type: AttachmentType }
-type GeocoderRel = ResourceRel & { type: GeocoderType }
-type PriceListRel = ResourceRel & { type: PriceListType }
-type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type MarketRel = ResourceRel & { type: MarketType }
+type PriceListRel = ResourceRel & { type: PriceListType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type PromotionRel = ResourceRel & { type: PromotionType }
+type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
+type GeocoderRel = ResourceRel & { type: GeocoderType }
+type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type OrderRel = ResourceRel & { type: OrderType }
 type TransactionRel = ResourceRel & { type: TransactionType }
-type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
+type PaymentSessionRel = ResourceRel & { type: PaymentSessionType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 type SkuRel = ResourceRel & { type: SkuType }
 type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
@@ -74,6 +79,7 @@ type ReturnRel = ResourceRel & { type: ReturnType }
 type CarrierAccountRel = ResourceRel & { type: CarrierAccountType }
 type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
 type CustomerRel = ResourceRel & { type: CustomerType }
+type PaymentWalletRel = ResourceRel & { type: PaymentWalletType }
 type DeliveryLeadTimeRel = ResourceRel & { type: DeliveryLeadTimeType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
 type ShipmentRel = ResourceRel & { type: ShipmentType }
@@ -87,6 +93,8 @@ type SkuOptionRel = ResourceRel & { type: SkuOptionType }
 type MerchantRel = ResourceRel & { type: MerchantType }
 type SubscriptionModelRel = ResourceRel & { type: SubscriptionModelType }
 type PaymentOptionRel = ResourceRel & { type: PaymentOptionType }
+type PaymentTransactionRel = ResourceRel & { type: PaymentTransactionType }
+type PaymentLinkRel = ResourceRel & { type: PaymentLinkType }
 type PackageRel = ResourceRel & { type: PackageType }
 type PriceRel = ResourceRel & { type: PriceType }
 type PriceTierRel = ResourceRel & { type: PriceTierType }
@@ -121,15 +129,16 @@ interface Attachment extends Resource {
   url?: string | null
 
   attachable?:
-    | Geocoder
-    | PriceList
-    | PaymentMethod
     | Market
+    | PriceList
     | CustomerGroup
     | Promotion
+    | TaxCalculator
+    | Geocoder
+    | PaymentMethod
     | Order
     | Transaction
-    | TaxCalculator
+    | PaymentSession
     | TaxCategory
     | Sku
     | ShippingCategory
@@ -142,6 +151,7 @@ interface Attachment extends Resource {
     | CarrierAccount
     | CouponRecipient
     | Customer
+    | PaymentWallet
     | DeliveryLeadTime
     | ShippingMethod
     | Shipment
@@ -155,6 +165,8 @@ interface Attachment extends Resource {
     | Merchant
     | SubscriptionModel
     | PaymentOption
+    | PaymentTransaction
+    | PaymentLink
     | Package
     | Price
     | PriceTier
@@ -182,15 +194,16 @@ interface AttachmentCreate extends ResourceCreate {
   url?: string | null
 
   attachable:
-    | GeocoderRel
-    | PriceListRel
-    | PaymentMethodRel
     | MarketRel
+    | PriceListRel
     | CustomerGroupRel
     | PromotionRel
+    | TaxCalculatorRel
+    | GeocoderRel
+    | PaymentMethodRel
     | OrderRel
     | TransactionRel
-    | TaxCalculatorRel
+    | PaymentSessionRel
     | TaxCategoryRel
     | SkuRel
     | ShippingCategoryRel
@@ -203,6 +216,7 @@ interface AttachmentCreate extends ResourceCreate {
     | CarrierAccountRel
     | CouponRecipientRel
     | CustomerRel
+    | PaymentWalletRel
     | DeliveryLeadTimeRel
     | ShippingMethodRel
     | ShipmentRel
@@ -216,6 +230,8 @@ interface AttachmentCreate extends ResourceCreate {
     | MerchantRel
     | SubscriptionModelRel
     | PaymentOptionRel
+    | PaymentTransactionRel
+    | PaymentLinkRel
     | PackageRel
     | PriceRel
     | PriceTierRel
@@ -241,15 +257,16 @@ interface AttachmentUpdate extends ResourceUpdate {
   url?: string | null
 
   attachable?:
-    | GeocoderRel
-    | PriceListRel
-    | PaymentMethodRel
     | MarketRel
+    | PriceListRel
     | CustomerGroupRel
     | PromotionRel
+    | TaxCalculatorRel
+    | GeocoderRel
+    | PaymentMethodRel
     | OrderRel
     | TransactionRel
-    | TaxCalculatorRel
+    | PaymentSessionRel
     | TaxCategoryRel
     | SkuRel
     | ShippingCategoryRel
@@ -262,6 +279,7 @@ interface AttachmentUpdate extends ResourceUpdate {
     | CarrierAccountRel
     | CouponRecipientRel
     | CustomerRel
+    | PaymentWalletRel
     | DeliveryLeadTimeRel
     | ShippingMethodRel
     | ShipmentRel
@@ -275,6 +293,8 @@ interface AttachmentUpdate extends ResourceUpdate {
     | MerchantRel
     | SubscriptionModelRel
     | PaymentOptionRel
+    | PaymentTransactionRel
+    | PaymentLinkRel
     | PackageRel
     | PriceRel
     | PriceTierRel

@@ -24,6 +24,7 @@ export type CheckoutComGatewaySort = Pick<CheckoutComGateway, 'id' | 'name' | 'd
 /**
  * The Checkout.com gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/checkout_com_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/checkout_com_gateways/object
  */
 interface CheckoutComGateway extends Resource {
@@ -155,6 +156,7 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
   checkout_com_payments?: CheckoutComPaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
   static readonly TYPE: CheckoutComGatewayType = 'checkout_com_gateways' as const
 

@@ -24,6 +24,7 @@ export type SatispayGatewaySort = Pick<SatispayGateway, 'id' | 'name' | 'disable
 /**
  * The Satispay gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/satispay_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/satispay_gateways/object
  */
 interface SatispayGateway extends Resource {
@@ -125,6 +126,7 @@ interface SatispayGatewayUpdate extends ResourceUpdate {
   satispay_payments?: SatispayPaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class SatispayGateways extends ApiResource<SatispayGateway> {
   static readonly TYPE: SatispayGatewayType = 'satispay_gateways' as const
 
