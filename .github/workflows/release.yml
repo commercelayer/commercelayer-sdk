@@ -1,71 +1,79 @@
 name: Release
 
+# Drafts a GitHub release when a package tag is pushed. Release notes come from
+# PR titles and labels via .github/release.yaml — there is no conventional-commit
+# changelog. Nothing reaches npm here: publishing happens in publish.yml once a
+# human publishes the draft.
+#
+# Versioning is independent, so each package owns a tag prefix rather than the
+# bare `v*` namespace. Core has published 8 majors and provisioning is entering
+# 3.x, so their version ranges overlap — bare `v*` for both would collide (core
+# already holds `v3.1.1`).
 on:
   push:
-    branches: [main, beta, prerelease]
+    tags:
+      - 'core-v*'
+      - 'provisioning-v*'
 
-# Lerna pushes the version commit and its tags, so unlike the previous
-# semantic-release job this needs contents:write and persisted credentials.
-# id-token:write is kept for npm OIDC trusted publishing.
 permissions:
   contents: write
-  id-token: write
 
 jobs:
-  release:
-    name: Release
+  github_release:
+    name: Draft GitHub release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
+          # Full history and tags: the previous tag for *this* package has to be
+          # discoverable.
           fetch-depth: 0
-          token: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v5
-        with:
-          version: 10
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 'lts/*'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build packages
-        run: pnpm -r build
-
-      - name: Run specs
-        env:
-          CL_SDK_ORGANIZATION: sdk-test-org
-          CL_SDK_CLIENT_ID: ${{secrets.CL_SDK_CLIENT_ID}}
-          CL_SDK_CLIENT_SECRET: ${{secrets.CL_SDK_CLIENT_SECRET}}
-          CL_SDK_ACCESS_TOKEN_EXPIRED: ${{secrets.CL_SDK_ACCESS_TOKEN_EXPIRED}}
-        run: pnpm -r test
-
-      - name: Configure git identity
+      - name: Resolve package and its previous tag
+        id: meta
         run: |
-          git config user.name  'commercelayer-ci'
-          git config user.email 'ci@commercelayer.io'
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME}"
+          # `core-v8.0.0-beta.12` -> prefix `core`, version `8.0.0-beta.12`
+          PREFIX="${TAG%%-v*}"
+          VERSION="${TAG#*-v}"
 
-      # Mirrors the channels the old .releaserc declared: main -> latest,
-      # beta -> beta prerelease, prerelease -> rc prerelease. Each package's
-      # version line advances independently (lerna.json: version=independent).
-      - name: Resolve release flags
-        id: flags
-        run: |
-          case "${GITHUB_REF_NAME}" in
-            main)       FLAGS='--conventional-commits' ;;
-            beta)       FLAGS='--conventional-commits --conventional-prerelease --preid beta --dist-tag beta' ;;
-            prerelease) FLAGS='--conventional-commits --conventional-prerelease --preid rc --dist-tag rc' ;;
+          case "$PREFIX" in
+            core)         PKG='@commercelayer/sdk' ;;
+            provisioning) PKG='@commercelayer/provisioning-sdk' ;;
+            *)
+              echo "::error::Unknown tag prefix '$PREFIX'. Add it to the map in this workflow."
+              exit 1
+              ;;
           esac
-          echo "flags=$FLAGS" >> "$GITHUB_OUTPUT"
 
-      - name: Publish
-        env:
-          GH_TOKEN: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
-        run: pnpm lerna publish ${{ steps.flags.outputs.flags }} --yes
+          # GitHub's generated notes diff against the previous tag, which it
+          # picks chronologically. With two packages' tags interleaved that is
+          # usually the *other* package, so pin it to this package's own prefix.
+          PREV=$(git tag --list "${PREFIX}-v*" --sort=-creatordate | grep -vFx "$TAG" | head -1 || true)
+
+          # A semver prerelease has a hyphen in the version (8.0.0-beta.12).
+          case "$VERSION" in
+            *-*) PRERELEASE=true ;;
+            *)   PRERELEASE=false ;;
+          esac
+
+          {
+            echo "package=$PKG"
+            echo "version=$VERSION"
+            echo "previous_tag=$PREV"
+            echo "prerelease=$PRERELEASE"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Drafting $PKG v$VERSION (prerelease=$PRERELEASE, previous=${PREV:-none})"
+
+      - name: Create a draft GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
+          name: ${{ steps.meta.outputs.package }} v${{ steps.meta.outputs.version }}
+          draft: true
+          prerelease: ${{ steps.meta.outputs.prerelease }}
+          generate_release_notes: true
+          previous_tag: ${{ steps.meta.outputs.previous_tag }}

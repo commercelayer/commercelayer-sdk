@@ -4,10 +4,8 @@
   "npmClient": "pnpm",
   "command": {
     "version": {
-      "conventionalCommits": true,
-      "changelogPreset": "conventionalcommits",
       "message": "chore(release): publish [skip ci]",
-      "createRelease": "github"
+      "preid": "beta"
     },
     "publish": {
       "verifyAccess": false
