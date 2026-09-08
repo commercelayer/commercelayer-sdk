@@ -60,13 +60,15 @@ jobs:
       # Only 20 of ~2,060 tests need credentials; the rest run against a fake
       # client. Secrets are supplied so the full suite runs, which is safe here
       # because every pull request originates in this repository.
+      #
+      # The provisioning suite needs no variables at all: that API is not
+      # organization-scoped, so `organization` is not a required init option.
       - name: Run specs
         env:
           CL_SDK_ORGANIZATION: sdk-test-org
           CL_SDK_CLIENT_ID: ${{ secrets.CL_SDK_CLIENT_ID }}
           CL_SDK_CLIENT_SECRET: ${{ secrets.CL_SDK_CLIENT_SECRET }}
           CL_SDK_ACCESS_TOKEN_EXPIRED: ${{ secrets.CL_SDK_ACCESS_TOKEN_EXPIRED }}
-          CL_PROVISIONING_SDK_ORGANIZATION: sdk-test-org
         run: pnpm -r test
 
   drift:

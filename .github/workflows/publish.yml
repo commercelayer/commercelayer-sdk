@@ -59,9 +59,10 @@ jobs:
           CL_SDK_ACCESS_TOKEN_EXPIRED: ${{secrets.CL_SDK_ACCESS_TOKEN_EXPIRED}}
         run: pnpm -r test
 
-      # `from-package` publishes whatever version each package.json declares and
-      # skips Lerna's changed-package computation, which cannot run here: it
-      # walks the private packages and dies with `bad revision 'undefined'`.
+      # `from-package` publishes whatever version each package.json declares.
+      # Versions are set by hand because independent mode applies one bump
+      # keyword to every package and has no --scope, and because Lerna's
+      # `<name>@<version>` tags would not match release.yml's `*-v*` trigger.
       # Lerna 10 performs the npm OIDC token exchange itself, per package.
       - name: Publish prerelease
         if: github.event.release.prerelease
