@@ -9,11 +9,18 @@ name: Release
 # bare `v*` namespace. Core has published 8 majors and provisioning is entering
 # 3.x, so their version ranges overlap — bare `v*` for both would collide (core
 # already holds `v3.1.1`).
+#
+# The prefix is the package's directory name, so the package can be derived
+# rather than mapped: `core-sdk-v8.0.0` -> packages/core-sdk. Adding a target
+# needs no change here.
+#
+# `*-v*` requires a prefix, so core's 368 legacy bare `v7.x`/`v8.x` tags stay
+# inert. A tag whose prefix is not a package directory, or names a private
+# package, fails loudly in the step below rather than being silently ignored.
 on:
   push:
     tags:
-      - 'core-v*'
-      - 'provisioning-v*'
+      - '*-v*'
 
 permissions:
   contents: write
@@ -35,23 +42,26 @@ jobs:
         run: |
           set -euo pipefail
           TAG="${GITHUB_REF_NAME}"
-          # `core-v8.0.0-beta.12` -> prefix `core`, version `8.0.0-beta.12`
-          PREFIX="${TAG%%-v*}"
+          # `core-sdk-v8.0.0-beta.12` -> dir `core-sdk`, version `8.0.0-beta.12`
+          DIR="${TAG%%-v*}"
           VERSION="${TAG#*-v}"
 
-          case "$PREFIX" in
-            core)         PKG='@commercelayer/sdk' ;;
-            provisioning) PKG='@commercelayer/provisioning-sdk' ;;
-            *)
-              echo "::error::Unknown tag prefix '$PREFIX'. Add it to the map in this workflow."
-              exit 1
-              ;;
-          esac
+          if [ ! -f "packages/${DIR}/package.json" ]; then
+            echo "::error::Tag prefix '${DIR}' does not match a package directory."
+            exit 1
+          fi
+          # The npm name, which need not match the directory: packages/core-sdk
+          # publishes as @commercelayer/sdk until that package is renamed.
+          PKG=$(node -p "require('./packages/${DIR}/package.json').name")
+          if [ "$(node -p "require('./packages/${DIR}/package.json').private === true")" = "true" ]; then
+            echo "::error::${PKG} is private and must not be released."
+            exit 1
+          fi
 
           # GitHub's generated notes diff against the previous tag, which it
           # picks chronologically. With two packages' tags interleaved that is
           # usually the *other* package, so pin it to this package's own prefix.
-          PREV=$(git tag --list "${PREFIX}-v*" --sort=-creatordate | grep -vFx "$TAG" | head -1 || true)
+          PREV=$(git tag --list "${DIR}-v*" --sort=-creatordate | grep -vFx "$TAG" | head -1 || true)
 
           # A semver prerelease has a hyphen in the version (8.0.0-beta.12).
           case "$VERSION" in

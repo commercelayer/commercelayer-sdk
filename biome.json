@@ -12,6 +12,9 @@
       "./packages/*/test/**",
       "./packages/*/specs/**",
       "./packages/*/templates/**",
+      "./packages/*/*.ts",
+      "./packages/*/*.js",
+      "./scripts/**",
       "!**/gen/public_resources.json"
     ]
   },

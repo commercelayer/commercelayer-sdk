@@ -1,0 +1,121 @@
+name: Verify
+
+# The gate for every change. Before this existed, `pnpm -r test` ran in exactly
+# one place — publish.yml, on: release — so a pull request breaking the whole
+# suite merged green. Lint and ts:check ran nowhere.
+#
+# Four parallel jobs rather than one sequential one, so a lint failure does not
+# hide the test results and wall-clock is the slowest job, not the sum.
+#
+# Triggers deliberately exclude pushes to feature branches: the pull_request
+# event already covers those, and running both doubled every push.
+on:
+  pull_request:
+  push:
+    branches: [main, beta, prerelease]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { fetch-depth: 1 }
+      - uses: pnpm/action-setup@v5
+        with: { version: 10 }
+      - uses: actions/setup-node@v6
+        with: { node-version: 'lts/*', cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+
+  ts-check:
+    name: Types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { fetch-depth: 1 }
+      - uses: pnpm/action-setup@v5
+        with: { version: 10 }
+      - uses: actions/setup-node@v6
+        with: { node-version: 'lts/*', cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      # Covers all four packages. The two published ones had no ts:check
+      # script until this workflow was added.
+      - run: pnpm -r ts:check
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { fetch-depth: 1 }
+      - uses: pnpm/action-setup@v5
+        with: { version: 10 }
+      - uses: actions/setup-node@v6
+        with: { node-version: 'lts/*', cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      # Only 20 of ~2,060 tests need credentials; the rest run against a fake
+      # client. Secrets are supplied so the full suite runs, which is safe here
+      # because every pull request originates in this repository.
+      - name: Run specs
+        env:
+          CL_SDK_ORGANIZATION: sdk-test-org
+          CL_SDK_CLIENT_ID: ${{ secrets.CL_SDK_CLIENT_ID }}
+          CL_SDK_CLIENT_SECRET: ${{ secrets.CL_SDK_CLIENT_SECRET }}
+          CL_SDK_ACCESS_TOKEN_EXPIRED: ${{ secrets.CL_SDK_ACCESS_TOKEN_EXPIRED }}
+          CL_PROVISIONING_SDK_ORGANIZATION: sdk-test-org
+        run: pnpm -r test
+
+  drift:
+    name: Generated output is reproducible
+    runs-on: ubuntu-latest
+    # Absorbed from gen-drift.yml. Enforces that gen/ contains only generated
+    # output and that deleting it then regenerating reproduces it exactly.
+    # Regeneration uses --local, i.e. the snapshot committed alongside the
+    # output, so the check is branch-agnostic and immune to the API moving.
+    steps:
+      - uses: actions/checkout@v6
+        with: { fetch-depth: 1 }
+      - uses: pnpm/action-setup@v5
+        with: { version: 10 }
+      - uses: actions/setup-node@v6
+        with: { node-version: 'lts/*', cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+
+      - name: Wipe generated output
+        # The committed schema snapshot is the input, so it has to survive.
+        run: |
+          set -euo pipefail
+          for pkg in packages/*/; do
+            [ -d "${pkg}gen" ] || continue
+            snapshot="${pkg}gen/public_resources.json"
+            if [ -f "$snapshot" ]; then
+              mv "$snapshot" "${pkg}snapshot.tmp"
+              rm -rf "${pkg}gen"
+              mkdir -p "${pkg}gen"
+              mv "${pkg}snapshot.tmp" "$snapshot"
+            else
+              rm -rf "${pkg}gen"
+            fi
+          done
+
+      - name: Regenerate from the committed snapshot
+        run: pnpm -r generate-local
+
+      - name: Fail on any difference
+        run: |
+          if ! git diff --exit-code -- 'packages/*/gen/**'; then
+            echo '::error::gen/ is not reproducible from its committed schema snapshot.'
+            echo 'Either a generated file was hand-edited, or the output is stale.'
+            echo 'Run `pnpm -r generate` and commit the result.'
+            exit 1
+          fi
+          untracked=$(git ls-files --others --exclude-standard -- 'packages/*/gen/**')
+          if [ -n "$untracked" ]; then
+            echo '::error::Regeneration produced untracked files under gen/:'
+            echo "$untracked"
+            exit 1
+          fi

@@ -19,7 +19,7 @@
  */
 
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdtempSync, readFileSync, readdirSync } from 'node:fs'
+import { existsSync, mkdtempSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 
@@ -94,8 +94,7 @@ for (const e of entries) {
     console.log('     runtime exports: not comparable (missing build)')
     ok = false
   }
-  const pubDts =
-    e.key === '.' && !pubPkg.exports ? join(pubDir, pubPkg.types ?? e.dts) : e.dts && join(pubDir, e.dts)
+  const pubDts = e.key === '.' && !pubPkg.exports ? join(pubDir, pubPkg.types ?? e.dts) : e.dts && join(pubDir, e.dts)
   ok = diff('type surface', declaredNames(pubDts), declaredNames(e.dts && join(pkgDir, e.dts))) && ok
 }
 

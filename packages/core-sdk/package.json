@@ -45,6 +45,7 @@
     "generate-local": "tsx ../sdk-generator/src/generator.ts --local && pnpm check",
     "lint": "biome check --enforce-assist=true",
     "check": "biome check --enforce-assist=true --write",
+    "ts:check": "tsc --noEmit -p tsconfig.json",
     "test": "vitest",
     "test-local": "tsx test/spot.ts",
     "coverage": "vitest run --coverage",

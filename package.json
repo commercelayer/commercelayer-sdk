@@ -9,6 +9,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test",
+    "ts:check": "pnpm --stream -r ts:check",
     "generate": "pnpm -r generate",
     "clean": "pnpm -r clean",
     "lint": "biome check --enforce-assist=true",
