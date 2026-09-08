@@ -17,7 +17,8 @@
     "release:publish": "lerna publish --conventional-commits --yes",
     "dep:major": "pnpm dlx npm-check-updates --packageFile '**/package.json' -u",
     "dep:semver": "pnpm dlx npm-check-updates -t semver --packageFile '**/package.json' -u",
-    "verify:surface": "node scripts/compare-public-surface.mjs"
+    "verify:surface": "node scripts/compare-public-surface.mjs",
+    "prerelease:check": "pnpm -r build && pnpm -r verify:pack && node scripts/compare-public-surface.mjs packages/core"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.2",

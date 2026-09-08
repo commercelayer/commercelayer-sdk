@@ -94,6 +94,31 @@ jobs:
       - name: Publish preview
         run: npx pkg-pr-new publish --no-template './packages/*'
 
+      # pkg-pr-new prints the short URL form (`@scope/name@sha`), which resolves
+      # through its package-name -> repo mapping. That mapping still points
+      # @commercelayer/provisioning-sdk at the archived commercelayer/provisioning-sdk
+      # repo, so the short URL 404s for it while working for @commercelayer/sdk.
+      # The fully-qualified form is unambiguous and works for both.
+      - name: Print install URLs that actually resolve
+        run: |
+          # On pull_request, the checkout is a merge commit, so git rev-parse HEAD
+          # would not match the sha pkg-pr-new published under.
+          FULL='${{ github.event.pull_request.head.sha || github.sha }}'
+          SHA="${FULL:0:7}"
+          REPO='${{ github.repository }}'
+          {
+            echo '### Preview packages'
+            echo
+            echo 'The short URLs printed above resolve via package name, which is stale for'
+            echo 'provisioning since it moved repos. Use these:'
+            echo
+            echo '```'
+            for pkg in @commercelayer/sdk @commercelayer/provisioning-sdk; do
+              echo "npm i https://pkg.pr.new/${REPO}/${pkg}@${SHA}"
+            done
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Open PR to main (production dispatch only)
         if: github.event_name == 'workflow_dispatch' && inputs.environment == 'production'
         env:
