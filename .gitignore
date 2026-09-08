@@ -1,7 +1,7 @@
 build/
 dist/
 
-# The public/resources snapshot is COMMITTED (docs/adr/0004): it makes any
+# The public/resources snapshot is COMMITTED: it makes any
 # commit reproducible offline and lets the drift check regenerate with --local
 # instead of depending on the live API.
 

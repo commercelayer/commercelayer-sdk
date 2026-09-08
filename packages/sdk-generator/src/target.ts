@@ -1,7 +1,7 @@
 /**
  * Target configuration — everything about an API surface that the public
  * resources schema cannot express, declared by hand in each SDK package's
- * `sdk.config.ts`. See docs/adr/0005.
+ * `sdk.config.ts`.
  *
  * The generator runs with the package directory as its working directory, so
  * the config is loaded from `./sdk.config.ts` and all output paths stay
@@ -61,7 +61,7 @@ export type TargetConfig = {
   staticName: string
   /**
    * Whether this SDK publishes the tree-shakeable single-client entry point in
-   * addition to the bundle client. Provisioning is bundle-only — see ADR-0007.
+   * addition to the bundle client. Provisioning is bundle-only.
    */
   singleClient: boolean
   /**

@@ -348,7 +348,7 @@ class ResourceAdapter {
    * Calls a non-CRUD endpoint hosted at a sub-path of a resource, e.g.
    * `POST memberships/:id/resend`. These endpoints are not described by the
    * public resources schema, so they are declared in a target config and
-   * emitted from it — see docs/adr/0005.
+   * emitted from it.
    */
   async action(
     cmd: Extract<Method, 'POST' | 'PATCH'>,

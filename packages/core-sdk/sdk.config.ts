@@ -2,7 +2,7 @@ import type { TargetConfig } from '@commercelayer/sdk-generator/target'
 
 /**
  * Core API target. Declares everything the public resources schema cannot
- * express — see docs/adr/0005.
+ * express.
  */
 const config: TargetConfig = {
   // Each target owns its host map, so CI can pass `--env=staging1` without

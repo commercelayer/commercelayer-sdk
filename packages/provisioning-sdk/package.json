@@ -21,8 +21,8 @@
   "scripts": {
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "build": "tsup",
-    "generate": "tsx ../generator/src/generator.ts && pnpm check",
-    "generate-local": "tsx ../generator/src/generator.ts --local && pnpm check",
+    "generate": "tsx ../sdk-generator/src/generator.ts && pnpm check",
+    "generate-local": "tsx ../sdk-generator/src/generator.ts --local && pnpm check",
     "lint": "biome check --enforce-assist=true",
     "check": "biome check --enforce-assist=true --write",
     "test": "vitest",

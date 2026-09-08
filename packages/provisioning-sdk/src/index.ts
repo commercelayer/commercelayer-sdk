@@ -1,5 +1,5 @@
 // SDK — single entry point exposing the bundle client. Unlike the Core API SDK
-// there is no tree-shakeable single-client surface: see docs/adr/0007.
+// there is no tree-shakeable single-client surface.
 import CommerceLayerProvisioning, { type CommerceLayerProvisioningClient } from '../gen/bundle'
 
 export { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS, type ApiVersion, SDK_VERSION } from '../gen/version'
@@ -19,7 +19,7 @@ export { CommerceLayerProvisioningStatic } from './static'
 // over api/model/query/resource, but sdk8's modules have different shapes: the
 // same wildcards re-export resource *instances* and enum helper *functions*
 // into the .d.ts while the runtime exports only six names — so consumers could
-// import bindings that typecheck and then fail at runtime. See ADR-0007.
+// import bindings that typecheck and then fail at runtime.
 
 // Error types
 export type { ApiError, ErrorType, SdkError } from '@runtime/error'

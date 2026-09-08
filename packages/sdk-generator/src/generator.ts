@@ -305,7 +305,7 @@ const updateSdkVersion = (): void => {
 
   // API_SCHEMA_VERSION lives alongside SDK_VERSION so the runtime's client can
   // read it (via #registry) without a circular import through commercelayer.ts.
-  // Rendered whole from the generator's template — see docs/adr/0004.
+  // Rendered whole from the generator's template.
   const filePath = 'gen/version.ts'
 
   const cl = templates.version
@@ -341,7 +341,7 @@ const updateSdkVersion = (): void => {
 
 const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
   // Rendered whole from the generator's template into gen/. Nothing in src/
-  // is read or written: see docs/adr/0004.
+  // is read or written.
   const filePath = 'gen/bundle.ts'
 
   const cl = templates.bundle
@@ -446,7 +446,7 @@ const updateSdkBundle = (resources: Record<string, ApiRes>): void => {
 
 const updateModelTypes = (resources: Record<string, ApiRes>): void => {
   // Rendered whole from the generator's template into gen/. Nothing in src/
-  // is read or written: see docs/adr/0004.
+  // is read or written.
   const filePath = 'gen/model.ts'
 
   // `model_types`, not `model`: templates/model.tpl already renders a single
@@ -486,7 +486,7 @@ const updateModelTypes = (resources: Record<string, ApiRes>): void => {
 
 const updateApiResources = (resources: Record<string, ApiRes>): void => {
   // Rendered whole from the generator's template into gen/. Nothing in src/
-  // is read or written: see docs/adr/0004.
+  // is read or written.
   const filePath = 'gen/enum.ts'
 
   const cl = templates.enum
@@ -571,7 +571,7 @@ const updateApiResources = (resources: Record<string, ApiRes>): void => {
 
 const updateAdapters = (resources: Record<string, ApiRes>): void => {
   // Rendered whole from the generator's template into gen/. Nothing in src/
-  // is read or written: see docs/adr/0004.
+  // is read or written.
   const filePath = 'gen/api.ts'
 
   const cl = templates.api
@@ -751,7 +751,7 @@ const copyrightHeader = (template: string): string => {
  * Emits the target's declared custom actions onto a resource class. These are
  * non-CRUD endpoints at a sub-path of a resource (`POST memberships/:id/resend`)
  * which the public resources schema cannot describe, so they come from the
- * target config — see docs/adr/0005.
+ * target config.
  *
  * Payload types are named, not generated: the package hand-writes and exports
  * them, and the generated method references the name.

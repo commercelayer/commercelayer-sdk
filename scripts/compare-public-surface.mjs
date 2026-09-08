@@ -10,10 +10,10 @@
  * Only the `exports` map is inspected. Files that merely happen to exist under
  * lib/ are not part of the contract and differ legitimately — e.g. the eleven
  * runtime modules stopped being emitted as separate chunks once they moved to
- * packages/runtime, which is invisible to consumers.
+ * packages/sdk-runtime, which is invisible to consumers.
  *
  * Usage:
- *   node scripts/compare-public-surface.mjs packages/core [<npm-spec>]
+ *   node scripts/compare-public-surface.mjs packages/core-sdk [<npm-spec>]
  *
  * <npm-spec> defaults to <name>@<version> from the package's own package.json.
  */
@@ -23,7 +23,7 @@ import { existsSync, mkdtempSync, readFileSync, readdirSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 
-const pkgDir = resolve(process.argv[2] ?? 'packages/core')
+const pkgDir = resolve(process.argv[2] ?? 'packages/core-sdk')
 const pkg = JSON.parse(readFileSync(join(pkgDir, 'package.json'), 'utf8'))
 const spec = process.argv[3] ?? `${pkg.name}@${pkg.version}`
 

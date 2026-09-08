@@ -12,7 +12,7 @@ export default defineConfig({
       // The shared runtime is consumed as source via a path alias rather than
       // as a package: tsup's dts build cannot cross a package boundary whose
       // exports map points at raw .ts files.
-      '@runtime': fileURLToPath(new URL('../runtime/src', import.meta.url)),
+      '@runtime': fileURLToPath(new URL('../sdk-runtime/src', import.meta.url)),
     },
   },
   test: {

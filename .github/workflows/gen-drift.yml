@@ -5,7 +5,7 @@ on:
     branches: ['**']
   pull_request:
 
-# Enforces docs/adr/0004: gen/ contains only generated output, and deleting it
+# Enforces that gen/ contains only generated output, and that deleting it
 # then regenerating must reproduce it exactly. Catches hand-edits to generated
 # files and output that is stale relative to its committed schema snapshot.
 #

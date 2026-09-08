@@ -16,7 +16,7 @@
       // rather than a synthetic stub, which models the generic field/sort maps
       // too narrowly and produces errors no real binding hits. Creates no
       // dependency — the runtime ships bundled into whichever package builds it.
-      "#registry": ["../core/src/registry.ts"],
+      "#registry": ["../core-sdk/src/registry.ts"],
       "@runtime/*": ["./src/*.ts"]
     }
   },

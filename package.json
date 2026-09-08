@@ -18,7 +18,7 @@
     "dep:major": "pnpm dlx npm-check-updates --packageFile '**/package.json' -u",
     "dep:semver": "pnpm dlx npm-check-updates -t semver --packageFile '**/package.json' -u",
     "verify:surface": "node scripts/compare-public-surface.mjs",
-    "prerelease:check": "pnpm -r build && pnpm -r verify:pack && node scripts/compare-public-surface.mjs packages/core"
+    "prerelease:check": "pnpm -r build && pnpm -r verify:pack && node scripts/compare-public-surface.mjs packages/core-sdk"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.2",

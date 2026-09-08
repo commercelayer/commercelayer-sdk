@@ -2,7 +2,7 @@ import type { TargetConfig } from '@commercelayer/sdk-generator/target'
 
 /**
  * Provisioning API target. Declares everything the public resources schema
- * cannot express — see docs/adr/0005.
+ * cannot express.
  */
 const config: TargetConfig = {
   environments: {
@@ -19,7 +19,7 @@ const config: TargetConfig = {
   clientBaseName: 'CommerceLayerProvisioningBaseClient',
   staticName: 'CommerceLayerProvisioningStatic',
   // Bundle client only. 2.10.2 published a single entry point and gains no
-  // tree-shakeable single-client surface — see docs/adr/0007.
+  // tree-shakeable single-client surface.
   singleClient: false,
   // The Provisioning API has no `tags` resource, so the taggable machinery is
   // omitted rather than generated empty.
@@ -27,7 +27,7 @@ const config: TargetConfig = {
   // No deprecated bundle alias: provisioning has no sdk6-era history.
   // Present in the schema but deliberately not exposed.
   exclude: ['subscriptions', 'billing_profiles', 'plans'],
-  // Non-CRUD endpoints the schema cannot describe — see docs/adr/0005.
+  // Non-CRUD endpoints the schema cannot describe.
   actions: {
     memberships: [{ name: 'resend', method: 'POST', path: 'resend' }],
     organizations: [

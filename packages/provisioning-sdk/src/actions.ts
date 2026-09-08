@@ -3,7 +3,7 @@
  *
  * Hand-written on purpose: these endpoints are not described by the public
  * resources schema, so the target config names the type and this module
- * declares it — see docs/adr/0005. Generated resources import from here.
+ * declares it. Generated resources import from here.
  */
 
 /** Payload for `PATCH organizations/:id/transfer_ownership`. */
