@@ -40,6 +40,13 @@ interface ResourceUpdate extends ResourceBase {
   readonly id: string
 }
 
+/**
+ * Update payload for a singleton resource, which carries no `id` because it is
+ * addressed at a singular path (`/user`, not `/users/{id}`). Distinct from
+ * `ResourceUpdate` purely to keep `id` off the caller's payload.
+ */
+interface SingletonUpdate extends ResourceBase {}
+
 type PageCursor = { readonly before?: string; readonly after?: string }
 
 // Flat, non-discriminated (mirrors the poc-js-sdk shape). The offset fields are
@@ -164,6 +171,7 @@ export type {
   ResourceRel,
   ResourceType,
   ResourceUpdate,
+  SingletonUpdate,
 }
 
 export type ResourceSort = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'created_at' | 'updated_at'>
@@ -312,8 +320,8 @@ class ResourceAdapter {
     return r
   }
 
-  async update<U extends ResourceUpdate, R extends Resource>(
-    resource: U & ResourceId,
+  async update<U extends ResourceUpdate | SingletonUpdate, R extends Resource>(
+    resource: U & ResourceType,
     params?: QueryParamsRetrieve<R>,
     options?: ResourcesConfig,
     /**
@@ -330,7 +338,9 @@ class ResourceAdapter {
     if (options?.params) Object.assign(queryParams, options?.params)
 
     const data = normalize(resource)
-    const res = await this.#client.request('PATCH', path || `${resource.type}/${resource.id}`, data, {
+    // Singletons always supply `path`, so the id-bearing fallback is only ever
+    // reached by a `ResourceUpdate`, which does carry an id.
+    const res = await this.#client.request('PATCH', path || `${resource.type}/${(resource as ResourceId).id}`, data, {
       ...options,
       params: queryParams,
     })

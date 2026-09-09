@@ -982,11 +982,15 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   const sortableFields: string[] = []
   const filterableFields: string[] = []
 
+  // `Resource` itself carries no singleton flag; the operations do, and a
+  // singleton's update is the only one that needs the distinction.
+  const isSingleton = Object.values(resource.operations).some((op) => op.singleton)
+
   typesArray.forEach((t) => {
     const cudSuffix = getCUDSuffix(t)
-    resourceInterfaces.push(`Resource${cudSuffix}`)
+    resourceInterfaces.push(getExtendInterface(t, isSingleton))
     const component: Component = resource.components[t]
-    const tplCmp = templatedComponent(resName, t, component)
+    const tplCmp = templatedComponent(resName, t, component, isSingleton)
     tplCmp.models.forEach((m) => {
       if (m !== 'Resource') declaredImportsModels.add(m) // Fix resource_errors issue
     })
@@ -1186,6 +1190,18 @@ const fixAttributeType = (attr: Attribute): string => {
     }
 }
 
+/**
+ * The Runtime interface a generated component extends: `Resource`,
+ * `ResourceCreate`, `ResourceUpdate` — or `SingletonUpdate` for a singleton's
+ * update payload, which carries no `id` because it is addressed at a singular
+ * path. Without the singleton case, `user.update()` would demand an id that
+ * has nowhere to go.
+ */
+const getExtendInterface = (name: string, singleton: boolean): string => {
+  const suffix = getCUDSuffix(name)
+  return singleton && suffix === 'Update' ? 'SingletonUpdate' : `Resource${suffix}`
+}
+
 const getCUDSuffix = (name: string): string => {
   const suffixes = ['Create', 'Update', 'Delete']
   let suffix = ''
@@ -1211,6 +1227,7 @@ const templatedComponent = (
   _res: string,
   name: string,
   cmp: Component,
+  singleton = false,
 ): { component: string; models: string[]; enums: ComponentEnums } => {
   const cudModel = isCUDModel(name)
 
@@ -1289,7 +1306,7 @@ const templatedComponent = (
   let component = fields.length || rels.length ? templates.model : templates.model_empty
 
   component = component.replace(/##__RESOURCE_MODEL__##/g, name)
-  component = component.replace(/##__EXTEND_TYPE__##/g, getCUDSuffix(name))
+  component = component.replace(/##__EXTEND_INTERFACE__##/g, getExtendInterface(name, singleton))
 
   const fieldsStr = (fields.length ? '\n\t' : '') + fields.join('\n\t') + (fields.length && rels.length ? '\n' : '')
   const relsStr = rels.join('\n\t') + (rels.length ? '\n' : '')

@@ -5,7 +5,7 @@ import type {
   ResourceRel,
   ResourceSort,
   /* ResourceFilter */ ResourcesConfig,
-  ResourceUpdate,
+  SingletonUpdate,
 } from '@runtime/resource'
 import { ApiSingleton } from '@runtime/resource'
 
@@ -50,7 +50,7 @@ interface User extends Resource {
   otp_required_for_login?: boolean | null
 }
 
-interface UserUpdate extends ResourceUpdate {
+interface UserUpdate extends SingletonUpdate {
   /**
    * The user email.
    * @example ```"user@commercelayer.io"```

@@ -55,6 +55,7 @@ export type {
   ResourcesInitConfig,
   ResourceType,
   ResourceUpdate,
+  SingletonUpdate,
 } from '@runtime/resource'
 // Resource classes, as 2.10.2 exposed them
 export type {
