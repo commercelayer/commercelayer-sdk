@@ -293,11 +293,17 @@ interface LineItem extends Resource {
   adjustment?: Adjustment | null
   gift_card?: GiftCard | null
   shipment?: Shipment | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_method?: PaymentMethod | null
   line_item_options?: LineItemOption[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   return_line_items?: ReturnLineItem[] | null
   /**
-   * @deprecated
+   * @deprecated Last available in API version 2017-08.
    */
   shipment_line_items?: ShipmentLineItem[] | null
   stock_reservations?: StockReservation[] | null
@@ -542,6 +548,9 @@ class LineItems extends ApiResource<LineItem> {
     ) as unknown as ListResponse<LineItemOption>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async return_line_items(
     lineItemId: string | LineItem,
     params?: QueryParamsList<ReturnLineItem>,
@@ -557,7 +566,7 @@ class LineItems extends ApiResource<LineItem> {
   }
 
   /**
-   * @deprecated
+   * @deprecated Last available in API version 2017-08.
    */
   async shipment_line_items(
     lineItemId: string | LineItem,

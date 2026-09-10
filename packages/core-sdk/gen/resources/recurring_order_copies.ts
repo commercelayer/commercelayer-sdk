@@ -72,6 +72,7 @@ interface RecurringOrderCopy extends Resource {
   place_target_order?: boolean | null
   /**
    * Indicates if the payment source within the source order customer's wallet must be copied.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   reuse_wallet?: boolean | null
@@ -91,6 +92,7 @@ interface RecurringOrderCopyCreate extends ResourceCreate {
   place_target_order?: boolean | null
   /**
    * Indicates if the payment source within the source order customer's wallet must be copied.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   reuse_wallet?: boolean | null
