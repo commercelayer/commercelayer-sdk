@@ -1,0 +1,29 @@
+# Applies the package labels that release-core-sdk.yml and
+# release-provisioning-sdk.yml filter on, derived from the files a PR touches
+# rather than from anyone remembering to label it.
+#
+# Note that the shared packages appear under BOTH labels. That is deliberate:
+# a change to sdk-runtime or sdk-generator affects both published SDKs, and the
+# per-package release configs treat a PR carrying both labels as belonging to
+# both releases. It also composes correctly for a mixed PR — one touching
+# core-sdk and sdk-runtime gets both labels, so the runtime change is not
+# hidden from the provisioning release notes.
+#
+# Paths matching neither rule (lockfile, root tsconfig, workflows) get no label
+# and fall through to each config's catch-all, so they appear in both releases.
+# That is the safe default: an unclassified change is reported twice rather
+# than lost.
+
+core-sdk:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'packages/core-sdk/**'
+          - 'packages/sdk-runtime/**'
+          - 'packages/sdk-generator/**'
+
+provisioning-sdk:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'packages/provisioning-sdk/**'
+          - 'packages/sdk-runtime/**'
+          - 'packages/sdk-generator/**'

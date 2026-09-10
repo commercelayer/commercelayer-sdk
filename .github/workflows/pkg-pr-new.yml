@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to regenerate the SDK against'
+        description: 'Environment to regenerate both SDKs against (resolved from each package sdk.config.ts)'
         type: choice
         required: true
         default: production
@@ -35,19 +35,6 @@ jobs:
     name: pkg.pr.new
     runs-on: ubuntu-latest
     steps:
-      - name: Resolve host from environment
-        id: env
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          case "${{ inputs.environment }}" in
-            production)  HOST=core.commercelayer.io ;;
-            staging)     HOST=core.commercelayer.co ;;
-            staging1)    HOST=core.stg1.commercelayer.co ;;
-            staging2)    HOST=core.stg2.commercelayer.co ;;
-            staging3)    HOST=core.stg3.commercelayer.co ;;
-          esac
-          echo "host=$HOST" >> "$GITHUB_OUTPUT"
-
       - name: Checkout
         uses: actions/checkout@v7
         with:
@@ -67,24 +54,32 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Regenerate SDK against ${{ inputs.environment }}
+      - name: Regenerate both SDKs against ${{ inputs.environment }}
         if: github.event_name == 'workflow_dispatch'
         run: |
-          ARGS="--api-host=${{ steps.env.outputs.host }}"
+          set -euo pipefail
+          ARGS="--env=${{ inputs.environment }}"
           if [ -n "${{ inputs.api_version }}" ]; then
             ARGS="$ARGS --api-version=${{ inputs.api_version }}"
           fi
-          # Invoke tsx directly: `pnpm generate` is `tsx gen/generator.ts && pnpm check`,
-          # and pnpm appends user args to the LAST command in a chained script — so
-          # `pnpm generate --api-host=…` would pass the flag to `pnpm check` instead.
-          pnpm tsx gen/generator.ts $ARGS
+          # Invoke tsx directly: `pnpm generate` chains `&& pnpm check`, and pnpm
+          # appends user args to the LAST command in the chain — so
+          # `pnpm generate --env=…` would hand the flag to `pnpm check` instead.
+          # --env resolves through each package's own sdk.config.ts environments
+          # map, so this step needs no knowledge of which API it is generating.
+          for pkg in @commercelayer/sdk @commercelayer/provisioning-sdk; do
+            echo "::group::regenerate $pkg"
+            pnpm --filter "$pkg" exec tsx ../sdk-generator/src/generator.ts $ARGS
+            echo '::endgroup::'
+          done
           pnpm check
 
       - name: Commit + push to pkg-pr-new-${{ inputs.environment }}
+        id: regen_commit
         if: github.event_name == 'workflow_dispatch'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: 'chore: regenerate against ${{ inputs.environment }}'
+          commit_message: 'chore: regenerate SDKs against ${{ inputs.environment }}'
           branch: 'pkg-pr-new-${{ inputs.environment }}'
           push_options: '--force'
           create_branch: true
@@ -95,7 +90,65 @@ jobs:
         run: pnpm build
 
       - name: Publish preview
-        run: npx pkg-pr-new publish --no-template
+        run: npx pkg-pr-new publish --no-template './packages/*'
+
+      # pkg-pr-new prints the short URL form (`@scope/name@sha`), which resolves
+      # through its package-name -> repo mapping. That mapping still points
+      # @commercelayer/provisioning-sdk at the archived commercelayer/provisioning-sdk
+      # repo, so the short URL 404s for it while working for @commercelayer/sdk.
+      # The fully-qualified form is unambiguous and works for both.
+      - name: Print install URLs that actually resolve
+        run: |
+          # The sha pkg-pr-new published under, in three cases:
+          #  1. A dispatch that regenerated: the regen step pushed a NEW commit
+          #     and the preview is built from it, so `github.sha` (the dispatched
+          #     ref) is stale. Take the hash the commit action reports. Reading
+          #     it from the action rather than `git rev-parse` keeps this correct
+          #     even if a later step moves HEAD.
+          #  2. A pull_request: the checkout is a merge commit, so HEAD does not
+          #     match what pkg-pr-new used — it takes the head sha.
+          #  3. A push, or a dispatch that regenerated to no change: HEAD is
+          #     already the published commit.
+          FULL='${{ steps.regen_commit.outputs.commit_hash }}'
+          [ -n "$FULL" ] || FULL='${{ github.event.pull_request.head.sha }}'
+          [ -n "$FULL" ] || FULL="$(git rev-parse HEAD)"
+          SHA="${FULL:0:7}"
+          REPO='${{ github.repository }}'
+          ENV='${{ inputs.environment }}'
+          API_VERSION='${{ inputs.api_version }}'
+          {
+            echo '### Preview packages'
+            echo
+            # `environment` only exists on workflow_dispatch. On push and
+            # pull_request the regenerate step is skipped, so the preview is
+            # built from whatever the branch already contains — say so rather
+            # than implying it was generated against production.
+            # A list, not consecutive lines: GitHub-flavored markdown folds a
+            # single newline into the same paragraph, which would run the two
+            # fields together on one line.
+            if [ -n "$ENV" ]; then
+              echo "- **Environment:** \`${ENV}\`"
+              [ -n "$API_VERSION" ] && echo "- **API version:** \`${API_VERSION}\`"
+            else
+              echo '- **Environment:** as committed — no regeneration on this event'
+            fi
+            # The published commit, so the summary can be trusted without
+            # cross-checking git. On a regenerating dispatch this is the commit
+            # the run itself created, not the one it was dispatched from.
+            echo "- **Commit:** [\`${SHA}\`](https://github.com/${REPO}/commit/${FULL})"
+            if [ -n "${{ steps.regen_commit.outputs.commit_hash }}" ]; then
+              echo "- **Pushed to:** \`pkg-pr-new-${ENV}\` (regenerated in this run)"
+            fi
+            echo
+            echo 'The short URLs printed above resolve via package name, which is stale for'
+            echo 'provisioning since it moved repos. Use these:'
+            echo
+            echo '```'
+            for pkg in @commercelayer/sdk @commercelayer/provisioning-sdk; do
+              echo "npm i https://pkg.pr.new/${REPO}/${pkg}@${SHA}"
+            done
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Open PR to main (production dispatch only)
         if: github.event_name == 'workflow_dispatch' && inputs.environment == 'production'

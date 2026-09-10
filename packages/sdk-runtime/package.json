@@ -1,0 +1,18 @@
+{
+  "name": "@commercelayer/sdk-runtime",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared, target-agnostic runtime for the Commerce Layer SDKs. Consumed as source through each package's @runtime/* path alias and bundled into its lib/; never published, and deliberately not imported by package name (tsup's dts build cannot cross a package boundary that exports raw .ts).",
+  "scripts": {
+    "ts:check": "tsc --noEmit -p tsconfig.json"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/debug": "^4.1.13",
+    "@types/node": "^25.9.4",
+    "json-typescript": "^1.1.2",
+    "jsonapi-typescript": "^0.1.3",
+    "typescript": "^5.9.3"
+  }
+}

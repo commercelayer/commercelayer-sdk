@@ -6,7 +6,17 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["./src/**", "./test/**", "./specs/**", "./gen/**", "!gen/public_resources.json"]
+    "includes": [
+      "./packages/*/src/**",
+      "./packages/*/gen/**",
+      "./packages/*/test/**",
+      "./packages/*/specs/**",
+      "./packages/*/templates/**",
+      "./packages/*/*.ts",
+      "./packages/*/*.js",
+      "./scripts/**",
+      "!**/gen/public_resources.json"
+    ]
   },
   "formatter": {
     "indentStyle": "space",

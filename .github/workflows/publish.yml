@@ -1,14 +1,78 @@
 name: Publish
+
+# Publishes to npm once a human publishes the draft release created by
+# release.yml, then announces it. The draft is the gate: nothing reaches npm
+# until someone reviews the generated notes and hits publish.
+#
+# npm authentication is OIDC trusted publishing — no NPM_TOKEN. The trusted
+# publisher for each package must therefore name THIS workflow file
+# (publish.yml), the repository commercelayer/commercelayer-sdk, and no
+# environment.
 on:
   release:
     types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
-    name: Publish
+    name: Publish to npm
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          # The release was created from a tag; build from exactly that tree.
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+          registry-url: https://registry.npmjs.org
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm -r build
+
+      - name: Verify packaging
+        # publint + arethetypeswrong over the real tarballs. Cheap, and the last
+        # chance to catch a broken exports map before it is immutable on npm.
+        run: pnpm -r verify:pack
+
+      - name: Run specs
+        env:
+          CL_SDK_ORGANIZATION: sdk-test-org
+          CL_SDK_CLIENT_ID: ${{secrets.CL_SDK_CLIENT_ID}}
+          CL_SDK_CLIENT_SECRET: ${{secrets.CL_SDK_CLIENT_SECRET}}
+          CL_SDK_ACCESS_TOKEN_EXPIRED: ${{secrets.CL_SDK_ACCESS_TOKEN_EXPIRED}}
+        run: pnpm -r test
+
+      # `from-package` publishes whatever version each package.json declares.
+      # Versions are set by hand because independent mode applies one bump
+      # keyword to every package and has no --scope, and because Lerna's
+      # `<name>@<version>` tags would not match release.yml's `*-v*` trigger.
+      # Lerna 10 performs the npm OIDC token exchange itself, per package.
+      - name: Publish prerelease
+        if: github.event.release.prerelease
+        run: pnpm lerna publish from-package --dist-tag beta --yes --no-push --loglevel verbose
+
+      - name: Publish release
+        if: '!github.event.release.prerelease'
+        run: pnpm lerna publish from-package --yes --no-push --loglevel verbose
+
       - name: Post to a Slack channel
-        id: slack
         uses: slackapi/slack-github-action@v3
         with:
           webhook-type: incoming-webhook
@@ -32,7 +96,7 @@ jobs:
                 },
                 {
                 "type": "mrkdwn",
-                "text": "*Version:*\n${{github.ref_name}}"
+                "text": "*Version:*\n${{github.event.release.tag_name}}"
                 }
               ]
               },

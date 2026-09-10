@@ -1,0 +1,14 @@
+build/
+gen/
+src/
+node_modules/
+test/
+specs/
+
+tsconfig.json
+tsconfig.*.json
+tslint.json
+.prettierrc
+
+**/*.zip
+**/*.log

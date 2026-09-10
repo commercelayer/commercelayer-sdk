@@ -1,0 +1,167 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
+
+import type { EventStore } from './event_stores'
+
+type AdjustmentType = 'adjustments'
+type AdjustmentRel = ResourceRel & { type: AdjustmentType }
+
+export type AdjustmentSort = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceSort
+// export type AdjustmentFilter = Pick<Adjustment, 'id' | 'name' | 'currency_code' | 'amount_cents'> & ResourceFilter
+
+/**
+ * The Adjustment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/adjustments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/adjustments/object
+ */
+interface Adjustment extends Resource {
+  readonly type: AdjustmentType
+
+  /**
+   * The adjustment name.
+   * @example ```"Additional service"```
+   */
+  name: string
+  /**
+   * The international 3-letter currency code as defined by the ISO 4217 standard.
+   * @example ```"EUR"```
+   */
+  currency_code: string
+  /**
+   * The adjustment amount, in cents.
+   * @example ```1500```
+   */
+  amount_cents: number
+  /**
+   * The adjustment amount, float.
+   * @example ```15```
+   */
+  amount_float: number
+  /**
+   * The adjustment amount, formatted.
+   * @example ```"€15,00"```
+   */
+  formatted_amount: string
+  /**
+   * Indicates if negative adjustment amount is distributed for tax calculation.
+   * @example ```true```
+   */
+  distribute_discount?: boolean | null
+
+  event_stores?: EventStore[] | null
+}
+
+interface AdjustmentCreate extends ResourceCreate {
+  /**
+   * The adjustment name.
+   * @example ```"Additional service"```
+   */
+  name: string
+  /**
+   * The international 3-letter currency code as defined by the ISO 4217 standard.
+   * @example ```"EUR"```
+   */
+  currency_code: string
+  /**
+   * The adjustment amount, in cents.
+   * @example ```1500```
+   */
+  amount_cents: number
+  /**
+   * Indicates if negative adjustment amount is distributed for tax calculation.
+   * @example ```true```
+   */
+  distribute_discount?: boolean | null
+}
+
+interface AdjustmentUpdate extends ResourceUpdate {
+  /**
+   * The adjustment name.
+   * @example ```"Additional service"```
+   */
+  name?: string | null
+  /**
+   * The international 3-letter currency code as defined by the ISO 4217 standard.
+   * @example ```"EUR"```
+   */
+  currency_code?: string | null
+  /**
+   * The adjustment amount, in cents.
+   * @example ```1500```
+   */
+  amount_cents?: number | null
+  /**
+   * Indicates if negative adjustment amount is distributed for tax calculation.
+   * @example ```true```
+   */
+  distribute_discount?: boolean | null
+}
+
+class Adjustments extends ApiResource<Adjustment> {
+  static readonly TYPE: AdjustmentType = 'adjustments' as const
+
+  async create(
+    resource: AdjustmentCreate,
+    params?: QueryParamsRetrieve<Adjustment>,
+    options?: ResourcesConfig,
+  ): Promise<Adjustment> {
+    return this.resources.create<AdjustmentCreate, Adjustment>({ ...resource, type: Adjustments.TYPE }, params, options)
+  }
+
+  async update(
+    resource: AdjustmentUpdate,
+    params?: QueryParamsRetrieve<Adjustment>,
+    options?: ResourcesConfig,
+  ): Promise<Adjustment> {
+    return this.resources.update<AdjustmentUpdate, Adjustment>({ ...resource, type: Adjustments.TYPE }, params, options)
+  }
+
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: Adjustments.TYPE } : id, options)
+  }
+
+  async event_stores(
+    adjustmentId: string | Adjustment,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _adjustmentId = (adjustmentId as Adjustment).id || (adjustmentId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `adjustments/${_adjustmentId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
+
+  isAdjustment(resource: any): resource is Adjustment {
+    return resource.type && resource.type === Adjustments.TYPE
+  }
+
+  relationship(id: string | ResourceId | null): AdjustmentRel {
+    return super.relationshipOneToOne<AdjustmentRel>(id)
+  }
+
+  relationshipToMany(...ids: string[]): AdjustmentRel[] {
+    return super.relationshipOneToMany<AdjustmentRel>(...ids)
+  }
+
+  type(): AdjustmentType {
+    return Adjustments.TYPE
+  }
+}
+
+const instance = new Adjustments()
+export default instance
+
+export type { Adjustment, AdjustmentCreate, Adjustments, AdjustmentType, AdjustmentUpdate }

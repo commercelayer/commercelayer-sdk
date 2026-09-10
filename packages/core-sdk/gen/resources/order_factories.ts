@@ -1,0 +1,166 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
+import type {
+  ListResponse,
+  Resource,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+} from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
+import type { EventStore } from './event_stores'
+import type { Event } from './events'
+import type { OrderCopy } from './order_copies'
+import type { Order } from './orders'
+import type { RecurringOrderCopy } from './recurring_order_copies'
+
+type OrderFactoryType = 'order_factories' | 'order_copies' | 'recurring_order_copies'
+type OrderFactoryRel = ResourceRel & { type: OrderFactoryType }
+
+export type OrderFactorySort = Pick<
+  OrderFactoryBase,
+  'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'
+> &
+  ResourceSort
+// export type OrderFactoryFilter = Pick<OrderFactory, 'id' | 'status' | 'started_at' | 'completed_at' | 'failed_at' | 'errors_count'> & ResourceFilter
+
+/**
+ * The Order factory object is returned as part of the response body of each successful list or retrieve API call to the /api/order_factories endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/order_factories/object
+ */
+type OrderFactory = OrderCopy | RecurringOrderCopy
+
+interface OrderFactoryBase extends Resource {
+  readonly type: OrderFactoryType
+
+  /**
+   * The order factory status. One of 'pending' (default), 'in_progress', 'aborted', 'failed', or 'completed'.
+   * @example ```"in_progress"```
+   */
+  status: 'pending' | 'in_progress' | 'aborted' | 'failed' | 'completed'
+  /**
+   * Time at which the order copy was started.
+   * @example ```"2018-01-01T12:00:00.000Z"```
+   */
+  started_at?: string | null
+  /**
+   * Time at which the order copy was completed.
+   * @example ```"2018-01-01T12:00:00.000Z"```
+   */
+  completed_at?: string | null
+  /**
+   * Time at which the order copy has failed.
+   * @example ```"2018-01-01T12:00:00.000Z"```
+   */
+  failed_at?: string | null
+  /**
+   * Contains the order copy errors, if any.
+   * @example ```{"status":["cannot transition from draft to placed"]}```
+   */
+  errors_log?: Record<string, any> | null
+  /**
+   * Indicates the number of copy errors, if any.
+   * @example ```2```
+   */
+  errors_count?: number | null
+  /**
+   * Indicates if the target order must be placed upon copy.
+   * @example ```true```
+   */
+  place_target_order?: boolean | null
+  /**
+   * Indicates if the payment source within the source order customer's wallet must be copied.
+   * @example ```true```
+   */
+  reuse_wallet?: boolean | null
+
+  source_order?: Order | null
+  target_order?: Order | null
+  events?: Event[] | null
+  event_stores?: EventStore[] | null
+}
+
+class OrderFactories extends ApiResource<OrderFactory> {
+  static readonly TYPE: OrderFactoryType = 'order_factories' as const
+
+  async source_order(
+    orderFactoryId: string | OrderFactory,
+    params?: QueryParamsRetrieve<Order>,
+    options?: ResourcesConfig,
+  ): Promise<Order> {
+    const _orderFactoryId = (orderFactoryId as OrderFactory).id || (orderFactoryId as string)
+    return this.resources.fetch<Order>(
+      { type: 'orders' },
+      `order_factories/${_orderFactoryId}/source_order`,
+      params,
+      options,
+    ) as unknown as Order
+  }
+
+  async target_order(
+    orderFactoryId: string | OrderFactory,
+    params?: QueryParamsRetrieve<Order>,
+    options?: ResourcesConfig,
+  ): Promise<Order> {
+    const _orderFactoryId = (orderFactoryId as OrderFactory).id || (orderFactoryId as string)
+    return this.resources.fetch<Order>(
+      { type: 'orders' },
+      `order_factories/${_orderFactoryId}/target_order`,
+      params,
+      options,
+    ) as unknown as Order
+  }
+
+  async events(
+    orderFactoryId: string | OrderFactory,
+    params?: QueryParamsList<Event>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Event>> {
+    const _orderFactoryId = (orderFactoryId as OrderFactory).id || (orderFactoryId as string)
+    return this.resources.fetch<Event>(
+      { type: 'events' },
+      `order_factories/${_orderFactoryId}/events`,
+      params,
+      options,
+    ) as unknown as ListResponse<Event>
+  }
+
+  async event_stores(
+    orderFactoryId: string | OrderFactory,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _orderFactoryId = (orderFactoryId as OrderFactory).id || (orderFactoryId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `order_factories/${_orderFactoryId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
+
+  isOrderFactory(resource: any): resource is OrderFactory {
+    return (
+      !!resource.type &&
+      (resource.type === OrderFactories.TYPE || ['order_copies', 'recurring_order_copies'].includes(resource.type))
+    )
+  }
+
+  relationship(id: string | ResourceId | null): OrderFactoryRel {
+    return super.relationshipOneToOne<OrderFactoryRel>(id)
+  }
+
+  relationshipToMany(...ids: string[]): OrderFactoryRel[] {
+    return super.relationshipOneToMany<OrderFactoryRel>(...ids)
+  }
+
+  type(): OrderFactoryType {
+    return OrderFactories.TYPE
+  }
+}
+
+const instance = new OrderFactories()
+export default instance
+
+export type { OrderFactories, OrderFactory, OrderFactoryType }

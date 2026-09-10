@@ -1,0 +1,1 @@
+type ##__RESOURCE_MODEL__## = ##__EXTEND_INTERFACE__##

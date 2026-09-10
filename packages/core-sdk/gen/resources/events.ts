@@ -1,0 +1,126 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
+import type {
+  ListResponse,
+  Resource,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
+import type { EventCallback } from './event_callbacks'
+import type { EventStore } from './event_stores'
+import type { Webhook } from './webhooks'
+
+type EventType = 'events'
+type EventRel = ResourceRel & { type: EventType }
+
+export type EventSort = Pick<Event, 'id' | 'name'> & ResourceSort
+// export type EventFilter = Pick<Event, 'id' | 'name'> & ResourceFilter
+
+/**
+ * The Event object is returned as part of the response body of each successful list, retrieve or update API call to the /api/events endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/events/object
+ */
+interface Event extends Resource {
+  readonly type: EventType
+
+  /**
+   * The event's internal name.
+   * @example ```"orders.create"```
+   */
+  name: string
+
+  webhooks?: Webhook[] | null
+  last_event_callbacks?: EventCallback[] | null
+  event_stores?: EventStore[] | null
+}
+
+interface EventUpdate extends ResourceUpdate {
+  /**
+   * Send this attribute if you want to force webhooks execution for this event. Cannot be passed by sales channels.
+   * @example ```true```
+   */
+  _trigger?: boolean | null
+}
+
+class Events extends ApiResource<Event> {
+  static readonly TYPE: EventType = 'events' as const
+
+  async update(resource: EventUpdate, params?: QueryParamsRetrieve<Event>, options?: ResourcesConfig): Promise<Event> {
+    return this.resources.update<EventUpdate, Event>({ ...resource, type: Events.TYPE }, params, options)
+  }
+
+  async webhooks(
+    eventId: string | Event,
+    params?: QueryParamsList<Webhook>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Webhook>> {
+    const _eventId = (eventId as Event).id || (eventId as string)
+    return this.resources.fetch<Webhook>(
+      { type: 'webhooks' },
+      `events/${_eventId}/webhooks`,
+      params,
+      options,
+    ) as unknown as ListResponse<Webhook>
+  }
+
+  async last_event_callbacks(
+    eventId: string | Event,
+    params?: QueryParamsList<EventCallback>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventCallback>> {
+    const _eventId = (eventId as Event).id || (eventId as string)
+    return this.resources.fetch<EventCallback>(
+      { type: 'event_callbacks' },
+      `events/${_eventId}/last_event_callbacks`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventCallback>
+  }
+
+  async event_stores(
+    eventId: string | Event,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _eventId = (eventId as Event).id || (eventId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `events/${_eventId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
+
+  async _trigger(id: string | Event, params?: QueryParamsRetrieve<Event>, options?: ResourcesConfig): Promise<Event> {
+    return this.resources.update<EventUpdate, Event>(
+      { id: typeof id === 'string' ? id : id.id, type: Events.TYPE, _trigger: true },
+      params,
+      options,
+    )
+  }
+
+  isEvent(resource: any): resource is Event {
+    return resource.type && resource.type === Events.TYPE
+  }
+
+  relationship(id: string | ResourceId | null): EventRel {
+    return super.relationshipOneToOne<EventRel>(id)
+  }
+
+  relationshipToMany(...ids: string[]): EventRel[] {
+    return super.relationshipOneToMany<EventRel>(...ids)
+  }
+
+  type(): EventType {
+    return Events.TYPE
+  }
+}
+
+const instance = new Events()
+export default instance
+
+export type { Event, Events, EventType, EventUpdate }
