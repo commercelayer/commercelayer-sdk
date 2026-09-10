@@ -15,6 +15,7 @@
     "lint": "biome check --enforce-assist=true",
     "check": "biome check --enforce-assist=true --write",
     "release": "pnpm upgrade && pnpm lint && pnpm build && pnpm test",
+    "release:version": "lerna version --no-git-tag-version && node scripts/finish-version.mjs",
     "release:publish": "lerna publish from-package --dist-tag beta --yes",
     "dep:major": "pnpm dlx npm-check-updates --packageFile '**/package.json' -u",
     "dep:semver": "pnpm dlx npm-check-updates -t semver --packageFile '**/package.json' -u",
