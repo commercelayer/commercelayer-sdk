@@ -2,13 +2,14 @@
 
 [![Version](https://img.shields.io/npm/v/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
 [![Downloads/week](https://img.shields.io/npm/dw/@commercelayer/sdk.svg)](https://npmjs.org/package/@commercelayer/sdk)
-[![License](https://img.shields.io/npm/l/@commercelayer/sdk.svg)](https://github.com/commercelayer/commercelayer-sdk/blob/master/package.json)
-[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
-[![Release](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml)
-[![CodeQL](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml)
+[![License](https://img.shields.io/npm/l/@commercelayer/sdk.svg)](https://github.com/commercelayer/commercelayer-sdk/blob/main/packages/core-sdk/LICENSE)
+[![Verify](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/verify.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/verify.yml)
+[![CodeQL](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/codeql-analysis.yml)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript%205-%230074c1.svg)](https://www.typescriptlang.org/)
 
 A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer API](https://docs.commercelayer.io/developers).
+
+> This package is generated and released from the [`commercelayer-sdk`](https://github.com/commercelayer/commercelayer-sdk) monorepo, alongside [`@commercelayer/provisioning-sdk`](https://www.npmjs.com/package/@commercelayer/provisioning-sdk). Both are produced by the same generator from the API’s own published schema.
 
 ## What is Commerce Layer?
 
@@ -562,9 +563,17 @@ In this case you can define a special function that takes care of refreshing the
     git clone https://github.com/<your username>/commercelayer-sdk.git && cd commercelayer-sdk
     ```
 
-3. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
+3. Install the workspace from the repository root:
 
-4. Someone will attend to your pull request and provide some feedback.
+    ```shell
+    pnpm install
+    ```
+
+4. Make your changes. Most of this package is generated from the API schema — anything you edit under `gen/` will be overwritten. Change the generator or `sdk.config.ts` instead, then run `pnpm generate` and commit the result.
+
+5. Create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)). Lint, types, both test suites and a check that generated output is reproducible run automatically.
+
+6. Someone will attend to your pull request and provide some feedback.
 
 ## Need help?
 
