@@ -2,13 +2,14 @@
 
 [![Version](https://img.shields.io/npm/v/@commercelayer/provisioning-sdk.svg)](https://npmjs.org/package/@commercelayer/provisioning-sdk)
 [![Downloads/week](https://img.shields.io/npm/dw/@commercelayer/provisioning-sdk.svg)](https://npmjs.org/package/@commercelayer/provisioning-sdk)
-[![License](https://img.shields.io/npm/l/@commercelayer/provisioning-sdk.svg)](https://github.com/commercelayer/commercelayer-sdk/blob/master/package.json)
-[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
-[![Release](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/semantic-release.yml)
-[![CodeQL](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/commercelayer/commercelayer-cli/actions/workflows/codeql-analysis.yml)
+[![License](https://img.shields.io/npm/l/@commercelayer/provisioning-sdk.svg)](https://github.com/commercelayer/commercelayer-sdk/blob/main/packages/provisioning-sdk/LICENSE)
+[![Verify](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/verify.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/verify.yml)
+[![CodeQL](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/commercelayer/commercelayer-sdk/actions/workflows/codeql-analysis.yml)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript%205-%230074c1.svg)](https://www.typescriptlang.org/)
 
 A JavaScript Library wrapper that makes it quick and easy to interact with the [Commerce Layer Provisioning API](https://docs.commercelayer.io/provisioning).
+
+> This package is generated and released from the [`commercelayer-sdk`](https://github.com/commercelayer/commercelayer-sdk) monorepo, alongside [`@commercelayer/sdk`](https://www.npmjs.com/package/@commercelayer/sdk). Both are produced by the same generator from the API’s own published schema.
 
 ## Table of contents
 
@@ -474,23 +475,31 @@ In this case you can define a special function that takes care of refreshing the
 
 ## Contributors guide
 
-1. Fork [this repository](https://github.com/commercelayer/provisioning-sdk) (learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
+1. Fork [this repository](https://github.com/commercelayer/commercelayer-sdk) (learn how to do this [by reading the GitHub documentation](https://help.github.com/articles/fork-a-repo)).
 
 2. Clone the forked repository like so:
 
     ```shell
-    git clone https://github.com/<your username>/provisioning-sdk.git && cd provisioning-sdk
+    git clone https://github.com/<your username>/commercelayer-sdk.git && cd commercelayer-sdk
     ```
 
-3. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
+3. Install the workspace from the repository root:
 
-4. Someone will attend to your pull request and provide some feedback.
+    ```shell
+    pnpm install
+    ```
+
+4. Make your changes. Most of this package is generated from the API schema — anything you edit under `gen/` will be overwritten. Change the generator or `sdk.config.ts` instead, then run `pnpm generate` and commit the result.
+
+5. Create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)). Lint, types, both test suites and a check that generated output is reproducible run automatically.
+
+6. Someone will attend to your pull request and provide some feedback.
 
 ## Need help?
 
 - Join [Commerce Layer's Discord community](https://discord.gg/commercelayer).
 - Ping us on [Bluesky](https://bsky.app/profile/commercelayer.io), [X (formerly Twitter)](https://x.com/commercelayer), or [LinkedIn](https://www.linkedin.com/company/commerce-layer).
-- Is there a bug? Create an [issue](https://github.com/commercelayer/provisioning-sdk/issues) on this repository.
+- Is there a bug? Create an [issue](https://github.com/commercelayer/commercelayer-sdk/issues) on this repository.
 
 ## License
 
