@@ -91,7 +91,7 @@ interface IdentityProvider extends Resource {
    * The TXT record value used to check the domain.
    * @example ```"cl-verification=a6CDk5v"```
    */
-  txt_record?: string | null
+  txt_record: string
   /**
    * The organization identifier for authorize params.
    * @example ```"org_76gsfs5gd"```

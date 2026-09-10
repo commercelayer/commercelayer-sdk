@@ -304,6 +304,10 @@ interface Organization extends Resource {
    * Enables the creation of the authorization when the gateway event is received, even if there is no reference on Commerce Layer.
    */
   payment_gateways_transaction_on_event?: boolean | null
+  /**
+   * Enables blocking a new refund (or compensation) on a capture while an earlier async refund on the same capture is still unresolved.
+   */
+  refunds_check_for_pending?: boolean | null
 
   event_stores?: EventStore[] | null
 }

@@ -38,7 +38,7 @@ interface MembershipProfile extends Resource {
    * Reflects the organization's access scope, either test_access or all_access.
    * @example ```true```
    */
-  test_enabled?: boolean | null
+  test_enabled: boolean
   /**
    * The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.
    * @example ```"live_access"```

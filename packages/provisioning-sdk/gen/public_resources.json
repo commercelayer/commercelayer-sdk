@@ -1,11 +1,1018 @@
 {
     "data": [
         {
+            "id": "address",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "actions": [],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "business": {
+                        "type": "boolean",
+                        "desc": "Indicates if it's a business or a personal address.",
+                        "required": "optional, default is 'false'",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "desc": "Address first name (personal).",
+                        "required": "required if 'business' is 'false'",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "desc": "Address last name (personal).",
+                        "required": "required if 'business' is 'false'",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "Smith"
+                    },
+                    "company": {
+                        "type": "string",
+                        "desc": "Address company name (business).",
+                        "required": "required if 'business' is 'true'",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "The Red Brand Inc."
+                    },
+                    "full_name": {
+                        "type": "string",
+                        "desc": "Company name (business) of first name and last name (personal).",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "John Smith"
+                    },
+                    "line_1": {
+                        "type": "string",
+                        "desc": "Address line 1, i.e. Street address, PO Box.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "2883 Geraldine Lane"
+                    },
+                    "line_2": {
+                        "type": "string",
+                        "desc": "Address line 2, i.e. Apartment, Suite, Building.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "Apt.23"
+                    },
+                    "city": {
+                        "type": "string",
+                        "desc": "Address city.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "New York"
+                    },
+                    "zip_code": {
+                        "type": "string",
+                        "desc": "ZIP or postal code.",
+                        "required": "required, but for some countries",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "10013"
+                    },
+                    "state_code": {
+                        "type": "string",
+                        "desc": "State, province or region code.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "NY"
+                    },
+                    "country_code": {
+                        "type": "string",
+                        "desc": "The international 2-letter country code as defined by the ISO 3166-1 standard.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "US"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "desc": "Phone number (including extension).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "(212) 646-338-1228"
+                    },
+                    "full_address": {
+                        "type": "string",
+                        "desc": "Compact description of the address location, without the full name.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "2883 Geraldine Lane Apt.23, 10013 New York NY (US) (212) 646-338-1228"
+                    },
+                    "name": {
+                        "type": "string",
+                        "desc": "Compact description of the address location, including the full name.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "John Smith, 2883 Geraldine Lane Apt.23, 10013 New York NY (US) (212) 646-338-1228"
+                    },
+                    "email": {
+                        "type": "string",
+                        "desc": "Email address.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "john@example.com"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "desc": "A free notes attached to the address. When used as a shipping address, this can be useful to let the customers add specific delivery instructions.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "Please ring the bell twice"
+                    },
+                    "lat": {
+                        "type": "float",
+                        "desc": "The address geocoded latitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "40.6971494"
+                    },
+                    "lng": {
+                        "type": "float",
+                        "desc": "The address geocoded longitude. This is automatically generated when creating a shipping/billing address for an order and a valid geocoder is attached to the order's market.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "-74.2598672"
+                    },
+                    "is_localized": {
+                        "type": "boolean",
+                        "desc": "Indicates if the latitude and logitude are present, either geocoded or manually updated.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "is_geocoded": {
+                        "type": "boolean",
+                        "desc": "Indicates if the address has been successfully geocoded.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "provider_name": {
+                        "type": "string",
+                        "desc": "The geocoder provider name (either Google or Bing).",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "google"
+                    },
+                    "map_url": {
+                        "type": "string",
+                        "desc": "The map url of the geocoded address (if geocoded).",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://www.google.com/maps/search/?api=1&query=40.6971494,-74.2598672"
+                    },
+                    "static_map_url": {
+                        "type": "string",
+                        "desc": "The static map image url of the geocoded address (if geocoded).",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://maps.googleapis.com/maps/api/staticmap?center=40.6971494,-74.2598672&size=640x320&zoom=15"
+                    },
+                    "billing_info": {
+                        "type": "string",
+                        "desc": "Customer's billing information (i.e. VAT number, codice fiscale).",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "VAT ID IT02382940977"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {},
+                "filters": [
+                    "id",
+                    "business",
+                    "first_name",
+                    "last_name",
+                    "company",
+                    "line_1",
+                    "line_2",
+                    "city",
+                    "zip_code",
+                    "state_code",
+                    "country_code",
+                    "phone",
+                    "email",
+                    "notes",
+                    "lat",
+                    "lng",
+                    "billing_info",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
+            "id": "agreement",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "code": {
+                        "type": "string",
+                        "desc": "The agreement identifier, unique per organization and environment. Optional — set by the seller.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "PO-2025-EU"
+                    },
+                    "name": {
+                        "type": "string",
+                        "desc": "The agreement display name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Acme Corp — EU wholesale"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The agreement status. One of `pending` (default), `active`, `inactive`, `expired`, or `cancelled`.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "pending",
+                        "enum": [
+                            "pending",
+                            "active",
+                            "inactive",
+                            "expired",
+                            "cancelled"
+                        ],
+                        "aasm": true
+                    },
+                    "buyer_organization_id": {
+                        "type": "string",
+                        "desc": "The buyer organization ID (hashid). Read-only — set only when the invited buyer accepts the agreement, either by registering with the recipient_email or via the accept_agreement endpoint.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": true,
+                        "example": "xYZaBcDeF1"
+                    },
+                    "recipient_email": {
+                        "type": "string",
+                        "desc": "The email address of the buyer to invite. An invitation is sent on create when this is set and the buyer organization is not yet bound. Also used to bind and auto-activate when that user registers or accepts.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "buyer@example.com"
+                    },
+                    "market_id": {
+                        "type": "string",
+                        "desc": "The market this agreement applies to (hashid). Can also be set via the market relationship. Market is a Core resource.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": true,
+                        "example": "xYZaBcDeF1"
+                    },
+                    "billing_address_id": {
+                        "type": "string",
+                        "desc": "The default billing address for orders placed under this agreement (hashid). Can also be set via the billing_address relationship. Address is a Core resource.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "xYZaBcDeF1"
+                    },
+                    "shipping_address_id": {
+                        "type": "string",
+                        "desc": "The default shipping address for orders placed under this agreement (hashid). Can also be set via the shipping_address relationship. Address is a Core resource.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "xYZaBcDeF1"
+                    },
+                    "starts_at": {
+                        "type": "string",
+                        "desc": "The date/time from which this agreement is valid. Leave blank for no lower bound.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2025-01-01T00:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "expires_at": {
+                        "type": "string",
+                        "desc": "The date/time after which this agreement is no longer valid. When reached, status becomes expired automatically. Must be after starts_at when both are set. Distinct from expired_at.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2026-01-01T00:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "activated_at": {
+                        "type": "string",
+                        "desc": "Time at which the agreement was last activated.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2025-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "deactivated_at": {
+                        "type": "string",
+                        "desc": "Time at which the agreement was last deactivated.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2025-06-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "expired_at": {
+                        "type": "string",
+                        "desc": "Time at which the agreement status was set to expired. Distinct from expires_at, which is the seller-configured validity end.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2026-01-01T00:05:00.000Z",
+                        "format": "datetime"
+                    },
+                    "cancelled_at": {
+                        "type": "string",
+                        "desc": "Time at which the agreement was cancelled.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2025-09-15T08:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "desc": "Indicates the environment the resource belongs to (one of `test` or `live`). Read-only — copied from the market.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "test"
+                    },
+                    "_activate": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to activate a pending or inactive agreement.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_deactivate": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to deactivate an active agreement.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_cancel": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to cancel the agreement.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_resend_invitation": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to resend the invitation email. Allowed only while the agreement is pending and the buyer organization is not yet bound.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The seller organization that owns this agreement.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::AgreementResource",
+                        "class_name": "Organization"
+                    },
+                    "market": {
+                        "type": "has_one",
+                        "desc": "The market this agreement applies to. Mode is copied from this market.",
+                        "class_name": "Market",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::AgreementResource"
+                    },
+                    "billing_address": {
+                        "type": "has_one",
+                        "desc": "The default billing address for orders placed under this agreement.",
+                        "class_name": "Address",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::AgreementResource"
+                    },
+                    "shipping_address": {
+                        "type": "has_one",
+                        "desc": "The default shipping address for orders placed under this agreement.",
+                        "class_name": "Address",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::AgreementResource"
+                    },
+                    "buyer_organization": {
+                        "type": "has_one",
+                        "desc": "The buyer organization (cross-tenant). Read-only — bound only when the invited buyer accepts the agreement.",
+                        "class_name": "Organization",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::AgreementResource"
+                    },
+                    "agreement_identities": {
+                        "type": "has_many",
+                        "desc": "The grant records linking seller-side customers to this agreement.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::AgreementResource",
+                        "class_name": "AgreementIdentity"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "code",
+                    "name",
+                    "status",
+                    "recipient_email",
+                    "starts_at",
+                    "expires_at",
+                    "activated_at",
+                    "deactivated_at",
+                    "expired_at",
+                    "cancelled_at",
+                    "mode",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "organization_id",
+                    "market_id",
+                    "billing_address_id",
+                    "shipping_address_id",
+                    "buyer_organization_id",
+                    "agreement_identities_id",
+                    "ids",
+                    "starts_at_from",
+                    "starts_at_to",
+                    "expires_at_from",
+                    "expires_at_to",
+                    "activated_at_from",
+                    "activated_at_to",
+                    "deactivated_at_from",
+                    "deactivated_at_to",
+                    "expired_at_from",
+                    "expired_at_to",
+                    "cancelled_at_from",
+                    "cancelled_at_to",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
+            "id": "agreement_identity",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "actions": [
+                    "create",
+                    "list",
+                    "retrieve",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "member_id": {
+                        "type": "string",
+                        "desc": "The buyer-org membership hashid (cross-tenant reference — no DB FK constraint).",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "xYZaBcDeF1"
+                    },
+                    "customer_id": {
+                        "type": "string",
+                        "desc": "The seller-side customer authorized to buy under the agreement (hashid). Read-only — derived from the member's email on the seller organization. Customer is a Core resource, so this is an ID reference rather than a JSON:API relationship.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "xYZaBcDeF1"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "desc": "Indicates the environment the resource belongs to (one of `test` or `live`). Read-only — derived from the agreement.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "test"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    },
+                    "_disable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as disabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_enable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as enabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "disabled_at": {
+                        "type": "string",
+                        "desc": "Time at which this resource was disabled.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    }
+                },
+                "relationships": {
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The seller organization that owns this identity. Read-only — derived from the agreement.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "V1::AgreementIdentityResource",
+                        "class_name": "Organization"
+                    },
+                    "agreement": {
+                        "type": "has_one",
+                        "desc": "The associated agreement.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": true,
+                        "parent_resource": "V1::AgreementIdentityResource",
+                        "class_name": "Agreement"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "member_id",
+                    "mode",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "disabled_at",
+                    "q",
+                    "organization_id",
+                    "agreement_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to",
+                    "disabled_at_from",
+                    "disabled_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
             "id": "api_credential",
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -41,6 +1048,7 @@
                     "confidential": {
                         "type": "boolean",
                         "desc": "Indicates if the API credential it's confidential.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -61,6 +1069,7 @@
                     "client_id": {
                         "type": "string",
                         "desc": "The API credential unique ID.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -71,6 +1080,7 @@
                     "client_secret": {
                         "type": "string",
                         "desc": "The API credential unique secret.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -81,6 +1091,7 @@
                     "scopes": {
                         "type": "string",
                         "desc": "The API credential scopes.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -131,7 +1142,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -139,10 +1150,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -150,7 +1162,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -235,7 +1248,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -243,7 +1257,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -283,7 +1298,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -291,10 +1306,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -302,7 +1318,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -416,7 +1433,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -424,7 +1442,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "retrieve"
                 ],
@@ -464,7 +1483,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -472,10 +1491,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -483,7 +1503,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -560,7 +1581,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -568,7 +1590,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -686,6 +1709,7 @@
                     "txt_record": {
                         "type": "string",
                         "desc": "The TXT record value used to check the domain.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -716,7 +1740,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -724,10 +1748,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -735,7 +1760,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -782,10 +1808,7 @@
                         "fetchable": false,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true",
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Disabled"
-                        }
+                        "example": "true"
                     },
                     "_enable": {
                         "type": "boolean",
@@ -797,13 +1820,10 @@
                         "fetchable": false,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true",
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Disabled"
-                        }
+                        "example": "true"
                     },
                     "disabled_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which this resource was disabled.",
                         "required": "optional",
                         "creatable": false,
@@ -812,9 +1832,7 @@
                         "filterable": true,
                         "sortable": true,
                         "example": "2018-01-01T12:00:00.000Z",
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Disabled"
-                        }
+                        "format": "datetime"
                     }
                 },
                 "relationships": {
@@ -857,7 +1875,248 @@
                     "updated_at_to",
                     "disabled_at_from",
                     "disabled_at_to"
-                ]
+                ],
+                "parent_resource": null
+            }
+        },
+        {
+            "id": "market",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "actions": [],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "number": {
+                        "type": "integer",
+                        "desc": "Unique identifier for the market (numeric).",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": 1234
+                    },
+                    "name": {
+                        "type": "string",
+                        "desc": "The market's internal name.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "EU Market"
+                    },
+                    "code": {
+                        "type": "string",
+                        "desc": "A string that you can use to identify the market (must be unique within the environment).",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "europe1"
+                    },
+                    "facebook_pixel_id": {
+                        "type": "string",
+                        "desc": "The Facebook Pixed ID.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "1234567890"
+                    },
+                    "checkout_url": {
+                        "type": "string",
+                        "desc": "The checkout URL for this market.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://checkout.yourbrand.com/:order_id"
+                    },
+                    "external_prices_url": {
+                        "type": "string",
+                        "desc": "The URL used to overwrite prices by an external source.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://external_prices.yourbrand.com"
+                    },
+                    "external_order_validation_url": {
+                        "type": "string",
+                        "desc": "The URL used to validate orders by an external source.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://external_validation.yourbrand.com"
+                    },
+                    "private": {
+                        "type": "boolean",
+                        "desc": "Indicates if market belongs to a customer_group.",
+                        "required": "optional, default is 'false'",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "shipping_cost_cutoff": {
+                        "type": "integer",
+                        "desc": "When specified indicates the maximum number of shipping line items with cost that will be added to an order.",
+                        "required": "optional, default is null",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "3"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    },
+                    "_disable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as disabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_enable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as enabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "disabled_at": {
+                        "type": "string",
+                        "desc": "Time at which this resource was disabled.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    }
+                },
+                "relationships": {},
+                "filters": [
+                    "id",
+                    "name",
+                    "code",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "disabled_at",
+                    "q",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to",
+                    "disabled_at_from",
+                    "disabled_at_to"
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -865,7 +2124,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -890,6 +2150,7 @@
                     "user_first_name": {
                         "type": "string",
                         "desc": "The user first name.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -900,6 +2161,7 @@
                     "user_last_name": {
                         "type": "string",
                         "desc": "The user last name.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -925,6 +2187,7 @@
                     "owner": {
                         "type": "boolean",
                         "desc": "Indicates if the user it's the owner of the organization.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -935,13 +2198,13 @@
                     "test_enabled": {
                         "type": "boolean",
                         "desc": "Reflects the organization's access scope, either test_access or all_access.",
-                        "required": "optional",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": true
+                        "example": "true"
                     },
                     "access_scope": {
                         "type": "string",
@@ -972,7 +2235,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -980,10 +2243,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -991,7 +2255,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -1081,9 +2346,6 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Versionable"
-                        },
                         "parent_resource": "V1::MembershipResource",
                         "class_name": "Version"
                     }
@@ -1109,7 +2371,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -1117,7 +2380,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -1142,13 +2406,13 @@
                     "test_enabled": {
                         "type": "boolean",
                         "desc": "Reflects the organization's access scope, either test_access or all_access.",
-                        "required": "optional",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": true
+                        "example": "true"
                     },
                     "access_scope": {
                         "type": "string",
@@ -1179,7 +2443,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -1187,10 +2451,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -1198,7 +2463,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -1276,7 +2542,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -1284,7 +2551,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -1308,6 +2576,7 @@
                     "slug": {
                         "type": "string",
                         "desc": "The organization's slug name.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -1318,6 +2587,7 @@
                     "domain": {
                         "type": "string",
                         "desc": "The organization's domain.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -1418,6 +2688,7 @@
                     "can_switch_live": {
                         "type": "boolean",
                         "desc": "Indicates if the organization can switch to live mode.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -1428,6 +2699,7 @@
                     "subscription_info": {
                         "type": "object",
                         "desc": "Information about the current subscription such as the plan type, limits, and subscription totals counter.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -1600,7 +2872,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "api_fragment_caching_enabled": {
                         "type": "boolean",
@@ -1622,7 +2895,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "api_rules_engine_max_conditions_size": {
                         "type": "integer",
@@ -1633,7 +2907,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "150"
+                        "example": "150",
+                        "required": "required"
                     },
                     "api_rules_engine_max_rules_size": {
                         "type": "integer",
@@ -1644,7 +2919,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "15"
+                        "example": "15",
+                        "required": "required"
                     },
                     "api_new_auth": {
                         "type": "boolean",
@@ -1655,7 +2931,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "api_purge_single_resource": {
                         "type": "boolean",
@@ -1666,7 +2943,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "api_max_regex_length": {
                         "type": "integer",
@@ -1677,7 +2955,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "5000"
+                        "example": "5000",
+                        "required": "required"
                     },
                     "addresses_avs_check": {
                         "type": "boolean",
@@ -1688,7 +2967,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "addresses_phone_required": {
                         "type": "boolean",
@@ -1699,7 +2979,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "orders_sales_channel_guest_only": {
                         "type": "boolean",
@@ -1710,7 +2991,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "orders_min_rebuild_shipments_lapse": {
                         "type": "float",
@@ -1721,7 +3003,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "0.0"
+                        "example": "0.0",
+                        "required": "required"
                     },
                     "orders_min_refresh_lapse": {
                         "type": "float",
@@ -1732,7 +3015,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "0.0"
+                        "example": "0.0",
+                        "required": "required"
                     },
                     "orders_autorefresh_cutoff_test": {
                         "type": "integer",
@@ -1743,7 +3027,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "50"
+                        "example": "50",
+                        "required": "required"
                     },
                     "orders_autorefresh_cutoff_live": {
                         "type": "integer",
@@ -1754,7 +3039,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "500"
+                        "example": "500",
+                        "required": "required"
                     },
                     "orders_number_editable_test": {
                         "type": "boolean",
@@ -1765,7 +3051,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "orders_number_editable_live": {
                         "type": "boolean",
@@ -1776,7 +3063,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "orders_number_as_reference": {
                         "type": "boolean",
@@ -1787,7 +3075,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "orders_invalid_coupon_errors": {
                         "type": "boolean",
@@ -1798,7 +3087,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "orders_invalid_gift_card_errors": {
                         "type": "boolean",
@@ -1809,7 +3099,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "orders_validate_shipping_stock": {
                         "type": "boolean",
@@ -1820,7 +3111,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "bundles_max_items_count": {
                         "type": "integer",
@@ -1831,7 +3123,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "10"
+                        "example": "10",
+                        "required": "required"
                     },
                     "coupons_min_code_length": {
                         "type": "integer",
@@ -1842,7 +3135,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "8"
+                        "example": "8",
+                        "required": "required"
                     },
                     "coupons_max_code_length": {
                         "type": "integer",
@@ -1853,7 +3147,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "40"
+                        "example": "40",
+                        "required": "required"
                     },
                     "gift_cards_exact_code_matching": {
                         "type": "boolean",
@@ -1864,7 +3159,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "gift_cards_min_code_length": {
                         "type": "integer",
@@ -1875,7 +3171,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "8"
+                        "example": "8",
+                        "required": "required"
                     },
                     "gift_cards_max_code_length": {
                         "type": "integer",
@@ -1886,7 +3183,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "40"
+                        "example": "40",
+                        "required": "required"
                     },
                     "cleanups_max_concurrent_count": {
                         "type": "integer",
@@ -1897,7 +3195,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "10"
+                        "example": "10",
+                        "required": "required"
                     },
                     "exports_max_concurrent_count": {
                         "type": "integer",
@@ -1908,7 +3207,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "10"
+                        "example": "10",
+                        "required": "required"
                     },
                     "imports_max_concurrent_count": {
                         "type": "integer",
@@ -1919,7 +3219,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "10"
+                        "example": "10",
+                        "required": "required"
                     },
                     "imports_purge_cache": {
                         "type": "boolean",
@@ -1930,7 +3231,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "imports_skip_errors": {
                         "type": "boolean",
@@ -1941,7 +3243,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "inventory_models_max_stock_locations_cutoff": {
                         "type": "integer",
@@ -1952,7 +3255,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "10"
+                        "example": "10",
+                        "required": "required"
                     },
                     "promotions_max_concurrent_count": {
                         "type": "integer",
@@ -1963,7 +3267,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "10"
+                        "example": "10",
+                        "required": "required"
                     },
                     "promotions_max_conditions_size": {
                         "type": "integer",
@@ -1974,7 +3279,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "150"
+                        "example": "150",
+                        "required": "required"
                     },
                     "promotions_max_rules_size": {
                         "type": "integer",
@@ -1985,7 +3291,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "15"
+                        "example": "15",
+                        "required": "required"
                     },
                     "price_lists_max_conditions_size": {
                         "type": "integer",
@@ -1996,7 +3303,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "150"
+                        "example": "150",
+                        "required": "required"
                     },
                     "price_lists_max_rules_size": {
                         "type": "integer",
@@ -2007,7 +3315,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "15"
+                        "example": "15",
+                        "required": "required"
                     },
                     "imports_trigger_webhooks": {
                         "type": "integer",
@@ -2018,7 +3327,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "discount_engines_enabled": {
                         "type": "boolean",
@@ -2030,7 +3340,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "discount_engines_errors": {
                         "type": "boolean",
@@ -2041,7 +3352,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "tags_max_name_length": {
                         "type": "integer",
@@ -2052,7 +3364,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "25"
+                        "example": "25",
+                        "required": "required"
                     },
                     "tags_max_allowed_number": {
                         "type": "integer",
@@ -2063,7 +3376,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "10"
+                        "example": "10",
+                        "required": "required"
                     },
                     "tax_calculators_errors": {
                         "type": "boolean",
@@ -2074,7 +3388,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "external_promotions_errors": {
                         "type": "boolean",
@@ -2085,7 +3400,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "false"
+                        "example": "false",
+                        "required": "required"
                     },
                     "external_prices_errors": {
                         "type": "boolean",
@@ -2096,7 +3412,8 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true"
+                        "example": "true",
+                        "required": "required"
                     },
                     "skus_discovery": {
                         "type": "boolean",
@@ -2120,6 +3437,17 @@
                         "sortable": false,
                         "example": "false"
                     },
+                    "refunds_check_for_pending": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables blocking a new refund (or compensation) on a capture while an earlier async refund on the same capture is still unresolved.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
                     "id": {
                         "format": "id",
                         "type": "string",
@@ -2133,7 +3461,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -2141,10 +3469,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -2152,7 +3481,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -2254,7 +3584,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -2262,7 +3593,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -2347,7 +3679,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -2355,10 +3687,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -2366,7 +3699,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -2434,9 +3768,6 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Versionable"
-                        },
                         "parent_resource": "V1::PermissionResource",
                         "class_name": "Version"
                     }
@@ -2462,7 +3793,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -2470,7 +3802,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "list",
                     "retrieve"
@@ -2557,7 +3890,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -2565,10 +3898,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -2576,7 +3910,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -2632,7 +3967,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -2640,7 +3976,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -2664,6 +4001,7 @@
                     "kind": {
                         "type": "string",
                         "desc": "The kind of role, one of: `custom`, `admin`, `read_only`",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -2697,7 +4035,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -2705,10 +4043,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -2716,7 +4055,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -2804,9 +4144,6 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Versionable"
-                        },
                         "parent_resource": "V1::RoleResource",
                         "class_name": "Version"
                     }
@@ -2830,7 +4167,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -2838,7 +4176,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "create",
                     "list",
@@ -2935,7 +4274,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -2943,10 +4282,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -2954,7 +4294,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -3036,7 +4377,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -3044,7 +4386,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": true,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "retrieve",
                     "update"
@@ -3065,7 +4408,7 @@
                     },
                     "first_name": {
                         "type": "string",
-                        "desc": "The user first name.",
+                        "desc": "The user first name. Maximum 100 characters. HTML is stripped.",
                         "required": "required",
                         "creatable": true,
                         "updatable": true,
@@ -3076,7 +4419,7 @@
                     },
                     "last_name": {
                         "type": "string",
-                        "desc": "The user last name.",
+                        "desc": "The user last name. Maximum 100 characters. HTML is stripped.",
                         "required": "required",
                         "creatable": true,
                         "updatable": true,
@@ -3098,12 +4441,13 @@
                     "otp_required_for_login": {
                         "type": "boolean",
                         "desc": "The user 2FA setting.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": true
+                        "example": "true"
                     },
                     "id": {
                         "format": "id",
@@ -3118,7 +4462,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -3126,10 +4470,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -3137,7 +4482,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -3193,7 +4539,8 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         },
         {
@@ -3201,7 +4548,8 @@
             "type": "resources",
             "attributes": {
                 "singleton": false,
-                "deprecated": false,
+                "addon": false,
+                "hidden": false,
                 "actions": [
                     "list",
                     "retrieve"
@@ -3211,6 +4559,7 @@
                 "fields": {
                     "item_type": {
                         "type": "string",
+                        "desc": "The type of the versioned resource.",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": false,
@@ -3221,6 +4570,7 @@
                     "resource_type": {
                         "type": "string",
                         "desc": "The type of the versioned resource.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -3231,6 +4581,7 @@
                     "resource_id": {
                         "type": "string",
                         "desc": "The versioned resource ID.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -3241,6 +4592,7 @@
                     "event": {
                         "type": "string",
                         "desc": "The event which generates the version.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -3281,22 +4633,35 @@
                     "changes": {
                         "type": "object",
                         "desc": "The object changes payload.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "{ \"name\": [\"previous\", \"new\"] }"
+                        "example": {
+                            "name": [
+                                "previous",
+                                "new"
+                            ]
+                        }
                     },
                     "who": {
                         "type": "object",
                         "desc": "Information about who triggered the change, only showed when it's from a JWT token.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "{ \"application\": { \"id\": \"DNOPYiZYpn\", \"kind\": \"integration\", \"public\": true }}"
+                        "example": {
+                            "application": {
+                                "id": "DNOPYiZYpn",
+                                "kind": "integration",
+                                "public": true
+                            }
+                        }
                     },
                     "id": {
                         "format": "id",
@@ -3311,7 +4676,7 @@
                         "example": "XAyRWNUzyN"
                     },
                     "created_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was created.",
                         "required": "required",
                         "creatable": false,
@@ -3319,10 +4684,11 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "updated_at": {
-                        "type": "datetime",
+                        "type": "string",
                         "desc": "Time at which the resource was last updated.",
                         "required": "required",
                         "creatable": false,
@@ -3330,7 +4696,8 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z"
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
                     },
                     "reference": {
                         "type": "string",
@@ -3384,12 +4751,13 @@
                     "created_at_to",
                     "updated_at_from",
                     "updated_at_to"
-                ]
+                ],
+                "parent_resource": null
             }
         }
     ],
     "meta": {
-        "record_count": 13,
+        "record_count": 17,
         "page_count": 1
     }
 }

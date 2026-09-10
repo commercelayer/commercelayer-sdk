@@ -24,6 +24,7 @@ export type AxerveGatewaySort = Pick<AxerveGateway, 'id' | 'name' | 'disabled_at
 /**
  * The Axerve gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/axerve_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/axerve_gateways/object
  */
 interface AxerveGateway extends Resource {
@@ -135,6 +136,7 @@ interface AxerveGatewayUpdate extends ResourceUpdate {
   axerve_payments?: AxervePaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class AxerveGateways extends ApiResource<AxerveGateway> {
   static readonly TYPE: AxerveGatewayType = 'axerve_gateways' as const
 

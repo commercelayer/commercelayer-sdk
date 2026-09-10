@@ -12,6 +12,8 @@ import type {
 import { ApiResource } from '@runtime/resource'
 import type { Address, AddressType } from './addresses'
 import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
+import type { Agent } from './agents'
+import type { Agreement, AgreementType } from './agreements'
 import type { Attachment } from './attachments'
 import type { Authorization } from './authorizations'
 import type { AxervePayment, AxervePaymentType } from './axerve_payments'
@@ -25,6 +27,7 @@ import type { DiscountEngineItem } from './discount_engine_items'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { ExternalPayment, ExternalPaymentType } from './external_payments'
+import type { InboundMessage } from './inbound_messages'
 import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
 import type { LineItemOption } from './line_item_options'
 import type { LineItem } from './line_items'
@@ -33,9 +36,17 @@ import type { Market, MarketType } from './markets'
 import type { Notification } from './notifications'
 import type { OrderCopy } from './order_copies'
 import type { OrderFactory } from './order_factories'
+import type { OrderReview } from './order_reviews'
 import type { OrderSubscription } from './order_subscriptions'
+import type { PaymentAuthorization } from './payment_authorizations'
+import type { PaymentCapture } from './payment_captures'
 import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { PaymentOption } from './payment_options'
+import type { PaymentRefund } from './payment_refunds'
+import type { PaymentSession } from './payment_sessions'
+import type { PaymentSetting } from './payment_settings'
+import type { PaymentTransaction } from './payment_transactions'
+import type { PaymentVoid } from './payment_voids'
 import type { PaypalPayment, PaypalPaymentType } from './paypal_payments'
 import type { RecurringOrderCopy } from './recurring_order_copies'
 import type { Refund } from './refunds'
@@ -60,6 +71,7 @@ type MarketRel = ResourceRel & { type: MarketType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 type AddressRel = ResourceRel & { type: AddressType }
 type StoreRel = ResourceRel & { type: StoreType }
+type AgreementRel = ResourceRel & { type: AgreementType }
 type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
@@ -114,7 +126,7 @@ export type OrderSort = Pick<
   | 'circuit_failure_count'
 > &
   ResourceSort
-// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'payment_source_details' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'expires_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'on_hold' | 'customer_email' | 'notes' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'payment_source_details' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'expires_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 /**
  * The Order object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/orders endpoint.
@@ -175,6 +187,10 @@ interface Order extends Resource {
    */
   guest?: boolean | null
   /**
+   * Indicates if the order is on hold because the last order review is pending.
+   */
+  on_hold?: boolean | null
+  /**
    * Indicates if the order can be edited.
    * @example ```true```
    */
@@ -184,6 +200,11 @@ interface Order extends Resource {
    * @example ```"john@example.com"```
    */
   customer_email?: string | null
+  /**
+   * A free-text note on the order. The latest value is kept.
+   * @example ```"Please leave at the reception"```
+   */
+  notes?: string | null
   /**
    * The type of the associated customer. One of 'new', or 'returning'.
    * @example ```"returning"```
@@ -216,6 +237,7 @@ interface Order extends Resource {
   freight_taxable?: boolean | null
   /**
    * Indicates if taxes are applied to payment methods costs.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   payment_method_taxable?: boolean | null
@@ -249,11 +271,13 @@ interface Order extends Resource {
   coupon_code?: string | null
   /**
    * The gift card code (at least the first 8 characters) to be used for the order. If valid, it uses the gift card balance to pay for the order.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
    */
   gift_card_code?: string | null
   /**
    * The gift card or coupon code (at least the first 8 characters) to be used for the order. If a gift card mathes, it uses the gift card balance to pay for the order. Otherwise it tries to find a valid coupon code and applies the associated discount.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
    */
   gift_card_or_coupon_code?: string | null
@@ -289,14 +313,17 @@ interface Order extends Resource {
   formatted_shipping_amount?: string | null
   /**
    * The payment method costs, in cents.
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_amount_cents?: number | null
   /**
    * The payment method costs, float.
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_amount_float?: number | null
   /**
    * The payment method costs, formatted.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"€0,00"```
    */
   formatted_payment_method_amount?: string | null
@@ -347,16 +374,19 @@ interface Order extends Resource {
   formatted_adjustment_amount?: string | null
   /**
    * The sum of all the gift_cards applied to the order, in cents.
+   * @deprecated Last available in API version 2017-08.
    * @example ```1500```
    */
   gift_card_amount_cents?: number | null
   /**
    * The sum of all the gift_cards applied to the order, float.
+   * @deprecated Last available in API version 2017-08.
    * @example ```15```
    */
   gift_card_amount_float?: number | null
   /**
    * The sum of all the gift_cards applied to the order, formatted.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"€15,00"```
    */
   formatted_gift_card_amount?: string | null
@@ -407,14 +437,17 @@ interface Order extends Resource {
   formatted_shipping_tax_amount?: string | null
   /**
    * The taxes applied to the order's payment method costs, in cents.
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_tax_amount_cents?: number | null
   /**
    * The taxes applied to the order's payment method costs, float.
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_tax_amount_float?: number | null
   /**
    * The taxes applied to the order's payment method costs, formatted.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"€0,00"```
    */
   formatted_payment_method_tax_amount?: string | null
@@ -495,14 +528,17 @@ interface Order extends Resource {
   formatted_shipping_taxable_amount?: string | null
   /**
    * The order's payment method taxable amount, in cents (equal to payment_method_amount_cents when prices don't include taxes).
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_taxable_amount_cents?: number | null
   /**
    * The order's payment method taxable amount, float.
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_taxable_amount_float?: number | null
   /**
    * The order's payment method taxable amount, formatted.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"€0,00"```
    */
   formatted_payment_method_taxable_amount?: string | null
@@ -536,6 +572,24 @@ interface Order extends Resource {
    * @example ```"€57,00"```
    */
   formatted_total_amount_with_taxes?: string | null
+  /**
+   * The maximum amount available for use in the next payment session, expressed in cents.
+   * @since 2026-05
+   * @example ```5700```
+   */
+  session_amount_cents?: number | null
+  /**
+   * The maximum amount available for use in the next payment session, float.
+   * @since 2026-05
+   * @example ```57```
+   */
+  session_amount_float?: number | null
+  /**
+   * The maximum amount available for use in the next payment session, formatted.
+   * @since 2026-05
+   * @example ```"€57,00"```
+   */
+  formatted_session_amount?: string | null
   /**
    * The fees amount that is applied by Commerce Layer, in cents.
    */
@@ -591,6 +645,12 @@ interface Order extends Resource {
    */
   shipments_count?: number | null
   /**
+   * The total number of payment sessions in a payment-taken state (authorized, paid or partially paid) associated with the order. Available only for the new payments version.
+   * @since 2026-05
+   * @example ```1```
+   */
+  payment_taken_sessions_count?: number | null
+  /**
    * The total number of tax calculations. This can be useful to monitor external tax service usage.
    * @example ```1```
    */
@@ -607,6 +667,7 @@ interface Order extends Resource {
   errors_count?: number | null
   /**
    * An object that contains the shareable details of the order's payment source.
+   * @deprecated Last available in API version 2017-08.
    * @example ```{"foo":"bar"}```
    */
   payment_source_details?: Record<string, any> | null
@@ -640,6 +701,11 @@ interface Order extends Resource {
    * @example ```"https://yourdomain.commercelayer.io/checkout/1c0994cc4e996e8c6ee56a2198f66f3c"```
    */
   checkout_url?: string | null
+  /**
+   * Indicates if the order is placeable.
+   * @example ```true```
+   */
+  placeable?: boolean | null
   /**
    * Time at which the order was placed.
    * @example ```"2018-01-01T12:00:00.000Z"```
@@ -706,13 +772,35 @@ interface Order extends Resource {
   shipping_address?: Address | null
   billing_address?: Address | null
   store?: Store | null
+  agreement?: Agreement | null
+  inbound_message?: InboundMessage | null
+  agent?: Agent | null
   default_shipping_method?: ShippingMethod | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   default_payment_method?: PaymentMethod | null
+  /**
+   * @since 2026-05
+   */
+  available_payment_settings?: PaymentSetting[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   available_payment_methods?: PaymentMethod[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   available_customer_payment_sources?: CustomerPaymentSource[] | null
   available_free_skus?: Sku[] | null
   available_free_bundles?: Bundle[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_method?: PaymentMethod | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_source?:
     | AdyenPayment
     | AxervePayment
@@ -727,17 +815,63 @@ interface Order extends Resource {
     | null
   discount_engine_item?: DiscountEngineItem | null
   line_items?: LineItem[] | null
+  order_reviews?: OrderReview[] | null
   line_item_options?: LineItemOption[] | null
+  /**
+   * @since 2026-05
+   */
+  payment_sessions?: PaymentSession[] | null
   stock_reservations?: StockReservation[] | null
   stock_line_items?: StockLineItem[] | null
   stock_transfers?: StockTransfer[] | null
   shipments?: Shipment[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_options?: PaymentOption[] | null
+  /**
+   * @since 2026-05
+   */
+  payment_transactions?: PaymentTransaction[] | null
+  /**
+   * @since 2026-05
+   */
+  payment_authorizations?: PaymentAuthorization[] | null
+  /**
+   * @since 2026-05
+   */
+  payment_captures?: PaymentCapture[] | null
+  /**
+   * @since 2026-05
+   */
+  payment_voids?: PaymentVoid[] | null
+  /**
+   * @since 2026-05
+   */
+  payment_refunds?: PaymentRefund[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   transactions?: Array<Authorization | Void | Capture | Refund> | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   authorizations?: Authorization[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   captures?: Capture[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   voids?: Void[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   refunds?: Refund[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   returns?: Return[] | null
   order_subscription?: OrderSubscription | null
   order_subscriptions?: OrderSubscription[] | null
@@ -785,6 +919,11 @@ interface OrderCreate extends ResourceCreate {
    */
   customer_email?: string | null
   /**
+   * A free-text note on the order. The latest value is kept.
+   * @example ```"Please leave at the reception"```
+   */
+  notes?: string | null
+  /**
    * The password of the associated customer. When creating or updating an order, this is a shortcut to sign up the associated customer.
    * @example ```"secret"```
    */
@@ -801,6 +940,7 @@ interface OrderCreate extends ResourceCreate {
   freight_taxable?: boolean | null
   /**
    * Indicates if taxes are applied to payment methods costs.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   payment_method_taxable?: boolean | null
@@ -825,11 +965,13 @@ interface OrderCreate extends ResourceCreate {
   coupon_code?: string | null
   /**
    * The gift card code (at least the first 8 characters) to be used for the order. If valid, it uses the gift card balance to pay for the order.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
    */
   gift_card_code?: string | null
   /**
    * The gift card or coupon code (at least the first 8 characters) to be used for the order. If a gift card mathes, it uses the gift card balance to pay for the order. Otherwise it tries to find a valid coupon code and applies the associated discount.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
    */
   gift_card_or_coupon_code?: string | null
@@ -869,7 +1011,14 @@ interface OrderCreate extends ResourceCreate {
   shipping_address?: AddressRel | null
   billing_address?: AddressRel | null
   store?: StoreRel | null
+  agreement?: AgreementRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_method?: PaymentMethodRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_source?:
     | AdyenPaymentRel
     | AxervePaymentRel
@@ -917,6 +1066,11 @@ interface OrderUpdate extends ResourceUpdate {
    */
   customer_email?: string | null
   /**
+   * A free-text note on the order. The latest value is kept.
+   * @example ```"Please leave at the reception"```
+   */
+  notes?: string | null
+  /**
    * The password of the associated customer. When creating or updating an order, this is a shortcut to sign up the associated customer.
    * @example ```"secret"```
    */
@@ -933,6 +1087,7 @@ interface OrderUpdate extends ResourceUpdate {
   freight_taxable?: boolean | null
   /**
    * Indicates if taxes are applied to payment methods costs.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   payment_method_taxable?: boolean | null
@@ -957,11 +1112,13 @@ interface OrderUpdate extends ResourceUpdate {
   coupon_code?: string | null
   /**
    * The gift card code (at least the first 8 characters) to be used for the order. If valid, it uses the gift card balance to pay for the order.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
    */
   gift_card_code?: string | null
   /**
    * The gift card or coupon code (at least the first 8 characters) to be used for the order. If a gift card mathes, it uses the gift card balance to pay for the order. Otherwise it tries to find a valid coupon code and applies the associated discount.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"cc92c23e-967e-48b2-a323-59add603301f"```
    */
   gift_card_or_coupon_code?: string | null
@@ -1006,6 +1163,11 @@ interface OrderUpdate extends ResourceUpdate {
    */
   _place?: boolean | null
   /**
+   * Send this attribute if you want to check if the order is placeable.
+   * @example ```true```
+   */
+  _placeable?: boolean | null
+  /**
    * Send this attribute if you want to cancel a placed order. The order's authorization will be automatically voided.
    * @example ```true```
    */
@@ -1017,26 +1179,31 @@ interface OrderUpdate extends ResourceUpdate {
   _approve?: boolean | null
   /**
    * Send this attribute if you want to approve and capture a placed order. Cannot be passed by sales channels.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _approve_and_capture?: boolean | null
   /**
    * Send this attribute if you want to authorize the order's payment source.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _authorize?: boolean | null
   /**
    * Send this attribute as a value in cents if you want to overwrite the amount to be authorized.
+   * @deprecated Last available in API version 2017-08.
    * @example ```500```
    */
   _authorization_amount_cents?: number | null
   /**
    * Send this attribute if you want to capture an authorized order. Cannot be passed by sales channels.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _capture?: boolean | null
   /**
    * Send this attribute if you want to refund a captured order. Cannot be passed by sales channels.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _refund?: boolean | null
@@ -1052,10 +1219,12 @@ interface OrderUpdate extends ResourceUpdate {
   _update_taxes?: boolean | null
   /**
    * Send this attribute if you want to nullify the payment source for this order.
+   * @deprecated Last available in API version 2017-08.
    */
   _nullify_payment_source?: boolean | null
   /**
    * Send this attribute if you want to set the payment source associated with the last succeeded authorization. At the end of the fix the order should be placed and authorized and ready to be approved. A tentative to fix the payment source is done before approval automatically. Cannot be passed by sales channels.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _fix_payment_source?: boolean | null
@@ -1071,6 +1240,7 @@ interface OrderUpdate extends ResourceUpdate {
   _shipping_address_clone_id?: string | null
   /**
    * The id of the customer payment source (i.e. credit card) that you want to use as the order's payment source.
+   * @deprecated Last available in API version 2017-08.
    * @example ```"1234"```
    */
   _customer_payment_source_id?: string | null
@@ -1096,6 +1266,7 @@ interface OrderUpdate extends ResourceUpdate {
   _refund_invoice?: boolean | null
   /**
    * Send this attribute if you want the order's payment source to be saved in the customer's wallet as a customer payment source.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _save_payment_source_to_customer_wallet?: boolean | null
@@ -1168,7 +1339,14 @@ interface OrderUpdate extends ResourceUpdate {
   shipping_address?: AddressRel | null
   billing_address?: AddressRel | null
   store?: StoreRel | null
+  agreement?: AgreementRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_method?: PaymentMethodRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_source?:
     | AdyenPaymentRel
     | AxervePaymentRel
@@ -1265,6 +1443,44 @@ class Orders extends ApiResource<Order> {
     ) as unknown as Store
   }
 
+  async agreement(
+    orderId: string | Order,
+    params?: QueryParamsRetrieve<Agreement>,
+    options?: ResourcesConfig,
+  ): Promise<Agreement> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<Agreement>(
+      { type: 'agreements' },
+      `orders/${_orderId}/agreement`,
+      params,
+      options,
+    ) as unknown as Agreement
+  }
+
+  async inbound_message(
+    orderId: string | Order,
+    params?: QueryParamsRetrieve<InboundMessage>,
+    options?: ResourcesConfig,
+  ): Promise<InboundMessage> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<InboundMessage>(
+      { type: 'inbound_messages' },
+      `orders/${_orderId}/inbound_message`,
+      params,
+      options,
+    ) as unknown as InboundMessage
+  }
+
+  async agent(orderId: string | Order, params?: QueryParamsRetrieve<Agent>, options?: ResourcesConfig): Promise<Agent> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<Agent>(
+      { type: 'agents' },
+      `orders/${_orderId}/agent`,
+      params,
+      options,
+    ) as unknown as Agent
+  }
+
   async default_shipping_method(
     orderId: string | Order,
     params?: QueryParamsRetrieve<ShippingMethod>,
@@ -1279,6 +1495,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ShippingMethod
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async default_payment_method(
     orderId: string | Order,
     params?: QueryParamsRetrieve<PaymentMethod>,
@@ -1293,6 +1512,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as PaymentMethod
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async available_payment_methods(
     orderId: string | Order,
     params?: QueryParamsList<PaymentMethod>,
@@ -1307,6 +1529,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<PaymentMethod>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async available_customer_payment_sources(
     orderId: string | Order,
     params?: QueryParamsList<CustomerPaymentSource>,
@@ -1349,6 +1574,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<Bundle>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async payment_method(
     orderId: string | Order,
     params?: QueryParamsRetrieve<PaymentMethod>,
@@ -1391,6 +1619,20 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<LineItem>
   }
 
+  async order_reviews(
+    orderId: string | Order,
+    params?: QueryParamsList<OrderReview>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<OrderReview>> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<OrderReview>(
+      { type: 'order_reviews' },
+      `orders/${_orderId}/order_reviews`,
+      params,
+      options,
+    ) as unknown as ListResponse<OrderReview>
+  }
+
   async line_item_options(
     orderId: string | Order,
     params?: QueryParamsList<LineItemOption>,
@@ -1403,6 +1645,23 @@ class Orders extends ApiResource<Order> {
       params,
       options,
     ) as unknown as ListResponse<LineItemOption>
+  }
+
+  /**
+   * @since 2026-05
+   */
+  async payment_sessions(
+    orderId: string | Order,
+    params?: QueryParamsList<PaymentSession>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PaymentSession>> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<PaymentSession>(
+      { type: 'payment_sessions' },
+      `orders/${_orderId}/payment_sessions`,
+      params,
+      options,
+    ) as unknown as ListResponse<PaymentSession>
   }
 
   async stock_reservations(
@@ -1461,6 +1720,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<Shipment>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async payment_options(
     orderId: string | Order,
     params?: QueryParamsList<PaymentOption>,
@@ -1475,6 +1737,77 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<PaymentOption>
   }
 
+  /**
+   * @since 2026-05
+   */
+  async payment_authorizations(
+    orderId: string | Order,
+    params?: QueryParamsList<PaymentAuthorization>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PaymentAuthorization>> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<PaymentAuthorization>(
+      { type: 'payment_authorizations' },
+      `orders/${_orderId}/payment_authorizations`,
+      params,
+      options,
+    ) as unknown as ListResponse<PaymentAuthorization>
+  }
+
+  /**
+   * @since 2026-05
+   */
+  async payment_captures(
+    orderId: string | Order,
+    params?: QueryParamsList<PaymentCapture>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PaymentCapture>> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<PaymentCapture>(
+      { type: 'payment_captures' },
+      `orders/${_orderId}/payment_captures`,
+      params,
+      options,
+    ) as unknown as ListResponse<PaymentCapture>
+  }
+
+  /**
+   * @since 2026-05
+   */
+  async payment_voids(
+    orderId: string | Order,
+    params?: QueryParamsList<PaymentVoid>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PaymentVoid>> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<PaymentVoid>(
+      { type: 'payment_voids' },
+      `orders/${_orderId}/payment_voids`,
+      params,
+      options,
+    ) as unknown as ListResponse<PaymentVoid>
+  }
+
+  /**
+   * @since 2026-05
+   */
+  async payment_refunds(
+    orderId: string | Order,
+    params?: QueryParamsList<PaymentRefund>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PaymentRefund>> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<PaymentRefund>(
+      { type: 'payment_refunds' },
+      `orders/${_orderId}/payment_refunds`,
+      params,
+      options,
+    ) as unknown as ListResponse<PaymentRefund>
+  }
+
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async authorizations(
     orderId: string | Order,
     params?: QueryParamsList<Authorization>,
@@ -1489,6 +1822,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<Authorization>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async captures(
     orderId: string | Order,
     params?: QueryParamsList<Capture>,
@@ -1503,6 +1839,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<Capture>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async voids(
     orderId: string | Order,
     params?: QueryParamsList<Void>,
@@ -1517,6 +1856,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<Void>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async refunds(
     orderId: string | Order,
     params?: QueryParamsList<Refund>,
@@ -1531,6 +1873,9 @@ class Orders extends ApiResource<Order> {
     ) as unknown as ListResponse<Refund>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async returns(
     orderId: string | Order,
     params?: QueryParamsList<Return>,
@@ -1740,6 +2085,14 @@ class Orders extends ApiResource<Order> {
   async _place(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
     return this.resources.update<OrderUpdate, Order>(
       { id: typeof id === 'string' ? id : id.id, type: Orders.TYPE, _place: true },
+      params,
+      options,
+    )
+  }
+
+  async _placeable(id: string | Order, params?: QueryParamsRetrieve<Order>, options?: ResourcesConfig): Promise<Order> {
+    return this.resources.update<OrderUpdate, Order>(
+      { id: typeof id === 'string' ? id : id.id, type: Orders.TYPE, _placeable: true },
       params,
       options,
     )

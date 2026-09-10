@@ -32,6 +32,7 @@ export type PaymentMethodSort = Pick<
 /**
  * The Payment method object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_methods endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/payment_methods/object
  */
 interface PaymentMethod extends Resource {
@@ -256,6 +257,7 @@ interface PaymentMethodUpdate extends ResourceUpdate {
   store?: StoreRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class PaymentMethods extends ApiResource<PaymentMethod> {
   static readonly TYPE: PaymentMethodType = 'payment_methods' as const
 

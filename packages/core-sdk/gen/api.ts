@@ -7,6 +7,9 @@ export { type Addresses, default as addresses } from './resources/addresses'
 export { type Adjustments, default as adjustments } from './resources/adjustments'
 export { type AdyenGateways, default as adyen_gateways } from './resources/adyen_gateways'
 export { type AdyenPayments, default as adyen_payments } from './resources/adyen_payments'
+export { type Agents, default as agents } from './resources/agents'
+export { type AgreementIdentities, default as agreement_identities } from './resources/agreement_identities'
+export { type Agreements, default as agreements } from './resources/agreements'
 export { type Applications, default as application } from './resources/applications'
 export { type Attachments, default as attachments } from './resources/attachments'
 export { type Authorizations, default as authorizations } from './resources/authorizations'
@@ -63,6 +66,8 @@ export { default as gift_cards, type GiftCards } from './resources/gift_cards'
 export { default as google_geocoders, type GoogleGeocoders } from './resources/google_geocoders'
 export { default as imports, type Imports } from './resources/imports'
 export { default as in_stock_subscriptions, type InStockSubscriptions } from './resources/in_stock_subscriptions'
+export { default as inbound_emails, type InboundEmails } from './resources/inbound_emails'
+export { default as inbound_messages, type InboundMessages } from './resources/inbound_messages'
 export { default as inventory_models, type InventoryModels } from './resources/inventory_models'
 export {
   default as inventory_return_locations,
@@ -88,6 +93,7 @@ export {
 } from './resources/order_amount_promotion_rules'
 export { default as order_copies, type OrderCopies } from './resources/order_copies'
 export { default as order_factories, type OrderFactories } from './resources/order_factories'
+export { default as order_reviews, type OrderReviews } from './resources/order_reviews'
 export { default as order_subscription_items, type OrderSubscriptionItems } from './resources/order_subscription_items'
 export { default as order_subscriptions, type OrderSubscriptions } from './resources/order_subscriptions'
 export { default as order_validation_rules, type OrderValidationRules } from './resources/order_validation_rules'
@@ -96,9 +102,39 @@ export { default as organization, type Organizations } from './resources/organiz
 export { default as packages, type Packages } from './resources/packages'
 export { default as parcel_line_items, type ParcelLineItems } from './resources/parcel_line_items'
 export { default as parcels, type Parcels } from './resources/parcels'
+export { default as payment_authorizations, type PaymentAuthorizations } from './resources/payment_authorizations'
+export { default as payment_captures, type PaymentCaptures } from './resources/payment_captures'
 export { default as payment_gateways, type PaymentGateways } from './resources/payment_gateways'
+export { default as payment_links, type PaymentLinks } from './resources/payment_links'
 export { default as payment_methods, type PaymentMethods } from './resources/payment_methods'
 export { default as payment_options, type PaymentOptions } from './resources/payment_options'
+export { default as payment_refunds, type PaymentRefunds } from './resources/payment_refunds'
+export { default as payment_rules, type PaymentRules } from './resources/payment_rules'
+export { default as payment_sessions, type PaymentSessions } from './resources/payment_sessions'
+export { default as payment_setting_adyens, type PaymentSettingAdyens } from './resources/payment_setting_adyens'
+export {
+  default as payment_setting_braintrees,
+  type PaymentSettingBraintrees,
+} from './resources/payment_setting_braintrees'
+export {
+  default as payment_setting_checkout_coms,
+  type PaymentSettingCheckoutComs,
+} from './resources/payment_setting_checkout_coms'
+export {
+  default as payment_setting_externals,
+  type PaymentSettingExternals,
+} from './resources/payment_setting_externals'
+export {
+  default as payment_setting_gift_cards,
+  type PaymentSettingGiftCards,
+} from './resources/payment_setting_gift_cards'
+export { default as payment_setting_manuals, type PaymentSettingManuals } from './resources/payment_setting_manuals'
+export { default as payment_setting_paypals, type PaymentSettingPaypals } from './resources/payment_setting_paypals'
+export { default as payment_setting_stripes, type PaymentSettingStripes } from './resources/payment_setting_stripes'
+export { default as payment_settings, type PaymentSettings } from './resources/payment_settings'
+export { default as payment_transactions, type PaymentTransactions } from './resources/payment_transactions'
+export { default as payment_voids, type PaymentVoids } from './resources/payment_voids'
+export { default as payment_wallets, type PaymentWallets } from './resources/payment_wallets'
 export { default as paypal_gateways, type PaypalGateways } from './resources/paypal_gateways'
 export { default as paypal_payments, type PaypalPayments } from './resources/paypal_payments'
 export {
@@ -151,6 +187,7 @@ export { default as tax_categories, type TaxCategories } from './resources/tax_c
 export { default as tax_rules, type TaxRules } from './resources/tax_rules'
 export { default as taxjar_accounts, type TaxjarAccounts } from './resources/taxjar_accounts'
 export { default as transactions, type Transactions } from './resources/transactions'
+export { default as users, type Users } from './resources/users'
 export { default as vertex_accounts, type VertexAccounts } from './resources/vertex_accounts'
 export { default as voids, type Voids } from './resources/voids'
 export { default as webhooks, type Webhooks } from './resources/webhooks'

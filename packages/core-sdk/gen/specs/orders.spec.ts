@@ -21,7 +21,7 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
-import { addresses, adyen_payments, customers, markets, orders, payment_methods, stores, tags } from '../api'
+import { addresses, agreements, customers, markets, orders, stores, tags } from '../api'
 import type { Order } from '../model'
 
 let cl: CommerceLayerSingleClient
@@ -42,8 +42,7 @@ describe('Orders resource', () => {
       shipping_address: addresses.relationship(TestData.id),
       billing_address: addresses.relationship(TestData.id),
       store: stores.relationship(TestData.id),
-      payment_method: payment_methods.relationship(TestData.id),
-      payment_source: adyen_payments.relationship(TestData.id),
+      agreement: agreements.relationship(TestData.id),
       tags: [tags.relationship(TestData.id)],
     }
 
@@ -304,6 +303,63 @@ describe('Orders resource', () => {
   })
   /* relationship.store stop */
 
+  /* relationship.agreement start */
+  test(resourceType + '.agreement', async () => {
+    const id = TestData.id
+    const params = { fields: { agreements: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'agreement')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .agreement(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.agreement stop */
+
+  /* relationship.inbound_message start */
+  test(resourceType + '.inbound_message', async () => {
+    const id = TestData.id
+    const params = { fields: { inbound_messages: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'inbound_message')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .inbound_message(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.inbound_message stop */
+
+  /* relationship.agent start */
+  test(resourceType + '.agent', async () => {
+    const id = TestData.id
+    const params = { fields: { agents: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'agent')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .agent(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.agent stop */
+
   /* relationship.default_shipping_method start */
   test(resourceType + '.default_shipping_method', async () => {
     const id = TestData.id
@@ -475,6 +531,25 @@ describe('Orders resource', () => {
   })
   /* relationship.line_items stop */
 
+  /* relationship.order_reviews start */
+  test(resourceType + '.order_reviews', async () => {
+    const id = TestData.id
+    const params = { fields: { order_reviews: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'order_reviews')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .order_reviews(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.order_reviews stop */
+
   /* relationship.line_item_options start */
   test(resourceType + '.line_item_options', async () => {
     const id = TestData.id
@@ -493,6 +568,25 @@ describe('Orders resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* relationship.line_item_options stop */
+
+  /* relationship.payment_sessions start */
+  test(resourceType + '.payment_sessions', async () => {
+    const id = TestData.id
+    const params = { fields: { payment_sessions: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'payment_sessions')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .payment_sessions(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.payment_sessions stop */
 
   /* relationship.stock_reservations start */
   test(resourceType + '.stock_reservations', async () => {
@@ -588,6 +682,82 @@ describe('Orders resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* relationship.payment_options stop */
+
+  /* relationship.payment_authorizations start */
+  test(resourceType + '.payment_authorizations', async () => {
+    const id = TestData.id
+    const params = { fields: { payment_authorizations: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'payment_authorizations')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .payment_authorizations(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.payment_authorizations stop */
+
+  /* relationship.payment_captures start */
+  test(resourceType + '.payment_captures', async () => {
+    const id = TestData.id
+    const params = { fields: { payment_captures: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'payment_captures')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .payment_captures(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.payment_captures stop */
+
+  /* relationship.payment_voids start */
+  test(resourceType + '.payment_voids', async () => {
+    const id = TestData.id
+    const params = { fields: { payment_voids: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'payment_voids')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .payment_voids(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.payment_voids stop */
+
+  /* relationship.payment_refunds start */
+  test(resourceType + '.payment_refunds', async () => {
+    const id = TestData.id
+    const params = { fields: { payment_refunds: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'payment_refunds')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .payment_refunds(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.payment_refunds stop */
 
   /* relationship.authorizations start */
   test(resourceType + '.authorizations', async () => {
@@ -1007,6 +1177,30 @@ describe('Orders resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* trigger._place stop */
+
+  /* trigger._placeable start */
+  test(resourceType + '._placeable', async () => {
+    let triggerAttr = '_placeable'
+    if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+
+    const triggerValue = true
+    const attributes = { [triggerAttr]: triggerValue }
+    const id = TestData.id
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, id)
+      return interceptRequest()
+    })
+
+    await orders
+      ._placeable(id, {}, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* trigger._placeable stop */
 
   /* trigger._cancel start */
   test(resourceType + '._cancel', async () => {

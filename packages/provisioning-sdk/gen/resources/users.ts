@@ -29,12 +29,12 @@ interface User extends Resource {
    */
   email: string
   /**
-   * The user first name.
+   * The user first name. Maximum 100 characters. HTML is stripped.
    * @example ```"John"```
    */
   first_name: string
   /**
-   * The user last name.
+   * The user last name. Maximum 100 characters. HTML is stripped.
    * @example ```"Doe"```
    */
   last_name: string
@@ -47,7 +47,7 @@ interface User extends Resource {
    * The user 2FA setting.
    * @example ```true```
    */
-  otp_required_for_login?: boolean | null
+  otp_required_for_login: boolean
 }
 
 interface UserUpdate extends SingletonUpdate {
@@ -57,12 +57,12 @@ interface UserUpdate extends SingletonUpdate {
    */
   email?: string | null
   /**
-   * The user first name.
+   * The user first name. Maximum 100 characters. HTML is stripped.
    * @example ```"John"```
    */
   first_name?: string | null
   /**
-   * The user last name.
+   * The user last name. Maximum 100 characters. HTML is stripped.
    * @example ```"Doe"```
    */
   last_name?: string | null

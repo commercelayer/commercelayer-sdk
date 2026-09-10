@@ -23,6 +23,7 @@ export type WireTransferSort = Pick<WireTransfer, 'id'> & ResourceSort
 /**
  * The Wire transfer object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/wire_transfers endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/wire_transfers/object
  */
 interface WireTransfer extends Resource {
@@ -46,6 +47,7 @@ interface WireTransferUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class WireTransfers extends ApiResource<WireTransfer> {
   static readonly TYPE: WireTransferType = 'wire_transfers' as const
 

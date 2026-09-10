@@ -45,6 +45,7 @@ export type CustomerPaymentSourceSort = Pick<CustomerPaymentSource, 'id'> & Reso
 /**
  * The Customer payment source object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/customer_payment_sources endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/customer_payment_sources/object
  */
 interface CustomerPaymentSource extends Resource {
@@ -139,6 +140,7 @@ interface CustomerPaymentSourceUpdate extends ResourceUpdate {
     | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class CustomerPaymentSources extends ApiResource<CustomerPaymentSource> {
   static readonly TYPE: CustomerPaymentSourceType = 'customer_payment_sources' as const
 

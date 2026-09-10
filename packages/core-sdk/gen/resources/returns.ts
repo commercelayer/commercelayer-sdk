@@ -17,6 +17,7 @@ import type { Customer } from './customers'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { Order, OrderType } from './orders'
+import type { PaymentRefund } from './payment_refunds'
 import type { Refund } from './refunds'
 import type { ResourceError } from './resource_errors'
 import type { ReturnLineItem } from './return_line_items'
@@ -130,9 +131,19 @@ interface Return extends Resource {
   stock_location?: StockLocation | null
   origin_address?: Address | null
   destination_address?: Address | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   reference_capture?: Capture | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   reference_refund?: Refund | null
   return_line_items?: ReturnLineItem[] | null
+  /**
+   * @since 2026-05
+   */
+  payment_refunds?: PaymentRefund[] | null
   attachments?: Attachment[] | null
   resource_errors?: ResourceError[] | null
   events?: Event[] | null
@@ -143,6 +154,9 @@ interface Return extends Resource {
 interface ReturnCreate extends ResourceCreate {
   order: OrderRel
   stock_location?: StockLocationRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   reference_capture?: CaptureRel | null
   tags?: TagRel[] | null
 }
@@ -195,11 +209,13 @@ interface ReturnUpdate extends ResourceUpdate {
   _unarchive?: boolean | null
   /**
    * Send this attribute if you want to create a refund for this return.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _refund?: boolean | null
   /**
    * Send this attribute as a value in cents to specify the amount to be refunded.
+   * @deprecated Last available in API version 2017-08.
    * @example ```500```
    */
   _refund_amount_cents?: number | null
@@ -213,6 +229,9 @@ interface ReturnUpdate extends ResourceUpdate {
   _remove_tags?: string | null
 
   stock_location?: StockLocationRel | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   reference_capture?: CaptureRel | null
   tags?: TagRel[] | null
 }
@@ -310,6 +329,9 @@ class Returns extends ApiResource<Return> {
     ) as unknown as Address
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async reference_capture(
     returnId: string | Return,
     params?: QueryParamsRetrieve<Capture>,
@@ -324,6 +346,9 @@ class Returns extends ApiResource<Return> {
     ) as unknown as Capture
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async reference_refund(
     returnId: string | Return,
     params?: QueryParamsRetrieve<Refund>,
@@ -350,6 +375,23 @@ class Returns extends ApiResource<Return> {
       params,
       options,
     ) as unknown as ListResponse<ReturnLineItem>
+  }
+
+  /**
+   * @since 2026-05
+   */
+  async payment_refunds(
+    returnId: string | Return,
+    params?: QueryParamsList<PaymentRefund>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<PaymentRefund>> {
+    const _returnId = (returnId as Return).id || (returnId as string)
+    return this.resources.fetch<PaymentRefund>(
+      { type: 'payment_refunds' },
+      `returns/${_returnId}/payment_refunds`,
+      params,
+      options,
+    ) as unknown as ListResponse<PaymentRefund>
   }
 
   async attachments(

@@ -3,6 +3,14 @@
 /**
  * © Commerce Layer Inc.
  **/
+export type { Address, AddressSort } from './resources/addresses'
+export type {
+  AgreementIdentity,
+  AgreementIdentityCreate,
+  AgreementIdentitySort,
+  AgreementIdentityUpdate,
+} from './resources/agreement_identities'
+export type { Agreement, AgreementCreate, AgreementSort, AgreementUpdate } from './resources/agreements'
 export type {
   ApiCredential,
   ApiCredentialCreate,
@@ -21,6 +29,7 @@ export type {
   IdentityProviderSort,
   IdentityProviderUpdate,
 } from './resources/identity_providers'
+export type { Market, MarketSort } from './resources/markets'
 export type {
   MembershipProfile,
   MembershipProfileCreate,

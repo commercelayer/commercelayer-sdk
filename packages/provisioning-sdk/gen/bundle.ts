@@ -8,9 +8,13 @@ const debug = Debug('bundle')
 class CommerceLayerProvisioningClient extends CommerceLayerProvisioningBaseClient {
   // ##__CL_RESOURCES_DEF_START__##
   // ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__#####__RESOURCE_TYPE__##?: api.##__RESOURCE_CLASS__##
+  #addresses?: api.Addresses
+  #agreements?: api.Agreements
+  #agreement_identities?: api.AgreementIdentities
   #api_credentials?: api.ApiCredentials
   #application_memberships?: api.ApplicationMemberships
   #identity_providers?: api.IdentityProviders
+  #markets?: api.Markets
   #memberships?: api.Memberships
   #membership_profiles?: api.MembershipProfiles
   #organizations?: api.Organizations
@@ -45,6 +49,17 @@ class CommerceLayerProvisioningClient extends CommerceLayerProvisioningBaseClien
 
   // ##__CL_RESOURCES_LAZY_LOADING_START__##
   // ##__CL_RESOURCES_LAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = api.##__RESOURCE_TYPE__##.withAdapter(this.adapter)) }
+  get addresses(): api.Addresses {
+    return this.#addresses || (this.#addresses = api.addresses.withAdapter(this.adapter))
+  }
+  get agreements(): api.Agreements {
+    return this.#agreements || (this.#agreements = api.agreements.withAdapter(this.adapter))
+  }
+  get agreement_identities(): api.AgreementIdentities {
+    return (
+      this.#agreement_identities || (this.#agreement_identities = api.agreement_identities.withAdapter(this.adapter))
+    )
+  }
   get api_credentials(): api.ApiCredentials {
     return this.#api_credentials || (this.#api_credentials = api.api_credentials.withAdapter(this.adapter))
   }
@@ -56,6 +71,9 @@ class CommerceLayerProvisioningClient extends CommerceLayerProvisioningBaseClien
   }
   get identity_providers(): api.IdentityProviders {
     return this.#identity_providers || (this.#identity_providers = api.identity_providers.withAdapter(this.adapter))
+  }
+  get markets(): api.Markets {
+    return this.#markets || (this.#markets = api.markets.withAdapter(this.adapter))
   }
   get memberships(): api.Memberships {
     return this.#memberships || (this.#memberships = api.memberships.withAdapter(this.adapter))

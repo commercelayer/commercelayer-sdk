@@ -43,12 +43,12 @@ interface Membership extends Resource {
    * The user first name.
    * @example ```"John"```
    */
-  user_first_name?: string | null
+  user_first_name: string
   /**
    * The user last name.
    * @example ```"Doe"```
    */
-  user_last_name?: string | null
+  user_last_name: string
   /**
    * The memberships status. One of `pending` (default), `active`.
    * @example ```"pending"```
@@ -58,12 +58,12 @@ interface Membership extends Resource {
    * Indicates if the user it's the owner of the organization.
    * @example ```true```
    */
-  owner?: boolean | null
+  owner: boolean
   /**
    * Reflects the organization's access scope, either test_access or all_access.
    * @example ```true```
    */
-  test_enabled?: boolean | null
+  test_enabled: boolean
   /**
    * The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.
    * @example ```"live_access"```

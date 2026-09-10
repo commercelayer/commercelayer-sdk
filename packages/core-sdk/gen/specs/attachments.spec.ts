@@ -21,7 +21,7 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
-import { attachments, geocoders } from '../api'
+import { attachments, markets } from '../api'
 import type { Attachment } from '../model'
 
 let cl: CommerceLayerSingleClient
@@ -38,7 +38,7 @@ describe('Attachments resource', () => {
   test(resourceType + '.create', async () => {
     const createAttributes = {
       name: randomValue('string', 'name'),
-      attachable: geocoders.relationship(TestData.id),
+      attachable: markets.relationship(TestData.id),
     }
 
     const attributes = { ...createAttributes, reference: TestData.reference }
