@@ -1,0 +1,45 @@
+# Release-notes config for the Core API SDK, selected by release.yml via the
+# tag's directory prefix (`core-sdk-v*` -> this file).
+#
+# Independent versioning gives each package its own tag, but GitHub's generated
+# notes work on a commit range with no path filter, so without this both
+# releases would list every PR in the window — a provisioning-only change would
+# appear verbatim under core.
+#
+# The two categories below are ordered deliberately, and the order is what makes
+# the scheme work:
+#
+#   1. A PR labelled `core-sdk` matches the first category and is never
+#      evaluated against the second. So a PR labelled BOTH `core-sdk` and
+#      `provisioning-sdk` — a change touching both packages — appears in both
+#      releases instead of being dropped from both, which is what a top-level
+#      `exclude: [provisioning-sdk]` would do.
+#   2. Everything else falls through to the catch-all, where provisioning-only
+#      PRs are excluded. The exclusion is scoped to this category, so it cannot
+#      reach the PRs already matched above.
+#
+# Both behaviours are undocumented and were verified against this repository:
+# PRs carrying the excluded label still landed in the first category, while
+# PRs reaching the catch-all with it were dropped.
+#
+# Consequence: labels group by package, not by change type, because a category's
+# `labels` list is matched with OR — "core-sdk AND enhancement" cannot be
+# expressed. An unlabelled PR lands in "Shared", which is the right default for
+# sdk-runtime, sdk-generator and tooling changes, and makes a forgotten label
+# show up in both releases rather than vanish.
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+    authors:
+      - dependabot
+  categories:
+    - title: 📦 Core SDK
+      labels:
+        - core-sdk
+    - title: 🔧 Shared — runtime, generator, tooling
+      labels:
+        - '*'
+      exclude:
+        labels:
+          - provisioning-sdk

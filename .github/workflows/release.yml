@@ -74,9 +74,47 @@ jobs:
             echo "version=$VERSION"
             echo "previous_tag=$PREV"
             echo "prerelease=$PRERELEASE"
+            echo "dir=$DIR"
           } >> "$GITHUB_OUTPUT"
 
           echo "Drafting $PKG v$VERSION (prerelease=$PRERELEASE, previous=${PREV:-none})"
+
+      # Notes are generated here rather than by the release action, which exposes
+      # only `generate_release_notes: true` and always uses the repo-wide
+      # `.github/release.yml`. The API accepts `configuration_file_path`, which
+      # is what lets each package have its own config and so its own changelog —
+      # otherwise both releases list every PR in the window regardless of which
+      # package it touched.
+      - name: Generate release notes for this package
+        id: notes
+        env:
+          GH_TOKEN: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
+        run: |
+          set -euo pipefail
+          CONFIG=".github/release-${{ steps.meta.outputs.dir }}.yml"
+          # GitHub resolves this path from the tag's own tree, but the runner has
+          # that tree checked out, so a local check gives a clear error instead
+          # of an opaque 400 from the API.
+          if [ ! -f "$CONFIG" ]; then
+            echo "::error::No release-notes config at ${CONFIG}. Add it, or the release will list both packages' changes."
+            exit 1
+          fi
+
+          ARGS=(-f "tag_name=${GITHUB_REF_NAME}" -f "configuration_file_path=${CONFIG}")
+          # First release for a package has no predecessor; omit the field
+          # rather than sending an empty one, which the API rejects.
+          PREV='${{ steps.meta.outputs.previous_tag }}'
+          if [ -n "$PREV" ]; then
+            ARGS+=(-f "previous_tag_name=${PREV}")
+          else
+            echo "No previous ${{ steps.meta.outputs.dir }} tag; GitHub will pick the range itself."
+          fi
+
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/releases/generate-notes" \
+            "${ARGS[@]}" --jq .body > release-notes.md
+
+          echo "--- generated notes ---"
+          cat release-notes.md
 
       - name: Create a draft GitHub release
         uses: softprops/action-gh-release@v2
@@ -85,5 +123,5 @@ jobs:
           name: ${{ steps.meta.outputs.package }} v${{ steps.meta.outputs.version }}
           draft: true
           prerelease: ${{ steps.meta.outputs.prerelease }}
-          generate_release_notes: true
-          previous_tag: ${{ steps.meta.outputs.previous_tag }}
+          # Deliberately not `generate_release_notes` — see the step above.
+          body_path: release-notes.md

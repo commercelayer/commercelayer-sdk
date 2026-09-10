@@ -1,0 +1,35 @@
+name: Labeler
+
+# Keeps the `core-sdk` / `provisioning-sdk` labels in step with the files a PR
+# touches. Those labels are what the per-package release-notes configs filter
+# on, so without this the split depends on a human labelling every PR — and a
+# mislabelled PR lands in the wrong release with nothing to catch it.
+#
+# `pull_request` rather than the `pull_request_target` the action's README
+# suggests: that event exists to give fork PRs a writable token, and every pull
+# request here originates in this repository. It also runs with the base repo's
+# token against the head ref, which is a footgun worth avoiding for a job that
+# gains nothing from it. A fork PR would fail this job visibly rather than
+# mislabel silently.
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+  # Lets the action create the two labels on first run, so they need no manual
+  # setup. Harmless once they exist.
+  issues: write
+
+jobs:
+  label:
+    name: Apply package labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v7
+        with:
+          # Paths are authoritative: a label that no longer matches is removed,
+          # so the release notes cannot drift from what the PR actually changed.
+          # Only labels named in .github/labeler.yml are managed — type labels
+          # like `enhancement` and `bug` are left alone.
+          sync-labels: true
