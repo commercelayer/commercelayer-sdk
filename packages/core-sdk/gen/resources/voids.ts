@@ -34,6 +34,7 @@ export type VoidSort = Pick<Void, 'id' | 'number' | 'amount_cents'> & ResourceSo
 /**
  * The Void object is returned as part of the response body of each successful list, retrieve or update API call to the /api/voids endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/voids/object
  */
 interface Void extends Resource {
@@ -130,6 +131,7 @@ interface VoidUpdate extends ResourceUpdate {
   _forward?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class Voids extends ApiResource<Void> {
   static readonly TYPE: VoidType = 'voids' as const
 

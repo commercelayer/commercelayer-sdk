@@ -61,7 +61,7 @@ interface ParcelLineItem extends Resource {
   parcel?: Parcel | null
   stock_line_item?: StockLineItem | null
   /**
-   * @deprecated
+   * @deprecated Last available in API version 2017-08.
    */
   shipment_line_item?: ShipmentLineItem | null
   event_stores?: EventStore[] | null
@@ -77,7 +77,7 @@ interface ParcelLineItemCreate extends ResourceCreate {
   parcel: ParcelRel
   stock_line_item: StockLineItemRel
   /**
-   * @deprecated
+   * @deprecated Last available in API version 2017-08.
    */
   shipment_line_item?: ShipmentLineItemRel | null
 }
@@ -144,7 +144,7 @@ class ParcelLineItems extends ApiResource<ParcelLineItem> {
   }
 
   /**
-   * @deprecated
+   * @deprecated Last available in API version 2017-08.
    */
   async shipment_line_item(
     parcelLineItemId: string | ParcelLineItem,

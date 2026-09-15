@@ -24,6 +24,7 @@ export type AdyenPaymentSort = Pick<AdyenPayment, 'id'> & ResourceSort
 /**
  * The Adyen payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/adyen_payments endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/adyen_payments/object
  */
 interface AdyenPayment extends Resource {
@@ -118,6 +119,7 @@ interface AdyenPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class AdyenPayments extends ApiResource<AdyenPayment> {
   static readonly TYPE: AdyenPaymentType = 'adyen_payments' as const
 

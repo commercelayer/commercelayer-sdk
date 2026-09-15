@@ -202,7 +202,7 @@ interface Shipment extends Resource {
   delivery_lead_time?: DeliveryLeadTime | null
   pickup?: Pickup | null
   /**
-   * @deprecated
+   * @deprecated Last available in API version 2017-08.
    */
   shipment_line_items?: ShipmentLineItem[] | null
   stock_line_items?: StockLineItem[] | null
@@ -468,7 +468,7 @@ class Shipments extends ApiResource<Shipment> {
   }
 
   /**
-   * @deprecated
+   * @deprecated Last available in API version 2017-08.
    */
   async shipment_line_items(
     shipmentId: string | Shipment,
