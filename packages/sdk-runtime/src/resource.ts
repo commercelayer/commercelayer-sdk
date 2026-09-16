@@ -57,6 +57,7 @@ type PageCursor = { readonly before?: string; readonly after?: string }
 type ListMeta = {
   readonly pageCount: number
   readonly recordCount: number
+  readonly recordCountEstimated: boolean
   readonly currentPage: number
   readonly recordsPerPage: number
   readonly cursor?: {
@@ -95,6 +96,10 @@ class ListResponse<R extends Resource = Resource> extends Array<R> {
 
   getRecordCount(): number {
     return this.meta.recordCount
+  }
+
+  getRecordCountEstimated(): boolean {
+    return this.meta.recordCountEstimated
   }
 
   getPageCount(): number {
@@ -144,6 +149,7 @@ const buildListMeta = <R extends Resource>(
       // shared `meta.*` interface still resolves (see ListMeta).
       pageCount: NaN,
       recordCount: NaN,
+      recordCountEstimated: false,
       currentPage: NaN,
       recordsPerPage,
       cursor: {
@@ -156,6 +162,7 @@ const buildListMeta = <R extends Resource>(
   return {
     pageCount: Number(res.meta?.page_count),
     recordCount: Number(res.meta?.record_count),
+    recordCountEstimated: Boolean(res.meta?.record_count_estimated),
     currentPage: params?.pageNumber || config.default.pageNumber,
     recordsPerPage,
   }
