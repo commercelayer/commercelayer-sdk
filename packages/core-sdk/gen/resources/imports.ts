@@ -45,15 +45,16 @@ interface Import extends Resource {
   readonly type: ImportType
 
   /**
-   * The type of resource being imported. One of 'addresses', 'tags', 'price_lists', 'line_items', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
+   * The type of resource being imported. One of 'price_lists', 'line_items', 'addresses', 'tags', 'orders', 'customers', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
    * @example ```"skus"```
    */
   resource_type:
-    | 'addresses'
-    | 'tags'
     | 'price_lists'
     | 'line_items'
+    | 'addresses'
+    | 'tags'
     | 'orders'
+    | 'customers'
     | 'tax_categories'
     | 'skus'
     | 'shipping_categories'
@@ -63,7 +64,6 @@ interface Import extends Resource {
     | 'stock_items'
     | 'stock_locations'
     | 'coupons'
-    | 'customers'
     | 'customer_addresses'
     | 'customer_payment_sources'
     | 'customer_subscriptions'
@@ -125,6 +125,7 @@ interface Import extends Resource {
   warnings_count?: number | null
   /**
    * Indicates the number of records that have been destroyed, if any.
+   * @deprecated Last available in API version 2017-08.
    * @example ```99```
    */
   destroyed_count?: number | null
@@ -145,6 +146,7 @@ interface Import extends Resource {
   warnings_log?: Record<string, any> | null
   /**
    * Indicates if the import should cleanup records that are not included in the inputs array.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   cleanup_records?: boolean | null
@@ -165,15 +167,16 @@ interface Import extends Resource {
 
 interface ImportCreate extends ResourceCreate {
   /**
-   * The type of resource being imported. One of 'addresses', 'tags', 'price_lists', 'line_items', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
+   * The type of resource being imported. One of 'price_lists', 'line_items', 'addresses', 'tags', 'orders', 'customers', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
    * @example ```"skus"```
    */
   resource_type:
-    | 'addresses'
-    | 'tags'
     | 'price_lists'
     | 'line_items'
+    | 'addresses'
+    | 'tags'
     | 'orders'
+    | 'customers'
     | 'tax_categories'
     | 'skus'
     | 'shipping_categories'
@@ -183,7 +186,6 @@ interface ImportCreate extends ResourceCreate {
     | 'stock_items'
     | 'stock_locations'
     | 'coupons'
-    | 'customers'
     | 'customer_addresses'
     | 'customer_payment_sources'
     | 'customer_subscriptions'
@@ -210,6 +212,7 @@ interface ImportCreate extends ResourceCreate {
   inputs: Array<Record<string, any>>
   /**
    * Indicates if the import should cleanup records that are not included in the inputs array.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   cleanup_records?: boolean | null

@@ -24,6 +24,7 @@ export type PaymentOptionSort = Pick<PaymentOption, 'id' | 'name' | 'payment_sou
 /**
  * The Payment option object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_options endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/payment_options/object
  */
 interface PaymentOption extends Resource {
@@ -105,6 +106,7 @@ interface PaymentOptionUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class PaymentOptions extends ApiResource<PaymentOption> {
   static readonly TYPE: PaymentOptionType = 'payment_options' as const
 

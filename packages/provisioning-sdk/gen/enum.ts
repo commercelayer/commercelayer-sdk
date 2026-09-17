@@ -3,9 +3,13 @@ import type * as models from './model'
 
 const apiResources = [
   // ##__API_RESOURCE_LIST_START__##
+  'addresses',
+  'agreements',
+  'agreement_identities',
   'api_credentials',
   'application_memberships',
   'identity_providers',
+  'markets',
   'memberships',
   'membership_profiles',
   'organizations',
@@ -37,7 +41,7 @@ export type RetrievableResource = Resource & {
 export type ListableResourceType = Exclude<
   ResourceTypeLock,
   // ##__API_RESOURCE_NOT_LISTABLE_START__##
-  'users'
+  'addresses' | 'markets' | 'users'
   // ##__API_RESOURCE_NOT_LISTABLE_STOP__##
 >
 
@@ -48,6 +52,8 @@ export type ListableResource = Resource & {
 // Creatable resources
 export const creatableResources = [
   // ##__API_RESOURCE_CREATABLE_START__##
+  'agreements',
+  'agreement_identities',
   'api_credentials',
   'application_memberships',
   'identity_providers',
@@ -67,6 +73,8 @@ export type CreatableResource = Resource & {
 // Updatable resources
 export const updatableResources = [
   // ##__API_RESOURCE_UPDATABLE_START__##
+  'agreements',
+  'agreement_identities',
   'api_credentials',
   'application_memberships',
   'identity_providers',
@@ -86,6 +94,8 @@ export type UpdatableResource = Resource & {
 // Deletable resources
 export const deletableResources = [
   // ##__API_RESOURCE_DELETABLE_START__##
+  'agreements',
+  'agreement_identities',
   'api_credentials',
   'application_memberships',
   'identity_providers',
@@ -127,9 +137,13 @@ export function isDeletable(resource: ResourceTypeLock): boolean {
 // Helper types
 export type ResourceFields = {
   // ##__API_RESOURCE_FIELDS_START__##
+  addresses: models.Address
+  agreements: models.Agreement
+  agreement_identities: models.AgreementIdentity
   api_credentials: models.ApiCredential
   application_memberships: models.ApplicationMembership
   identity_providers: models.IdentityProvider
+  markets: models.Market
   memberships: models.Membership
   membership_profiles: models.MembershipProfile
   organizations: models.Organization
@@ -142,9 +156,13 @@ export type ResourceFields = {
 
 export type ResourceSortFields = {
   // ##__API_RESOURCE_SORTABLE_FIELDS_START__##
+  addresses: models.AddressSort
+  agreements: models.AgreementSort
+  agreement_identities: models.AgreementIdentitySort
   api_credentials: models.ApiCredentialSort
   application_memberships: models.ApplicationMembershipSort
   identity_providers: models.IdentityProviderSort
+  markets: models.MarketSort
   memberships: models.MembershipSort
   membership_profiles: models.MembershipProfileSort
   organizations: models.OrganizationSort
