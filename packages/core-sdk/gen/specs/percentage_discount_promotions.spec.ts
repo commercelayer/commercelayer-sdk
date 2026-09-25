@@ -21,16 +21,7 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
-import {
-  coupon_codes_promotion_rules,
-  custom_promotion_rules,
-  markets,
-  order_amount_promotion_rules,
-  percentage_discount_promotions,
-  sku_list_promotion_rules,
-  sku_lists,
-  tags,
-} from '../api'
+import { markets, percentage_discount_promotions, sku_lists, tags } from '../api'
 import type { PercentageDiscountPromotion } from '../model'
 
 let cl: CommerceLayerSingleClient
@@ -51,10 +42,6 @@ describe('PercentageDiscountPromotions resource', () => {
       expires_at: randomValue('string', 'expires_at'),
       percentage: randomValue('integer', 'percentage'),
       market: markets.relationship(TestData.id),
-      order_amount_promotion_rule: order_amount_promotion_rules.relationship(TestData.id),
-      sku_list_promotion_rule: sku_list_promotion_rules.relationship(TestData.id),
-      coupon_codes_promotion_rule: coupon_codes_promotion_rules.relationship(TestData.id),
-      custom_promotion_rule: custom_promotion_rules.relationship(TestData.id),
       sku_list: sku_lists.relationship(TestData.id),
       tags: [tags.relationship(TestData.id)],
     }

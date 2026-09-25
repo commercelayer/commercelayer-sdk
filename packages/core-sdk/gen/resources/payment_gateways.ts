@@ -41,6 +41,7 @@ export type PaymentGatewaySort = Pick<PaymentGatewayBase, 'id' | 'name' | 'disab
 /**
  * The Payment gateway object is returned as part of the response body of each successful list or retrieve API call to the /api/payment_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/payment_gateways/object
  */
 type PaymentGateway =
@@ -83,6 +84,7 @@ interface PaymentGatewayBase extends Resource {
   event_stores?: EventStore[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class PaymentGateways extends ApiResource<PaymentGateway> {
   static readonly TYPE: PaymentGatewayType = 'payment_gateways' as const
 

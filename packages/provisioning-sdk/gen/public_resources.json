@@ -6,6 +6,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -41,6 +44,7 @@
                     "confidential": {
                         "type": "boolean",
                         "desc": "Indicates if the API credential it's confidential.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -61,6 +65,7 @@
                     "client_id": {
                         "type": "string",
                         "desc": "The API credential unique ID.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -71,6 +76,7 @@
                     "client_secret": {
                         "type": "string",
                         "desc": "The API credential unique secret.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -81,6 +87,7 @@
                     "scopes": {
                         "type": "string",
                         "desc": "The API credential scopes.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -244,6 +251,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -425,6 +435,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "retrieve"
                 ],
@@ -569,6 +582,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -686,6 +702,7 @@
                     "txt_record": {
                         "type": "string",
                         "desc": "The TXT record value used to check the domain.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -782,10 +799,7 @@
                         "fetchable": false,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true",
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Disabled"
-                        }
+                        "example": "true"
                     },
                     "_enable": {
                         "type": "boolean",
@@ -797,10 +811,7 @@
                         "fetchable": false,
                         "filterable": false,
                         "sortable": false,
-                        "example": "true",
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Disabled"
-                        }
+                        "example": "true"
                     },
                     "disabled_at": {
                         "type": "datetime",
@@ -811,10 +822,7 @@
                         "fetchable": true,
                         "filterable": true,
                         "sortable": true,
-                        "example": "2018-01-01T12:00:00.000Z",
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Disabled"
-                        }
+                        "example": "2018-01-01T12:00:00.000Z"
                     }
                 },
                 "relationships": {
@@ -866,6 +874,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -890,6 +901,7 @@
                     "user_first_name": {
                         "type": "string",
                         "desc": "The user first name.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -900,6 +912,7 @@
                     "user_last_name": {
                         "type": "string",
                         "desc": "The user last name.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -925,6 +938,7 @@
                     "owner": {
                         "type": "boolean",
                         "desc": "Indicates if the user it's the owner of the organization.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -935,13 +949,13 @@
                     "test_enabled": {
                         "type": "boolean",
                         "desc": "Reflects the organization's access scope, either test_access or all_access.",
-                        "required": "optional",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": true
+                        "example": "true"
                     },
                     "access_scope": {
                         "type": "string",
@@ -1081,9 +1095,6 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Versionable"
-                        },
                         "parent_resource": "V1::MembershipResource",
                         "class_name": "Version"
                     }
@@ -1118,6 +1129,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -1142,13 +1156,13 @@
                     "test_enabled": {
                         "type": "boolean",
                         "desc": "Reflects the organization's access scope, either test_access or all_access.",
-                        "required": "optional",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": true
+                        "example": "true"
                     },
                     "access_scope": {
                         "type": "string",
@@ -1285,6 +1299,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -1308,6 +1325,7 @@
                     "slug": {
                         "type": "string",
                         "desc": "The organization's slug name.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -1318,6 +1336,7 @@
                     "domain": {
                         "type": "string",
                         "desc": "The organization's domain.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -1418,6 +1437,7 @@
                     "can_switch_live": {
                         "type": "boolean",
                         "desc": "Indicates if the organization can switch to live mode.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -1428,6 +1448,7 @@
                     "subscription_info": {
                         "type": "object",
                         "desc": "Information about the current subscription such as the plan type, limits, and subscription totals counter.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -1888,6 +1909,17 @@
                         "sortable": false,
                         "example": "40"
                     },
+                    "gift_cards_auto_restore": {
+                        "type": "boolean",
+                        "default": true,
+                        "desc": "Enables automatic restoration of the gift card balance when an order is cancelled or reopened for editing, default is {GIFT_CARDS_AUTO_RESTORE}.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
                     "cleanups_max_concurrent_count": {
                         "type": "integer",
                         "default": 10,
@@ -2120,6 +2152,17 @@
                         "sortable": false,
                         "example": "false"
                     },
+                    "refunds_check_for_pending": {
+                        "type": "boolean",
+                        "default": false,
+                        "desc": "Enables blocking a new refund (or compensation) on a capture while an earlier async refund on the same capture is still unresolved.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
                     "id": {
                         "format": "id",
                         "type": "string",
@@ -2263,6 +2306,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -2434,9 +2480,6 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Versionable"
-                        },
                         "parent_resource": "V1::PermissionResource",
                         "class_name": "Version"
                     }
@@ -2471,6 +2514,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "list",
                     "retrieve"
@@ -2641,6 +2687,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -2664,6 +2713,7 @@
                     "kind": {
                         "type": "string",
                         "desc": "The kind of role, one of: `custom`, `admin`, `read_only`",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -2804,9 +2854,6 @@
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "conditions": {
-                            "include": "CoreMixins::Concerns::Versionable"
-                        },
                         "parent_resource": "V1::RoleResource",
                         "class_name": "Version"
                     }
@@ -2839,6 +2886,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "create",
                     "list",
@@ -3045,6 +3095,9 @@
             "attributes": {
                 "singleton": true,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "retrieve",
                     "update"
@@ -3065,7 +3118,7 @@
                     },
                     "first_name": {
                         "type": "string",
-                        "desc": "The user first name.",
+                        "desc": "The user first name. Maximum 100 characters. HTML is stripped.",
                         "required": "required",
                         "creatable": true,
                         "updatable": true,
@@ -3076,7 +3129,7 @@
                     },
                     "last_name": {
                         "type": "string",
-                        "desc": "The user last name.",
+                        "desc": "The user last name. Maximum 100 characters. HTML is stripped.",
                         "required": "required",
                         "creatable": true,
                         "updatable": true,
@@ -3098,12 +3151,13 @@
                     "otp_required_for_login": {
                         "type": "boolean",
                         "desc": "The user 2FA setting.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": true
+                        "example": "true"
                     },
                     "id": {
                         "format": "id",
@@ -3202,6 +3256,9 @@
             "attributes": {
                 "singleton": false,
                 "deprecated": false,
+                "versions": [
+                    "2026-05"
+                ],
                 "actions": [
                     "list",
                     "retrieve"
@@ -3211,6 +3268,7 @@
                 "fields": {
                     "item_type": {
                         "type": "string",
+                        "desc": "The type of the versioned resource.",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": false,
@@ -3221,6 +3279,7 @@
                     "resource_type": {
                         "type": "string",
                         "desc": "The type of the versioned resource.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -3231,6 +3290,7 @@
                     "resource_id": {
                         "type": "string",
                         "desc": "The versioned resource ID.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -3241,6 +3301,7 @@
                     "event": {
                         "type": "string",
                         "desc": "The event which generates the version.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -3281,22 +3342,35 @@
                     "changes": {
                         "type": "object",
                         "desc": "The object changes payload.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "{ \"name\": [\"previous\", \"new\"] }"
+                        "example": {
+                            "name": [
+                                "previous",
+                                "new"
+                            ]
+                        }
                     },
                     "who": {
                         "type": "object",
                         "desc": "Information about who triggered the change, only showed when it's from a JWT token.",
+                        "required": "required",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
                         "filterable": false,
                         "sortable": false,
-                        "example": "{ \"application\": { \"id\": \"DNOPYiZYpn\", \"kind\": \"integration\", \"public\": true }}"
+                        "example": {
+                            "application": {
+                                "id": "DNOPYiZYpn",
+                                "kind": "integration",
+                                "public": true
+                            }
+                        }
                     },
                     "id": {
                         "format": "id",

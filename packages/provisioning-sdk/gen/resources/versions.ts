@@ -19,27 +19,27 @@ interface Version extends Resource {
    * The type of the versioned resource.
    * @example ```"roles"```
    */
-  resource_type?: string | null
+  resource_type: string
   /**
    * The versioned resource ID.
    * @example ```"PzdJhdLdYV"```
    */
-  resource_id?: string | null
+  resource_id: string
   /**
    * The event which generates the version.
    * @example ```"update"```
    */
-  event?: string | null
+  event: string
   /**
    * The object changes payload.
    * @example ```{"name":["previous","new"]}```
    */
-  changes?: Record<string, any> | null
+  changes: Record<string, any>
   /**
    * Information about who triggered the change, only showed when it's from a JWT token.
    * @example ```{"application":{"id":"DNOPYiZYpn","kind":"integration","public":true}}```
    */
-  who?: Record<string, any> | null
+  who: Record<string, any>
 }
 
 class Versions extends ApiResource<Version> {

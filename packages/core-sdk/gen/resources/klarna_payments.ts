@@ -24,6 +24,7 @@ export type KlarnaPaymentSort = Pick<KlarnaPayment, 'id'> & ResourceSort
 /**
  * The Klarna payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/klarna_payments endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/klarna_payments/object
  */
 interface KlarnaPayment extends Resource {
@@ -83,6 +84,7 @@ interface KlarnaPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class KlarnaPayments extends ApiResource<KlarnaPayment> {
   static readonly TYPE: KlarnaPaymentType = 'klarna_payments' as const
 

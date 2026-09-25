@@ -331,4 +331,52 @@ describe('StripeGateways resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* trigger._check stop */
+
+  /* trigger._refresh_webhook_secrets start */
+  test(resourceType + '._refresh_webhook_secrets', async () => {
+    let triggerAttr = '_refresh_webhook_secrets'
+    if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+
+    const triggerValue = true
+    const attributes = { [triggerAttr]: triggerValue }
+    const id = TestData.id
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, id)
+      return interceptRequest()
+    })
+
+    await stripe_gateways
+      ._refresh_webhook_secrets(id, {}, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* trigger._refresh_webhook_secrets stop */
+
+  /* trigger._update_webhooks start */
+  test(resourceType + '._update_webhooks', async () => {
+    let triggerAttr = '_update_webhooks'
+    if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+
+    const triggerValue = true
+    const attributes = { [triggerAttr]: triggerValue }
+    const id = TestData.id
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, id)
+      return interceptRequest()
+    })
+
+    await stripe_gateways
+      ._update_webhooks(id, {}, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* trigger._update_webhooks stop */
 })

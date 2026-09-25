@@ -96,9 +96,39 @@ export { default as organization, type Organizations } from './resources/organiz
 export { default as packages, type Packages } from './resources/packages'
 export { default as parcel_line_items, type ParcelLineItems } from './resources/parcel_line_items'
 export { default as parcels, type Parcels } from './resources/parcels'
+export { default as payment_authorizations, type PaymentAuthorizations } from './resources/payment_authorizations'
+export { default as payment_captures, type PaymentCaptures } from './resources/payment_captures'
 export { default as payment_gateways, type PaymentGateways } from './resources/payment_gateways'
+export { default as payment_links, type PaymentLinks } from './resources/payment_links'
 export { default as payment_methods, type PaymentMethods } from './resources/payment_methods'
 export { default as payment_options, type PaymentOptions } from './resources/payment_options'
+export { default as payment_refunds, type PaymentRefunds } from './resources/payment_refunds'
+export { default as payment_rules, type PaymentRules } from './resources/payment_rules'
+export { default as payment_sessions, type PaymentSessions } from './resources/payment_sessions'
+export { default as payment_setting_adyens, type PaymentSettingAdyens } from './resources/payment_setting_adyens'
+export {
+  default as payment_setting_braintrees,
+  type PaymentSettingBraintrees,
+} from './resources/payment_setting_braintrees'
+export {
+  default as payment_setting_checkout_coms,
+  type PaymentSettingCheckoutComs,
+} from './resources/payment_setting_checkout_coms'
+export {
+  default as payment_setting_externals,
+  type PaymentSettingExternals,
+} from './resources/payment_setting_externals'
+export {
+  default as payment_setting_gift_cards,
+  type PaymentSettingGiftCards,
+} from './resources/payment_setting_gift_cards'
+export { default as payment_setting_manuals, type PaymentSettingManuals } from './resources/payment_setting_manuals'
+export { default as payment_setting_paypals, type PaymentSettingPaypals } from './resources/payment_setting_paypals'
+export { default as payment_setting_stripes, type PaymentSettingStripes } from './resources/payment_setting_stripes'
+export { default as payment_settings, type PaymentSettings } from './resources/payment_settings'
+export { default as payment_transactions, type PaymentTransactions } from './resources/payment_transactions'
+export { default as payment_voids, type PaymentVoids } from './resources/payment_voids'
+export { default as payment_wallets, type PaymentWallets } from './resources/payment_wallets'
 export { default as paypal_gateways, type PaypalGateways } from './resources/paypal_gateways'
 export { default as paypal_payments, type PaypalPayments } from './resources/paypal_payments'
 export {

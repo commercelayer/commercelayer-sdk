@@ -27,12 +27,12 @@ import type { Tag, TagType } from './tags'
 type FreeGiftPromotionType = 'free_gift_promotions'
 type FreeGiftPromotionRel = ResourceRel & { type: FreeGiftPromotionType }
 type MarketRel = ResourceRel & { type: MarketType }
+type SkuListRel = ResourceRel & { type: SkuListType }
+type TagRel = ResourceRel & { type: TagType }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
-type SkuListRel = ResourceRel & { type: SkuListType }
-type TagRel = ResourceRel & { type: TagType }
 
 export type FreeGiftPromotionSort = Pick<
   FreeGiftPromotion,
@@ -202,10 +202,6 @@ interface FreeGiftPromotionCreate extends ResourceCreate {
   max_quantity?: number | null
 
   market?: MarketRel | null
-  order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
-  sku_list_promotion_rule?: SkuListPromotionRuleRel | null
-  coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
-  custom_promotion_rule?: CustomPromotionRuleRel | null
   sku_list: SkuListRel
   tags?: TagRel[] | null
 }

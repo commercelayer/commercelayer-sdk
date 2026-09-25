@@ -24,6 +24,7 @@ export type StripePaymentSort = Pick<StripePayment, 'id'> & ResourceSort
 /**
  * The Stripe payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stripe_payments endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/stripe_payments/object
  */
 interface StripePayment extends Resource {
@@ -154,6 +155,7 @@ interface StripePaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class StripePayments extends ApiResource<StripePayment> {
   static readonly TYPE: StripePaymentType = 'stripe_payments' as const
 

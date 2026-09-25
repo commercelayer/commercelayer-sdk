@@ -39,12 +39,12 @@ interface Organization extends Resource {
    * The organization's slug name.
    * @example ```"the-blue-brand"```
    */
-  slug?: string | null
+  slug: string
   /**
    * The organization's domain.
    * @example ```"the-blue-brand.commercelayer.io"```
    */
-  domain?: string | null
+  domain: string
   /**
    * The organization's support phone.
    * @example ```"+01 30800857"```
@@ -93,12 +93,12 @@ interface Organization extends Resource {
   /**
    * Indicates if the organization can switch to live mode.
    */
-  can_switch_live?: boolean | null
+  can_switch_live: boolean
   /**
    * Information about the current subscription such as the plan type, limits, and subscription totals counter.
    * @example ```{"plan_type":"growth","limits":{"markets":5,"skus":10000,"organizations":2,"memberships":5},"totals":{"organizations":1,"markets":0,"memberships":2,"skus":0}}```
    */
-  subscription_info?: Record<string, any> | null
+  subscription_info: Record<string, any>
   /**
    * The organization's configuration.
    * @example ```{"mfe":{"language":"it-IT","default":{"links":{"cart":"https://cart.example.com/:order_id?accessToken=:access_token","checkout":"https://checkout.example.com/:order_id?accessToken=:access_token","identity":"https://example.com/login","microstore":"https://example.com/microstore/?accessToken=:access_token","my_account":"https://example.com/my-custom-account?accessToken=:access_token"},"checkout":{"optional_billing_info":false,"thankyou_page":"https://example.com/thanks/:lang/:order_id","billing_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"shipping_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"billing_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"shipping_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"default_country":"US"},"urls":{"privacy":"https://example.com/privacy/:lang","terms":"https://example.com/terms/:lang"}},"market:id:ZKcv13rT":{"links":{"cart":"https://example.com/custom-cart/:order_id?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:order_id"}}},"well-known":{"shopping":{"catalog_mcp_url":"https://catalog-mcp.example.com/mcp","client_id":"abc123example","locale_scopes":{"it-IT":{"id":"ZKcv13rT"},"en-US":{"id":"ZKcv13rT"}},"ui":{"domain":"","csp":{"resourceDomains":["https://data.commercelayer.app","https://cdn.brand.com"],"baseUriDomains":[],"connectDomains":[],"frameDomains":[]}}}}}```
@@ -231,6 +231,11 @@ interface Organization extends Resource {
    */
   gift_cards_max_code_length?: number | null
   /**
+   * Enables automatic restoration of the gift card balance when an order is cancelled or reopened for editing, default is {GIFT_CARDS_AUTO_RESTORE}.
+   * @example ```true```
+   */
+  gift_cards_auto_restore?: boolean | null
+  /**
    * The maximum number of concurrent cleanups allowed for your organization, default is {CLEANUPS_MAX_CONCURRENT_COUNT}.
    * @example ```10```
    */
@@ -328,6 +333,10 @@ interface Organization extends Resource {
    * Enables the creation of the authorization when the gateway event is received, even if there is no reference on Commerce Layer.
    */
   payment_gateways_transaction_on_event?: boolean | null
+  /**
+   * Enables blocking a new refund (or compensation) on a capture while an earlier async refund on the same capture is still unresolved.
+   */
+  refunds_check_for_pending?: boolean | null
 
   memberships?: Membership[] | null
   roles?: Role[] | null

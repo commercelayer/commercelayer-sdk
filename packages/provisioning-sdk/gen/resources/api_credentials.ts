@@ -43,7 +43,7 @@ interface ApiCredential extends Resource {
    * Indicates if the API credential it's confidential.
    * @example ```true```
    */
-  confidential?: boolean | null
+  confidential: boolean
   /**
    * The API credential redirect URI.
    * @example ```"https://bluebrand.com/img/logo.svg"```
@@ -53,17 +53,17 @@ interface ApiCredential extends Resource {
    * The API credential unique ID.
    * @example ```"xxxx-yyyy-zzzz"```
    */
-  client_id?: string | null
+  client_id: string
   /**
    * The API credential unique secret.
    * @example ```"xxxx-yyyy-zzzz"```
    */
-  client_secret?: string | null
+  client_secret: string
   /**
    * The API credential scopes.
    * @example ```"market:all market:9 market:122 market:6 stock_location:6 stock_location:33"```
    */
-  scopes?: string | null
+  scopes: string
   /**
    * The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).
    * @example ```7200```

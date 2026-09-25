@@ -21,7 +21,7 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
-import { coupon_codes_promotion_rules, flex_promotions, tags } from '../api'
+import { flex_promotions, tags } from '../api'
 import type { FlexPromotion } from '../model'
 
 let cl: CommerceLayerSingleClient
@@ -41,7 +41,6 @@ describe('FlexPromotions resource', () => {
       starts_at: randomValue('string', 'starts_at'),
       expires_at: randomValue('string', 'expires_at'),
       rules: randomValue('object', 'rules'),
-      coupon_codes_promotion_rule: coupon_codes_promotion_rules.relationship(TestData.id),
       tags: [tags.relationship(TestData.id)],
     }
 

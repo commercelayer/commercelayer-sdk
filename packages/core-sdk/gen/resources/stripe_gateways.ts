@@ -23,6 +23,7 @@ export type StripeGatewaySort = Pick<StripeGateway, 'id' | 'name' | 'disabled_at
 /**
  * The Stripe gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stripe_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/stripe_gateways/object
  */
 interface StripeGateway extends Resource {
@@ -163,8 +164,19 @@ interface StripeGatewayUpdate extends ResourceUpdate {
    * @example ```true```
    */
   auto_payments?: boolean | null
+  /**
+   * Send this attribute if you want to refresh the gateway webhook endpoint ID and secret.
+   * @example ```true```
+   */
+  _refresh_webhook_secrets?: boolean | null
+  /**
+   * Send this attribute if you want to sync the gateway webhook endpoint subscribed event topics.
+   * @example ```true```
+   */
+  _update_webhooks?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class StripeGateways extends ApiResource<StripeGateway> {
   static readonly TYPE: StripeGatewayType = 'stripe_gateways' as const
 
@@ -269,6 +281,30 @@ class StripeGateways extends ApiResource<StripeGateway> {
   ): Promise<StripeGateway> {
     return this.resources.update<StripeGatewayUpdate, StripeGateway>(
       { id: typeof id === 'string' ? id : id.id, type: StripeGateways.TYPE, _check: true },
+      params,
+      options,
+    )
+  }
+
+  async _refresh_webhook_secrets(
+    id: string | StripeGateway,
+    params?: QueryParamsRetrieve<StripeGateway>,
+    options?: ResourcesConfig,
+  ): Promise<StripeGateway> {
+    return this.resources.update<StripeGatewayUpdate, StripeGateway>(
+      { id: typeof id === 'string' ? id : id.id, type: StripeGateways.TYPE, _refresh_webhook_secrets: true },
+      params,
+      options,
+    )
+  }
+
+  async _update_webhooks(
+    id: string | StripeGateway,
+    params?: QueryParamsRetrieve<StripeGateway>,
+    options?: ResourcesConfig,
+  ): Promise<StripeGateway> {
+    return this.resources.update<StripeGatewayUpdate, StripeGateway>(
+      { id: typeof id === 'string' ? id : id.id, type: StripeGateways.TYPE, _update_webhooks: true },
       params,
       options,
     )
