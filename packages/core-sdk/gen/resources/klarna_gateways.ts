@@ -24,6 +24,7 @@ export type KlarnaGatewaySort = Pick<KlarnaGateway, 'id' | 'name' | 'disabled_at
 /**
  * The Klarna gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/klarna_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/klarna_gateways/object
  */
 interface KlarnaGateway extends Resource {
@@ -135,6 +136,7 @@ interface KlarnaGatewayUpdate extends ResourceUpdate {
   klarna_payments?: KlarnaPaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class KlarnaGateways extends ApiResource<KlarnaGateway> {
   static readonly TYPE: KlarnaGatewayType = 'klarna_gateways' as const
 

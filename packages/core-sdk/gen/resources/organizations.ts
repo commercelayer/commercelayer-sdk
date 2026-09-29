@@ -207,6 +207,11 @@ interface Organization extends Resource {
    */
   gift_cards_max_code_length?: number | null
   /**
+   * Enables automatic restoration of the gift card balance when an order is cancelled or reopened for editing, default is true.
+   * @example ```true```
+   */
+  gift_cards_auto_restore?: boolean | null
+  /**
    * The maximum number of concurrent cleanups allowed for your organization, default is 10.
    * @example ```10```
    */
@@ -304,6 +309,10 @@ interface Organization extends Resource {
    * Enables the creation of the authorization when the gateway event is received, even if there is no reference on Commerce Layer.
    */
   payment_gateways_transaction_on_event?: boolean | null
+  /**
+   * Enables blocking a new refund (or compensation) on a capture while an earlier async refund on the same capture is still unresolved.
+   */
+  refunds_check_for_pending?: boolean | null
 
   event_stores?: EventStore[] | null
 }

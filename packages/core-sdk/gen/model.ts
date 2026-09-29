@@ -7,6 +7,13 @@ export type { Address, AddressCreate, AddressSort, AddressUpdate } from './resou
 export type { Adjustment, AdjustmentCreate, AdjustmentSort, AdjustmentUpdate } from './resources/adjustments'
 export type { AdyenGateway, AdyenGatewayCreate, AdyenGatewaySort, AdyenGatewayUpdate } from './resources/adyen_gateways'
 export type { AdyenPayment, AdyenPaymentCreate, AdyenPaymentSort, AdyenPaymentUpdate } from './resources/adyen_payments'
+export type { Agent, AgentCreate, AgentSort, AgentUpdate } from './resources/agents'
+export type {
+  AgreementIdentity,
+  AgreementIdentitySort,
+  AgreementIdentityUpdate,
+} from './resources/agreement_identities'
+export type { Agreement, AgreementSort } from './resources/agreements'
 export type { Application, ApplicationSort } from './resources/applications'
 export type { Attachment, AttachmentCreate, AttachmentSort, AttachmentUpdate } from './resources/attachments'
 export type { Authorization, AuthorizationSort, AuthorizationUpdate } from './resources/authorizations'
@@ -217,6 +224,8 @@ export type {
   InStockSubscriptionSort,
   InStockSubscriptionUpdate,
 } from './resources/in_stock_subscriptions'
+export type { InboundEmail, InboundEmailSort } from './resources/inbound_emails'
+export type { InboundMessage, InboundMessageSort } from './resources/inbound_messages'
 export type {
   InventoryModel,
   InventoryModelCreate,
@@ -278,6 +287,7 @@ export type {
 } from './resources/order_amount_promotion_rules'
 export type { OrderCopy, OrderCopyCreate, OrderCopySort, OrderCopyUpdate } from './resources/order_copies'
 export type { OrderFactory, OrderFactorySort } from './resources/order_factories'
+export type { OrderReview, OrderReviewCreate, OrderReviewSort, OrderReviewUpdate } from './resources/order_reviews'
 export type {
   OrderSubscriptionItem,
   OrderSubscriptionItemCreate,
@@ -301,7 +311,20 @@ export type {
   ParcelLineItemUpdate,
 } from './resources/parcel_line_items'
 export type { Parcel, ParcelCreate, ParcelSort, ParcelUpdate } from './resources/parcels'
+export type {
+  PaymentAuthorization,
+  PaymentAuthorizationCreate,
+  PaymentAuthorizationSort,
+  PaymentAuthorizationUpdate,
+} from './resources/payment_authorizations'
+export type {
+  PaymentCapture,
+  PaymentCaptureCreate,
+  PaymentCaptureSort,
+  PaymentCaptureUpdate,
+} from './resources/payment_captures'
 export type { PaymentGateway, PaymentGatewaySort } from './resources/payment_gateways'
+export type { PaymentLink, PaymentLinkCreate, PaymentLinkSort, PaymentLinkUpdate } from './resources/payment_links'
 export type {
   PaymentMethod,
   PaymentMethodCreate,
@@ -314,6 +337,76 @@ export type {
   PaymentOptionSort,
   PaymentOptionUpdate,
 } from './resources/payment_options'
+export type {
+  PaymentRefund,
+  PaymentRefundCreate,
+  PaymentRefundSort,
+  PaymentRefundUpdate,
+} from './resources/payment_refunds'
+export type { PaymentRule, PaymentRuleCreate, PaymentRuleSort, PaymentRuleUpdate } from './resources/payment_rules'
+export type {
+  PaymentSession,
+  PaymentSessionCreate,
+  PaymentSessionSort,
+  PaymentSessionUpdate,
+} from './resources/payment_sessions'
+export type {
+  PaymentSettingAdyen,
+  PaymentSettingAdyenCreate,
+  PaymentSettingAdyenSort,
+  PaymentSettingAdyenUpdate,
+} from './resources/payment_setting_adyens'
+export type {
+  PaymentSettingBraintree,
+  PaymentSettingBraintreeCreate,
+  PaymentSettingBraintreeSort,
+  PaymentSettingBraintreeUpdate,
+} from './resources/payment_setting_braintrees'
+export type {
+  PaymentSettingCheckoutCom,
+  PaymentSettingCheckoutComCreate,
+  PaymentSettingCheckoutComSort,
+  PaymentSettingCheckoutComUpdate,
+} from './resources/payment_setting_checkout_coms'
+export type {
+  PaymentSettingExternal,
+  PaymentSettingExternalCreate,
+  PaymentSettingExternalSort,
+  PaymentSettingExternalUpdate,
+} from './resources/payment_setting_externals'
+export type {
+  PaymentSettingGiftCard,
+  PaymentSettingGiftCardCreate,
+  PaymentSettingGiftCardSort,
+  PaymentSettingGiftCardUpdate,
+} from './resources/payment_setting_gift_cards'
+export type {
+  PaymentSettingManual,
+  PaymentSettingManualCreate,
+  PaymentSettingManualSort,
+  PaymentSettingManualUpdate,
+} from './resources/payment_setting_manuals'
+export type {
+  PaymentSettingPaypal,
+  PaymentSettingPaypalCreate,
+  PaymentSettingPaypalSort,
+  PaymentSettingPaypalUpdate,
+} from './resources/payment_setting_paypals'
+export type {
+  PaymentSettingStripe,
+  PaymentSettingStripeCreate,
+  PaymentSettingStripeSort,
+  PaymentSettingStripeUpdate,
+} from './resources/payment_setting_stripes'
+export type { PaymentSetting, PaymentSettingSort } from './resources/payment_settings'
+export type { PaymentTransaction, PaymentTransactionSort } from './resources/payment_transactions'
+export type { PaymentVoid, PaymentVoidCreate, PaymentVoidSort, PaymentVoidUpdate } from './resources/payment_voids'
+export type {
+  PaymentWallet,
+  PaymentWalletCreate,
+  PaymentWalletSort,
+  PaymentWalletUpdate,
+} from './resources/payment_wallets'
 export type {
   PaypalGateway,
   PaypalGatewayCreate,
@@ -483,6 +576,7 @@ export type {
   TaxjarAccountUpdate,
 } from './resources/taxjar_accounts'
 export type { Transaction, TransactionSort } from './resources/transactions'
+export type { User, UserSort } from './resources/users'
 export type {
   VertexAccount,
   VertexAccountCreate,

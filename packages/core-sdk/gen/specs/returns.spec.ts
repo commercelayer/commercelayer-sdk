@@ -21,7 +21,7 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
-import { captures, orders, returns, stock_locations, tags } from '../api'
+import { orders, returns, stock_locations, tags } from '../api'
 import type { Return } from '../model'
 
 let cl: CommerceLayerSingleClient
@@ -39,7 +39,6 @@ describe('Returns resource', () => {
     const createAttributes = {
       order: orders.relationship(TestData.id),
       stock_location: stock_locations.relationship(TestData.id),
-      reference_capture: captures.relationship(TestData.id),
       tags: [tags.relationship(TestData.id)],
     }
 
@@ -356,6 +355,25 @@ describe('Returns resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* relationship.return_line_items stop */
+
+  /* relationship.payment_refunds start */
+  test(resourceType + '.payment_refunds', async () => {
+    const id = TestData.id
+    const params = { fields: { payment_refunds: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'payment_refunds')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await returns
+      .payment_refunds(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.payment_refunds stop */
 
   /* relationship.attachments start */
   test(resourceType + '.attachments', async () => {

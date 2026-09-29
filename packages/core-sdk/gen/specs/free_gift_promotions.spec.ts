@@ -21,16 +21,7 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
-import {
-  coupon_codes_promotion_rules,
-  custom_promotion_rules,
-  free_gift_promotions,
-  markets,
-  order_amount_promotion_rules,
-  sku_list_promotion_rules,
-  sku_lists,
-  tags,
-} from '../api'
+import { free_gift_promotions, markets, sku_lists, tags } from '../api'
 import type { FreeGiftPromotion } from '../model'
 
 let cl: CommerceLayerSingleClient
@@ -50,10 +41,6 @@ describe('FreeGiftPromotions resource', () => {
       starts_at: randomValue('string', 'starts_at'),
       expires_at: randomValue('string', 'expires_at'),
       market: markets.relationship(TestData.id),
-      order_amount_promotion_rule: order_amount_promotion_rules.relationship(TestData.id),
-      sku_list_promotion_rule: sku_list_promotion_rules.relationship(TestData.id),
-      coupon_codes_promotion_rule: coupon_codes_promotion_rules.relationship(TestData.id),
-      custom_promotion_rule: custom_promotion_rules.relationship(TestData.id),
       sku_list: sku_lists.relationship(TestData.id),
       tags: [tags.relationship(TestData.id)],
     }

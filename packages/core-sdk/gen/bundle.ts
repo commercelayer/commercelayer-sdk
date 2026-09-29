@@ -12,6 +12,9 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #adjustments?: api.Adjustments
   #adyen_gateways?: api.AdyenGateways
   #adyen_payments?: api.AdyenPayments
+  #agents?: api.Agents
+  #agreements?: api.Agreements
+  #agreement_identities?: api.AgreementIdentities
   #application?: api.Applications
   #attachments?: api.Attachments
   #authorizations?: api.Authorizations
@@ -62,6 +65,8 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #google_geocoders?: api.GoogleGeocoders
   #imports?: api.Imports
   #in_stock_subscriptions?: api.InStockSubscriptions
+  #inbound_emails?: api.InboundEmails
+  #inbound_messages?: api.InboundMessages
   #inventory_models?: api.InventoryModels
   #inventory_return_locations?: api.InventoryReturnLocations
   #inventory_stock_locations?: api.InventoryStockLocations
@@ -79,6 +84,7 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #order_amount_promotion_rules?: api.OrderAmountPromotionRules
   #order_copies?: api.OrderCopies
   #order_factories?: api.OrderFactories
+  #order_reviews?: api.OrderReviews
   #order_subscriptions?: api.OrderSubscriptions
   #order_subscription_items?: api.OrderSubscriptionItems
   #order_validation_rules?: api.OrderValidationRules
@@ -86,9 +92,27 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #packages?: api.Packages
   #parcels?: api.Parcels
   #parcel_line_items?: api.ParcelLineItems
+  #payment_authorizations?: api.PaymentAuthorizations
+  #payment_captures?: api.PaymentCaptures
   #payment_gateways?: api.PaymentGateways
+  #payment_links?: api.PaymentLinks
   #payment_methods?: api.PaymentMethods
   #payment_options?: api.PaymentOptions
+  #payment_refunds?: api.PaymentRefunds
+  #payment_rules?: api.PaymentRules
+  #payment_sessions?: api.PaymentSessions
+  #payment_settings?: api.PaymentSettings
+  #payment_setting_adyens?: api.PaymentSettingAdyens
+  #payment_setting_braintrees?: api.PaymentSettingBraintrees
+  #payment_setting_checkout_coms?: api.PaymentSettingCheckoutComs
+  #payment_setting_externals?: api.PaymentSettingExternals
+  #payment_setting_gift_cards?: api.PaymentSettingGiftCards
+  #payment_setting_manuals?: api.PaymentSettingManuals
+  #payment_setting_paypals?: api.PaymentSettingPaypals
+  #payment_setting_stripes?: api.PaymentSettingStripes
+  #payment_transactions?: api.PaymentTransactions
+  #payment_voids?: api.PaymentVoids
+  #payment_wallets?: api.PaymentWallets
   #paypal_gateways?: api.PaypalGateways
   #paypal_payments?: api.PaypalPayments
   #percentage_discount_promotions?: api.PercentageDiscountPromotions
@@ -138,6 +162,7 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #tax_rules?: api.TaxRules
   #taxjar_accounts?: api.TaxjarAccounts
   #transactions?: api.Transactions
+  #users?: api.Users
   #vertex_accounts?: api.VertexAccounts
   #voids?: api.Voids
   #webhooks?: api.Webhooks
@@ -179,6 +204,17 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   }
   get adyen_payments(): api.AdyenPayments {
     return this.#adyen_payments || (this.#adyen_payments = api.adyen_payments.withAdapter(this.adapter))
+  }
+  get agents(): api.Agents {
+    return this.#agents || (this.#agents = api.agents.withAdapter(this.adapter))
+  }
+  get agreements(): api.Agreements {
+    return this.#agreements || (this.#agreements = api.agreements.withAdapter(this.adapter))
+  }
+  get agreement_identities(): api.AgreementIdentities {
+    return (
+      this.#agreement_identities || (this.#agreement_identities = api.agreement_identities.withAdapter(this.adapter))
+    )
   }
   get application(): api.Applications {
     return this.#application || (this.#application = api.application.withAdapter(this.adapter))
@@ -376,6 +412,12 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
       (this.#in_stock_subscriptions = api.in_stock_subscriptions.withAdapter(this.adapter))
     )
   }
+  get inbound_emails(): api.InboundEmails {
+    return this.#inbound_emails || (this.#inbound_emails = api.inbound_emails.withAdapter(this.adapter))
+  }
+  get inbound_messages(): api.InboundMessages {
+    return this.#inbound_messages || (this.#inbound_messages = api.inbound_messages.withAdapter(this.adapter))
+  }
   get inventory_models(): api.InventoryModels {
     return this.#inventory_models || (this.#inventory_models = api.inventory_models.withAdapter(this.adapter))
   }
@@ -439,6 +481,9 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   get order_factories(): api.OrderFactories {
     return this.#order_factories || (this.#order_factories = api.order_factories.withAdapter(this.adapter))
   }
+  get order_reviews(): api.OrderReviews {
+    return this.#order_reviews || (this.#order_reviews = api.order_reviews.withAdapter(this.adapter))
+  }
   get order_subscriptions(): api.OrderSubscriptions {
     return this.#order_subscriptions || (this.#order_subscriptions = api.order_subscriptions.withAdapter(this.adapter))
   }
@@ -466,14 +511,97 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   get parcel_line_items(): api.ParcelLineItems {
     return this.#parcel_line_items || (this.#parcel_line_items = api.parcel_line_items.withAdapter(this.adapter))
   }
+  get payment_authorizations(): api.PaymentAuthorizations {
+    return (
+      this.#payment_authorizations ||
+      (this.#payment_authorizations = api.payment_authorizations.withAdapter(this.adapter))
+    )
+  }
+  get payment_captures(): api.PaymentCaptures {
+    return this.#payment_captures || (this.#payment_captures = api.payment_captures.withAdapter(this.adapter))
+  }
   get payment_gateways(): api.PaymentGateways {
     return this.#payment_gateways || (this.#payment_gateways = api.payment_gateways.withAdapter(this.adapter))
+  }
+  get payment_links(): api.PaymentLinks {
+    return this.#payment_links || (this.#payment_links = api.payment_links.withAdapter(this.adapter))
   }
   get payment_methods(): api.PaymentMethods {
     return this.#payment_methods || (this.#payment_methods = api.payment_methods.withAdapter(this.adapter))
   }
   get payment_options(): api.PaymentOptions {
     return this.#payment_options || (this.#payment_options = api.payment_options.withAdapter(this.adapter))
+  }
+  get payment_refunds(): api.PaymentRefunds {
+    return this.#payment_refunds || (this.#payment_refunds = api.payment_refunds.withAdapter(this.adapter))
+  }
+  get payment_rules(): api.PaymentRules {
+    return this.#payment_rules || (this.#payment_rules = api.payment_rules.withAdapter(this.adapter))
+  }
+  get payment_sessions(): api.PaymentSessions {
+    return this.#payment_sessions || (this.#payment_sessions = api.payment_sessions.withAdapter(this.adapter))
+  }
+  get payment_settings(): api.PaymentSettings {
+    return this.#payment_settings || (this.#payment_settings = api.payment_settings.withAdapter(this.adapter))
+  }
+  get payment_setting_adyens(): api.PaymentSettingAdyens {
+    return (
+      this.#payment_setting_adyens ||
+      (this.#payment_setting_adyens = api.payment_setting_adyens.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_braintrees(): api.PaymentSettingBraintrees {
+    return (
+      this.#payment_setting_braintrees ||
+      (this.#payment_setting_braintrees = api.payment_setting_braintrees.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_checkout_coms(): api.PaymentSettingCheckoutComs {
+    return (
+      this.#payment_setting_checkout_coms ||
+      (this.#payment_setting_checkout_coms = api.payment_setting_checkout_coms.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_externals(): api.PaymentSettingExternals {
+    return (
+      this.#payment_setting_externals ||
+      (this.#payment_setting_externals = api.payment_setting_externals.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_gift_cards(): api.PaymentSettingGiftCards {
+    return (
+      this.#payment_setting_gift_cards ||
+      (this.#payment_setting_gift_cards = api.payment_setting_gift_cards.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_manuals(): api.PaymentSettingManuals {
+    return (
+      this.#payment_setting_manuals ||
+      (this.#payment_setting_manuals = api.payment_setting_manuals.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_paypals(): api.PaymentSettingPaypals {
+    return (
+      this.#payment_setting_paypals ||
+      (this.#payment_setting_paypals = api.payment_setting_paypals.withAdapter(this.adapter))
+    )
+  }
+  get payment_setting_stripes(): api.PaymentSettingStripes {
+    return (
+      this.#payment_setting_stripes ||
+      (this.#payment_setting_stripes = api.payment_setting_stripes.withAdapter(this.adapter))
+    )
+  }
+  get payment_transactions(): api.PaymentTransactions {
+    return (
+      this.#payment_transactions || (this.#payment_transactions = api.payment_transactions.withAdapter(this.adapter))
+    )
+  }
+  get payment_voids(): api.PaymentVoids {
+    return this.#payment_voids || (this.#payment_voids = api.payment_voids.withAdapter(this.adapter))
+  }
+  get payment_wallets(): api.PaymentWallets {
+    return this.#payment_wallets || (this.#payment_wallets = api.payment_wallets.withAdapter(this.adapter))
   }
   get paypal_gateways(): api.PaypalGateways {
     return this.#paypal_gateways || (this.#paypal_gateways = api.paypal_gateways.withAdapter(this.adapter))
@@ -638,6 +766,9 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   }
   get transactions(): api.Transactions {
     return this.#transactions || (this.#transactions = api.transactions.withAdapter(this.adapter))
+  }
+  get users(): api.Users {
+    return this.#users || (this.#users = api.users.withAdapter(this.adapter))
   }
   get vertex_accounts(): api.VertexAccounts {
     return this.#vertex_accounts || (this.#vertex_accounts = api.vertex_accounts.withAdapter(this.adapter))

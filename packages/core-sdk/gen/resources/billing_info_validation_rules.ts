@@ -24,7 +24,7 @@ export type BillingInfoValidationRuleSort = Pick<BillingInfoValidationRule, 'id'
 /**
  * The Billing info validation rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/billing_info_validation_rules endpoint.
  *
- * @deprecated
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/billing_info_validation_rules/object
  */
 interface BillingInfoValidationRule extends Resource {
@@ -43,7 +43,7 @@ interface BillingInfoValidationRuleUpdate extends ResourceUpdate {
   market?: MarketRel | null
 }
 
-/** @deprecated */
+/** @deprecated Last available in API version 2017-08. */
 class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> {
   static readonly TYPE: BillingInfoValidationRuleType = 'billing_info_validation_rules' as const
 
