@@ -3,6 +3,7 @@ import type { RequestObj } from '@runtime/interceptor'
 import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
 import type { Resource } from '@runtime/resource'
 import dotenv from 'dotenv'
+import { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 // The bundle client factory, as consumers get it. Initialising through it also
 // primes the process-global adapter the generated specs' resource instances use.
 import CommerceLayerProvisioning from '../gen/bundle'
@@ -22,7 +23,7 @@ const API_PATH_PREFIX = '/api'
 
 dotenv.config()
 
-export const GLOBAL_TIMEOUT = 15000
+export { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 
 const organization = process.env.CL_PROVISIONING_SDK_ORGANIZATION as string
 const domain = process.env.CL_PROVISIONING_SDK_DOMAIN as string

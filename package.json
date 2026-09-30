@@ -11,7 +11,7 @@
     "test": "pnpm -r test",
     "ts:check": "pnpm --stream -r ts:check",
     "generate": "pnpm -r generate",
-    "clean": "pnpm -r clean",
+    "clean": "pnpm dlx rimraf --glob **/node_modules **/pnpm-lock.yaml",
     "lint": "biome check --enforce-assist=true",
     "check": "biome check --enforce-assist=true --write",
     "release": "pnpm upgrade && pnpm lint && pnpm build && pnpm test",
@@ -20,11 +20,11 @@
     "dep:major": "pnpm dlx npm-check-updates --packageFile '**/package.json' -u",
     "dep:semver": "pnpm dlx npm-check-updates -t semver --packageFile '**/package.json' -u",
     "verify:surface": "node scripts/compare-public-surface.mjs",
-    "prerelease:check": "pnpm -r build && pnpm -r verify:pack && node scripts/compare-public-surface.mjs packages/core-sdk"
+    "prerelease:check": "pnpm -r build && pnpm -r verify:pack && node scripts/compare-public-surface.mjs packages/core-sdk",
+    "lerna": "pnpm dlx --allow-build=nx lerna@10.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.2",
-    "lerna": "^10.0.1"
+    "@biomejs/biome": "^2.5.14"
   },
   "engines": {
     "node": ">=20"

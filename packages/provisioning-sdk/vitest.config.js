@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitest/config'
-import { GLOBAL_TIMEOUT } from './test/common'
+import { GLOBAL_TIMEOUT } from '../sdk-runtime/test/timeout'
 
 export default defineConfig({
   resolve: {

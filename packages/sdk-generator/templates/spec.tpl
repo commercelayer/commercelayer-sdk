@@ -9,7 +9,6 @@ import type { ##__CLIENT_BASE__## } from '../../src/commercelayer'
 import type { ##__RESOURCE_MODEL__## } from '../model'
 import { ##__IMPORT_INSTANCES__## } from '../api'
 import { isDeepStrictEqual } from 'node:util'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
 
