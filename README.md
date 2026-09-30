@@ -53,13 +53,35 @@ pnpm -r generate-local
 
 Versioning is independent: each package releases on its own cadence, so each owns a tag namespace matching its directory name — `core-sdk-v8.0.0`, `provisioning-sdk-v3.0.0`.
 
+### 1. Choose the versions
+
 ```shell
 pnpm release:version
 ```
 
-This prompts for each package's new version, commits the bumps and creates the tags. Pushing a tag drafts a GitHub release; nothing reaches npm until someone publishes that draft. Publishing to npm uses OIDC trusted publishing, so every version carries provenance and no long-lived token exists.
+Prompts for each package's new version, then commits the bumps and creates the tags. Private packages are left at their existing version, and the commit contains nothing but the published packages' manifests. Nothing is pushed.
 
-Release notes are generated from pull request titles, grouped by label. Each package has its own notes configuration, and the `core-sdk` / `provisioning-sdk` labels are applied automatically from the paths a pull request touches. A change to the runtime or the generator is labelled for both, since it affects both SDKs.
+### 2. Push the branch and the tags
+
+```shell
+git push origin HEAD
+git push origin core-sdk-v<version> provisioning-sdk-v<version>
+```
+
+The exact tag names are printed by the previous step. Pushing a tag drafts a GitHub release — it does **not** publish anything.
+
+### 3. Publish a draft
+
+Review the generated notes on the draft release and publish it. That is the only irreversible step, and it is deliberately a human one.
+
+Publishing a draft runs the build, packaging checks and both test suites, then publishes to npm with OIDC trusted publishing — every version carries provenance, and no long-lived token exists.
+
+> [!IMPORTANT]
+> Publishing **either** draft publishes **both** packages: the publish step releases every package whose version is missing from the registry, not just the one whose draft you published. Publish one draft per batch. If a publish fails part-way it is safe to re-run, because anything already on the registry is skipped — but wait until the first version is visible on npm, since a version still in npm's automated review looks unpublished and will be retried.
+
+### Release notes
+
+Notes are generated from pull request titles, grouped by label. Each package has its own notes configuration, and the `core-sdk` / `provisioning-sdk` labels are applied automatically from the paths a pull request touches. A change to the runtime or the generator is labelled for both, since it affects both SDKs.
 
 ## Contributing
 
