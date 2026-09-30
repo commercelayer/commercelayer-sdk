@@ -7,3 +7,5 @@ allowBuilds:
 onlyBuiltDependencies:
   - esbuild
   - nx
+overrides:
+  "esbuild": "^0.28.2"

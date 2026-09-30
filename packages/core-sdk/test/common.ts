@@ -1,5 +1,6 @@
 import { inspect, isDeepStrictEqual } from 'node:util'
 import dotenv from 'dotenv'
+import { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
 import {
   CommerceLayer,
@@ -21,7 +22,7 @@ const API_PATH_PREFIX = '/api'
 
 dotenv.config()
 
-export const GLOBAL_TIMEOUT = 15000
+export { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 
 const organization = process.env.CL_SDK_ORGANIZATION as string
 const domain = process.env.CL_SDK_DOMAIN as string

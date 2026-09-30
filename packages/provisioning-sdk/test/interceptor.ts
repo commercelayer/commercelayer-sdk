@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import commercelayer, { customers, type ErrorObj, type RequestObj, type ResponseObj } from '../src'
 import getToken from './token'
 

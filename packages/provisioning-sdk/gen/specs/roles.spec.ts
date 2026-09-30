@@ -7,7 +7,6 @@
 import { isDeepStrictEqual } from 'node:util'
 import { beforeAll, describe, expect, test } from 'vitest'
 import type { CommerceLayerProvisioningBaseClient } from '../../src/commercelayer'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   CommonData,
   checkCommon,
