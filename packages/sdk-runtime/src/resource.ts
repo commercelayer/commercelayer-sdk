@@ -29,9 +29,25 @@ interface ResourceBase {
   metadata?: Metadata
 }
 
+/**
+ * The JSON:API `meta` member of a resource object — server-supplied facts about
+ * the resource rather than fields of it. Not to be confused with `metadata`,
+ * which is a user-writable attribute.
+ *
+ * Distinct from the document-level `meta` of a list response, which is what
+ * `ListMeta` reflects.
+ */
+type ResourceMeta = {
+  /** The API version the resource was created with, when the API reports it. */
+  readonly created_with_version?: string
+  readonly [key: string]: unknown
+}
+
 interface Resource extends ResourceBase, ResourceId {
   readonly created_at: string
   readonly updated_at: string
+  /** Present only when the API returns a `meta` member for this resource. */
+  readonly meta?: ResourceMeta
 }
 
 interface ResourceCreate extends ResourceBase {}
@@ -175,6 +191,7 @@ export type {
   Resource,
   ResourceCreate,
   ResourceId,
+  ResourceMeta,
   ResourceRel,
   ResourceType,
   ResourceUpdate,
