@@ -44,7 +44,7 @@ interface StockItem extends Resource {
    */
   quantity: number
   /**
-   * The stock item quantity level below which it is considered low on stock. When set, the item can be filtered with the `low_stock` scope.
+   * The stock item quantity level below which it is considered low on stock (based on available quantity, i.e. quantity minus reserved stock). When set, the item can be filtered with the `low_stock` scope.
    * @example ```10```
    */
   low_quantity?: number | null
@@ -69,7 +69,7 @@ interface StockItemCreate extends ResourceCreate {
    */
   quantity: number
   /**
-   * The stock item quantity level below which it is considered low on stock. When set, the item can be filtered with the `low_stock` scope.
+   * The stock item quantity level below which it is considered low on stock (based on available quantity, i.e. quantity minus reserved stock). When set, the item can be filtered with the `low_stock` scope.
    * @example ```10```
    */
   low_quantity?: number | null
@@ -90,7 +90,7 @@ interface StockItemUpdate extends ResourceUpdate {
    */
   quantity?: number | null
   /**
-   * The stock item quantity level below which it is considered low on stock. When set, the item can be filtered with the `low_stock` scope.
+   * The stock item quantity level below which it is considered low on stock (based on available quantity, i.e. quantity minus reserved stock). When set, the item can be filtered with the `low_stock` scope.
    * @example ```10```
    */
   low_quantity?: number | null

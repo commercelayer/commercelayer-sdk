@@ -24,6 +24,7 @@ export type CheckoutComPaymentSort = Pick<CheckoutComPayment, 'id'> & ResourceSo
 /**
  * The Checkout.com payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/checkout_com_payments endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/checkout_com_payments/object
  */
 interface CheckoutComPayment extends Resource {
@@ -117,6 +118,7 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
   token?: string | null
   /**
    * Send this attribute if you want to authorize the payment.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _authorize?: boolean | null
@@ -134,6 +136,7 @@ interface CheckoutComPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class CheckoutComPayments extends ApiResource<CheckoutComPayment> {
   static readonly TYPE: CheckoutComPaymentType = 'checkout_com_payments' as const
 

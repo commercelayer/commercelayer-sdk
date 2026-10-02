@@ -19,8 +19,8 @@ import type { Tag, TagType } from './tags'
 
 type FlexPromotionType = 'flex_promotions'
 type FlexPromotionRel = ResourceRel & { type: FlexPromotionType }
-type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 type TagRel = ResourceRel & { type: TagType }
+type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 
 export type FlexPromotionSort = Pick<
   FlexPromotion,
@@ -166,7 +166,6 @@ interface FlexPromotionCreate extends ResourceCreate {
    */
   _enable?: boolean | null
 
-  coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
   tags?: TagRel[] | null
 }
 

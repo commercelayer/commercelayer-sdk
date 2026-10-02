@@ -25,6 +25,7 @@ export type ExternalPaymentSort = Pick<ExternalPayment, 'id'> & ResourceSort
 /**
  * The External payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/external_payments endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/external_payments/object
  */
 interface ExternalPayment extends Resource {
@@ -77,6 +78,7 @@ interface ExternalPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class ExternalPayments extends ApiResource<ExternalPayment> {
   static readonly TYPE: ExternalPaymentType = 'external_payments' as const
 

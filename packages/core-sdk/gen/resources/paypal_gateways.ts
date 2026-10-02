@@ -23,6 +23,7 @@ export type PaypalGatewaySort = Pick<PaypalGateway, 'id' | 'name' | 'disabled_at
 /**
  * The Paypal gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/paypal_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/paypal_gateways/object
  */
 interface PaypalGateway extends Resource {
@@ -130,6 +131,7 @@ interface PaypalGatewayUpdate extends ResourceUpdate {
   client_secret?: string | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class PaypalGateways extends ApiResource<PaypalGateway> {
   static readonly TYPE: PaypalGatewayType = 'paypal_gateways' as const
 

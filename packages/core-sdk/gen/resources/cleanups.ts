@@ -40,7 +40,7 @@ interface Cleanup extends Resource {
   readonly type: CleanupType
 
   /**
-   * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'gift_cards', 'sku_options', or 'prices'.
+   * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'coupons', 'gift_cards', 'sku_options', or 'prices'.
    * @example ```"skus"```
    */
   resource_type:
@@ -49,6 +49,7 @@ interface Cleanup extends Resource {
     | 'bundles'
     | 'sku_lists'
     | 'stock_items'
+    | 'coupons'
     | 'gift_cards'
     | 'sku_options'
     | 'prices'
@@ -108,7 +109,7 @@ interface Cleanup extends Resource {
 
 interface CleanupCreate extends ResourceCreate {
   /**
-   * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'gift_cards', 'sku_options', or 'prices'.
+   * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'coupons', 'gift_cards', 'sku_options', or 'prices'.
    * @example ```"skus"```
    */
   resource_type:
@@ -117,6 +118,7 @@ interface CleanupCreate extends ResourceCreate {
     | 'bundles'
     | 'sku_lists'
     | 'stock_items'
+    | 'coupons'
     | 'gift_cards'
     | 'sku_options'
     | 'prices'

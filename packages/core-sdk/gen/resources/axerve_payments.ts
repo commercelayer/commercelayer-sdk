@@ -24,6 +24,7 @@ export type AxervePaymentSort = Pick<AxervePayment, 'id'> & ResourceSort
 /**
  * The Axerve payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/axerve_payments endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/axerve_payments/object
  */
 interface AxervePayment extends Resource {
@@ -114,6 +115,7 @@ interface AxervePaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class AxervePayments extends ApiResource<AxervePayment> {
   static readonly TYPE: AxervePaymentType = 'axerve_payments' as const
 
