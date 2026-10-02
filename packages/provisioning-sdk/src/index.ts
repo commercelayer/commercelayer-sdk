@@ -49,6 +49,7 @@ export type {
   ResourceCreate,
   ResourceFilter,
   ResourceId,
+  ResourceMeta,
   ResourceRel,
   ResourceSort,
   ResourcesConfig,

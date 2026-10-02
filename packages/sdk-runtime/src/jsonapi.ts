@@ -59,6 +59,12 @@ const denormalizeResource = <T extends ResourceType>(
     ...res.attributes,
   }
 
+  // Resource-level `meta` (e.g. `created_with_version`) sits beside the
+  // attributes rather than among them, so it would otherwise be dropped. Kept
+  // under its own key, not merged into the attributes, so it can never shadow
+  // a field. Applies to included resources too, which pass through here.
+  if (res.meta) resource.meta = res.meta
+
   if (res.relationships)
     Object.keys(res.relationships as object).forEach((key) => {
       const rel: ResourceIdentifierObject = res.relationships[key].data
@@ -89,7 +95,9 @@ const normalize = (resource: (ResourceCreate & ResourceType) | (ResourceUpdate &
   const relationships: RelationshipsObject = {}
 
   for (const field in resource) {
-    if (['type', 'id'].includes(field)) continue
+    // `meta` is read-only server output. Without skipping it, a retrieved
+    // resource passed straight back to `update()` would send it as an attribute.
+    if (['type', 'id', 'meta'].includes(field)) continue
     const value = resource[field as keyof (ResourceCreate | ResourceUpdate)]
     if (
       Array.isArray(value) &&

@@ -175,10 +175,17 @@ class ApiClient {
     // Ignored params (in debug mode)
     if (options?.userAgent) debug('User-Agent header ignored in request config')
 
-    // URL
+    // URL. A per-request override rebuilds the base URL, so every part must
+    // fall back to the client's own value — including the domain. Without that
+    // fallback, a client configured for a non-default domain (e.g. staging)
+    // sent per-request `apiVersion` calls to the default production host.
     const baseUrl =
       options?.organization || options?.apiVersion !== undefined
-        ? baseURL(options.organization || this.#organization, options.domain, options.apiVersion ?? this.#apiVersion)
+        ? baseURL(
+            options.organization || this.#organization,
+            options.domain || this.#domain,
+            options.apiVersion ?? this.#apiVersion,
+          )
         : this.#baseUrl
     const url = new URL(`${baseUrl}/${path}`)
 
