@@ -1,0 +1,21 @@
+# Release-notes config for the Provisioning API SDK, selected by release.yml via
+# the tag's directory prefix (`provisioning-sdk-v*` -> this file).
+#
+# Mirror of release-core-sdk.yml with the package labels swapped; see that file
+# for why the category order matters and what was verified.
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+    authors:
+      - dependabot
+  categories:
+    - title: 📦 Provisioning SDK
+      labels:
+        - provisioning-sdk
+    - title: 🔧 Shared — runtime, generator, tooling
+      labels:
+        - '*'
+      exclude:
+        labels:
+          - core-sdk

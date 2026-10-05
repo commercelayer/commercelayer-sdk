@@ -1,0 +1,100 @@
+{
+  "name": "@commercelayer/sdk",
+  "version": "8.0.0-beta.15",
+  "main": "lib/index.cjs",
+  "types": "lib/index.d.ts",
+  "module": "lib/index.js",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
+      }
+    },
+    "./single-client": {
+      "import": {
+        "types": "./lib/single-client.d.ts",
+        "default": "./lib/single-client.js"
+      },
+      "require": {
+        "types": "./lib/single-client.d.cts",
+        "default": "./lib/single-client.cjs"
+      }
+    },
+    "./bundle": {
+      "import": {
+        "types": "./lib/bundle-compat.d.ts",
+        "default": "./lib/bundle-compat.js"
+      },
+      "require": {
+        "types": "./lib/bundle-compat.d.cts",
+        "default": "./lib/bundle-compat.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "generate": "tsx ../sdk-generator/src/generator.ts && pnpm check",
+    "generate-local": "tsx ../sdk-generator/src/generator.ts --local && pnpm check",
+    "lint": "biome check --enforce-assist=true",
+    "check": "biome check --enforce-assist=true --write",
+    "ts:check": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest",
+    "test-local": "tsx test/spot.ts",
+    "coverage": "vitest run --coverage",
+    "verify:pack": "publint && attw --pack ."
+  },
+  "keywords": [
+    "javascript",
+    "ecommerce",
+    "jamstack",
+    "commercelayer"
+  ],
+  "author": "Pierluigi Viti <pierluigi@commercelayer.io>",
+  "license": "MIT",
+  "description": "Commerce Layer Javascript SDK",
+  "files": [
+    "lib/**/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@biomejs/biome": "^2.5.14",
+    "@commercelayer/js-auth": "^8.0.1",
+    "@commercelayer/sdk-generator": "workspace:*",
+    "@types/debug": "^4.1.13",
+    "@types/node": "^25.9.8",
+    "@vitest/coverage-v8": "^5.0.2",
+    "dotenv": "^18.0.4",
+    "json-typescript": "^1.1.2",
+    "jsonapi-typescript": "^0.1.3",
+    "publint": "^0.3.24",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.2"
+  },
+  "repository": "github:commercelayer/commercelayer-sdk",
+  "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "typesVersions": {
+    "*": {
+      "single-client": [
+        "./lib/single-client.d.ts"
+      ],
+      "bundle": [
+        "./lib/bundle-compat.d.ts"
+      ]
+    }
+  }
+}

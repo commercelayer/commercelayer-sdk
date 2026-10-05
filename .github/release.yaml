@@ -1,0 +1,33 @@
+# GitHub's native release-notes configuration. Entries are PR titles, grouped
+# by PR label. Mirrors the setup used across Commerce Layer repos (see
+# commercelayer/app-elements) and replaces conventional-commit changelogs.
+#
+# A PR with none of the labels below still appears, under "Other Changes".
+# Label a PR `ignore-for-release` to keep it out entirely.
+
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+    authors:
+      - dependabot
+  categories:
+    - title: 💥 Breaking Change
+      labels:
+        - breaking-change
+    - title: 🚀 Enhancement
+      labels:
+        - enhancement
+        - feature
+    - title: 🐛 Bug Fix
+      labels:
+        - bug
+    - title: 📝 Documentation
+      labels:
+        - documentation
+    - title: 🆙 Dependencies
+      labels:
+        - dependencies
+    - title: Other Changes
+      labels:
+        - "*"

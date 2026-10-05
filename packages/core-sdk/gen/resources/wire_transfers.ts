@@ -1,0 +1,128 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
+import type { EventStore } from './event_stores'
+import type { Order, OrderType } from './orders'
+
+type WireTransferType = 'wire_transfers'
+type WireTransferRel = ResourceRel & { type: WireTransferType }
+type OrderRel = ResourceRel & { type: OrderType }
+
+export type WireTransferSort = Pick<WireTransfer, 'id'> & ResourceSort
+// export type WireTransferFilter = Pick<WireTransfer, 'id'> & ResourceFilter
+
+/**
+ * The Wire transfer object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/wire_transfers endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/wire_transfers/object
+ */
+interface WireTransfer extends Resource {
+  readonly type: WireTransferType
+
+  /**
+   * Information about the payment instrument used in the transaction.
+   * @example ```{"issuer":"cl bank","card_type":"visa"}```
+   */
+  payment_instrument?: Record<string, any> | null
+
+  order?: Order | null
+  event_stores?: EventStore[] | null
+}
+
+interface WireTransferCreate extends ResourceCreate {
+  order: OrderRel
+}
+
+interface WireTransferUpdate extends ResourceUpdate {
+  order?: OrderRel | null
+}
+
+class WireTransfers extends ApiResource<WireTransfer> {
+  static readonly TYPE: WireTransferType = 'wire_transfers' as const
+
+  async create(
+    resource: WireTransferCreate,
+    params?: QueryParamsRetrieve<WireTransfer>,
+    options?: ResourcesConfig,
+  ): Promise<WireTransfer> {
+    return this.resources.create<WireTransferCreate, WireTransfer>(
+      { ...resource, type: WireTransfers.TYPE },
+      params,
+      options,
+    )
+  }
+
+  async update(
+    resource: WireTransferUpdate,
+    params?: QueryParamsRetrieve<WireTransfer>,
+    options?: ResourcesConfig,
+  ): Promise<WireTransfer> {
+    return this.resources.update<WireTransferUpdate, WireTransfer>(
+      { ...resource, type: WireTransfers.TYPE },
+      params,
+      options,
+    )
+  }
+
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: WireTransfers.TYPE } : id, options)
+  }
+
+  async order(
+    wireTransferId: string | WireTransfer,
+    params?: QueryParamsRetrieve<Order>,
+    options?: ResourcesConfig,
+  ): Promise<Order> {
+    const _wireTransferId = (wireTransferId as WireTransfer).id || (wireTransferId as string)
+    return this.resources.fetch<Order>(
+      { type: 'orders' },
+      `wire_transfers/${_wireTransferId}/order`,
+      params,
+      options,
+    ) as unknown as Order
+  }
+
+  async event_stores(
+    wireTransferId: string | WireTransfer,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _wireTransferId = (wireTransferId as WireTransfer).id || (wireTransferId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `wire_transfers/${_wireTransferId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
+
+  isWireTransfer(resource: any): resource is WireTransfer {
+    return resource.type && resource.type === WireTransfers.TYPE
+  }
+
+  relationship(id: string | ResourceId | null): WireTransferRel {
+    return super.relationshipOneToOne<WireTransferRel>(id)
+  }
+
+  relationshipToMany(...ids: string[]): WireTransferRel[] {
+    return super.relationshipOneToMany<WireTransferRel>(...ids)
+  }
+
+  type(): WireTransferType {
+    return WireTransfers.TYPE
+  }
+}
+
+const instance = new WireTransfers()
+export default instance
+
+export type { WireTransfer, WireTransferCreate, WireTransfers, WireTransferType, WireTransferUpdate }

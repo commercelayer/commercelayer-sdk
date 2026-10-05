@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      // The Runtime typechecks against its own fixture binding, not a
+      // consumer's: it must not name one of its own consumers, and a real
+      // package's gen/binding.ts is wiped by the drift check.
+      "#registry": ["./test/fixtures/binding.ts"],
+      "@runtime/*": ["./src/*.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
+}

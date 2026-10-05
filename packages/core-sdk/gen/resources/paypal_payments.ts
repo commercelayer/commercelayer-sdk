@@ -1,0 +1,227 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
+import type { EventStore } from './event_stores'
+import type { Order, OrderType } from './orders'
+import type { PaymentGateway } from './payment_gateways'
+
+type PaypalPaymentType = 'paypal_payments'
+type PaypalPaymentRel = ResourceRel & { type: PaypalPaymentType }
+type OrderRel = ResourceRel & { type: OrderType }
+
+export type PaypalPaymentSort = Pick<PaypalPayment, 'id'> & ResourceSort
+// export type PaypalPaymentFilter = Pick<PaypalPayment, 'id'> & ResourceFilter
+
+/**
+ * The Paypal payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/paypal_payments endpoint.
+ *
+ * @link https://docs.commercelayer.io/core-api-reference/paypal_payments/object
+ */
+interface PaypalPayment extends Resource {
+  readonly type: PaypalPaymentType
+
+  /**
+   * The URL where the payer is redirected after they approve the payment.
+   * @example ```"https://yourdomain.com/thankyou"```
+   */
+  return_url: string
+  /**
+   * The URL where the payer is redirected after they cancel the payment.
+   * @example ```"https://yourdomain.com/checkout/payment"```
+   */
+  cancel_url: string
+  /**
+   * A free-form field that you can use to send a note to the payer on PayPal.
+   * @example ```"Thank you for shopping with us!"```
+   */
+  note_to_payer?: string | null
+  /**
+   * The id of the payer that PayPal passes in the return_url.
+   * @example ```"ABCDEFGHG123456"```
+   */
+  paypal_payer_id?: string | null
+  /**
+   * The PayPal payer id (if present).
+   * @example ```"ABCDEFGHG123456"```
+   */
+  name?: string | null
+  /**
+   * The id of the PayPal payment object.
+   * @example ```"1234567890"```
+   */
+  paypal_id?: string | null
+  /**
+   * The PayPal payment status. One of 'created', or 'approved'.
+   * @example ```"created"```
+   */
+  status?: 'created' | 'approved' | null
+  /**
+   * The URL the customer should be redirected to approve the payment.
+   * @example ```"https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-1234567890ABCDEFGHG"```
+   */
+  approval_url?: string | null
+  /**
+   * Indicates if the order current amount differs form the one of the created payment intent.
+   */
+  mismatched_amounts?: boolean | null
+  /**
+   * Information about the payment instrument used in the transaction.
+   * @example ```{"issuer":"cl bank","card_type":"visa"}```
+   */
+  payment_instrument?: Record<string, any> | null
+
+  order?: Order | null
+  payment_gateway?: PaymentGateway | null
+  event_stores?: EventStore[] | null
+}
+
+interface PaypalPaymentCreate extends ResourceCreate {
+  /**
+   * The URL where the payer is redirected after they approve the payment.
+   * @example ```"https://yourdomain.com/thankyou"```
+   */
+  return_url: string
+  /**
+   * The URL where the payer is redirected after they cancel the payment.
+   * @example ```"https://yourdomain.com/checkout/payment"```
+   */
+  cancel_url: string
+  /**
+   * A free-form field that you can use to send a note to the payer on PayPal.
+   * @example ```"Thank you for shopping with us!"```
+   */
+  note_to_payer?: string | null
+
+  order: OrderRel
+}
+
+interface PaypalPaymentUpdate extends ResourceUpdate {
+  /**
+   * The id of the payer that PayPal passes in the return_url.
+   * @example ```"ABCDEFGHG123456"```
+   */
+  paypal_payer_id?: string | null
+  /**
+   * Send this attribute if you want to refresh the payment's pending transactions and reconcile their status with PayPal.
+   * @example ```true```
+   */
+  _refresh?: boolean | null
+
+  order?: OrderRel | null
+}
+
+class PaypalPayments extends ApiResource<PaypalPayment> {
+  static readonly TYPE: PaypalPaymentType = 'paypal_payments' as const
+
+  async create(
+    resource: PaypalPaymentCreate,
+    params?: QueryParamsRetrieve<PaypalPayment>,
+    options?: ResourcesConfig,
+  ): Promise<PaypalPayment> {
+    return this.resources.create<PaypalPaymentCreate, PaypalPayment>(
+      { ...resource, type: PaypalPayments.TYPE },
+      params,
+      options,
+    )
+  }
+
+  async update(
+    resource: PaypalPaymentUpdate,
+    params?: QueryParamsRetrieve<PaypalPayment>,
+    options?: ResourcesConfig,
+  ): Promise<PaypalPayment> {
+    return this.resources.update<PaypalPaymentUpdate, PaypalPayment>(
+      { ...resource, type: PaypalPayments.TYPE },
+      params,
+      options,
+    )
+  }
+
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: PaypalPayments.TYPE } : id, options)
+  }
+
+  async order(
+    paypalPaymentId: string | PaypalPayment,
+    params?: QueryParamsRetrieve<Order>,
+    options?: ResourcesConfig,
+  ): Promise<Order> {
+    const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || (paypalPaymentId as string)
+    return this.resources.fetch<Order>(
+      { type: 'orders' },
+      `paypal_payments/${_paypalPaymentId}/order`,
+      params,
+      options,
+    ) as unknown as Order
+  }
+
+  async payment_gateway(
+    paypalPaymentId: string | PaypalPayment,
+    params?: QueryParamsRetrieve<PaymentGateway>,
+    options?: ResourcesConfig,
+  ): Promise<PaymentGateway> {
+    const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || (paypalPaymentId as string)
+    return this.resources.fetch<PaymentGateway>(
+      { type: 'payment_gateways' },
+      `paypal_payments/${_paypalPaymentId}/payment_gateway`,
+      params,
+      options,
+    ) as unknown as PaymentGateway
+  }
+
+  async event_stores(
+    paypalPaymentId: string | PaypalPayment,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _paypalPaymentId = (paypalPaymentId as PaypalPayment).id || (paypalPaymentId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `paypal_payments/${_paypalPaymentId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
+
+  async _refresh(
+    id: string | PaypalPayment,
+    params?: QueryParamsRetrieve<PaypalPayment>,
+    options?: ResourcesConfig,
+  ): Promise<PaypalPayment> {
+    return this.resources.update<PaypalPaymentUpdate, PaypalPayment>(
+      { id: typeof id === 'string' ? id : id.id, type: PaypalPayments.TYPE, _refresh: true },
+      params,
+      options,
+    )
+  }
+
+  isPaypalPayment(resource: any): resource is PaypalPayment {
+    return resource.type && resource.type === PaypalPayments.TYPE
+  }
+
+  relationship(id: string | ResourceId | null): PaypalPaymentRel {
+    return super.relationshipOneToOne<PaypalPaymentRel>(id)
+  }
+
+  relationshipToMany(...ids: string[]): PaypalPaymentRel[] {
+    return super.relationshipOneToMany<PaypalPaymentRel>(...ids)
+  }
+
+  type(): PaypalPaymentType {
+    return PaypalPayments.TYPE
+  }
+}
+
+const instance = new PaypalPayments()
+export default instance
+
+export type { PaypalPayment, PaypalPaymentCreate, PaypalPayments, PaypalPaymentType, PaypalPaymentUpdate }

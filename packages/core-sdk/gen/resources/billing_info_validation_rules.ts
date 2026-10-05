@@ -1,0 +1,149 @@
+import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
+import type {
+  ListResponse,
+  Resource,
+  ResourceCreate,
+  ResourceId,
+  ResourceRel,
+  ResourceSort,
+  /* ResourceFilter */ ResourcesConfig,
+  ResourceUpdate,
+} from '@runtime/resource'
+import { ApiResource } from '@runtime/resource'
+import type { Attachment } from './attachments'
+import type { EventStore } from './event_stores'
+import type { Market, MarketType } from './markets'
+
+type BillingInfoValidationRuleType = 'billing_info_validation_rules'
+type BillingInfoValidationRuleRel = ResourceRel & { type: BillingInfoValidationRuleType }
+type MarketRel = ResourceRel & { type: MarketType }
+
+export type BillingInfoValidationRuleSort = Pick<BillingInfoValidationRule, 'id'> & ResourceSort
+// export type BillingInfoValidationRuleFilter = Pick<BillingInfoValidationRule, 'id'> & ResourceFilter
+
+/**
+ * The Billing info validation rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/billing_info_validation_rules endpoint.
+ *
+ * @deprecated
+ * @link https://docs.commercelayer.io/core-api-reference/billing_info_validation_rules/object
+ */
+interface BillingInfoValidationRule extends Resource {
+  readonly type: BillingInfoValidationRuleType
+
+  market?: Market | null
+  attachments?: Attachment[] | null
+  event_stores?: EventStore[] | null
+}
+
+interface BillingInfoValidationRuleCreate extends ResourceCreate {
+  market: MarketRel
+}
+
+interface BillingInfoValidationRuleUpdate extends ResourceUpdate {
+  market?: MarketRel | null
+}
+
+/** @deprecated */
+class BillingInfoValidationRules extends ApiResource<BillingInfoValidationRule> {
+  static readonly TYPE: BillingInfoValidationRuleType = 'billing_info_validation_rules' as const
+
+  async create(
+    resource: BillingInfoValidationRuleCreate,
+    params?: QueryParamsRetrieve<BillingInfoValidationRule>,
+    options?: ResourcesConfig,
+  ): Promise<BillingInfoValidationRule> {
+    return this.resources.create<BillingInfoValidationRuleCreate, BillingInfoValidationRule>(
+      { ...resource, type: BillingInfoValidationRules.TYPE },
+      params,
+      options,
+    )
+  }
+
+  async update(
+    resource: BillingInfoValidationRuleUpdate,
+    params?: QueryParamsRetrieve<BillingInfoValidationRule>,
+    options?: ResourcesConfig,
+  ): Promise<BillingInfoValidationRule> {
+    return this.resources.update<BillingInfoValidationRuleUpdate, BillingInfoValidationRule>(
+      { ...resource, type: BillingInfoValidationRules.TYPE },
+      params,
+      options,
+    )
+  }
+
+  async delete(id: string | ResourceId, options?: ResourcesConfig): Promise<void> {
+    await this.resources.delete(typeof id === 'string' ? { id, type: BillingInfoValidationRules.TYPE } : id, options)
+  }
+
+  async market(
+    billingInfoValidationRuleId: string | BillingInfoValidationRule,
+    params?: QueryParamsRetrieve<Market>,
+    options?: ResourcesConfig,
+  ): Promise<Market> {
+    const _billingInfoValidationRuleId =
+      (billingInfoValidationRuleId as BillingInfoValidationRule).id || (billingInfoValidationRuleId as string)
+    return this.resources.fetch<Market>(
+      { type: 'markets' },
+      `billing_info_validation_rules/${_billingInfoValidationRuleId}/market`,
+      params,
+      options,
+    ) as unknown as Market
+  }
+
+  async attachments(
+    billingInfoValidationRuleId: string | BillingInfoValidationRule,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _billingInfoValidationRuleId =
+      (billingInfoValidationRuleId as BillingInfoValidationRule).id || (billingInfoValidationRuleId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `billing_info_validation_rules/${_billingInfoValidationRuleId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
+  }
+
+  async event_stores(
+    billingInfoValidationRuleId: string | BillingInfoValidationRule,
+    params?: QueryParamsList<EventStore>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<EventStore>> {
+    const _billingInfoValidationRuleId =
+      (billingInfoValidationRuleId as BillingInfoValidationRule).id || (billingInfoValidationRuleId as string)
+    return this.resources.fetch<EventStore>(
+      { type: 'event_stores' },
+      `billing_info_validation_rules/${_billingInfoValidationRuleId}/event_stores`,
+      params,
+      options,
+    ) as unknown as ListResponse<EventStore>
+  }
+
+  isBillingInfoValidationRule(resource: any): resource is BillingInfoValidationRule {
+    return resource.type && resource.type === BillingInfoValidationRules.TYPE
+  }
+
+  relationship(id: string | ResourceId | null): BillingInfoValidationRuleRel {
+    return super.relationshipOneToOne<BillingInfoValidationRuleRel>(id)
+  }
+
+  relationshipToMany(...ids: string[]): BillingInfoValidationRuleRel[] {
+    return super.relationshipOneToMany<BillingInfoValidationRuleRel>(...ids)
+  }
+
+  type(): BillingInfoValidationRuleType {
+    return BillingInfoValidationRules.TYPE
+  }
+}
+
+const instance = new BillingInfoValidationRules()
+export default instance
+
+export type {
+  BillingInfoValidationRule,
+  BillingInfoValidationRuleCreate,
+  BillingInfoValidationRules,
+  BillingInfoValidationRuleType,
+  BillingInfoValidationRuleUpdate,
+}

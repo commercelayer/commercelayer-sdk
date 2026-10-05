@@ -1,6 +1,10 @@
 build/
 dist/
 
+# The public/resources snapshot is COMMITTED: it makes any
+# commit reproducible offline and lets the drift check regenerate with --local
+# instead of depending on the live API.
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,macos
@@ -111,7 +115,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.*
-test/env/.env.*
+**/test/env/.env.*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -164,3 +168,6 @@ temp/
 # End of https://www.toptal.com/developers/gitignore/api/node,macos
 test.ts
 yarn.lock
+
+# Agents
+.claude/worktrees/agent-*
