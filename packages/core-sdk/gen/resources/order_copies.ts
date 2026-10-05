@@ -71,6 +71,7 @@ interface OrderCopy extends Resource {
   place_target_order?: boolean | null
   /**
    * Indicates if the payment source within the source order customer's wallet must be copied.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   reuse_wallet?: boolean | null
@@ -99,6 +100,9 @@ interface OrderCopy extends Resource {
   target_order?: Order | null
   events?: Event[] | null
   event_stores?: EventStore[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   order_subscription?: OrderSubscription | null
 }
 
@@ -110,6 +114,7 @@ interface OrderCopyCreate extends ResourceCreate {
   place_target_order?: boolean | null
   /**
    * Indicates if the payment source within the source order customer's wallet must be copied.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   reuse_wallet?: boolean | null
@@ -218,6 +223,9 @@ class OrderCopies extends ApiResource<OrderCopy> {
     ) as unknown as ListResponse<EventStore>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async order_subscription(
     orderCopyId: string | OrderCopy,
     params?: QueryParamsRetrieve<OrderSubscription>,

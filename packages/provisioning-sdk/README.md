@@ -18,6 +18,7 @@ A JavaScript Library wrapper that makes it quick and easy to interact with the [
 - [Authentication](#authentication)
 - [Import](#import)
 - [Options](#options)
+- [API version](#api-version)
 - [SDK usage](#sdk-usage)
 - [Overriding credentials](#overriding-credentials)
 - [Handling validation errors](#handling-validation-errors)
@@ -58,8 +59,9 @@ You can use the ES6 default import with the SDK like so:
 ```javascript
 import CommerceLayerProvisioning from '@commercelayer/provisioning-sdk'
 
-const cl = CommerceLayer({
-  accessToken: 'your-access-token'
+const clp = CommerceLayerProvisioning({
+  accessToken: 'your-access-token',
+  apiVersion: '2026-05'
 })
 ```
 
@@ -70,6 +72,7 @@ When instantiating a new SDK client you can pass some options to initialize it:
 ```javascript
 {
   accessToken: string         // A valid API access token
+  apiVersion: ApiVersion      // The API version to target, e.g. '2026-05' — required, see API version below
   timeout?: number            // A custom request timout (<= 15 secs [default])
   headers?: RequestHeaders    // Custom request headers
   userAgent?: string          // Custom user-agent useful in certaing contexts but often not allowed by browsers
@@ -84,14 +87,30 @@ Same options can be changed after SDK initialization or passed at runtime while 
   const options = { ... }
 
   // Instantiate the client using desired options
-  const clp = CommerceLayer(options)
+  const clp = CommerceLayerProvisioning(options)
 
   // Change configuration after client cteation
   clp.config(options)
 
   // Use runtime configuration without persisting settings
-  clp.customers.organizations({}, options)
+  clp.organizations.list({}, options)
 ```
+
+### API version
+
+The Provisioning API is versioned, and every request targets a single version. `apiVersion` is therefore **required** when creating a client, and becomes part of each request URL — `/api/2026-05/organizations`.
+
+Only the versions this release of the SDK was generated for are accepted; any other value is a type error. Both are exported:
+
+```javascript
+import { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS } from '@commercelayer/provisioning-sdk'
+
+API_SUPPORTED_VERSIONS // ['2026-05'] — the versions you can target
+API_SCHEMA_VERSION     // '2026-05' — the version the types describe
+```
+
+> [!IMPORTANT]
+> Upgrading from 2.x: `apiVersion` is new and required, so every `CommerceLayerProvisioning(...)` call needs it.
 
 ## SDK usage
 

@@ -1,7 +1,7 @@
 import { extractTokenData, isTokenExpired } from '@runtime/util'
 import { describe, expect, test } from 'vitest'
 import { application, CommerceLayer } from '../src/single-client'
-import { handleError, interceptRequest } from '../test/common'
+import { API_VERSION, handleError, interceptRequest } from '../test/common'
 
 // Unsigned test tokens: only the payload segment is ever read client-side.
 const segment = (o: object) => Buffer.from(JSON.stringify(o)).toString('base64url')
@@ -82,7 +82,7 @@ describe('SDK:token data', () => {
     type RequestOptions = Parameters<typeof application.retrieve>[1]
 
     const requestedHost = async (config: ClientConfig, options?: RequestOptions) => {
-      const client = CommerceLayer(config)
+      const client = CommerceLayer({ ...config, apiVersion: API_VERSION })
       let host: string | undefined
       client.addRequestInterceptor((request) => {
         host = request.url.host

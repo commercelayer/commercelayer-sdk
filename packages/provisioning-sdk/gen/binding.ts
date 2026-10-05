@@ -17,8 +17,8 @@ export const binding = {
   subdomain: 'provisioning',
   name: 'provisioning',
   sdkVersion: SDK_VERSION,
-  schemaVersion: 'latest',
-  supportedVersions: [] as const,
+  schemaVersion: '2026-05',
+  supportedVersions: ['2026-05'] as const,
   resourceList,
   getResources,
 } as const satisfies TargetBinding

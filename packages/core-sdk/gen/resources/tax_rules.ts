@@ -44,6 +44,7 @@ interface TaxRule extends Resource {
   freight_taxable?: boolean | null
   /**
    * Indicates if the payment method is taxable.
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_taxable?: boolean | null
   /**
@@ -111,6 +112,7 @@ interface TaxRuleCreate extends ResourceCreate {
   freight_taxable?: boolean | null
   /**
    * Indicates if the payment method is taxable.
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_taxable?: boolean | null
   /**
@@ -172,6 +174,7 @@ interface TaxRuleUpdate extends ResourceUpdate {
   freight_taxable?: boolean | null
   /**
    * Indicates if the payment method is taxable.
+   * @deprecated Last available in API version 2017-08.
    */
   payment_method_taxable?: boolean | null
   /**
