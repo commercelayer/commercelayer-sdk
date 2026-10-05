@@ -1,5 +1,5 @@
-import { inspect, isDeepStrictEqual } from 'node:util'
 import { randomInt } from 'node:crypto'
+import { inspect, isDeepStrictEqual } from 'node:util'
 import dotenv from 'dotenv'
 import { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
