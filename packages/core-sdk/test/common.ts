@@ -1,4 +1,5 @@
 import { inspect, isDeepStrictEqual } from 'node:util'
+import { randomInt } from 'node:crypto'
 import dotenv from 'dotenv'
 import { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
@@ -133,9 +134,9 @@ const randomValue = (type: string, name?: string): any | Array<any> => {
   else if (type.startsWith('string')) values = strings
   else values = strings
 
-  let value = values[Math.floor(Math.random() * (values.length - 1))]
+  let value = values[randomInt(values.length)]
 
-  if (type === 'string') value = `${value}_${Math.floor(Math.random() * 100)}`
+  if (type === 'string') value = `${value}_${randomInt(100)}`
 
   if (type.endsWith('[]')) value = [value]
 
