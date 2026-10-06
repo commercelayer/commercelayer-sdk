@@ -39,6 +39,11 @@ interface ManualGateway extends Resource {
    */
   force_payments?: boolean | null
   /**
+   * The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.
+   * @example ```60```
+   */
+  idempotency_window_mins?: number | null
+  /**
    * The payment gateway's API credential keys last digits.
    * @example ```{"api_key":"********BW989"}```
    */
@@ -65,6 +70,11 @@ interface ManualGatewayCreate extends ResourceCreate {
    */
   force_payments?: boolean | null
   /**
+   * The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.
+   * @example ```60```
+   */
+  idempotency_window_mins?: number | null
+  /**
    * Send this attribute if you want to mark this resource as disabled.
    * @example ```true```
    */
@@ -87,6 +97,11 @@ interface ManualGatewayUpdate extends ResourceUpdate {
    * @example ```true```
    */
   force_payments?: boolean | null
+  /**
+   * The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.
+   * @example ```60```
+   */
+  idempotency_window_mins?: number | null
   /**
    * Send this attribute if you want to mark this resource as disabled.
    * @example ```true```

@@ -11,6 +11,7 @@ import type {
 } from '@runtime/resource'
 import { ApiResource } from '@runtime/resource'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { OrderSubscription } from './order_subscriptions'
 import type { PaymentLink } from './payment_links'
 import type { PaymentSession } from './payment_sessions'
@@ -22,10 +23,10 @@ type PaymentSettingExternalRel = ResourceRel & { type: PaymentSettingExternalTyp
 
 export type PaymentSettingExternalSort = Pick<
   PaymentSettingExternal,
-  'id' | 'name' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'
+  'id' | 'status' | 'name' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'
 > &
   ResourceSort
-// export type PaymentSettingExternalFilter = Pick<PaymentSettingExternal, 'id' | 'gateway_version' | 'internal_versionable' | 'auto_capture' | 'auto_place' | 'name' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+// export type PaymentSettingExternalFilter = Pick<PaymentSettingExternal, 'id' | 'gateway_version' | 'internal_versionable' | 'auto_capture' | 'auto_place' | 'status' | 'name' | 'disabled_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 /**
  * The Payment setting external object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_setting_externals endpoint.
@@ -64,6 +65,11 @@ interface PaymentSettingExternal extends Resource {
    * Send this attribute if you want the order to be automatically placed when a payment session using this payment setting is authorized.
    */
   auto_place?: boolean | null
+  /**
+   * The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.
+   * @example ```"active"```
+   */
+  status: string
   /**
    * The name of the payment setting.
    * @example ```"Stripe"```
@@ -135,6 +141,7 @@ interface PaymentSettingExternal extends Resource {
   payment_transactions?: PaymentTransaction[] | null
   payment_wallets?: PaymentWallet[] | null
   order_subscriptions?: OrderSubscription[] | null
+  events?: Event[] | null
   event_stores?: EventStore[] | null
 }
 
@@ -396,6 +403,21 @@ class PaymentSettingExternals extends ApiResource<PaymentSettingExternal> {
       params,
       options,
     ) as unknown as ListResponse<OrderSubscription>
+  }
+
+  async events(
+    paymentSettingExternalId: string | PaymentSettingExternal,
+    params?: QueryParamsList<Event>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Event>> {
+    const _paymentSettingExternalId =
+      (paymentSettingExternalId as PaymentSettingExternal).id || (paymentSettingExternalId as string)
+    return this.resources.fetch<Event>(
+      { type: 'events' },
+      `payment_setting_externals/${_paymentSettingExternalId}/events`,
+      params,
+      options,
+    ) as unknown as ListResponse<Event>
   }
 
   async event_stores(

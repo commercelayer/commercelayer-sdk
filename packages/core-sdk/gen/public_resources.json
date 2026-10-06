@@ -698,6 +698,18 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
+                    },
                     "credential_keys": {
                         "type": "object",
                         "desc": "The payment gateway's API credential keys last digits.",
@@ -1674,6 +1686,7 @@
                             "markets",
                             "price_lists",
                             "customer_groups",
+                            "line_items",
                             "promotions",
                             "geocoders",
                             "payment_methods",
@@ -2616,6 +2629,18 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
+                    },
                     "credential_keys": {
                         "type": "object",
                         "desc": "The payment gateway's API credential keys last digits.",
@@ -3480,6 +3505,18 @@
                         "filterable": false,
                         "sortable": false,
                         "example": "true"
+                    },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
                     },
                     "credential_keys": {
                         "type": "object",
@@ -5651,6 +5688,18 @@
                         "filterable": false,
                         "sortable": false,
                         "example": "true"
+                    },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
                     },
                     "credential_keys": {
                         "type": "object",
@@ -10875,6 +10924,18 @@
                         "filterable": false,
                         "sortable": false,
                         "example": "true"
+                    },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
                     },
                     "credential_keys": {
                         "type": "object",
@@ -17097,6 +17158,18 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
+                    },
                     "credential_keys": {
                         "type": "object",
                         "desc": "The payment gateway's API credential keys last digits.",
@@ -18307,6 +18380,14 @@
                         "parent_resource": "Api::LineItemResource",
                         "class_name": "StockTransfer"
                     },
+                    "attachments": {
+                        "type": "has_many",
+                        "desc": "The associated attachments.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::LineItemResource",
+                        "class_name": "Attachment"
+                    },
                     "notifications": {
                         "type": "has_many",
                         "desc": "The associated notifications.",
@@ -18383,6 +18464,7 @@
                     "stock_reservations_id",
                     "stock_line_items_id",
                     "stock_transfers_id",
+                    "attachments_id",
                     "notifications_id",
                     "events_id",
                     "tags_id",
@@ -19106,6 +19188,18 @@
                         "filterable": false,
                         "sortable": false,
                         "example": "true"
+                    },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
                     },
                     "credential_keys": {
                         "type": "object",
@@ -27682,6 +27776,18 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
+                    },
                     "credential_keys": {
                         "type": "object",
                         "desc": "The payment gateway's API credential keys last digits.",
@@ -30153,6 +30259,17 @@
                         "sortable": false,
                         "example": "false"
                     },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
+                    },
                     "name": {
                         "type": "string",
                         "desc": "The name of the payment setting.",
@@ -30313,6 +30430,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingManualResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -30334,6 +30459,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -30347,6 +30473,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -30466,6 +30593,17 @@
                         "filterable": true,
                         "sortable": false,
                         "example": "false"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
                     },
                     "name": {
                         "type": "string",
@@ -30596,6 +30734,17 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "_provision_webhook": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to retry the automatic creation of the gateway webhook for a pending payment setting.",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
                     "merchant_account": {
                         "type": "string",
                         "desc": "The gateway merchant account.",
@@ -30644,8 +30793,8 @@
                     },
                     "webhook_endpoint_secret": {
                         "type": "string",
-                        "desc": "The gateway webhook endpoint secret, generated by Adyen customer area.",
-                        "required": "required",
+                        "desc": "The gateway webhook endpoint secret (HMAC key), generated automatically when the API key has the Management API webhooks role, otherwise generated by Adyen customer area.",
+                        "required": "optional, the payment setting stays pending until set",
                         "creatable": true,
                         "updatable": true,
                         "fetchable": true,
@@ -30653,6 +30802,16 @@
                         "sortable": false,
                         "confidential": true,
                         "example": "xxxx-yyyy-zzzz"
+                    },
+                    "webhook_endpoint_id": {
+                        "type": "string",
+                        "desc": "The gateway webhook ID, generated automatically.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "WBHK00000000000000000000000000"
                     },
                     "webhook_endpoint_url": {
                         "type": "string",
@@ -30718,6 +30877,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingAdyenResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -30739,6 +30906,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -30752,6 +30920,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -30871,6 +31040,17 @@
                         "filterable": true,
                         "sortable": false,
                         "example": "false"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
                     },
                     "name": {
                         "type": "string",
@@ -31101,6 +31281,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingBraintreeResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -31122,6 +31310,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -31135,6 +31324,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -31254,6 +31444,17 @@
                         "filterable": true,
                         "sortable": false,
                         "example": "false"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
                     },
                     "name": {
                         "type": "string",
@@ -31384,6 +31585,17 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "_provision_webhook": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to retry the automatic creation of the gateway webhook for a pending payment setting.",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
                     "secret_key": {
                         "type": "string",
                         "desc": "The gateway secret key.",
@@ -31483,6 +31695,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingCheckoutComResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -31504,6 +31724,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -31517,6 +31738,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -31636,6 +31858,17 @@
                         "filterable": true,
                         "sortable": false,
                         "example": "false"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
                     },
                     "name": {
                         "type": "string",
@@ -31949,6 +32182,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingExternalResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -31970,6 +32211,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -31985,6 +32227,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -32105,6 +32348,17 @@
                         "sortable": false,
                         "example": "false"
                     },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
+                    },
                     "name": {
                         "type": "string",
                         "desc": "The name of the payment setting.",
@@ -32265,6 +32519,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingManualResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -32286,6 +32548,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -32299,6 +32562,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -32419,6 +32683,17 @@
                         "sortable": false,
                         "example": "false"
                     },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
+                    },
                     "name": {
                         "type": "string",
                         "desc": "The name of the payment setting.",
@@ -32579,6 +32854,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingManualResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -32600,6 +32883,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -32613,6 +32897,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -32733,6 +33018,17 @@
                         "sortable": false,
                         "example": "false"
                     },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
+                    },
                     "name": {
                         "type": "string",
                         "desc": "The name of the payment setting.",
@@ -32862,6 +33158,17 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "_provision_webhook": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to retry the automatic creation of the gateway webhook for a pending payment setting.",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
                     "client_id": {
                         "type": "string",
                         "desc": "The gateway client ID.",
@@ -32949,6 +33256,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingPaypalResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -32970,6 +33285,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -32983,6 +33299,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -33103,6 +33420,17 @@
                         "sortable": false,
                         "example": "false"
                     },
+                    "status": {
+                        "type": "string",
+                        "desc": "The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "active",
+                        "aasm": true
+                    },
                     "name": {
                         "type": "string",
                         "desc": "The name of the payment setting.",
@@ -33232,6 +33560,17 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "_provision_webhook": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to retry the automatic creation of the gateway webhook for a pending payment setting.",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
                     "api_key": {
                         "type": "string",
                         "desc": "The gateway secure API key.",
@@ -33340,6 +33679,14 @@
                         "parent_resource": "Api::PaymentSettingStripeResource",
                         "class_name": "OrderSubscription"
                     },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::PaymentSettingStripeResource",
+                        "class_name": "Event"
+                    },
                     "event_stores": {
                         "type": "has_many",
                         "desc": "The associated event stores.",
@@ -33361,6 +33708,7 @@
                     "internal_versionable",
                     "auto_capture",
                     "auto_place",
+                    "status",
                     "name",
                     "disabled_at",
                     "created_at",
@@ -33374,6 +33722,7 @@
                     "payment_transactions_id",
                     "payment_wallets_id",
                     "order_subscriptions_id",
+                    "events_id",
                     "ids",
                     "disabled_at_from",
                     "disabled_at_to",
@@ -34722,6 +35071,18 @@
                         "filterable": false,
                         "sortable": false,
                         "example": "true"
+                    },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
                     },
                     "credential_keys": {
                         "type": "object",
@@ -40135,6 +40496,18 @@
                         "filterable": false,
                         "sortable": false,
                         "example": "true"
+                    },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
                     },
                     "credential_keys": {
                         "type": "object",
@@ -46301,6 +46674,18 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "idempotency_window_mins": {
+                        "type": "integer",
+                        "desc": "The minutes within which a repeated payment operation is deduplicated by the gateway idempotency key. Later attempts get a fresh key.",
+                        "required": "optional, default is one hour (60 minutes)",
+                        "default": 60,
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "60"
+                    },
                     "credential_keys": {
                         "type": "object",
                         "desc": "The payment gateway's API credential keys last digits.",
@@ -50044,6 +50429,6 @@
     "meta": {
         "record_count": 152,
         "page_count": 1,
-        "version": "release-v4.0.0"
+        "version": "pre-release-v4.0.1-aggregate.2"
     }
 }
