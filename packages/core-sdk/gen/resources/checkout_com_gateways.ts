@@ -24,6 +24,7 @@ export type CheckoutComGatewaySort = Pick<CheckoutComGateway, 'id' | 'name' | 'd
 /**
  * The Checkout.com gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/checkout_com_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/checkout_com_gateways/object
  */
 interface CheckoutComGateway extends Resource {
@@ -147,14 +148,20 @@ interface CheckoutComGatewayUpdate extends ResourceUpdate {
    */
   public_key?: string | null
   /**
-   * Send this attribute if you want to sync the gateway webhook endpoint with the Checkout.com workflow.
+   * Send this attribute if you want to sync the gateway webhook endpoint subscribed event topics.
    * @example ```true```
    */
   _update_webhooks?: boolean | null
+  /**
+   * Send this attribute if you want to refresh the gateway webhook endpoint secret.
+   * @example ```true```
+   */
+  _refresh_webhook_secrets?: boolean | null
 
   checkout_com_payments?: CheckoutComPaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
   static readonly TYPE: CheckoutComGatewayType = 'checkout_com_gateways' as const
 
@@ -271,6 +278,18 @@ class CheckoutComGateways extends ApiResource<CheckoutComGateway> {
   ): Promise<CheckoutComGateway> {
     return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>(
       { id: typeof id === 'string' ? id : id.id, type: CheckoutComGateways.TYPE, _update_webhooks: true },
+      params,
+      options,
+    )
+  }
+
+  async _refresh_webhook_secrets(
+    id: string | CheckoutComGateway,
+    params?: QueryParamsRetrieve<CheckoutComGateway>,
+    options?: ResourcesConfig,
+  ): Promise<CheckoutComGateway> {
+    return this.resources.update<CheckoutComGatewayUpdate, CheckoutComGateway>(
+      { id: typeof id === 'string' ? id : id.id, type: CheckoutComGateways.TYPE, _refresh_webhook_secrets: true },
       params,
       options,
     )

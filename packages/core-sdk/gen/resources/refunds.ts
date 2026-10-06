@@ -35,6 +35,7 @@ export type RefundSort = Pick<Refund, 'id' | 'number' | 'amount_cents'> & Resour
 /**
  * The Refund object is returned as part of the response body of each successful list, retrieve or update API call to the /api/refunds endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/refunds/object
  */
 interface Refund extends Resource {
@@ -99,6 +100,11 @@ interface Refund extends Resource {
    * @example ```"xxxx-yyyy-zzzz"```
    */
   gateway_transaction_id?: string | null
+  /**
+   * The additional data returned by the payment gateway, if any.
+   * @example ```{"foo":"bar"}```
+   */
+  additional_data?: Record<string, any> | null
 
   order?: Order | null
   payment_source?:
@@ -132,6 +138,7 @@ interface RefundUpdate extends ResourceUpdate {
   _forward?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class Refunds extends ApiResource<Refund> {
   static readonly TYPE: RefundType = 'refunds' as const
 

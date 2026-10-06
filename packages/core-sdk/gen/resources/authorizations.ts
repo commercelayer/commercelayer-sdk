@@ -35,6 +35,7 @@ export type AuthorizationSort = Pick<Authorization, 'id' | 'number' | 'amount_ce
 /**
  * The Authorization object is returned as part of the response body of each successful list, retrieve or update API call to the /api/authorizations endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/authorizations/object
  */
 interface Authorization extends Resource {
@@ -99,6 +100,11 @@ interface Authorization extends Resource {
    * @example ```"xxxx-yyyy-zzzz"```
    */
   gateway_transaction_id?: string | null
+  /**
+   * The additional data returned by the payment gateway, if any.
+   * @example ```{"foo":"bar"}```
+   */
+  additional_data?: Record<string, any> | null
   /**
    * The CVV code returned by the payment gateway.
    * @example ```"000"```
@@ -222,6 +228,7 @@ interface AuthorizationUpdate extends ResourceUpdate {
   _cancel?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class Authorizations extends ApiResource<Authorization> {
   static readonly TYPE: AuthorizationType = 'authorizations' as const
 

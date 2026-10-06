@@ -45,11 +45,25 @@ interface Store extends Resource {
    * @example ```"europe1"```
    */
   code?: string | null
+  /**
+   * The list of available payment setting ids.
+   * @since 2026-05
+   * @example ```["1","2","34"]```
+   */
+  payment_setting_ids?: Array<Record<string, any>> | null
+  /**
+   * Indicates if the store's payment settings should be merged with the market's ones (true) or completely override them (false).
+   * @since 2026-05
+   */
+  union_payment_settings?: boolean | null
 
   market?: Market | null
   merchant?: Merchant | null
   stock_location?: StockLocation | null
   orders?: Order[] | null
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   payment_methods?: PaymentMethod[] | null
   events?: Event[] | null
   event_stores?: EventStore[] | null
@@ -66,6 +80,17 @@ interface StoreCreate extends ResourceCreate {
    * @example ```"europe1"```
    */
   code?: string | null
+  /**
+   * The list of available payment setting ids.
+   * @since 2026-05
+   * @example ```["1","2","34"]```
+   */
+  payment_setting_ids?: Array<Record<string, any>> | null
+  /**
+   * Indicates if the store's payment settings should be merged with the market's ones (true) or completely override them (false).
+   * @since 2026-05
+   */
+  union_payment_settings?: boolean | null
 
   market: MarketRel
   merchant?: MerchantRel | null
@@ -83,6 +108,17 @@ interface StoreUpdate extends ResourceUpdate {
    * @example ```"europe1"```
    */
   code?: string | null
+  /**
+   * The list of available payment setting ids.
+   * @since 2026-05
+   * @example ```["1","2","34"]```
+   */
+  payment_setting_ids?: Array<Record<string, any>> | null
+  /**
+   * Indicates if the store's payment settings should be merged with the market's ones (true) or completely override them (false).
+   * @since 2026-05
+   */
+  union_payment_settings?: boolean | null
 
   market?: MarketRel | null
   merchant?: MerchantRel | null
@@ -160,6 +196,9 @@ class Stores extends ApiResource<Store> {
     ) as unknown as ListResponse<Order>
   }
 
+  /**
+   * @deprecated Last available in API version 2017-08.
+   */
   async payment_methods(
     storeId: string | Store,
     params?: QueryParamsList<PaymentMethod>,

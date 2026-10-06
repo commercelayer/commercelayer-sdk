@@ -24,6 +24,7 @@ export type BraintreeGatewaySort = Pick<BraintreeGateway, 'id' | 'name' | 'disab
 /**
  * The Braintree gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/braintree_gateways endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/braintree_gateways/object
  */
 interface BraintreeGateway extends Resource {
@@ -205,6 +206,7 @@ interface BraintreeGatewayUpdate extends ResourceUpdate {
   braintree_payments?: BraintreePaymentRel[] | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class BraintreeGateways extends ApiResource<BraintreeGateway> {
   static readonly TYPE: BraintreeGatewayType = 'braintree_gateways' as const
 

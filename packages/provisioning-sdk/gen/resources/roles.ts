@@ -40,7 +40,7 @@ interface Role extends Resource {
    * The kind of role, one of: `custom`, `admin`, `read_only`.
    * @example ```"custom"```
    */
-  kind?: string | null
+  kind: string
 
   organization?: Organization | null
   permissions?: Permission[] | null

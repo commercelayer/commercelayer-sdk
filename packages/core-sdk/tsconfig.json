@@ -70,7 +70,9 @@
   },
   "include": [
     "src/**/*.ts",
-    "gen/**/*.ts"
+    "gen/**/*.ts",
+    "specs/**/*.ts",
+    "test/**/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1,4 +1,4 @@
-import commercelayer, { application, customers, organization } from '../src'
+import { CommerceLayer } from '../src'
 import { getAccessToken, handleError, initConfig } from './util'
 
 async function customFetch(input: string | URL | Request, init?: RequestInit) {
@@ -16,19 +16,19 @@ async function refreshToken(_old: string): Promise<string> {
 
 ;(async () => {
   const config = await initConfig()
-  const cl = commercelayer(config)
+  const cl = CommerceLayer(config)
 
   cl.config({ refreshToken, fetch: customFetch, accessToken: process.env.CL_SDK_ACCESS_TOKEN_EXPIRED })
   try {
     // console.log(cl.currentOrganization)
 
-    const org = await organization.retrieve({ fields: ['name', 'slug'] })
+    const org = await cl.organization.retrieve({ fields: ['name', 'slug'] })
     console.log(org)
 
-    const app = await application.retrieve({ fields: ['name', 'kind'] })
+    const app = await cl.application.retrieve({ fields: ['name', 'kind'] })
     console.log(app)
 
-    const customer = (await customers.list()).first()
+    const customer = (await cl.customers.list()).first()
     console.log(customer)
   } catch (error: any) {
     handleError(error, true)

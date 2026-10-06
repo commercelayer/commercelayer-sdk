@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest'
 import { binding } from '../gen/binding'
 import { application, CommerceLayer, SDK_VERSION } from '../src/single-client'
-import { handleError, interceptRequest } from '../test/common'
+import { API_VERSION, handleError, interceptRequest } from '../test/common'
 
 const CLIENT_HEADER = 'X-CL-SDK'
-const baseConfig = { organization: 'test-org', accessToken: 'fake-token' } as const
+const baseConfig = { organization: 'test-org', accessToken: 'fake-token', apiVersion: API_VERSION } as const
 
 describe('SDK client identification header', () => {
   test('sends `js/<target>-v<version>` by default', async () => {

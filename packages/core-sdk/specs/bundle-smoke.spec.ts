@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { CommerceLayer } from '../src' // default entry === the bundle client
-import { handleError, interceptRequest } from '../test/common'
+import { API_VERSION, handleError, interceptRequest } from '../test/common'
 
 // Smoke coverage for the DEFAULT entry (the bundle). The exhaustive
 // per-resource request machinery is covered once via single-client; here we
@@ -8,7 +8,7 @@ import { handleError, interceptRequest } from '../test/common'
 // instances for a representative regular resource (`orders`) and a singleton
 // (`organization`), across the main verbs. Network-free (interceptor cancels).
 
-const config = { organization: 'smoke-org', accessToken: 'smoke-token' } as const
+const config = { organization: 'smoke-org', accessToken: 'smoke-token', apiVersion: API_VERSION } as const
 
 const expectBoundRequest = (request: { url: URL; options: { method?: string; headers?: unknown } }, method: string) => {
   expect(request.options.method).toBe(method)

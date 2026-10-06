@@ -1,8 +1,9 @@
 import type { Fetch } from '@runtime/fetch'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { CommerceLayer, skus } from '../src/single-client'
+import { API_VERSION } from '../test/common'
 
-const config = { organization: 'test-org', accessToken: 'fake-token' } as const
+const config = { organization: 'test-org', accessToken: 'fake-token', apiVersion: API_VERSION } as const
 
 // Minimal fake fetch: captures the requested URL and returns a crafted
 // JSON:API document so both the request query string and the response-meta

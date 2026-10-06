@@ -22,6 +22,7 @@ A JavaScript Library wrapper that makes it quick and easy to interact with the [
 - [Authentication](#authentication)
 - [Import](#import)
 - [Options](#options)
+- [API version](#api-version)
 - [SDK usage](#sdk-usage)
 - [Overriding credentials](#overriding-credentials)
 - [Handling validation errors](#handling-validation-errors)
@@ -67,7 +68,8 @@ The SDK offers two import styles. **The default entry is the bundled client** �
 import { CommerceLayer } from '@commercelayer/sdk'
 
 const cl = CommerceLayer({
-  accessToken: 'your-access-token'
+  accessToken: 'your-access-token',
+  apiVersion: '2026-05'
 })
 
 const orderList = await cl.orders.list()
@@ -77,8 +79,8 @@ const skuList = await cl.skus.list()
 All resource accessors are available directly on the client object. This increases your final bundle size, but every call is scoped to that specific client instance — so you can safely create and use **multiple clients with different access tokens at the same time** (multi-tenant apps, serverless with connection reuse, etc.):
 
 ```javascript
-const clUS = CommerceLayer({ accessToken: usToken })
-const clEU = CommerceLayer({ accessToken: euToken })
+const clUS = CommerceLayer({ accessToken: usToken, apiVersion: '2026-05' })
+const clEU = CommerceLayer({ accessToken: euToken, apiVersion: '2026-05' })
 
 const [usOrders, euOrders] = await Promise.all([
   clUS.orders.list(),
@@ -92,7 +94,8 @@ const [usOrders, euOrders] = await Promise.all([
 import { CommerceLayer, orders, skus } from '@commercelayer/sdk/single-client'
 
 const cl = CommerceLayer({
-  accessToken: 'your-access-token'
+  accessToken: 'your-access-token',
+  apiVersion: '2026-05'
 })
 
 const orderList = await orders.list()
@@ -111,6 +114,7 @@ When instantiating a new SDK client you can pass some options to initialize it:
 {
   organization?: string       // The organization slug
   accessToken: string         // A valid API access token
+  apiVersion: ApiVersion      // The API version to target, e.g. '2026-05' — required, see API version below
   timeout?: number            // A custom request timout (<= 15 secs [default])
   headers?: RequestHeaders    // Custom request headers
   userAgent?: string          // Custom user-agent useful in certaing contexts but often not allowed by browsers
@@ -131,8 +135,34 @@ Same options can be changed after SDK initialization or passed at runtime while 
   cl.config(options)
 
   // Use runtime configuration without persisting settings
-  customers.list({}, options)
+  cl.customers.list({}, options)
 ```
+
+### API version
+
+The Core API is versioned, and every request targets a single version. `apiVersion` is therefore **required** when creating a client, and becomes part of each request URL — `/api/2026-05/orders`.
+
+Only the versions this release of the SDK was generated for are accepted; any other value is a type error. Both are exported:
+
+```javascript
+import { API_SCHEMA_VERSION, API_SUPPORTED_VERSIONS } from '@commercelayer/sdk'
+
+API_SUPPORTED_VERSIONS // ['2017-08', '2026-05'] — the versions you can target
+API_SCHEMA_VERSION     // '2026-05' — the version the types describe
+```
+
+The types are generated for `API_SCHEMA_VERSION`. Resources and fields that exist only in an older version are still included, marked `@deprecated` with the last version that has them, and newer additions carry `@since` — so you can keep targeting `'2017-08'` while migrating, and your editor shows what changes.
+
+The version can be changed on an existing client, or overridden for a single request:
+
+```javascript
+cl.config({ apiVersion: '2017-08' })
+
+const orderList = await cl.orders.list({}, { apiVersion: '2017-08' })
+```
+
+> [!IMPORTANT]
+> Upgrading from 7.x: `apiVersion` is new and required, so every `CommerceLayer(...)` call needs it.
 
 ## SDK usage
 
@@ -140,7 +170,7 @@ The JavaScript SDK is a wrapper around Commerce Layer API which means you would 
 
 To show you how things work, we will use the [SKUs](https://docs.commercelayer.io/core/v/api-reference/skus) and [Shipping Categories](https://docs.commercelayer.io/core/v/api-reference/shipping_categories) resource in the following examples. The code snippets below show how to use the SDK when performing the standard CRUD operations provided by our REST API. Kindly check our [API reference](https://docs.commercelayer.io/core/v/api-reference) for the complete list of available **resources** and their **attributes**.
 
-> The examples below use the selective style (`skus.create(...)`, imported from `@commercelayer/sdk/single-client`) for brevity. With the default **bundled client**, call the same methods through the client instance instead — e.g. `cl.skus.create(...)`, `cl.shipping_categories.list(...)`.
+> The examples below assume a client `cl`, created as shown in [Import](#import).
 
 ### Create
 
@@ -150,18 +180,17 @@ To show you how things work, we will use the [SKUs](https://docs.commercelayer.i
 
 ```javascript
   // Select the shipping category (it's a required relationship for the SKU resource)
-  const shippingCategories = await shipping_categories.list({ filters: { name_eq: 'Merchandising' } })
+  const shippingCategories = await cl.shipping_categories.list({ filters: { name_eq: 'Merchandising' } })
 
-  const attributes = {
+  // Attributes passed inline, so each value is checked against the field it sets
+  const newSku = await cl.skus.create({
     code: 'TSHIRTMM000000FFFFFFXL',
     name: 'Black Men T-shirt with White Logo (XL)',
-    description: "A very beautiful and cozy mens t-shirt",
-    weight: "500",
-    unit_of_weight: "gr"
-    shipping_category: shipping_categories.relationship(shippingCategories[0].id), // assigns the relationship
-  }
-
-  const newSku = await skus.create(attributes)
+    description: 'A very beautiful and cozy mens t-shirt',
+    weight: 500,
+    unit_of_weight: 'gr',
+    shipping_category: cl.shipping_categories.relationship(shippingCategories[0].id), // assigns the relationship
+  })
 ```
 
 ℹ️ Check our API reference for more information on how to [create an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/create).
@@ -175,16 +204,16 @@ To show you how things work, we will use the [SKUs](https://docs.commercelayer.i
 
 ```javascript
   // Fetch the SKU by ID
-  const sku = await skus.retrieve('BxAkSVqKEn')
+  const sku = await cl.skus.retrieve('BxAkSVqKEn')
 
   // Fetch all SKUs and filter by code
-  const skuList = await skus.list({ filters: { code_eq: 'TSHIRTMM000000FFFFFFXLXX' } })
+  const skuList = await cl.skus.list({ filters: { code_eq: 'TSHIRTMM000000FFFFFFXLXX' } })
 
   // Fetch the first SKU of the list
-  const skuList = (await skus.list()).first()
+  const skuList = (await cl.skus.list()).first()
 
   // Fetch the last SKU of the list
-  const skuList = (await skus.list()).last()
+  const skuList = (await cl.skus.list()).last()
 ```
 
 ℹ️ Check our API reference for more information on how to [retrieve an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/retrieve).
@@ -196,14 +225,14 @@ To show you how things work, we will use the [SKUs](https://docs.commercelayer.i
 
 ```javascript
   // Fetch all the SKUs
-  const skuList = await skus.list()
+  const skuList = await cl.skus.list()
 ```
 
 When fetching a collection of resources you can leverage the `meta` attribute to get its `meta` information like so:
 
 ```javascript
-  const skuList = await skus.list()
-  const meta = skus.meta
+  const skuList = await cl.skus.list()
+  const meta = skuList.meta
 ```
 
 ℹ️ Check our API reference for more information on how to [list all SKUs](https://docs.commercelayer.io/developers/v/api-reference/skus/list).
@@ -215,10 +244,10 @@ When fetching a collection of resources you can leverage the `meta` attribute to
 
 ```javascript
   // Sort the results by creation date in ascending order (default)
-  const skuList = await skus.list({ sort: { created_at: 'asc' } })
+  const skuList = await cl.skus.list({ sort: { created_at: 'asc' } })
 
   // Sort the results by creation date in descending order
-  const skuList = await skus.list({ sort: { created_at: 'desc' } })
+  const skuList = await cl.skus.list({ sort: { created_at: 'desc' } })
   ```
 
 ℹ️ Check our API reference for more information on how to [sort results](https://docs.commercelayer.io/developers/sorting-results).
@@ -230,10 +259,10 @@ When fetching a collection of resources you can leverage the `meta` attribute to
 
 ```javascript
   // Include an association (prices)
-  const skuList = await skus.list({ include: [ 'prices' ] })
+  const skuList = await cl.skus.list({ include: [ 'prices' ] })
 
   // Include an association (stock items)
-  const skuList = await skus.list({ include: [ 'stock_items' ] })
+  const skuList = await cl.skus.list({ include: [ 'stock_items' ] })
   ```
 
 ℹ️ Check our API reference for more information on how to [include associations](https://docs.commercelayer.io/developers/including-associations).
@@ -245,10 +274,10 @@ When fetching a collection of resources you can leverage the `meta` attribute to
 
 ```javascript
   // Request the API to return only specific fields
-  const skuList = await skus.list({ fields: { skus: [ 'name', 'metadata' ] } })
+  const skuList = await cl.skus.list({ fields: { skus: [ 'name', 'metadata' ] } })
 
   // Request the API to return only specific fields of the included resource
-  const skuList = await skus.list({ include: [ 'prices' ], fields: { prices: [ 'currency_code', 'formatted_amount' ] } })
+  const skuList = await cl.skus.list({ include: [ 'prices' ], fields: { prices: [ 'currency_code', 'formatted_amount' ] } })
   ```
 
 ℹ️ Check our API reference for more information on how to [use sparse fieldsets](https://docs.commercelayer.io/developers/sparse-fieldsets).
@@ -260,25 +289,25 @@ When fetching a collection of resources you can leverage the `meta` attribute to
 
 ```javascript
   // Filter all the SKUs fetching only the ones whose code starts with the string "TSHIRT"
-  const skuList = await skus.list({ filters: { code_start: 'TSHIRT' } })
+  const skuList = await cl.skus.list({ filters: { code_start: 'TSHIRT' } })
 
   // Filter all the SKUs fetching only the ones whose code ends with the string "XLXX"
-  const skuList = await skus.list({ filters: { code_end: 'XLXX' } })
+  const skuList = await cl.skus.list({ filters: { code_end: 'XLXX' } })
 
   // Filter all the SKUs fetching only the ones whose name contains the string "White Logo"
-  const skuList = await skus.list({ filters: { name_cont: 'White Logo' } })
+  const skuList = await cl.skus.list({ filters: { name_cont: 'White Logo' } })
 
   // Filter all the SKUs fetching only the ones created between two specific dates
   // (filters combined according to the AND logic)
-  const skuList = await skus.list({ filters: { created_at_gt: '2018-01-01', created_at_lt: '2018-01-31'} })
+  const skuList = await cl.skus.list({ filters: { created_at_gt: '2018-01-01', created_at_lt: '2018-01-31'} })
 
   // Filters all the SKUs fetching only the ones created or updated after a specific date
   // (attributes combined according to the OR logic)
-  const skuList = await skus.list({ filters: { updated_at_or_created_at_gt: '2019-10-10' } })
+  const skuList = await cl.skus.list({ filters: { updated_at_or_created_at_gt: '2019-10-10' } })
 
   // Filters all the SKUs fetching only the ones whose name contains the string "Black"
   // and whose shipping category name starts with the string "MERCH"
-  const skuList = await skus.list({ filters: { name_cont: 'Black', shipping_category_name_start: 'MERCH'} })
+  const skuList = await cl.skus.list({ filters: { name_cont: 'Black', shipping_category_name_start: 'MERCH'} })
   ```
 
 ℹ️ Check our API reference for more information on how to [filter data](https://docs.commercelayer.io/developers/filtering-data).
@@ -292,7 +321,7 @@ When you fetch a collection of resources, you get paginated results. You can req
 
 ```javascript
   // Fetch the SKUs, setting the page number to 3 and the page size to 5
-  const skuList = await skus.list({ pageNumber: 3, pageSize: 5 })
+  const skuList = await cl.skus.list({ pageNumber: 3, pageSize: 5 })
 
   // Get the total number of SKUs in the collection
   const skuCount = skuList.meta.recordCount
@@ -316,12 +345,12 @@ A few resources — such as [event stores](https://docs.commercelayer.io/core-ap
   const skuId = 'xYZkjABcde'
 
   // Event stores are fetched as a relationship of a resource
-  let page = await skus.event_stores(skuId, { pageSize: 10 })
+  let page = await cl.skus.event_stores(skuId, { pageSize: 10 })
   const events = [...page]
 
   // Follow the cursor until there are no more pages
   while (page.meta.cursor?.next) {
-    page = await skus.event_stores(skuId, { pageAfter: page.meta.cursor.next.after })
+    page = await cl.skus.event_stores(skuId, { pageAfter: page.meta.cursor.next.after })
     events.push(...page)
   }
 ```
@@ -339,8 +368,8 @@ To execute a function for every item of a collection, use the `map()` method lik
 
 ```javascript
   // Fetch the whole list of SKUs (1st page) and print their names and codes to console
-  const skuList = await skus.list()
-  skus.map(p => console.log('Product: ' + p.name + ' - Code: ' + p.code))
+  const skuList = await cl.skus.list()
+  skuList.map(p => console.log('Product: ' + p.name + ' - Code: ' + p.code))
 ```
 
 </details>
@@ -360,16 +389,16 @@ Many resources have relationships with other resources and instead of including 
 
 ```javascript
 // Fetch 1-to-1 related resource: billing address of an order
-const billingAddress = await orders.billing_address('xYZkjABcde')
+const billingAddress = await cl.orders.billing_address('xYZkjABcde')
 
 // Fetch 1-to-N related resources: orders associated to a customer
-const orders = await customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] })
+const customerOrders = await cl.customers.orders('XyzKjAbCDe', { fields: ['status', 'number'] })
 ```
 
 In general:
 
-- An API endpoint like `/api/customers` or `/api/customers/<customerId>` translates to `cl.customers` or `cl.customers('<customerId>')` with the SDK.
-- 1-to-1 relationship API endpoints like `/api/orders/<orderId>/shipping_address` translates to `cl.orders('<orderId>', { include: ['shipping_address'] }}` with the SDK.
+- An API endpoint like `/api/customers` or `/api/customers/<customerId>` translates to `cl.customers.list()` or `cl.customers.retrieve('<customerId>')` with the SDK.
+- 1-to-1 relationship API endpoints like `/api/orders/<orderId>/shipping_address` translates to `cl.orders.shipping_address('<orderId>')` with the SDK, or to `cl.orders.retrieve('<orderId>', { include: ['shipping_address'] })` to get it along with the order.
 - 1-to-N relationship API endpoints like  `/api/customers/<customerId>?include=orders` or `/api/customers/<customerId>/orders` translates to `cl.customers.retrieve('<customerId>', { include: ['orders'] })` or `cl.customers.orders('<customerId>')` with the SDK.
 
 ℹ️ Check our API reference for more information on how to [fetch relationships](https://docs.commercelayer.io/core/fetching-relationships).
@@ -402,10 +431,10 @@ const placedOrders = await cl.orders.count({ filters: { status_eq: 'placed' } })
   const sku = {
     id: 'xYZkjABcde',
     description: 'Updated description...',
-    imageUrl: 'https://img.yourdomain.com/skus/new-image.png'
+    image_url: 'https://img.yourdomain.com/skus/new-image.png'
   }
 
-  skus.update(sku) // updates the SKU on the server
+  cl.skus.update(sku) // updates the SKU on the server
 ```
 
 ℹ️ Check our API reference for more information on how to [update an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/update).
@@ -418,7 +447,7 @@ const placedOrders = await cl.orders.count({ filters: { status_eq: 'placed' } })
 <br />
 
 ```javascript
-  skus.delete('xYZkjABcde') // persisted deletion
+  cl.skus.delete('xYZkjABcde') // persisted deletion
 ```
 
 ℹ️ Check our API reference for more information on how to [delete an SKU](https://docs.commercelayer.io/developers/v/api-reference/skus/delete).
@@ -431,12 +460,12 @@ If needed, Commerce Layer JS SDK lets you change the client configuration and se
 ```javascript
   // Permanently change configuration at client level
   cl.config({ organization: 'you-organization-slug', accessToken: 'your-access-token' })
-  const skuList = await skus.list()
+  const skuList = await cl.skus.list()
 
-  or
+  // or
 
   // Use configuration at request level
-  skus.list({}, { organization: 'you-organization-slug', accessToken: 'your-access-token' })
+  cl.skus.list({}, { organization: 'you-organization-slug', accessToken: 'your-access-token' })
 ```
 
 ## Handling validation errors
@@ -447,7 +476,7 @@ Commerce Layer API returns specific errors (with extra information) on each attr
   // Log error messages to console:
   const attributes = { code: 'TSHIRTMM000000FFFFFFXL', name: '' }
 
-  const newSku = await skus.create(attributes).catch(error => console.log(error.errors))
+  const newSku = await cl.skus.create(attributes).catch(error => console.log(error.errors))
 
   // Logged errors
   /*
@@ -513,7 +542,7 @@ Here an example of how to use them:
   cl.addRequestInterceptor(requestInterceptor)
   cl.addResponseInterceptor(responseInterceptor, errorInterceptor)
 
-  const customerList = await customers.list()
+  const customerList = await cl.customers.list()
 
   // Remove interceptors
   // Tt is possible to remove only a specific interceptor: cl.removeInterceptor('request')
@@ -528,7 +557,7 @@ The *RawResponseReader* is a special interceptor that allows to catch the origin
   // Add a RawResponseReader capable of capturing also response headers
   const rrr = cl.addRawResponseReader({ headers: true })
   
-  const customerList = await customers.list()
+  const customerList = await cl.customers.list()
 
   cl.removeRawResponseReader()
 

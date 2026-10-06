@@ -2,8 +2,9 @@ import type { Fetch } from '@runtime/fetch'
 import { denormalize, normalize } from '@runtime/jsonapi'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { CommerceLayer, type Order, type OrderUpdate, orders } from '../src/single-client'
+import { API_VERSION } from '../test/common'
 
-const config = { organization: 'test-org', accessToken: 'fake-token' } as const
+const config = { organization: 'test-org', accessToken: 'fake-token', apiVersion: API_VERSION } as const
 
 const META = { created_with_version: '2026-09' }
 
@@ -20,7 +21,7 @@ const fakeFetch = (body: unknown, capture?: (url: URL, init?: RequestInit) => vo
     } as unknown as Response)
   }) as Fetch
 
-const orderDoc = (meta?: object) => ({
+const orderDoc = (meta?: Record<string, string>) => ({
   data: {
     id: 'ORD123',
     type: 'orders',

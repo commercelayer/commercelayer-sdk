@@ -1,15 +1,18 @@
 import { describe, expect, test } from 'vitest'
-import type { CommerceLayerInitConfig } from '../src/commercelayer'
 import { application, CommerceLayer } from '../src/single-client'
-import { handleError, interceptRequest } from '../test/common'
+import { API_VERSION, handleError, interceptRequest } from '../test/common'
 
-const baseConfig = { organization: 'test-org', accessToken: 'fake-token' } as const
+// `apiVersion` is required, so every client here passes one. Where a test needs
+// a version other than the one the SDK was generated for — to prove the
+// configured value is used rather than a default — it uses OTHER_VERSION.
+const OTHER_VERSION = '2017-08'
+const baseConfig = { organization: 'test-org', accessToken: 'fake-token', apiVersion: API_VERSION } as const
 
 describe('apiVersion in request URL', () => {
-  test('omitting apiVersion keeps requests unversioned', async () => {
-    const client = CommerceLayer(baseConfig)
+  test('the client apiVersion becomes a path segment', async () => {
+    const client = CommerceLayer({ ...baseConfig, apiVersion: OTHER_VERSION })
     client.addRequestInterceptor((request) => {
-      expect(request.url.pathname).toBe('/api/application')
+      expect(request.url.pathname).toBe(`/api/${OTHER_VERSION}/application`)
       return interceptRequest()
     })
     await application
@@ -18,12 +21,26 @@ describe('apiVersion in request URL', () => {
       .finally(() => client.removeInterceptor('request'))
   })
 
-  test('setting apiVersion adds it as a path segment', async () => {
-    // On a legacy build `ApiVersion` is `never`, so cast past the public type
-    // constraint to exercise the runtime URL logic build-agnostically.
-    const client = CommerceLayer({ ...baseConfig, apiVersion: '2099-01' } as CommerceLayerInitConfig)
+  test('apiVersion can be changed via config()', async () => {
+    const client = CommerceLayer(baseConfig)
+    client.config({ apiVersion: OTHER_VERSION })
     client.addRequestInterceptor((request) => {
-      expect(request.url.pathname).toBe('/api/2099-01/application')
+      expect(request.url.pathname).toBe(`/api/${OTHER_VERSION}/application`)
+      return interceptRequest()
+    })
+    await application
+      .retrieve({})
+      .catch(handleError)
+      .finally(() => client.removeInterceptor('request'))
+  })
+
+  test('a JavaScript caller that omits apiVersion gets unversioned requests', async () => {
+    // The types require apiVersion; untyped callers can still leave it out,
+    // and the API then resolves the organization's default version.
+    // @ts-expect-error — apiVersion is required
+    const client = CommerceLayer({ organization: 'test-org', accessToken: 'fake-token' })
+    client.addRequestInterceptor((request) => {
+      expect(request.url.pathname).toBe('/api/application')
       return interceptRequest()
     })
     await application
@@ -60,35 +77,22 @@ describe('apiVersion in request URL', () => {
     })
 
     test('per-request apiVersion keeps the client domain', async () => {
-      const url = await requestedUrl(CommerceLayer(stagingConfig), { apiVersion: '2099-03' } as RequestOptions)
+      const url = await requestedUrl(CommerceLayer(stagingConfig), { apiVersion: OTHER_VERSION })
       expect(url.host).toBe('test-org.commercelayer.co')
-      expect(url.pathname).toBe('/api/2099-03/application')
+      expect(url.pathname).toBe(`/api/${OTHER_VERSION}/application`)
     })
 
     test('per-request organization keeps the client domain', async () => {
-      const url = await requestedUrl(CommerceLayer(stagingConfig), { organization: 'other-org' } as RequestOptions)
+      const url = await requestedUrl(CommerceLayer(stagingConfig), { organization: 'other-org' })
       expect(url.host).toBe('other-org.commercelayer.co')
     })
 
     test('an explicit per-request domain still wins', async () => {
       const url = await requestedUrl(CommerceLayer(stagingConfig), {
-        apiVersion: '2099-03',
+        apiVersion: OTHER_VERSION,
         domain: 'commercelayer.io',
-      } as RequestOptions)
+      })
       expect(url.host).toBe('test-org.commercelayer.io')
     })
-  })
-
-  test('apiVersion can be changed via config()', async () => {
-    const client = CommerceLayer(baseConfig)
-    client.config({ apiVersion: '2099-02' } as Partial<CommerceLayerInitConfig>)
-    client.addRequestInterceptor((request) => {
-      expect(request.url.pathname).toBe('/api/2099-02/application')
-      return interceptRequest()
-    })
-    await application
-      .retrieve({})
-      .catch(handleError)
-      .finally(() => client.removeInterceptor('request'))
   })
 })

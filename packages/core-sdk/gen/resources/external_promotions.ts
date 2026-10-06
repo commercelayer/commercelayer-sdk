@@ -27,12 +27,12 @@ import type { Tag, TagType } from './tags'
 type ExternalPromotionType = 'external_promotions'
 type ExternalPromotionRel = ResourceRel & { type: ExternalPromotionType }
 type MarketRel = ResourceRel & { type: MarketType }
+type SkuListRel = ResourceRel & { type: SkuListType }
+type TagRel = ResourceRel & { type: TagType }
 type OrderAmountPromotionRuleRel = ResourceRel & { type: OrderAmountPromotionRuleType }
 type SkuListPromotionRuleRel = ResourceRel & { type: SkuListPromotionRuleType }
 type CouponCodesPromotionRuleRel = ResourceRel & { type: CouponCodesPromotionRuleType }
 type CustomPromotionRuleRel = ResourceRel & { type: CustomPromotionRuleType }
-type SkuListRel = ResourceRel & { type: SkuListType }
-type TagRel = ResourceRel & { type: TagType }
 
 export type ExternalPromotionSort = Pick<
   ExternalPromotion,
@@ -229,10 +229,6 @@ interface ExternalPromotionCreate extends ResourceCreate {
   promotion_url: string
 
   market?: MarketRel | null
-  order_amount_promotion_rule?: OrderAmountPromotionRuleRel | null
-  sku_list_promotion_rule?: SkuListPromotionRuleRel | null
-  coupon_codes_promotion_rule?: CouponCodesPromotionRuleRel | null
-  custom_promotion_rule?: CustomPromotionRuleRel | null
   sku_list?: SkuListRel | null
   tags?: TagRel[] | null
 }
@@ -298,6 +294,7 @@ interface ExternalPromotionUpdate extends ResourceUpdate {
   _reset_circuit?: boolean | null
   /**
    * Send this attribute if you want to regenerate the shared secret.
+   * @deprecated Last available in API version 2017-08.
    * @example ```true```
    */
   _regenerate_shared_secret?: boolean | null

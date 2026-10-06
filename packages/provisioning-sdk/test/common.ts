@@ -14,12 +14,14 @@ import {
 } from '../src/commercelayer'
 import getToken from './token'
 
-// A version segment only appears in the URL when a client is initialized with
-// `apiVersion` (e.g. `/api/2026-05/orders`). The test clients here don't set
-// it, so requests stay unversioned (`/api/orders`) on every build. The
-// `apiVersion` path routing itself is covered by `specs/api-version-url.spec.ts`.
-export const IS_UNIFIED_BUILD = API_SCHEMA_VERSION !== 'latest'
-const API_PATH_PREFIX = '/api'
+// Both APIs are versioned and the SDK is always generated from a versioned
+// schema, so `apiVersion` is required. The test clients target the version the
+// SDK was generated for, and every request path carries it
+// (`/api/2026-05/orders`). Typed from the factory's own parameter, since
+// API_SCHEMA_VERSION is a plain string and the option accepts only the
+// supported versions.
+const API_VERSION = API_SCHEMA_VERSION as NonNullable<Parameters<typeof CommerceLayerProvisioning>[0]>['apiVersion']
+const API_PATH_PREFIX = `/api/${API_SCHEMA_VERSION}`
 
 dotenv.config()
 
@@ -78,7 +80,7 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerPro
     accessToken = token.accessToken
   }
 
-  const client = CommerceLayerProvisioning({ organization, accessToken, domain })
+  const client = CommerceLayerProvisioning({ organization, accessToken, domain, apiVersion: API_VERSION })
   currentAccessToken = accessToken
 
   client.config({ timeout: config.timeout || GLOBAL_TIMEOUT })
@@ -91,7 +93,7 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerPro
 
 const fakeClient = async (): Promise<CommerceLayerProvisioningBaseClient> => {
   const accessToken = 'fake-access-token'
-  const client = CommerceLayerProvisioning({ organization, accessToken, domain })
+  const client = CommerceLayerProvisioning({ organization, accessToken, domain, apiVersion: API_VERSION })
   currentAccessToken = accessToken
   return client
 }

@@ -36,6 +36,7 @@ export type CaptureSort = Pick<Capture, 'id' | 'number' | 'amount_cents'> & Reso
 /**
  * The Capture object is returned as part of the response body of each successful list, retrieve or update API call to the /api/captures endpoint.
  *
+ * @deprecated Last available in API version 2017-08.
  * @link https://docs.commercelayer.io/core-api-reference/captures/object
  */
 interface Capture extends Resource {
@@ -100,6 +101,11 @@ interface Capture extends Resource {
    * @example ```"xxxx-yyyy-zzzz"```
    */
   gateway_transaction_id?: string | null
+  /**
+   * The additional data returned by the payment gateway, if any.
+   * @example ```{"foo":"bar"}```
+   */
+  additional_data?: Record<string, any> | null
   /**
    * The amount to be refunded, in cents.
    * @example ```500```
@@ -179,6 +185,7 @@ interface CaptureUpdate extends ResourceUpdate {
   _cancel?: boolean | null
 }
 
+/** @deprecated Last available in API version 2017-08. */
 class Captures extends ApiResource<Capture> {
   static readonly TYPE: CaptureType = 'captures' as const
 

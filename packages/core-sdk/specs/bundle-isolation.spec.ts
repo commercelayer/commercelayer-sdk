@@ -1,14 +1,14 @@
 import { describe, expect, test } from 'vitest'
 import { CommerceLayer } from '../gen/bundle'
-import { handleError, interceptRequest } from '../test/common'
+import { API_VERSION, handleError, interceptRequest } from '../test/common'
 
 // Regression test for the beta-8 singleton bug: two bundle clients created
 // with different tokens must stay isolated. Previously every client funneled
 // through the process-global static adapter (and shared module-singleton
 // resource instances), so the last-created client's token/org won for all.
 
-const config1 = { organization: 'org-one', accessToken: 'token-one' } as const
-const config2 = { organization: 'org-two', accessToken: 'token-two' } as const
+const config1 = { organization: 'org-one', accessToken: 'token-one', apiVersion: API_VERSION } as const
+const config2 = { organization: 'org-two', accessToken: 'token-two', apiVersion: API_VERSION } as const
 
 describe('Bundle client isolation', () => {
   test('each client reports its own organization', () => {

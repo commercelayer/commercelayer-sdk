@@ -1,5 +1,12 @@
 import { inspect } from 'node:util'
-import { CommerceLayer, type CommerceLayerClient, type CommerceLayerInitConfig, CommerceLayerStatic } from '../src'
+import {
+  API_SCHEMA_VERSION,
+  type ApiVersion,
+  CommerceLayer,
+  type CommerceLayerClient,
+  type CommerceLayerInitConfig,
+  CommerceLayerStatic,
+} from '../src'
 import getToken, { type AccessToken } from './token'
 
 export const getAccessToken = async (env?: string): Promise<AccessToken> => {
@@ -27,6 +34,9 @@ export const initConfig = async (env?: string): Promise<CommerceLayerInitConfig>
   return {
     // organization,
     accessToken,
+    // The version the SDK was generated for. Not taken from test/common, which
+    // imports vitest: this module also backs test/spot.ts, run outside vitest.
+    apiVersion: API_SCHEMA_VERSION as ApiVersion,
   }
 }
 

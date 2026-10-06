@@ -23,7 +23,7 @@
     "lerna": "pnpm dlx --allow-build=nx lerna@10.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.14"
+    "@biomejs/biome": "^2.5.15"
   },
   "engines": {
     "node": ">=20"
