@@ -22,7 +22,7 @@ export type ManualGatewaySort = Pick<ManualGateway, 'id' | 'name' | 'disabled_at
 /**
  * The Manual gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/manual_gateways endpoint.
  *
- * @deprecated Last available in API version 2017-08.
+ * @deprecated Deprecated in API version 2026-05.
  * @link https://docs.commercelayer.io/core-api-reference/manual_gateways/object
  */
 interface ManualGateway extends Resource {
@@ -99,7 +99,7 @@ interface ManualGatewayUpdate extends ResourceUpdate {
   _enable?: boolean | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated Deprecated in API version 2026-05. */
 class ManualGateways extends ApiResource<ManualGateway> {
   static readonly TYPE: ManualGatewayType = 'manual_gateways' as const
 

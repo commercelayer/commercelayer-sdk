@@ -97,14 +97,14 @@ interface Customer extends Resource {
   customer_group?: CustomerGroup | null
   customer_addresses?: CustomerAddress[] | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   customer_payment_sources?: CustomerPaymentSource[] | null
   customer_subscriptions?: CustomerSubscription[] | null
   orders?: Order[] | null
   order_subscriptions?: OrderSubscription[] | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   returns?: Return[] | null
   sku_lists?: SkuList[] | null
@@ -257,7 +257,7 @@ class Customers extends ApiResource<Customer> {
   }
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   async customer_payment_sources(
     customerId: string | Customer,
@@ -316,7 +316,7 @@ class Customers extends ApiResource<Customer> {
   }
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   async returns(
     customerId: string | Customer,

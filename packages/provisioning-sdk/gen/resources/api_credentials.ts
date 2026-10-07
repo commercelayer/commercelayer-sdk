@@ -24,7 +24,7 @@ export type ApiCredentialSort = Pick<ApiCredential, 'id' | 'name' | 'mode'> & Re
 /**
  * The Api credential object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/api_credentials endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/api_credentials/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/api_credentials/object
  */
 interface ApiCredential extends Resource {
   readonly type: ApiCredentialType

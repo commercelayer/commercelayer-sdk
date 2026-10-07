@@ -132,7 +132,7 @@ interface OrderSubscription extends Resource {
   succeeded_on_last_run?: boolean | null
   /**
    * The subscription options used to create the order.
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    * @example ```{"place_target_order":false}```
    */
   options?: Record<string, any> | null
@@ -148,7 +148,7 @@ interface OrderSubscription extends Resource {
   source_order?: Order | null
   customer?: Customer | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   customer_payment_source?: CustomerPaymentSource | null
   /**
@@ -203,7 +203,7 @@ interface OrderSubscriptionCreate extends ResourceCreate {
   expires_at?: string | null
   /**
    * The subscription options used to create the order.
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    * @example ```{"place_target_order":false}```
    */
   options?: Record<string, any> | null
@@ -260,7 +260,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
   next_run_at?: string | null
   /**
    * The subscription options used to create the order.
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    * @example ```{"place_target_order":false}```
    */
   options?: Record<string, any> | null
@@ -300,7 +300,7 @@ interface OrderSubscriptionUpdate extends ResourceUpdate {
   _remove_tags?: string | null
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   customer_payment_source?: CustomerPaymentSourceRel | null
   /**
@@ -402,7 +402,7 @@ class OrderSubscriptions extends ApiResource<OrderSubscription> {
   }
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   async customer_payment_source(
     orderSubscriptionId: string | OrderSubscription,

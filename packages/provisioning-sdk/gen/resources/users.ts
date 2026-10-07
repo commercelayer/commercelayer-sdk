@@ -18,7 +18,7 @@ export type UserSort = Pick<User, 'id' | 'email' | 'first_name' | 'last_name'> &
 /**
  * The User object is returned as part of the response body of each successful retrieve or update API call to the /api/user endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/users/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/user/object
  */
 interface User extends Resource {
   readonly type: UserType

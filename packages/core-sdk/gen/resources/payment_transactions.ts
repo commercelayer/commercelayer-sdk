@@ -49,7 +49,7 @@ export type PaymentTransactionSort = Pick<
  * The Payment transaction object is returned as part of the response body of each successful list or retrieve API call to the /api/payment_transactions endpoint.
  * @since 2026-05
  *
- * @link https://docs.commercelayer.io/core-api-reference/payment_transactions/object
+ * @link https://docs.commercelayer.io/core-api-reference/2026-05/payment_transactions/object
  */
 type PaymentTransaction = PaymentAuthorization | PaymentCapture | PaymentRefund | PaymentVoid
 

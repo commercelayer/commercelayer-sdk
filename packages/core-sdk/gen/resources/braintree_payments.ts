@@ -24,7 +24,7 @@ export type BraintreePaymentSort = Pick<BraintreePayment, 'id'> & ResourceSort
 /**
  * The Braintree payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/braintree_payments endpoint.
  *
- * @deprecated Last available in API version 2017-08.
+ * @deprecated Deprecated in API version 2026-05.
  * @link https://docs.commercelayer.io/core-api-reference/braintree_payments/object
  */
 interface BraintreePayment extends Resource {
@@ -111,7 +111,7 @@ interface BraintreePaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated Deprecated in API version 2026-05. */
 class BraintreePayments extends ApiResource<BraintreePayment> {
   static readonly TYPE: BraintreePaymentType = 'braintree_payments' as const
 

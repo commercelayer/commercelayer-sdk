@@ -22,6 +22,16 @@ const actionsPhrase = (actions?: readonly string[]): string => {
   return `${list.slice(0, -1).join(', ')} or ${list.at(-1)}`
 }
 
+// Text after `@deprecated` for an element that is not part of the latest API
+// version. The schema gives the last version that has it (`deprecatedSince`);
+// it is deprecated in the next supported one, which still serves it and flags
+// it in `meta.deprecations` (e.g. last in 2017-08 -> deprecated in 2026-05).
+// Empty when the version is unknown, as in legacy-shape schemas.
+const deprecatedIn = (lastAvailable?: string): string => {
+  const version = lastAvailable ? (global.supportedVersions ?? []).find((v) => v > lastAvailable) : undefined
+  return version ? ` Deprecated in API version ${version}.` : ''
+}
+
 // Human-readable, title-cased singular object name for a resource. Uses the
 // curated name map (acronyms/brand casing preserved) and falls back to a
 // mechanical humanize of the singular id for anything not in the map.
@@ -947,11 +957,8 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   // to API versions older than the current target, `@since` when introduced
   // after the catalogue's oldest supported version. Both can apply but in
   // practice they're mutually exclusive for resources.
-  const resourceDeprecatedSince = resource.deprecatedSince
-    ? ` Last available in API version ${resource.deprecatedSince}.`
-    : ''
   let resourceJsdoc = ''
-  if (resource.deprecated) resourceJsdoc = `/** @deprecated${resourceDeprecatedSince} */\n`
+  if (resource.deprecated) resourceJsdoc = `/** @deprecated${deprecatedIn(resource.deprecatedSince)} */\n`
   else if (resource.since) resourceJsdoc = `/** @since ${resource.since} */\n`
   res = res.replace(/##__RESOURCE_DEPRECATED_JSDOC__##/g, resourceJsdoc)
 
@@ -1045,10 +1052,13 @@ const generateResource = (type: string, name: string, resource: Resource): strin
   // supported version, `@deprecated` when it's version-scoped to older API
   // versions (or flagged deprecated in the legacy schema).
   const resSinceLine = resource.since ? `\n * @since ${resource.since}` : ''
-  const resDeprecatedLine = resource.deprecated
-    ? `\n * @deprecated${resource.deprecatedSince ? ` Last available in API version ${resource.deprecatedSince}.` : ''}`
-    : ''
-  const descriptionJsdoc = `/**\n * The ${objectName} object is returned as part of the response body of each successful ${actionsPhrase(resource.actions)} API call to the /api/${endpoint} endpoint.${resSinceLine}\n * ${resDeprecatedLine}\n * @link https://docs.commercelayer.io/${global.target?.docsPath}/${type}/object\n */`
+  const resDeprecatedLine = resource.deprecated ? `\n * @deprecated${deprecatedIn(resource.deprecatedSince)}` : ''
+  // A resource introduced after the oldest supported version is documented only
+  // under that version's reference (`.../2026-05/payment_sessions/object`). The
+  // others keep the unversioned reference, which covers every version they are in.
+  // Like the endpoint, singletons are documented under their singular name.
+  const docsVersion = resource.since ? `${resource.since}/` : ''
+  const descriptionJsdoc = `/**\n * The ${objectName} object is returned as part of the response body of each successful ${actionsPhrase(resource.actions)} API call to the /api/${endpoint} endpoint.${resSinceLine}\n * ${resDeprecatedLine}\n * @link https://docs.commercelayer.io/${global.target?.docsPath}/${docsVersion}${endpoint}/object\n */`
   modelInterfaces[0] = `${descriptionJsdoc}\n${modelInterfaces[0]}`
   res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
   res = res.replace(/##__SORT_SOURCE__##/g, sortSource)
@@ -1162,8 +1172,7 @@ const templatedOperation = (
   // Prepend `@deprecated` or `@since` JSDoc to the method based on the
   // versions metadata of the underlying relationship.
   if (op.deprecated) {
-    const lastAvailable = op.deprecatedSince ? ` Last available in API version ${op.deprecatedSince}.` : ''
-    operation = `/**\n * @deprecated${lastAvailable}\n */\n${operation}`
+    operation = `/**\n * @deprecated${deprecatedIn(op.deprecatedSince)}\n */\n${operation}`
   } else if (op.since) {
     operation = `/**\n * @since ${op.since}\n */\n${operation}`
   }
@@ -1246,9 +1255,7 @@ const templatedComponent = (
           const desc = a.description && !a.description.endsWith('.') ? `${a.description}.` : a.description
           const descLine = desc ? `\n\t * ${desc}` : ''
           const sinceLine = a.since ? `\n\t * @since ${a.since}` : ''
-          const deprecatedLine = a.deprecated
-            ? `\n\t * @deprecated${a.deprecatedSince ? ` Last available in API version ${a.deprecatedSince}.` : ''}`
-            : ''
+          const deprecatedLine = a.deprecated ? `\n\t * @deprecated${deprecatedIn(a.deprecatedSince)}` : ''
           const exampleLine = a.example ? `\n\t * @example \`\`\`${JSON.stringify(a.example)}\`\`\`` : ''
           fields.push(`/** ${descLine}${sinceLine}${deprecatedLine}${exampleLine}\n\t */`)
         }
@@ -1296,7 +1303,7 @@ const templatedComponent = (
 
     let jsdoc = ''
     if (r.deprecated) {
-      jsdoc = `/**\n\t * @deprecated${r.deprecatedSince ? ` Last available in API version ${r.deprecatedSince}.` : ''}\n\t */\n\t`
+      jsdoc = `/**\n\t * @deprecated${deprecatedIn(r.deprecatedSince)}\n\t */\n\t`
     } else if (r.since) {
       jsdoc = `/**\n\t * @since ${r.since}\n\t */\n\t`
     }

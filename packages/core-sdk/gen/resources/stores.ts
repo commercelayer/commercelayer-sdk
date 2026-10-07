@@ -62,7 +62,7 @@ interface Store extends Resource {
   stock_location?: StockLocation | null
   orders?: Order[] | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   payment_methods?: PaymentMethod[] | null
   events?: Event[] | null
@@ -197,7 +197,7 @@ class Stores extends ApiResource<Store> {
   }
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   async payment_methods(
     storeId: string | Store,

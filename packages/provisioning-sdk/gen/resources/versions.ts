@@ -10,7 +10,7 @@ export type VersionSort = Pick<Version, 'id'> & ResourceSort
 /**
  * The Version object is returned as part of the response body of each successful list or retrieve API call to the /api/versions endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/versions/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/versions/object
  */
 interface Version extends Resource {
   readonly type: VersionType

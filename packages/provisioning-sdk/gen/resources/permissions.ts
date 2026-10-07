@@ -25,7 +25,7 @@ export type PermissionSort = Pick<Permission, 'id'> & ResourceSort
 /**
  * The Permission object is returned as part of the response body of each successful list, retrieve, create or update API call to the /api/permissions endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/permissions/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/permissions/object
  */
 interface Permission extends Resource {
   readonly type: PermissionType

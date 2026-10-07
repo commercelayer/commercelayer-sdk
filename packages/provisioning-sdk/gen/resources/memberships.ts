@@ -29,7 +29,7 @@ export type MembershipSort = Pick<Membership, 'id' | 'status'> & ResourceSort
 /**
  * The Membership object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/memberships endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/memberships/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/memberships/object
  */
 interface Membership extends Resource {
   readonly type: MembershipType

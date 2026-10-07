@@ -37,7 +37,7 @@ export type IdentityProviderSort = Pick<
 /**
  * The Identity provider object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/identity_providers endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/identity_providers/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/identity_providers/object
  */
 interface IdentityProvider extends Resource {
   readonly type: IdentityProviderType

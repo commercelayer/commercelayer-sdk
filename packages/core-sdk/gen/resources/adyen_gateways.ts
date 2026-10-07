@@ -24,7 +24,7 @@ export type AdyenGatewaySort = Pick<AdyenGateway, 'id' | 'name' | 'disabled_at'>
 /**
  * The Adyen gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/adyen_gateways endpoint.
  *
- * @deprecated Last available in API version 2017-08.
+ * @deprecated Deprecated in API version 2026-05.
  * @link https://docs.commercelayer.io/core-api-reference/adyen_gateways/object
  */
 interface AdyenGateway extends Resource {
@@ -253,7 +253,7 @@ interface AdyenGatewayUpdate extends ResourceUpdate {
   adyen_payments?: AdyenPaymentRel[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated Deprecated in API version 2026-05. */
 class AdyenGateways extends ApiResource<AdyenGateway> {
   static readonly TYPE: AdyenGatewayType = 'adyen_gateways' as const
 

@@ -47,7 +47,7 @@ export type PaymentRefundSort = Pick<
  * The Payment refund object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_refunds endpoint.
  * @since 2026-05
  *
- * @link https://docs.commercelayer.io/core-api-reference/payment_refunds/object
+ * @link https://docs.commercelayer.io/core-api-reference/2026-05/payment_refunds/object
  */
 interface PaymentRefund extends Resource {
   readonly type: PaymentRefundType

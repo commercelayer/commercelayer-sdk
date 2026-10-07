@@ -25,7 +25,7 @@ export type OrganizationSort = Pick<Organization, 'id' | 'name' | 'slug' | 'doma
 /**
  * The Organization object is returned as part of the response body of each successful list, retrieve, create or update API call to the /api/organizations endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/organizations/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/organizations/object
  */
 interface Organization extends Resource {
   readonly type: OrganizationType

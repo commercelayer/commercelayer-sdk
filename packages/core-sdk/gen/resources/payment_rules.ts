@@ -25,7 +25,7 @@ export type PaymentRuleSort = Pick<PaymentRule, 'id' | 'template_id' | 'disabled
  * The Payment rule object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_rules endpoint.
  * @since 2026-05
  *
- * @link https://docs.commercelayer.io/core-api-reference/payment_rules/object
+ * @link https://docs.commercelayer.io/core-api-reference/2026-05/payment_rules/object
  */
 interface PaymentRule extends Resource {
   readonly type: PaymentRuleType

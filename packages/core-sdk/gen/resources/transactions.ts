@@ -36,7 +36,7 @@ export type TransactionSort = Pick<TransactionBase, 'id' | 'number' | 'amount_ce
 /**
  * The Transaction object is returned as part of the response body of each successful list or retrieve API call to the /api/transactions endpoint.
  *
- * @deprecated Last available in API version 2017-08.
+ * @deprecated Deprecated in API version 2026-05.
  * @link https://docs.commercelayer.io/core-api-reference/transactions/object
  */
 type Transaction = Authorization | Capture | Refund | Void
@@ -127,7 +127,7 @@ interface TransactionBase extends Resource {
   event_stores?: EventStore[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated Deprecated in API version 2026-05. */
 class Transactions extends ApiResource<Transaction> {
   static readonly TYPE: TransactionType = 'transactions' as const
 

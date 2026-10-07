@@ -10,7 +10,7 @@ export type ApplicationSort = Pick<Application, 'id'> & ResourceSort
 /**
  * The Application object is returned as part of the response body of each successful retrieve API call to the /api/application endpoint.
  *
- * @link https://docs.commercelayer.io/core-api-reference/applications/object
+ * @link https://docs.commercelayer.io/core-api-reference/application/object
  */
 interface Application extends Resource {
   readonly type: ApplicationType

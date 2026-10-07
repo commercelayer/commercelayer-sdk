@@ -24,7 +24,7 @@ export type ShipmentLineItemSort = Pick<ShipmentLineItem, 'id' | 'quantity'> & R
 /**
  * The Shipment line item object is returned as part of the response body of each successful list or retrieve API call to the /api/shipment_line_items endpoint.
  *
- * @deprecated Last available in API version 2017-08.
+ * @deprecated Deprecated in API version 2026-05.
  * @link https://docs.commercelayer.io/core-api-reference/shipment_line_items/object
  */
 interface ShipmentLineItem extends Resource {
@@ -64,7 +64,7 @@ interface ShipmentLineItem extends Resource {
   event_stores?: EventStore[] | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated Deprecated in API version 2026-05. */
 class ShipmentLineItems extends ApiResource<ShipmentLineItem> {
   static readonly TYPE: ShipmentLineItemType = 'shipment_line_items' as const
 
