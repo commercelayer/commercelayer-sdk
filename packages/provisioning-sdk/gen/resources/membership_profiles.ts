@@ -24,7 +24,7 @@ export type MembershipProfileSort = Pick<MembershipProfile, 'id' | 'name'> & Res
 /**
  * The Membership profile object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/membership_profiles endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/membership_profiles/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/membership_profiles/object
  */
 interface MembershipProfile extends Resource {
   readonly type: MembershipProfileType

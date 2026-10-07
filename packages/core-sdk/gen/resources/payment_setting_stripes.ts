@@ -27,7 +27,7 @@ export type PaymentSettingStripeSort = Pick<PaymentSettingStripe, 'id' | 'name' 
  * The Payment setting stripe object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_setting_stripes endpoint.
  * @since 2026-05
  *
- * @link https://docs.commercelayer.io/core-api-reference/payment_setting_stripes/object
+ * @link https://docs.commercelayer.io/core-api-reference/2026-05/payment_setting_stripes/object
  */
 interface PaymentSettingStripe extends Resource {
   readonly type: PaymentSettingStripeType

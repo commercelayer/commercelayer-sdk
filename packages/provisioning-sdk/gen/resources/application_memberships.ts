@@ -30,7 +30,7 @@ export type ApplicationMembershipSort = Pick<ApplicationMembership, 'id'> & Reso
 /**
  * The Application membership object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/application_memberships endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/application_memberships/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/application_memberships/object
  */
 interface ApplicationMembership extends Resource {
   readonly type: ApplicationMembershipType

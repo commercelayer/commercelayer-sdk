@@ -15,7 +15,8 @@ const config: TargetConfig = {
   },
   // Not organization-scoped: requests go to provisioning.<domain>/api
   apiSubdomain: 'provisioning',
-  docsPath: 'provisioning-api-reference',
+  // provisioning-api-reference was retired: every page there is a 404
+  docsPath: 'provisioning/api-reference',
   clientName: 'CommerceLayerProvisioning',
   clientBaseName: 'CommerceLayerProvisioningBaseClient',
   staticName: 'CommerceLayerProvisioningStatic',

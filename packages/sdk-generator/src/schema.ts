@@ -827,8 +827,9 @@ const parseSchema = (path: string, opts: GeneratorOptions = {}): ApiSchema => {
       operations,
       actions: res.attributes.actions,
       deprecated: classification === 'deprecated' ? true : undefined,
-      // Only attach "Last available in API version X" when we actually know
-      // the version (unified shape); legacy payloads carry no such info.
+      // The last version that has it, from which the generator derives the
+      // version it is deprecated in. Only known for the unified shape; legacy
+      // payloads carry no such info.
       deprecatedSince:
         classification === 'deprecated' && apiVersions && apiVersions.length > 0 ? maxVersion(apiVersions) : undefined,
       since: classification === 'include' ? deriveSince(apiVersions, oldestSupported) : undefined,

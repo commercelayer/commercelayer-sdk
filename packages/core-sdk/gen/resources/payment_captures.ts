@@ -46,7 +46,7 @@ export type PaymentCaptureSort = Pick<
  * The Payment capture object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_captures endpoint.
  * @since 2026-05
  *
- * @link https://docs.commercelayer.io/core-api-reference/payment_captures/object
+ * @link https://docs.commercelayer.io/core-api-reference/2026-05/payment_captures/object
  */
 interface PaymentCapture extends Resource {
   readonly type: PaymentCaptureType

@@ -26,7 +26,7 @@ export type RoleSort = Pick<Role, 'id' | 'name'> & ResourceSort
 /**
  * The Role object is returned as part of the response body of each successful list, retrieve, create or update API call to the /api/roles endpoint.
  *
- * @link https://docs.commercelayer.io/provisioning-api-reference/roles/object
+ * @link https://docs.commercelayer.io/provisioning/api-reference/roles/object
  */
 interface Role extends Resource {
   readonly type: RoleType

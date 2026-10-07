@@ -133,7 +133,7 @@ interface Market extends Resource {
   base_price_list?: PriceList | null
   inventory_model?: InventoryModel | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   subscription_model?: SubscriptionModel | null
   discount_engine?: DiscountEngine | null
@@ -149,13 +149,13 @@ interface Market extends Resource {
   geocoder?: Geocoder | null
   default_shipping_method?: ShippingMethod | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   default_payment_method?: PaymentMethod | null
   stores?: Store[] | null
   price_list_schedulers?: PriceListScheduler[] | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   order_validation_rules?: OrderValidationRule[] | null
   /**
@@ -228,7 +228,7 @@ interface MarketCreate extends ResourceCreate {
   price_list: PriceListRel
   inventory_model: InventoryModelRel
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   subscription_model?: SubscriptionModelRel | null
   discount_engine?: DiscountEngineRel | null
@@ -244,7 +244,7 @@ interface MarketCreate extends ResourceCreate {
   geocoder?: GeocoderRel | null
   default_shipping_method?: ShippingMethodRel | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   default_payment_method?: PaymentMethodRel | null
 }
@@ -303,7 +303,7 @@ interface MarketUpdate extends ResourceUpdate {
   _enable?: boolean | null
   /**
    * Send this attribute if you want to regenerate the shared secret.
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    * @example ```true```
    */
   _regenerate_shared_secret?: boolean | null
@@ -317,7 +317,7 @@ interface MarketUpdate extends ResourceUpdate {
   price_list?: PriceListRel | null
   inventory_model?: InventoryModelRel | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   subscription_model?: SubscriptionModelRel | null
   discount_engine?: DiscountEngineRel | null
@@ -333,7 +333,7 @@ interface MarketUpdate extends ResourceUpdate {
   geocoder?: GeocoderRel | null
   default_shipping_method?: ShippingMethodRel | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   default_payment_method?: PaymentMethodRel | null
 }
@@ -418,7 +418,7 @@ class Markets extends ApiResource<Market> {
   }
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   async subscription_model(
     marketId: string | Market,
@@ -491,7 +491,7 @@ class Markets extends ApiResource<Market> {
   }
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   async default_payment_method(
     marketId: string | Market,

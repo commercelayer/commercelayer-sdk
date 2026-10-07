@@ -37,8 +37,9 @@ export type TargetConfig = {
    */
   environments: Readonly<Record<string, string>>
   /**
-   * Path segment under docs.commercelayer.io used for `@link` JSDoc, e.g.
-   * `core-api-reference`.
+   * Path under docs.commercelayer.io used for `@link` JSDoc, e.g.
+   * `core-api-reference`. Resources introduced after the oldest supported API
+   * version get that version appended (`core-api-reference/2026-05`).
    */
   docsPath: string
   /**

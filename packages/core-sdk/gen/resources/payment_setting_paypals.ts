@@ -27,7 +27,7 @@ export type PaymentSettingPaypalSort = Pick<PaymentSettingPaypal, 'id' | 'name' 
  * The Payment setting paypal object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_setting_paypals endpoint.
  * @since 2026-05
  *
- * @link https://docs.commercelayer.io/core-api-reference/payment_setting_paypals/object
+ * @link https://docs.commercelayer.io/core-api-reference/2026-05/payment_setting_paypals/object
  */
 interface PaymentSettingPaypal extends Resource {
   readonly type: PaymentSettingPaypalType

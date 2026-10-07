@@ -24,7 +24,7 @@ export type PaypalPaymentSort = Pick<PaypalPayment, 'id'> & ResourceSort
 /**
  * The Paypal payment object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/paypal_payments endpoint.
  *
- * @deprecated Last available in API version 2017-08.
+ * @deprecated Deprecated in API version 2026-05.
  * @link https://docs.commercelayer.io/core-api-reference/paypal_payments/object
  */
 interface PaypalPayment extends Resource {
@@ -120,7 +120,7 @@ interface PaypalPaymentUpdate extends ResourceUpdate {
   order?: OrderRel | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated Deprecated in API version 2026-05. */
 class PaypalPayments extends ApiResource<PaypalPayment> {
   static readonly TYPE: PaypalPaymentType = 'paypal_payments' as const
 

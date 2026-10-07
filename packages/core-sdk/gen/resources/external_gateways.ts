@@ -27,7 +27,7 @@ export type ExternalGatewaySort = Pick<
 /**
  * The External gateway object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/external_gateways endpoint.
  *
- * @deprecated Last available in API version 2017-08.
+ * @deprecated Deprecated in API version 2026-05.
  * @link https://docs.commercelayer.io/core-api-reference/external_gateways/object
  */
 interface ExternalGateway extends Resource {
@@ -185,7 +185,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
   _reset_circuit?: boolean | null
   /**
    * Send this attribute if you want to regenerate the shared secret.
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    * @example ```true```
    */
   _regenerate_shared_secret?: boolean | null
@@ -221,7 +221,7 @@ interface ExternalGatewayUpdate extends ResourceUpdate {
   token_url?: string | null
 }
 
-/** @deprecated Last available in API version 2017-08. */
+/** @deprecated Deprecated in API version 2026-05. */
 class ExternalGateways extends ApiResource<ExternalGateway> {
   static readonly TYPE: ExternalGatewayType = 'external_gateways' as const
 

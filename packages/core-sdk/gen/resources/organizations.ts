@@ -20,7 +20,7 @@ export type OrganizationSort = Pick<Organization, 'id'> & ResourceSort
 /**
  * The Organization object is returned as part of the response body of each successful retrieve API call to the /api/organization endpoint.
  *
- * @link https://docs.commercelayer.io/core-api-reference/organizations/object
+ * @link https://docs.commercelayer.io/core-api-reference/organization/object
  */
 interface Organization extends Resource {
   readonly type: OrganizationType

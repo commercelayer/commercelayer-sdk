@@ -132,11 +132,11 @@ interface Return extends Resource {
   origin_address?: Address | null
   destination_address?: Address | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   reference_capture?: Capture | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   reference_refund?: Refund | null
   return_line_items?: ReturnLineItem[] | null
@@ -155,7 +155,7 @@ interface ReturnCreate extends ResourceCreate {
   order: OrderRel
   stock_location?: StockLocationRel | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   reference_capture?: CaptureRel | null
   tags?: TagRel[] | null
@@ -209,13 +209,13 @@ interface ReturnUpdate extends ResourceUpdate {
   _unarchive?: boolean | null
   /**
    * Send this attribute if you want to create a refund for this return.
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    * @example ```true```
    */
   _refund?: boolean | null
   /**
    * Send this attribute as a value in cents to specify the amount to be refunded.
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    * @example ```500```
    */
   _refund_amount_cents?: number | null
@@ -230,7 +230,7 @@ interface ReturnUpdate extends ResourceUpdate {
 
   stock_location?: StockLocationRel | null
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   reference_capture?: CaptureRel | null
   tags?: TagRel[] | null
@@ -330,7 +330,7 @@ class Returns extends ApiResource<Return> {
   }
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   async reference_capture(
     returnId: string | Return,
@@ -347,7 +347,7 @@ class Returns extends ApiResource<Return> {
   }
 
   /**
-   * @deprecated Last available in API version 2017-08.
+   * @deprecated Deprecated in API version 2026-05.
    */
   async reference_refund(
     returnId: string | Return,
