@@ -36,7 +36,10 @@
     "commercelayer",
     "provisioning"
   ],
-  "author": "Pierluigi Viti <pierluigi@commercelayer.io>",
+  "author": {
+    "name": "Commerce Layer",
+    "email": "development@commercelayer.io"
+  },
   "license": "MIT",
   "description": "Commerce Layer Provisioning API Javascript SDK",
   "files": [

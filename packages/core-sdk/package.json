@@ -56,7 +56,10 @@
     "jamstack",
     "commercelayer"
   ],
-  "author": "Pierluigi Viti <pierluigi@commercelayer.io>",
+  "author": {
+    "name": "Commerce Layer",
+    "email": "development@commercelayer.io"
+  },
   "license": "MIT",
   "description": "Commerce Layer Javascript SDK",
   "files": [

@@ -5,7 +5,10 @@
   "type": "module",
   "description": "Commerce Layer SDK monorepo",
   "license": "MIT",
-  "author": "Pierluigi Viti <pierluigi@commercelayer.io>",
+  "author": {
+    "name": "Commerce Layer",
+    "email": "development@commercelayer.io"
+  },
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test",
