@@ -11,6 +11,7 @@ import type {
 } from '@runtime/resource'
 import { ApiResource } from '@runtime/resource'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { OrderSubscription } from './order_subscriptions'
 import type { PaymentLink } from './payment_links'
 import type { PaymentSession } from './payment_sessions'
@@ -20,8 +21,9 @@ import type { PaymentWallet } from './payment_wallets'
 type PaymentSettingPaypalType = 'payment_setting_paypals'
 type PaymentSettingPaypalRel = ResourceRel & { type: PaymentSettingPaypalType }
 
-export type PaymentSettingPaypalSort = Pick<PaymentSettingPaypal, 'id' | 'name' | 'disabled_at'> & ResourceSort
-// export type PaymentSettingPaypalFilter = Pick<PaymentSettingPaypal, 'id' | 'gateway_version' | 'internal_versionable' | 'auto_capture' | 'auto_place' | 'name' | 'disabled_at'> & ResourceFilter
+export type PaymentSettingPaypalSort = Pick<PaymentSettingPaypal, 'id' | 'status' | 'name' | 'disabled_at'> &
+  ResourceSort
+// export type PaymentSettingPaypalFilter = Pick<PaymentSettingPaypal, 'id' | 'gateway_version' | 'internal_versionable' | 'auto_capture' | 'auto_place' | 'status' | 'name' | 'disabled_at'> & ResourceFilter
 
 /**
  * The Payment setting paypal object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_setting_paypals endpoint.
@@ -61,6 +63,11 @@ interface PaymentSettingPaypal extends Resource {
    */
   auto_place?: boolean | null
   /**
+   * The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.
+   * @example ```"active"```
+   */
+  status: string
+  /**
    * The name of the payment setting.
    * @example ```"Stripe"```
    */
@@ -86,6 +93,7 @@ interface PaymentSettingPaypal extends Resource {
   payment_transactions?: PaymentTransaction[] | null
   payment_wallets?: PaymentWallet[] | null
   order_subscriptions?: OrderSubscription[] | null
+  events?: Event[] | null
   event_stores?: EventStore[] | null
 }
 
@@ -179,6 +187,11 @@ interface PaymentSettingPaypalUpdate extends ResourceUpdate {
    * @example ```true```
    */
   _check?: boolean | null
+  /**
+   * Send this attribute if you want to retry the automatic creation of the gateway webhook for a pending payment setting.
+   * @example ```true```
+   */
+  _provision_webhook?: boolean | null
   /**
    * The gateway client ID.
    * @example ```"xxxx-yyyy-zzzz"```
@@ -298,6 +311,21 @@ class PaymentSettingPaypals extends ApiResource<PaymentSettingPaypal> {
     ) as unknown as ListResponse<OrderSubscription>
   }
 
+  async events(
+    paymentSettingPaypalId: string | PaymentSettingPaypal,
+    params?: QueryParamsList<Event>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Event>> {
+    const _paymentSettingPaypalId =
+      (paymentSettingPaypalId as PaymentSettingPaypal).id || (paymentSettingPaypalId as string)
+    return this.resources.fetch<Event>(
+      { type: 'events' },
+      `payment_setting_paypals/${_paymentSettingPaypalId}/events`,
+      params,
+      options,
+    ) as unknown as ListResponse<Event>
+  }
+
   async event_stores(
     paymentSettingPaypalId: string | PaymentSettingPaypal,
     params?: QueryParamsList<EventStore>,
@@ -344,6 +372,18 @@ class PaymentSettingPaypals extends ApiResource<PaymentSettingPaypal> {
   ): Promise<PaymentSettingPaypal> {
     return this.resources.update<PaymentSettingPaypalUpdate, PaymentSettingPaypal>(
       { id: typeof id === 'string' ? id : id.id, type: PaymentSettingPaypals.TYPE, _check: true },
+      params,
+      options,
+    )
+  }
+
+  async _provision_webhook(
+    id: string | PaymentSettingPaypal,
+    params?: QueryParamsRetrieve<PaymentSettingPaypal>,
+    options?: ResourcesConfig,
+  ): Promise<PaymentSettingPaypal> {
+    return this.resources.update<PaymentSettingPaypalUpdate, PaymentSettingPaypal>(
+      { id: typeof id === 'string' ? id : id.id, type: PaymentSettingPaypals.TYPE, _provision_webhook: true },
       params,
       options,
     )

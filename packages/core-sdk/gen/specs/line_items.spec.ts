@@ -337,6 +337,25 @@ describe('LineItems resource', () => {
   })
   /* relationship.stock_transfers stop */
 
+  /* relationship.attachments start */
+  test(resourceType + '.attachments', async () => {
+    const id = TestData.id
+    const params = { fields: { attachments: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'attachments')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await line_items
+      .attachments(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.attachments stop */
+
   /* relationship.notifications start */
   test(resourceType + '.notifications', async () => {
     const id = TestData.id

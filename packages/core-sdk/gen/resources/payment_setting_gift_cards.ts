@@ -11,6 +11,7 @@ import type {
 } from '@runtime/resource'
 import { ApiResource } from '@runtime/resource'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { OrderSubscription } from './order_subscriptions'
 import type { PaymentLink } from './payment_links'
 import type { PaymentSession } from './payment_sessions'
@@ -20,8 +21,9 @@ import type { PaymentWallet } from './payment_wallets'
 type PaymentSettingGiftCardType = 'payment_setting_gift_cards'
 type PaymentSettingGiftCardRel = ResourceRel & { type: PaymentSettingGiftCardType }
 
-export type PaymentSettingGiftCardSort = Pick<PaymentSettingGiftCard, 'id' | 'name' | 'disabled_at'> & ResourceSort
-// export type PaymentSettingGiftCardFilter = Pick<PaymentSettingGiftCard, 'id' | 'gateway_version' | 'internal_versionable' | 'auto_capture' | 'auto_place' | 'name' | 'disabled_at'> & ResourceFilter
+export type PaymentSettingGiftCardSort = Pick<PaymentSettingGiftCard, 'id' | 'status' | 'name' | 'disabled_at'> &
+  ResourceSort
+// export type PaymentSettingGiftCardFilter = Pick<PaymentSettingGiftCard, 'id' | 'gateway_version' | 'internal_versionable' | 'auto_capture' | 'auto_place' | 'status' | 'name' | 'disabled_at'> & ResourceFilter
 
 /**
  * The Payment setting gift card object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_setting_gift_cards endpoint.
@@ -61,6 +63,11 @@ interface PaymentSettingGiftCard extends Resource {
    */
   auto_place?: boolean | null
   /**
+   * The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.
+   * @example ```"active"```
+   */
+  status: string
+  /**
    * The name of the payment setting.
    * @example ```"Stripe"```
    */
@@ -76,6 +83,7 @@ interface PaymentSettingGiftCard extends Resource {
   payment_transactions?: PaymentTransaction[] | null
   payment_wallets?: PaymentWallet[] | null
   order_subscriptions?: OrderSubscription[] | null
+  events?: Event[] | null
   event_stores?: EventStore[] | null
 }
 
@@ -256,6 +264,21 @@ class PaymentSettingGiftCards extends ApiResource<PaymentSettingGiftCard> {
       params,
       options,
     ) as unknown as ListResponse<OrderSubscription>
+  }
+
+  async events(
+    paymentSettingGiftCardId: string | PaymentSettingGiftCard,
+    params?: QueryParamsList<Event>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Event>> {
+    const _paymentSettingGiftCardId =
+      (paymentSettingGiftCardId as PaymentSettingGiftCard).id || (paymentSettingGiftCardId as string)
+    return this.resources.fetch<Event>(
+      { type: 'events' },
+      `payment_setting_gift_cards/${_paymentSettingGiftCardId}/events`,
+      params,
+      options,
+    ) as unknown as ListResponse<Event>
   }
 
   async event_stores(

@@ -297,6 +297,25 @@ describe('PaymentSettingCheckoutComs resource', () => {
   })
   /* relationship.order_subscriptions stop */
 
+  /* relationship.events start */
+  test(resourceType + '.events', async () => {
+    const id = TestData.id
+    const params = { fields: { events: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'events')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await payment_setting_checkout_coms
+      .events(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.events stop */
+
   /* relationship.event_stores start */
   test(resourceType + '.event_stores', async () => {
     const id = TestData.id
@@ -387,4 +406,28 @@ describe('PaymentSettingCheckoutComs resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* trigger._check stop */
+
+  /* trigger._provision_webhook start */
+  test(resourceType + '._provision_webhook', async () => {
+    let triggerAttr = '_provision_webhook'
+    if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+
+    const triggerValue = true
+    const attributes = { [triggerAttr]: triggerValue }
+    const id = TestData.id
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, id)
+      return interceptRequest()
+    })
+
+    await payment_setting_checkout_coms
+      ._provision_webhook(id, {}, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* trigger._provision_webhook stop */
 })

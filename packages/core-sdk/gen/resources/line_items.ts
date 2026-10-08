@@ -11,6 +11,7 @@ import type {
 } from '@runtime/resource'
 import { ApiResource } from '@runtime/resource'
 import type { Adjustment, AdjustmentType } from './adjustments'
+import type { Attachment } from './attachments'
 import type { Bundle, BundleType } from './bundles'
 import type { BuyXPayYPromotion, BuyXPayYPromotionType } from './buy_x_pay_y_promotions'
 import type { DiscountEngineItem, DiscountEngineItemType } from './discount_engine_items'
@@ -309,6 +310,7 @@ interface LineItem extends Resource {
   stock_reservations?: StockReservation[] | null
   stock_line_items?: StockLineItem[] | null
   stock_transfers?: StockTransfer[] | null
+  attachments?: Attachment[] | null
   notifications?: Notification[] | null
   events?: Event[] | null
   tags?: Tag[] | null
@@ -622,6 +624,20 @@ class LineItems extends ApiResource<LineItem> {
       params,
       options,
     ) as unknown as ListResponse<StockTransfer>
+  }
+
+  async attachments(
+    lineItemId: string | LineItem,
+    params?: QueryParamsList<Attachment>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Attachment>> {
+    const _lineItemId = (lineItemId as LineItem).id || (lineItemId as string)
+    return this.resources.fetch<Attachment>(
+      { type: 'attachments' },
+      `line_items/${_lineItemId}/attachments`,
+      params,
+      options,
+    ) as unknown as ListResponse<Attachment>
   }
 
   async notifications(

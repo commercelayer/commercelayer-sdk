@@ -22,6 +22,7 @@ import type { Geocoder, GeocoderType } from './geocoders'
 import type { GiftCardRecipient, GiftCardRecipientType } from './gift_card_recipients'
 import type { GiftCard, GiftCardType } from './gift_cards'
 import type { InventoryModel, InventoryModelType } from './inventory_models'
+import type { LineItem, LineItemType } from './line_items'
 import type { Market, MarketType } from './markets'
 import type { Merchant, MerchantType } from './merchants'
 import type { OrderValidationRule, OrderValidationRuleType } from './order_validation_rules'
@@ -60,6 +61,7 @@ type AttachmentRel = ResourceRel & { type: AttachmentType }
 type MarketRel = ResourceRel & { type: MarketType }
 type PriceListRel = ResourceRel & { type: PriceListType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
+type LineItemRel = ResourceRel & { type: LineItemType }
 type PromotionRel = ResourceRel & { type: PromotionType }
 type GeocoderRel = ResourceRel & { type: GeocoderType }
 type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
@@ -132,6 +134,7 @@ interface Attachment extends Resource {
     | Market
     | PriceList
     | CustomerGroup
+    | LineItem
     | Promotion
     | Geocoder
     | PaymentMethod
@@ -197,6 +200,7 @@ interface AttachmentCreate extends ResourceCreate {
     | MarketRel
     | PriceListRel
     | CustomerGroupRel
+    | LineItemRel
     | PromotionRel
     | GeocoderRel
     | PaymentMethodRel
@@ -260,6 +264,7 @@ interface AttachmentUpdate extends ResourceUpdate {
     | MarketRel
     | PriceListRel
     | CustomerGroupRel
+    | LineItemRel
     | PromotionRel
     | GeocoderRel
     | PaymentMethodRel
