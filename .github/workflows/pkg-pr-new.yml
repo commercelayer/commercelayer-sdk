@@ -76,7 +76,7 @@ jobs:
 
       - name: Commit + push to pkg-pr-new-${{ inputs.environment }}
         id: regen_commit
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' && inputs.environment != 'production'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'chore: regenerate SDKs against ${{ inputs.environment }}'
@@ -86,30 +86,74 @@ jobs:
           commit_user_name: 'commercelayer-ci'
           commit_user_email: 'ci@commercelayer.io'
 
+      # Production goes through a PR to main: the action commits, force-pushes
+      # pkg-pr-new-production and opens the PR, or updates it if already open.
+      - name: Commit + open PR to main (production only)
+        id: create_pr
+        if: github.event_name == 'workflow_dispatch' && inputs.environment == 'production'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
+          branch: pkg-pr-new-production
+          base: main
+          commit-message: 'chore: regenerate SDKs against production'
+          committer: commercelayer-ci <ci@commercelayer.io>
+          author: commercelayer-ci <ci@commercelayer.io>
+          title: 'Regenerate schema from production'
+          labels: enhancement
+          reviewers: |
+            malessani
+            gciotola
+            marcomontalbano
+            pfferrari
+          body: |
+            Automated schema regen via workflow dispatch.
+
+            The install URLs of the preview are in the comment below, updated on every regeneration.
+
+      # The action leaves the original commit checked out, while pkg-pr-new
+      # publishes under `git rev-parse HEAD`: check out the PR head, so the
+      # preview is built from it and published under its sha. Skipped when the
+      # regeneration changed nothing (no PR head).
+      - name: Check out the PR head (production only)
+        if: steps.create_pr.outputs.pull-request-head-sha != ''
+        env:
+          HEAD_SHA: ${{ steps.create_pr.outputs.pull-request-head-sha }}
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin pkg-pr-new-production
+          if [ "$(git rev-parse FETCH_HEAD)" != "$HEAD_SHA" ]; then
+            echo "::error::pkg-pr-new-production is at $(git rev-parse FETCH_HEAD), expected ${HEAD_SHA}."
+            exit 1
+          fi
+          git checkout --force --detach "$HEAD_SHA"
+
       - name: Build package
         run: pnpm build
 
+      # pkg-pr-new keeps one comment per PR, edited on every publish;
+      # `--commentWithSha` makes its install URLs point to the commit rather than
+      # to the PR number. A dispatch has no PR event, so the production PR gets
+      # its comment from the pull_request run its own push triggers.
       - name: Publish preview
-        run: npx pkg-pr-new publish --no-template './packages/*'
+        run: npx pkg-pr-new publish --no-template --commentWithSha './packages/*'
 
-      # pkg-pr-new prints the short URL form (`@scope/name@sha`), which resolves
-      # through its package-name -> repo mapping. That mapping still points
-      # @commercelayer/provisioning-sdk at the archived commercelayer/provisioning-sdk
-      # repo, so the short URL 404s for it while working for @commercelayer/sdk.
-      # The fully-qualified form is unambiguous and works for both.
-      - name: Print install URLs that actually resolve
+      # The run summary, for every run: a dispatch for a staging environment has
+      # no PR, so this is where its install URLs are.
+      - name: Print install URLs
         run: |
           # The sha pkg-pr-new published under, in three cases:
-          #  1. A dispatch that regenerated: the regen step pushed a NEW commit
-          #     and the preview is built from it, so `github.sha` (the dispatched
-          #     ref) is stale. Take the hash the commit action reports. Reading
-          #     it from the action rather than `git rev-parse` keeps this correct
-          #     even if a later step moves HEAD.
+          #  1. A dispatch that regenerated: the commit step (staging) or the PR
+          #     action (production) pushed a NEW commit and the preview is built
+          #     from it, so `github.sha` (the dispatched ref) is stale. Take the
+          #     hash the action reports. Reading it from the action rather than
+          #     `git rev-parse` keeps this correct even if a later step moves HEAD.
           #  2. A pull_request: the checkout is a merge commit, so HEAD does not
           #     match what pkg-pr-new used — it takes the head sha.
           #  3. A push, or a dispatch that regenerated to no change: HEAD is
           #     already the published commit.
           FULL='${{ steps.regen_commit.outputs.commit_hash }}'
+          [ -n "$FULL" ] || FULL='${{ steps.create_pr.outputs.pull-request-head-sha }}'
           [ -n "$FULL" ] || FULL='${{ github.event.pull_request.head.sha }}'
           [ -n "$FULL" ] || FULL="$(git rev-parse HEAD)"
           SHA="${FULL:0:7}"
@@ -139,25 +183,13 @@ jobs:
             if [ -n "${{ steps.regen_commit.outputs.commit_hash }}" ]; then
               echo "- **Pushed to:** \`pkg-pr-new-${ENV}\` (regenerated in this run)"
             fi
-            echo
-            echo 'The short URLs printed above resolve via package name, which is stale for'
-            echo 'provisioning since it moved repos. Use these:'
+            if [ -n "${{ steps.create_pr.outputs.pull-request-head-sha }}" ]; then
+              echo "- **PR:** #${{ steps.create_pr.outputs.pull-request-number }} (${{ steps.create_pr.outputs.pull-request-operation }} in this run)"
+            fi
             echo
             echo '```'
             for pkg in @commercelayer/sdk @commercelayer/provisioning-sdk; do
-              echo "npm i https://pkg.pr.new/${REPO}/${pkg}@${SHA}"
+              echo "npm i https://pkg.pr.new/${pkg}@${SHA}"
             done
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Open PR to main (production dispatch only)
-        if: github.event_name == 'workflow_dispatch' && inputs.environment == 'production'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-            --base main \
-            --head pkg-pr-new-production \
-            --title 'chore: regenerate schema from production' \
-            --body $'Automated schema regen via workflow dispatch.\n\nInstall the preview to test before merging:\n```\npnpm add https://pkg.pr.new/commercelayer/commercelayer-sdk@pkg-pr-new-production\n```' \
-          || echo 'PR already open for pkg-pr-new-production; latest commit force-pushed.'
