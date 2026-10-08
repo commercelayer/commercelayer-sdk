@@ -11,6 +11,7 @@ import type {
 } from '@runtime/resource'
 import { ApiResource } from '@runtime/resource'
 import type { EventStore } from './event_stores'
+import type { Event } from './events'
 import type { OrderSubscription } from './order_subscriptions'
 import type { PaymentLink } from './payment_links'
 import type { PaymentSession } from './payment_sessions'
@@ -20,8 +21,9 @@ import type { PaymentWallet } from './payment_wallets'
 type PaymentSettingStripeType = 'payment_setting_stripes'
 type PaymentSettingStripeRel = ResourceRel & { type: PaymentSettingStripeType }
 
-export type PaymentSettingStripeSort = Pick<PaymentSettingStripe, 'id' | 'name' | 'disabled_at'> & ResourceSort
-// export type PaymentSettingStripeFilter = Pick<PaymentSettingStripe, 'id' | 'gateway_version' | 'internal_versionable' | 'auto_capture' | 'auto_place' | 'name' | 'disabled_at'> & ResourceFilter
+export type PaymentSettingStripeSort = Pick<PaymentSettingStripe, 'id' | 'status' | 'name' | 'disabled_at'> &
+  ResourceSort
+// export type PaymentSettingStripeFilter = Pick<PaymentSettingStripe, 'id' | 'gateway_version' | 'internal_versionable' | 'auto_capture' | 'auto_place' | 'status' | 'name' | 'disabled_at'> & ResourceFilter
 
 /**
  * The Payment setting stripe object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/payment_setting_stripes endpoint.
@@ -60,6 +62,11 @@ interface PaymentSettingStripe extends Resource {
    * Send this attribute if you want the order to be automatically placed when a payment session using this payment setting is authorized.
    */
   auto_place?: boolean | null
+  /**
+   * The payment setting status. It is pending until the gateway webhook is configured, either automatically or by providing its secret.
+   * @example ```"active"```
+   */
+  status: string
   /**
    * The name of the payment setting.
    * @example ```"Stripe"```
@@ -101,6 +108,7 @@ interface PaymentSettingStripe extends Resource {
   payment_transactions?: PaymentTransaction[] | null
   payment_wallets?: PaymentWallet[] | null
   order_subscriptions?: OrderSubscription[] | null
+  events?: Event[] | null
   event_stores?: EventStore[] | null
 }
 
@@ -199,6 +207,11 @@ interface PaymentSettingStripeUpdate extends ResourceUpdate {
    * @example ```true```
    */
   _check?: boolean | null
+  /**
+   * Send this attribute if you want to retry the automatic creation of the gateway webhook for a pending payment setting.
+   * @example ```true```
+   */
+  _provision_webhook?: boolean | null
   /**
    * The gateway secure API key.
    * @example ```"sk_live_xxxx-yyyy-zzzz"```
@@ -323,6 +336,21 @@ class PaymentSettingStripes extends ApiResource<PaymentSettingStripe> {
     ) as unknown as ListResponse<OrderSubscription>
   }
 
+  async events(
+    paymentSettingStripeId: string | PaymentSettingStripe,
+    params?: QueryParamsList<Event>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<Event>> {
+    const _paymentSettingStripeId =
+      (paymentSettingStripeId as PaymentSettingStripe).id || (paymentSettingStripeId as string)
+    return this.resources.fetch<Event>(
+      { type: 'events' },
+      `payment_setting_stripes/${_paymentSettingStripeId}/events`,
+      params,
+      options,
+    ) as unknown as ListResponse<Event>
+  }
+
   async event_stores(
     paymentSettingStripeId: string | PaymentSettingStripe,
     params?: QueryParamsList<EventStore>,
@@ -369,6 +397,18 @@ class PaymentSettingStripes extends ApiResource<PaymentSettingStripe> {
   ): Promise<PaymentSettingStripe> {
     return this.resources.update<PaymentSettingStripeUpdate, PaymentSettingStripe>(
       { id: typeof id === 'string' ? id : id.id, type: PaymentSettingStripes.TYPE, _check: true },
+      params,
+      options,
+    )
+  }
+
+  async _provision_webhook(
+    id: string | PaymentSettingStripe,
+    params?: QueryParamsRetrieve<PaymentSettingStripe>,
+    options?: ResourcesConfig,
+  ): Promise<PaymentSettingStripe> {
+    return this.resources.update<PaymentSettingStripeUpdate, PaymentSettingStripe>(
+      { id: typeof id === 'string' ? id : id.id, type: PaymentSettingStripes.TYPE, _provision_webhook: true },
       params,
       options,
     )

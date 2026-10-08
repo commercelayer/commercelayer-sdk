@@ -230,6 +230,25 @@ describe('PaymentSettings resource', () => {
   })
   /* relationship.order_subscriptions stop */
 
+  /* relationship.events start */
+  test(resourceType + '.events', async () => {
+    const id = TestData.id
+    const params = { fields: { events: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'events')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await payment_settings
+      .events(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.events stop */
+
   /* relationship.event_stores start */
   test(resourceType + '.event_stores', async () => {
     const id = TestData.id

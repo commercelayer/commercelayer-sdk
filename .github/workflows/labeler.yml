@@ -14,12 +14,10 @@ name: Labeler
 on:
   pull_request:
 
+# The labeler uses COMMERCELAYER_CI_TOKEN, whose own access covers applying,
+# removing and creating the labels: the default token needs no write access.
 permissions:
   contents: read
-  pull-requests: write
-  # Lets the action create the two labels on first run, so they need no manual
-  # setup. Harmless once they exist.
-  issues: write
 
 jobs:
   label:
@@ -28,6 +26,7 @@ jobs:
     steps:
       - uses: actions/labeler@v7
         with:
+          repo-token: ${{ secrets.COMMERCELAYER_CI_TOKEN }}
           # Paths are authoritative: a label that no longer matches is removed,
           # so the release notes cannot drift from what the PR actually changed.
           # Only labels named in .github/labeler.yml are managed — type labels
