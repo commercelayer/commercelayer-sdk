@@ -112,6 +112,11 @@ interface Shipment extends Resource {
    */
   skus_count?: number | null
   /**
+   * The shipment policy of the order's associated store, empty when the order has no store.
+   * @example ```"auto_delivered"```
+   */
+  store_shipment_policy?: string | null
+  /**
    * The selected purchase rate from the available shipping rates.
    * @example ```"rate_f89e4663c3ed47ee94d37763f6d21d54"```
    */

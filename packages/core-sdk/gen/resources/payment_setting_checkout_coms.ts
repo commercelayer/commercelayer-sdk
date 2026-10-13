@@ -78,6 +78,21 @@ interface PaymentSettingCheckoutCom extends Resource {
    */
   disabled_at?: string | null
   /**
+   * The gateway public key.
+   * @example ```"pk_xxxxxxxx"```
+   */
+  public_key: string
+  /**
+   * The gateway entity ID, required when the API key is not restricted to a single entity.
+   * @example ```"ent_xxxxxxxx"```
+   */
+  entity_id?: string | null
+  /**
+   * The gateway processing channel ID, required when the API key is not restricted to a single processing channel.
+   * @example ```"pc_xxxxxxxx"```
+   */
+  processing_channel_id?: string | null
+  /**
    * The gateway webhook (workflow) ID, generated automatically.
    * @example ```"wf_xxxxxxxx"```
    */
@@ -151,6 +166,16 @@ interface PaymentSettingCheckoutComCreate extends ResourceCreate {
    * @example ```"pk_xxxxxxxx"```
    */
   public_key: string
+  /**
+   * The gateway entity ID, required when the API key is not restricted to a single entity.
+   * @example ```"ent_xxxxxxxx"```
+   */
+  entity_id?: string | null
+  /**
+   * The gateway processing channel ID, required when the API key is not restricted to a single processing channel.
+   * @example ```"pc_xxxxxxxx"```
+   */
+  processing_channel_id?: string | null
 }
 
 interface PaymentSettingCheckoutComUpdate extends ResourceUpdate {
@@ -207,6 +232,16 @@ interface PaymentSettingCheckoutComUpdate extends ResourceUpdate {
    * @example ```"pk_xxxxxxxx"```
    */
   public_key?: string | null
+  /**
+   * The gateway entity ID, required when the API key is not restricted to a single entity.
+   * @example ```"ent_xxxxxxxx"```
+   */
+  entity_id?: string | null
+  /**
+   * The gateway processing channel ID, required when the API key is not restricted to a single processing channel.
+   * @example ```"pc_xxxxxxxx"```
+   */
+  processing_channel_id?: string | null
 }
 
 /** @since 2026-05 */

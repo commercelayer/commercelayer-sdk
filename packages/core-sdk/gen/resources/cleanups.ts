@@ -40,19 +40,19 @@ interface Cleanup extends Resource {
   readonly type: CleanupType
 
   /**
-   * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'coupons', 'gift_cards', 'sku_options', or 'prices'.
+   * The type of resource being cleaned. One of 'bundles', 'coupons', 'gift_cards', 'prices', 'promotions', 'sku_lists', 'sku_options', 'skus', or 'stock_items'.
    * @example ```"skus"```
    */
   resource_type:
-    | 'promotions'
-    | 'skus'
     | 'bundles'
-    | 'sku_lists'
-    | 'stock_items'
     | 'coupons'
     | 'gift_cards'
-    | 'sku_options'
     | 'prices'
+    | 'promotions'
+    | 'sku_lists'
+    | 'sku_options'
+    | 'skus'
+    | 'stock_items'
   /**
    * The cleanup job status. One of 'pending' (default), 'in_progress', 'interrupted', or 'completed'.
    * @example ```"in_progress"```
@@ -109,19 +109,19 @@ interface Cleanup extends Resource {
 
 interface CleanupCreate extends ResourceCreate {
   /**
-   * The type of resource being cleaned. One of 'promotions', 'skus', 'bundles', 'sku_lists', 'stock_items', 'coupons', 'gift_cards', 'sku_options', or 'prices'.
+   * The type of resource being cleaned. One of 'bundles', 'coupons', 'gift_cards', 'prices', 'promotions', 'sku_lists', 'sku_options', 'skus', or 'stock_items'.
    * @example ```"skus"```
    */
   resource_type:
-    | 'promotions'
-    | 'skus'
     | 'bundles'
-    | 'sku_lists'
-    | 'stock_items'
     | 'coupons'
     | 'gift_cards'
-    | 'sku_options'
     | 'prices'
+    | 'promotions'
+    | 'sku_lists'
+    | 'sku_options'
+    | 'skus'
+    | 'stock_items'
   /**
    * The filters used to select the records to be cleaned.
    * @example ```{"code_eq":"AAA"}```

@@ -689,6 +689,7 @@ interface Order extends Resource {
   checkout_url?: string | null
   /**
    * Indicates if the order is placeable.
+   * @since 2026-05
    * @example ```true```
    */
   placeable?: boolean | null
@@ -1135,6 +1136,7 @@ interface OrderUpdate extends ResourceUpdate {
   _place?: boolean | null
   /**
    * Send this attribute if you want to check if the order is placeable.
+   * @since 2026-05
    * @example ```true```
    */
   _placeable?: boolean | null

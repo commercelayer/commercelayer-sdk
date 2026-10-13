@@ -18,7 +18,7 @@ import type { Market } from './markets'
 type VertexAccountType = 'vertex_accounts'
 type VertexAccountRel = ResourceRel & { type: VertexAccountType }
 
-export type VertexAccountSort = Pick<VertexAccount, 'id' | 'name'> & ResourceSort
+export type VertexAccountSort = Pick<VertexAccount, 'id' | 'name' | 'client_id'> & ResourceSort
 // export type VertexAccountFilter = Pick<VertexAccount, 'id' | 'name'> & ResourceFilter
 
 /**
@@ -49,6 +49,11 @@ interface VertexAccount extends Resource {
    * @example ```"verx://xyz"```
    */
   audience?: string | null
+  /**
+   * The Vertex account client ID.
+   * @example ```"xxx-yyy-zzz"```
+   */
+  client_id: string
   /**
    * The API endpoint as computed by specified kind and baseurl.
    * @example ```"https://my_baseurl.ondemand.vertexinc.com"```
