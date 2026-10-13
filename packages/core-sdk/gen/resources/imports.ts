@@ -45,34 +45,34 @@ interface Import extends Resource {
   readonly type: ImportType
 
   /**
-   * The type of resource being imported. One of 'price_lists', 'line_items', 'addresses', 'tags', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
+   * The type of resource being imported. One of 'addresses', 'bundles', 'coupons', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'gift_cards', 'line_item_options', 'line_items', 'orders', 'price_lists', 'price_tiers', 'prices', 'shipping_categories', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_locations', 'stock_transfers', 'tags', or 'tax_categories'.
    * @example ```"skus"```
    */
   resource_type:
-    | 'price_lists'
-    | 'line_items'
     | 'addresses'
-    | 'tags'
-    | 'orders'
-    | 'tax_categories'
-    | 'skus'
-    | 'shipping_categories'
     | 'bundles'
-    | 'sku_lists'
-    | 'sku_list_items'
-    | 'stock_items'
-    | 'stock_locations'
     | 'coupons'
-    | 'customers'
     | 'customer_addresses'
     | 'customer_payment_sources'
     | 'customer_subscriptions'
+    | 'customers'
     | 'gift_cards'
     | 'line_item_options'
-    | 'stock_transfers'
-    | 'sku_options'
-    | 'prices'
+    | 'line_items'
+    | 'orders'
+    | 'price_lists'
     | 'price_tiers'
+    | 'prices'
+    | 'shipping_categories'
+    | 'sku_list_items'
+    | 'sku_lists'
+    | 'sku_options'
+    | 'skus'
+    | 'stock_items'
+    | 'stock_locations'
+    | 'stock_transfers'
+    | 'tags'
+    | 'tax_categories'
   /**
    * The format of the import. One of 'csv', or 'json' (default).
    * @example ```"json"```
@@ -167,34 +167,34 @@ interface Import extends Resource {
 
 interface ImportCreate extends ResourceCreate {
   /**
-   * The type of resource being imported. One of 'price_lists', 'line_items', 'addresses', 'tags', 'orders', 'tax_categories', 'skus', 'shipping_categories', 'bundles', 'sku_lists', 'sku_list_items', 'stock_items', 'stock_locations', 'coupons', 'customers', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'gift_cards', 'line_item_options', 'stock_transfers', 'sku_options', 'prices', or 'price_tiers'.
+   * The type of resource being imported. One of 'addresses', 'bundles', 'coupons', 'customer_addresses', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'gift_cards', 'line_item_options', 'line_items', 'orders', 'price_lists', 'price_tiers', 'prices', 'shipping_categories', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_locations', 'stock_transfers', 'tags', or 'tax_categories'.
    * @example ```"skus"```
    */
   resource_type:
-    | 'price_lists'
-    | 'line_items'
     | 'addresses'
-    | 'tags'
-    | 'orders'
-    | 'tax_categories'
-    | 'skus'
-    | 'shipping_categories'
     | 'bundles'
-    | 'sku_lists'
-    | 'sku_list_items'
-    | 'stock_items'
-    | 'stock_locations'
     | 'coupons'
-    | 'customers'
     | 'customer_addresses'
     | 'customer_payment_sources'
     | 'customer_subscriptions'
+    | 'customers'
     | 'gift_cards'
     | 'line_item_options'
-    | 'stock_transfers'
-    | 'sku_options'
-    | 'prices'
+    | 'line_items'
+    | 'orders'
+    | 'price_lists'
     | 'price_tiers'
+    | 'prices'
+    | 'shipping_categories'
+    | 'sku_list_items'
+    | 'sku_lists'
+    | 'sku_options'
+    | 'skus'
+    | 'stock_items'
+    | 'stock_locations'
+    | 'stock_transfers'
+    | 'tags'
+    | 'tax_categories'
   /**
    * The format of the import. One of 'csv', or 'json' (default).
    * @example ```"json"```

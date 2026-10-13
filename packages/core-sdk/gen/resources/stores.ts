@@ -24,8 +24,8 @@ type MarketRel = ResourceRel & { type: MarketType }
 type MerchantRel = ResourceRel & { type: MerchantType }
 type StockLocationRel = ResourceRel & { type: StockLocationType }
 
-export type StoreSort = Pick<Store, 'id' | 'name' | 'code'> & ResourceSort
-// export type StoreFilter = Pick<Store, 'id' | 'name' | 'code'> & ResourceFilter
+export type StoreSort = Pick<Store, 'id' | 'name' | 'code' | 'shipment_policy'> & ResourceSort
+// export type StoreFilter = Pick<Store, 'id' | 'name' | 'code' | 'shipment_policy'> & ResourceFilter
 
 /**
  * The Store object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/stores endpoint.
@@ -56,6 +56,11 @@ interface Store extends Resource {
    * @since 2026-05
    */
   union_payment_settings?: boolean | null
+  /**
+   * The policy applied to the shipments fulfilled by this store. One of 'auto_delivered' (default), or 'standard'. Cannot be passed by sales channels.
+   * @example ```"auto_delivered"```
+   */
+  shipment_policy?: 'auto_delivered' | 'standard' | null
 
   market?: Market | null
   merchant?: Merchant | null
@@ -91,6 +96,11 @@ interface StoreCreate extends ResourceCreate {
    * @since 2026-05
    */
   union_payment_settings?: boolean | null
+  /**
+   * The policy applied to the shipments fulfilled by this store. One of 'auto_delivered' (default), or 'standard'. Cannot be passed by sales channels.
+   * @example ```"auto_delivered"```
+   */
+  shipment_policy?: 'auto_delivered' | 'standard' | null
 
   market: MarketRel
   merchant?: MerchantRel | null
@@ -119,6 +129,11 @@ interface StoreUpdate extends ResourceUpdate {
    * @since 2026-05
    */
   union_payment_settings?: boolean | null
+  /**
+   * The policy applied to the shipments fulfilled by this store. One of 'auto_delivered' (default), or 'standard'. Cannot be passed by sales channels.
+   * @example ```"auto_delivered"```
+   */
+  shipment_policy?: 'auto_delivered' | 'standard' | null
 
   market?: MarketRel | null
   merchant?: MerchantRel | null
