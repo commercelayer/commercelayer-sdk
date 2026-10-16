@@ -15,7 +15,8 @@
       "./packages/*/*.ts",
       "./packages/*/*.js",
       "./scripts/**",
-      "!**/gen/public_resources.json"
+      "!**/gen/public_resources.json",
+      "!**/test/env.d.ts"
     ]
   },
   "formatter": {
