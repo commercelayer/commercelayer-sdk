@@ -1,6 +1,7 @@
 import { randomInt } from 'node:crypto'
 import { inspect, isDeepStrictEqual } from 'node:util'
-import dotenv from 'dotenv'
+import 'varlock/auto-load'
+import { ENV } from 'varlock/env'
 import { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 import { API_SCHEMA_VERSION } from '../src/commercelayer'
 import {
@@ -23,12 +24,10 @@ import getToken from './token'
 export const API_VERSION = API_SCHEMA_VERSION as NonNullable<Parameters<typeof CommerceLayer>[0]>['apiVersion']
 const API_PATH_PREFIX = `/api/${API_SCHEMA_VERSION}`
 
-dotenv.config()
-
 export { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 
-const organization = process.env.CL_SDK_ORGANIZATION as string
-const domain = process.env.CL_SDK_DOMAIN as string
+const organization = ENV.CL_SDK_ORGANIZATION
+const domain = ENV.CL_SDK_DOMAIN
 
 export { domain, organization }
 

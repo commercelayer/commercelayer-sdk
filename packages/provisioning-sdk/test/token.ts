@@ -1,7 +1,6 @@
 import { authenticate } from '@commercelayer/js-auth'
-import dotenv from 'dotenv'
-
-dotenv.config()
+import 'varlock/auto-load'
+import { ENV } from 'varlock/env'
 
 type TokenType = 'sales_channel' | 'integration' | 'customer'
 
@@ -30,24 +29,19 @@ export type AccessToken = {
 
 // const endpoint = `https://${organization.toLowerCase()}.${domain ? domain : 'commercelayer.io'}`
 
-const initEnv = (env?: string): AuthData | undefined => {
-  if (env) {
-    console.log('**** Test Environment: ' + env)
-    const cfg = dotenv.config({ path: `./test/env/.env.${env}`, override: true })
-    if (cfg.error) throw cfg.error
-  }
-
+// Variables are resolved by varlock from .env.schema (see that file).
+const initEnv = (): AuthData | undefined => {
   return {
-    slug: process.env.CL_PROVISIONING_SDK_ORGANIZATION || '',
-    domain: process.env.CL_PROVISIONING_SDK_DOMAIN,
-    clientId: process.env.CL_PROVISIONING_SDK_CLIENT_ID || '',
-    clientSecret: process.env.CL_PROVISIONING_SDK_CLIENT_SECRET || '',
-    scope: process.env.CL_PROVISIONING_SDK_SCOPE || '',
+    slug: ENV.CL_PROVISIONING_SDK_ORGANIZATION,
+    domain: ENV.CL_PROVISIONING_SDK_DOMAIN,
+    clientId: ENV.CL_PROVISIONING_SDK_CLIENT_ID,
+    clientSecret: ENV.CL_PROVISIONING_SDK_CLIENT_SECRET,
+    scope: ENV.CL_PROVISIONING_SDK_SCOPE,
   }
 }
 
-export default async (type: TokenType, env?: string): Promise<AccessToken> => {
-  const credentials = initEnv(env)
+export default async (type: TokenType): Promise<AccessToken> => {
+  const credentials = initEnv()
 
   if (credentials) {
     switch (type) {

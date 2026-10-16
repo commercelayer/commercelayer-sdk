@@ -1,3 +1,4 @@
+import { ENV } from 'varlock/env'
 import { CommerceLayer } from '../src'
 import { getAccessToken, handleError, initConfig } from './util'
 
@@ -18,7 +19,7 @@ async function refreshToken(_old: string): Promise<string> {
   const config = await initConfig()
   const cl = CommerceLayer(config)
 
-  cl.config({ refreshToken, fetch: customFetch, accessToken: process.env.CL_SDK_ACCESS_TOKEN_EXPIRED })
+  cl.config({ refreshToken, fetch: customFetch, accessToken: ENV.CL_SDK_ACCESS_TOKEN_EXPIRED })
   try {
     // console.log(cl.currentOrganization)
 
