@@ -62,11 +62,11 @@ jobs:
       # because every pull request originates in this repository.
       - name: Run specs
         env:
-          CL_SDK_ORGANIZATION: sdk-test-org
+          CL_SDK_ORGANIZATION: ${{ vars.CL_SDK_ORGANIZATION }}
           CL_SDK_CLIENT_ID: ${{ secrets.CL_SDK_CLIENT_ID }}
           CL_SDK_CLIENT_SECRET: ${{ secrets.CL_SDK_CLIENT_SECRET }}
           CL_SDK_ACCESS_TOKEN_EXPIRED: ${{ secrets.CL_SDK_ACCESS_TOKEN_EXPIRED }}
-          CL_PROVISIONING_SDK_ORGANIZATION: ${{ secrets.CL_PROVISIONING_SDK_ORGANIZATION }}
+          CL_PROVISIONING_SDK_ORGANIZATION: ${{ vars.CL_PROVISIONING_SDK_ORGANIZATION }}
           CL_PROVISIONING_SDK_CLIENT_ID: ${{ secrets.CL_PROVISIONING_SDK_CLIENT_ID }}
           CL_PROVISIONING_SDK_CLIENT_SECRET: ${{ secrets.CL_PROVISIONING_SDK_CLIENT_SECRET }}
           CL_PROVISIONING_SDK_ACCESS_TOKEN_EXPIRED: ${{ secrets.CL_PROVISIONING_SDK_ACCESS_TOKEN_EXPIRED }}
