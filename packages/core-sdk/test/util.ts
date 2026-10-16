@@ -1,4 +1,5 @@
 import { inspect } from 'node:util'
+import { ENV } from 'varlock/env'
 import {
   API_SCHEMA_VERSION,
   type ApiVersion,
@@ -9,25 +10,25 @@ import {
 } from '../src'
 import getToken, { type AccessToken } from './token'
 
-export const getAccessToken = async (env?: string): Promise<AccessToken> => {
-  const auth = await getToken('integration', env).catch((err) => {
+export const getAccessToken = async (): Promise<AccessToken> => {
+  const auth = await getToken('integration').catch((err) => {
     console.log(`${err.message}\n`)
     process.exit()
   })
   return auth
 }
 
-export const initConfig = async (env?: string): Promise<CommerceLayerInitConfig> => {
+export const initConfig = async (): Promise<CommerceLayerInitConfig> => {
   let accessToken: string | undefined
-  if (process.env.CL_SDK_ACCESS_TOKEN) {
-    accessToken = process.env.CL_SDK_ACCESS_TOKEN
+  if (ENV.CL_SDK_ACCESS_TOKEN) {
+    accessToken = ENV.CL_SDK_ACCESS_TOKEN
     console.log('ENV access token:')
     console.log(accessToken)
   }
-  // let organization = process.env.CL_SDK_ORGANIZATION
+  // let organization = ENV.CL_SDK_ORGANIZATION
 
-  if (env || !accessToken) {
-    const auth = await getAccessToken(env)
+  if (!accessToken) {
+    const auth = await getAccessToken()
     accessToken = auth?.accessToken || ''
   }
 

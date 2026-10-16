@@ -1,3 +1,6 @@
+// Resolve the env once here, in the main process: workers inherit the result
+// (via __VARLOCK_ENV) instead of each fetching from AWS, which gets throttled.
+import 'varlock/auto-load'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitest/config'
 import { GLOBAL_TIMEOUT } from '../sdk-runtime/test/timeout.ts'

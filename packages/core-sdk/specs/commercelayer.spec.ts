@@ -1,3 +1,4 @@
+import { ENV } from 'varlock/env'
 import { beforeAll, describe, expect, test } from 'vitest'
 import {
   CommerceLayer,
@@ -62,9 +63,9 @@ describe('SDK:commercelayer suite', () => {
       return token
     }
 
-    const organization = process.env.CL_SDK_ORGANIZATION as string
-    const domain = process.env.CL_SDK_DOMAIN as string
-    const expiredToken = process.env.CL_SDK_ACCESS_TOKEN_EXPIRED as string
+    const organization = ENV.CL_SDK_ORGANIZATION
+    const domain = ENV.CL_SDK_DOMAIN
+    const expiredToken = ENV.CL_SDK_ACCESS_TOKEN_EXPIRED
 
     const config: CommerceLayerInitConfig = {
       organization,

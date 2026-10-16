@@ -1,8 +1,9 @@
 import { inspect, isDeepStrictEqual } from 'node:util'
+import 'varlock/auto-load'
 import type { RequestObj } from '@runtime/interceptor'
 import type { QueryParamsList, QueryParamsRetrieve } from '@runtime/query'
 import type { Resource } from '@runtime/resource'
-import dotenv from 'dotenv'
+import { ENV } from 'varlock/env'
 import { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 // The bundle client factory, as consumers get it. Initialising through it also
 // primes the process-global adapter the generated specs' resource instances use.
@@ -23,12 +24,10 @@ import getToken from './token'
 const API_VERSION = API_SCHEMA_VERSION as NonNullable<Parameters<typeof CommerceLayerProvisioning>[0]>['apiVersion']
 const API_PATH_PREFIX = `/api/${API_SCHEMA_VERSION}`
 
-dotenv.config()
-
 export { GLOBAL_TIMEOUT } from '../../sdk-runtime/test/timeout'
 
-const organization = process.env.CL_PROVISIONING_SDK_ORGANIZATION as string
-const domain = process.env.CL_PROVISIONING_SDK_DOMAIN as string
+const organization = ENV.CL_PROVISIONING_SDK_ORGANIZATION
+const domain = ENV.CL_PROVISIONING_SDK_DOMAIN
 
 export { domain, organization }
 

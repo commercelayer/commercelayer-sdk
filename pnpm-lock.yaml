@@ -35,12 +35,12 @@ importers:
       '@types/node':
         specifier: ^25.9.9
         version: 25.9.9
+      '@varlock/aws-secrets-plugin':
+        specifier: ^1.2.5
+        version: 1.2.5(varlock@1.22.0)
       '@vitest/coverage-v8':
         specifier: ^5.0.3
         version: 5.0.3(vitest@5.0.3)
-      dotenv:
-        specifier: ^18.0.5
-        version: 18.0.5
       json-typescript:
         specifier: ^1.1.2
         version: 1.1.2
@@ -59,6 +59,9 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+      varlock:
+        specifier: ^1.22.0
+        version: 1.22.0
       vitest:
         specifier: ^5.0.3
         version: 5.0.3(@types/node@25.9.9)(@vitest/coverage-v8@5.0.3)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(tsx@4.23.15))
@@ -83,12 +86,12 @@ importers:
       '@types/node':
         specifier: ^25.9.9
         version: 25.9.9
+      '@varlock/aws-secrets-plugin':
+        specifier: ^1.2.5
+        version: 1.2.5(varlock@1.22.0)
       '@vitest/coverage-v8':
         specifier: ^5.0.3
         version: 5.0.3(vitest@5.0.3)
-      dotenv:
-        specifier: ^18.0.5
-        version: 18.0.5
       json-typescript:
         specifier: ^1.1.2
         version: 1.1.2
@@ -107,6 +110,9 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+      varlock:
+        specifier: ^1.22.0
+        version: 1.22.0
       vitest:
         specifier: ^5.0.3
         version: 5.0.3(@types/node@25.9.9)(@vitest/coverage-v8@5.0.3)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(tsx@4.23.15))
@@ -692,6 +698,30 @@ packages:
   '@types/node@25.9.9':
     resolution: {integrity: sha512-b4e2xxj/yMeT2hNlD6x7zNFiQK2Dlmkb9CQ6v3/1G2RezKN4YS2lcEv8lzGm1mhs4f2lM4yNAMI/zUDBZBBt7w==}
 
+  '@varlock/aws-secrets-plugin@1.2.5':
+    resolution: {integrity: sha512-BEApTDQ9T6vU7OesgcKL0QdwF3Nvb5c/1VmDvdmINEtA73qwBpeNgYLvk3G4sJs6C54v0AqRDCe4mxmVWYO7Pw==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      varlock: ^1.22.0
+
+  '@varlock/native-helper-darwin@1.22.0':
+    resolution: {integrity: sha512-SseBFiqO9kugEc8Key8QsthdzrfUwj/vBRJeH4oC+gmT97I/aqmVjG6UH5a3n4RyLE2As2V+Es4aJoeNGav8dA==}
+    os: [darwin]
+
+  '@varlock/native-helper-linux-arm64@1.22.0':
+    resolution: {integrity: sha512-n4xymSJvI3cw7ggGvaiqaVU0+/md3DinB14C7oYGQMMOHbw90XcM0rXTPM79xQRseBwEm5XOX3P8H6m6Lb1rkw==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@varlock/native-helper-linux-x64@1.22.0':
+    resolution: {integrity: sha512-tWKekf01VSq3/1xrqEAZVUjGkw2gntR1oLOH6Djz9cZTYJ/WD8tB2yX6WbiFQicbMokJt5nxA2v67O+2UZTT+A==}
+    cpu: [x64]
+    os: [linux]
+
+  '@varlock/native-helper-win32-x64@1.22.0':
+    resolution: {integrity: sha512-vtoa2TDL45vGw7IFanI6FMPJDz2Brth8hOWeAttNW+NqGJiToOPX3NxCE/kFyXpSMtferuyp8rmsY7Q/cY8qZw==}
+    os: [win32, linux]
+
   '@vitest/coverage-v8@5.0.3':
     resolution: {integrity: sha512-+klsyz7BvT1vCU28Zkfzms1Ia78XD0V41U3FUtRaa3S+vOr/EXvK1O6BvVD7l1RzEjm6SONR2aybOvDDf9u0mQ==}
     peerDependencies:
@@ -833,11 +863,6 @@ packages:
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
-
-  dotenv@18.0.5:
-    resolution: {integrity: sha512-aBrGvt6KhjxbEnatqMWOMidftwsrCiCvqh1yNIGB9QyF0J+VcWkKDMsvYOEm7ZS82oiV+BT1sTOtIlAmUlTpwQ==}
-    engines: {node: '>=12'}
-    hasBin: true
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -1258,6 +1283,11 @@ packages:
   validate-npm-package-name@5.0.1:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  varlock@1.22.0:
+    resolution: {integrity: sha512-xpGiBtpmk3mfbLfJWqR1yEiopcXdUMzWLyidiT2slTktB/LPQuWk3+zvhjO0jSL7pn0MiX8qt1F/hjEQD4E/WA==}
+    engines: {bun: '>=1.3.3', node: '>=22.3.0'}
+    hasBin: true
 
   vite@8.3.2:
     resolution: {integrity: sha512-SQr1x6W5vVSbROg7vsyXIaxK9b0G7zsT68acdWWRmnBUsgDieLCRG+Rep9WdZgcposvv/GSnr4GUUBqB3vXq6w==}
@@ -1694,6 +1724,22 @@ snapshots:
     dependencies:
       undici-types: 7.24.6
 
+  '@varlock/aws-secrets-plugin@1.2.5(varlock@1.22.0)':
+    dependencies:
+      varlock: 1.22.0
+
+  '@varlock/native-helper-darwin@1.22.0':
+    optional: true
+
+  '@varlock/native-helper-linux-arm64@1.22.0':
+    optional: true
+
+  '@varlock/native-helper-linux-x64@1.22.0':
+    optional: true
+
+  '@varlock/native-helper-win32-x64@1.22.0':
+    optional: true
+
   '@vitest/coverage-v8@5.0.3(vitest@5.0.3)':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
@@ -1811,8 +1857,6 @@ snapshots:
       ms: 2.1.3
 
   detect-libc@2.1.2: {}
-
-  dotenv@18.0.5: {}
 
   emoji-regex@8.0.0: {}
 
@@ -2224,6 +2268,13 @@ snapshots:
   unicode-emoji-modifier-base@1.0.0: {}
 
   validate-npm-package-name@5.0.1: {}
+
+  varlock@1.22.0:
+    optionalDependencies:
+      '@varlock/native-helper-darwin': 1.22.0
+      '@varlock/native-helper-linux-arm64': 1.22.0
+      '@varlock/native-helper-linux-x64': 1.22.0
+      '@varlock/native-helper-win32-x64': 1.22.0
 
   vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(tsx@4.23.15):
     dependencies:
