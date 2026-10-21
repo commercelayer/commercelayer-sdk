@@ -3,9 +3,13 @@
 /**
  * © Commerce Layer Inc.
  **/
+export { type Addresses, default as addresses } from './resources/addresses'
+export { type AgreementIdentities, default as agreement_identities } from './resources/agreement_identities'
+export { type Agreements, default as agreements } from './resources/agreements'
 export { type ApiCredentials, default as api_credentials } from './resources/api_credentials'
 export { type ApplicationMemberships, default as application_memberships } from './resources/application_memberships'
 export { default as identity_providers, type IdentityProviders } from './resources/identity_providers'
+export { default as markets, type Markets } from './resources/markets'
 export { default as membership_profiles, type MembershipProfiles } from './resources/membership_profiles'
 export { default as memberships, type Memberships } from './resources/memberships'
 export { default as organizations, type Organizations } from './resources/organizations'

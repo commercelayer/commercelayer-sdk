@@ -12,6 +12,8 @@ import type {
 import { ApiResource } from '@runtime/resource'
 import type { Address, AddressType } from './addresses'
 import type { AdyenPayment, AdyenPaymentType } from './adyen_payments'
+import type { Agent } from './agents'
+import type { Agreement, AgreementType } from './agreements'
 import type { Attachment } from './attachments'
 import type { Authorization } from './authorizations'
 import type { AxervePayment, AxervePaymentType } from './axerve_payments'
@@ -25,6 +27,7 @@ import type { DiscountEngineItem } from './discount_engine_items'
 import type { EventStore } from './event_stores'
 import type { Event } from './events'
 import type { ExternalPayment, ExternalPaymentType } from './external_payments'
+import type { InboundMessage } from './inbound_messages'
 import type { KlarnaPayment, KlarnaPaymentType } from './klarna_payments'
 import type { LineItemOption } from './line_item_options'
 import type { LineItem } from './line_items'
@@ -33,6 +36,7 @@ import type { Market, MarketType } from './markets'
 import type { Notification } from './notifications'
 import type { OrderCopy } from './order_copies'
 import type { OrderFactory } from './order_factories'
+import type { OrderReview } from './order_reviews'
 import type { OrderSubscription } from './order_subscriptions'
 import type { PaymentAuthorization } from './payment_authorizations'
 import type { PaymentCapture } from './payment_captures'
@@ -67,6 +71,7 @@ type MarketRel = ResourceRel & { type: MarketType }
 type CustomerRel = ResourceRel & { type: CustomerType }
 type AddressRel = ResourceRel & { type: AddressType }
 type StoreRel = ResourceRel & { type: StoreType }
+type AgreementRel = ResourceRel & { type: AgreementType }
 type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type AdyenPaymentRel = ResourceRel & { type: AdyenPaymentType }
 type AxervePaymentRel = ResourceRel & { type: AxervePaymentType }
@@ -121,7 +126,7 @@ export type OrderSort = Pick<
   | 'circuit_failure_count'
 > &
   ResourceSort
-// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'customer_email' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'payment_source_details' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'expires_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
+// export type OrderFilter = Pick<Order, 'id' | 'number' | 'affiliate_code' | 'place_async' | 'status' | 'payment_status' | 'fulfillment_status' | 'guest' | 'on_hold' | 'customer_email' | 'notes' | 'language_code' | 'currency_code' | 'tax_included' | 'tax_rate' | 'country_code' | 'coupon_code' | 'gift_card_code' | 'subtotal_amount_cents' | 'shipping_amount_cents' | 'payment_method_amount_cents' | 'discount_amount_cents' | 'adjustment_amount_cents' | 'gift_card_amount_cents' | 'total_tax_amount_cents' | 'subtotal_tax_amount_cents' | 'total_amount_cents' | 'fees_amount_cents' | 'duty_amount_cents' | 'payment_source_details' | 'token' | 'placed_at' | 'approved_at' | 'cancelled_at' | 'payment_updated_at' | 'fulfillment_updated_at' | 'refreshed_at' | 'archived_at' | 'subscription_created_at' | 'expires_at' | 'circuit_state' | 'circuit_failure_count'> & ResourceFilter
 
 /**
  * The Order object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/orders endpoint.
@@ -182,6 +187,10 @@ interface Order extends Resource {
    */
   guest?: boolean | null
   /**
+   * Indicates if the order is on hold because the last order review is pending.
+   */
+  on_hold?: boolean | null
+  /**
    * Indicates if the order can be edited.
    * @example ```true```
    */
@@ -191,6 +200,11 @@ interface Order extends Resource {
    * @example ```"john@example.com"```
    */
   customer_email?: string | null
+  /**
+   * A free-text note on the order. The latest value is kept.
+   * @example ```"Please leave at the reception"```
+   */
+  notes?: string | null
   /**
    * The type of the associated customer. One of 'new', or 'returning'.
    * @example ```"returning"```
@@ -759,6 +773,9 @@ interface Order extends Resource {
   shipping_address?: Address | null
   billing_address?: Address | null
   store?: Store | null
+  agreement?: Agreement | null
+  inbound_message?: InboundMessage | null
+  agent?: Agent | null
   default_shipping_method?: ShippingMethod | null
   /**
    * @deprecated Deprecated in API version 2026-05.
@@ -799,6 +816,7 @@ interface Order extends Resource {
     | null
   discount_engine_item?: DiscountEngineItem | null
   line_items?: LineItem[] | null
+  order_reviews?: OrderReview[] | null
   line_item_options?: LineItemOption[] | null
   /**
    * @since 2026-05
@@ -902,6 +920,11 @@ interface OrderCreate extends ResourceCreate {
    */
   customer_email?: string | null
   /**
+   * A free-text note on the order. The latest value is kept.
+   * @example ```"Please leave at the reception"```
+   */
+  notes?: string | null
+  /**
    * The password of the associated customer. When creating or updating an order, this is a shortcut to sign up the associated customer.
    * @example ```"secret"```
    */
@@ -989,6 +1012,7 @@ interface OrderCreate extends ResourceCreate {
   shipping_address?: AddressRel | null
   billing_address?: AddressRel | null
   store?: StoreRel | null
+  agreement?: AgreementRel | null
   /**
    * @deprecated Deprecated in API version 2026-05.
    */
@@ -1042,6 +1066,11 @@ interface OrderUpdate extends ResourceUpdate {
    * @example ```"john@example.com"```
    */
   customer_email?: string | null
+  /**
+   * A free-text note on the order. The latest value is kept.
+   * @example ```"Please leave at the reception"```
+   */
+  notes?: string | null
   /**
    * The password of the associated customer. When creating or updating an order, this is a shortcut to sign up the associated customer.
    * @example ```"secret"```
@@ -1191,6 +1220,11 @@ interface OrderUpdate extends ResourceUpdate {
    */
   _update_taxes?: boolean | null
   /**
+   * Send this attribute if you want to check the customer tax exemption code against the order's tax calculator, before taxes are calculated. Returns an error if the code is not valid for the tax calculator or the order's country (currently checked for Avalara accounts passing the tax exemption code only).
+   * @example ```true```
+   */
+  _validate_tax_exemption_code?: boolean | null
+  /**
    * Send this attribute if you want to nullify the payment source for this order.
    * @deprecated Deprecated in API version 2026-05.
    */
@@ -1312,6 +1346,7 @@ interface OrderUpdate extends ResourceUpdate {
   shipping_address?: AddressRel | null
   billing_address?: AddressRel | null
   store?: StoreRel | null
+  agreement?: AgreementRel | null
   /**
    * @deprecated Deprecated in API version 2026-05.
    */
@@ -1413,6 +1448,44 @@ class Orders extends ApiResource<Order> {
       params,
       options,
     ) as unknown as Store
+  }
+
+  async agreement(
+    orderId: string | Order,
+    params?: QueryParamsRetrieve<Agreement>,
+    options?: ResourcesConfig,
+  ): Promise<Agreement> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<Agreement>(
+      { type: 'agreements' },
+      `orders/${_orderId}/agreement`,
+      params,
+      options,
+    ) as unknown as Agreement
+  }
+
+  async inbound_message(
+    orderId: string | Order,
+    params?: QueryParamsRetrieve<InboundMessage>,
+    options?: ResourcesConfig,
+  ): Promise<InboundMessage> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<InboundMessage>(
+      { type: 'inbound_messages' },
+      `orders/${_orderId}/inbound_message`,
+      params,
+      options,
+    ) as unknown as InboundMessage
+  }
+
+  async agent(orderId: string | Order, params?: QueryParamsRetrieve<Agent>, options?: ResourcesConfig): Promise<Agent> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<Agent>(
+      { type: 'agents' },
+      `orders/${_orderId}/agent`,
+      params,
+      options,
+    ) as unknown as Agent
   }
 
   async default_shipping_method(
@@ -1551,6 +1624,20 @@ class Orders extends ApiResource<Order> {
       params,
       options,
     ) as unknown as ListResponse<LineItem>
+  }
+
+  async order_reviews(
+    orderId: string | Order,
+    params?: QueryParamsList<OrderReview>,
+    options?: ResourcesConfig,
+  ): Promise<ListResponse<OrderReview>> {
+    const _orderId = (orderId as Order).id || (orderId as string)
+    return this.resources.fetch<OrderReview>(
+      { type: 'order_reviews' },
+      `orders/${_orderId}/order_reviews`,
+      params,
+      options,
+    ) as unknown as ListResponse<OrderReview>
   }
 
   async line_item_options(
@@ -2098,6 +2185,18 @@ class Orders extends ApiResource<Order> {
   ): Promise<Order> {
     return this.resources.update<OrderUpdate, Order>(
       { id: typeof id === 'string' ? id : id.id, type: Orders.TYPE, _update_taxes: true },
+      params,
+      options,
+    )
+  }
+
+  async _validate_tax_exemption_code(
+    id: string | Order,
+    params?: QueryParamsRetrieve<Order>,
+    options?: ResourcesConfig,
+  ): Promise<Order> {
+    return this.resources.update<OrderUpdate, Order>(
+      { id: typeof id === 'string' ? id : id.id, type: Orders.TYPE, _validate_tax_exemption_code: true },
       params,
       options,
     )
