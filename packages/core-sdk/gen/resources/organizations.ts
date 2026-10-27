@@ -271,6 +271,10 @@ interface Organization extends Resource {
    */
   imports_trigger_webhooks?: number | null
   /**
+   * Enables B2B agreements for the organization as a seller, default is false.
+   */
+  agreements_enabled?: boolean | null
+  /**
    * Enables the use of an external discount engine in place of the standard one, default is false.
    */
   discount_engines_enabled?: boolean | null

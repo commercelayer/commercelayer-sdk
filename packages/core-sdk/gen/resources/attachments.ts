@@ -10,6 +10,7 @@ import type {
   ResourceUpdate,
 } from '@runtime/resource'
 import { ApiResource } from '@runtime/resource'
+import type { Agreement, AgreementType } from './agreements'
 import type { Bundle, BundleType } from './bundles'
 import type { CarrierAccount, CarrierAccountType } from './carrier_accounts'
 import type { CouponRecipient, CouponRecipientType } from './coupon_recipients'
@@ -68,6 +69,8 @@ type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type OrderRel = ResourceRel & { type: OrderType }
 type TransactionRel = ResourceRel & { type: TransactionType }
 type PaymentSessionRel = ResourceRel & { type: PaymentSessionType }
+type AgreementRel = ResourceRel & { type: AgreementType }
+type CustomerRel = ResourceRel & { type: CustomerType }
 type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 type SkuRel = ResourceRel & { type: SkuType }
@@ -80,7 +83,6 @@ type StockLocationRel = ResourceRel & { type: StockLocationType }
 type ReturnRel = ResourceRel & { type: ReturnType }
 type CarrierAccountRel = ResourceRel & { type: CarrierAccountType }
 type CouponRecipientRel = ResourceRel & { type: CouponRecipientType }
-type CustomerRel = ResourceRel & { type: CustomerType }
 type PaymentWalletRel = ResourceRel & { type: PaymentWalletType }
 type DeliveryLeadTimeRel = ResourceRel & { type: DeliveryLeadTimeType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
@@ -141,6 +143,8 @@ interface Attachment extends Resource {
     | Order
     | Transaction
     | PaymentSession
+    | Agreement
+    | Customer
     | TaxCalculator
     | TaxCategory
     | Sku
@@ -153,7 +157,6 @@ interface Attachment extends Resource {
     | Return
     | CarrierAccount
     | CouponRecipient
-    | Customer
     | PaymentWallet
     | DeliveryLeadTime
     | ShippingMethod
@@ -207,6 +210,8 @@ interface AttachmentCreate extends ResourceCreate {
     | OrderRel
     | TransactionRel
     | PaymentSessionRel
+    | AgreementRel
+    | CustomerRel
     | TaxCalculatorRel
     | TaxCategoryRel
     | SkuRel
@@ -219,7 +224,6 @@ interface AttachmentCreate extends ResourceCreate {
     | ReturnRel
     | CarrierAccountRel
     | CouponRecipientRel
-    | CustomerRel
     | PaymentWalletRel
     | DeliveryLeadTimeRel
     | ShippingMethodRel
@@ -271,6 +275,8 @@ interface AttachmentUpdate extends ResourceUpdate {
     | OrderRel
     | TransactionRel
     | PaymentSessionRel
+    | AgreementRel
+    | CustomerRel
     | TaxCalculatorRel
     | TaxCategoryRel
     | SkuRel
@@ -283,7 +289,6 @@ interface AttachmentUpdate extends ResourceUpdate {
     | ReturnRel
     | CarrierAccountRel
     | CouponRecipientRel
-    | CustomerRel
     | PaymentWalletRel
     | DeliveryLeadTimeRel
     | ShippingMethodRel

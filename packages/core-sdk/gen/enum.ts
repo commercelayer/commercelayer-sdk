@@ -10,6 +10,10 @@ const apiResources = [
   'adjustments',
   'adyen_gateways',
   'adyen_payments',
+  'agents',
+  'agreements',
+  'agreement_addresses',
+  'agreement_identities',
   'applications',
   'attachments',
   'authorizations',
@@ -60,6 +64,8 @@ const apiResources = [
   'google_geocoders',
   'imports',
   'in_stock_subscriptions',
+  'inbound_emails',
+  'inbound_messages',
   'inventory_models',
   'inventory_return_locations',
   'inventory_stock_locations',
@@ -77,6 +83,7 @@ const apiResources = [
   'order_amount_promotion_rules',
   'order_copies',
   'order_factories',
+  'order_reviews',
   'order_subscriptions',
   'order_subscription_items',
   'order_validation_rules',
@@ -154,6 +161,7 @@ const apiResources = [
   'tax_rules',
   'taxjar_accounts',
   'transactions',
+  'users',
   'vertex_accounts',
   'voids',
   'webhooks',
@@ -198,6 +206,8 @@ export const creatableResources = [
   'adjustments',
   'adyen_gateways',
   'adyen_payments',
+  'agents',
+  'agreement_addresses',
   'attachments',
   'avalara_accounts',
   'axerve_gateways',
@@ -255,6 +265,7 @@ export const creatableResources = [
   'orders',
   'order_amount_promotion_rules',
   'order_copies',
+  'order_reviews',
   'order_subscriptions',
   'order_subscription_items',
   'packages',
@@ -334,6 +345,10 @@ export const updatableResources = [
   'adjustments',
   'adyen_gateways',
   'adyen_payments',
+  'agents',
+  'agreements',
+  'agreement_addresses',
+  'agreement_identities',
   'attachments',
   'authorizations',
   'avalara_accounts',
@@ -378,6 +393,8 @@ export const updatableResources = [
   'google_geocoders',
   'imports',
   'in_stock_subscriptions',
+  'inbound_emails',
+  'inbound_messages',
   'inventory_models',
   'inventory_return_locations',
   'inventory_stock_locations',
@@ -394,6 +411,7 @@ export const updatableResources = [
   'orders',
   'order_amount_promotion_rules',
   'order_copies',
+  'order_reviews',
   'order_subscriptions',
   'order_subscription_items',
   'packages',
@@ -475,6 +493,7 @@ export const deletableResources = [
   'adjustments',
   'adyen_gateways',
   'adyen_payments',
+  'agreement_addresses',
   'attachments',
   'avalara_accounts',
   'axerve_gateways',
@@ -532,6 +551,7 @@ export const deletableResources = [
   'orders',
   'order_amount_promotion_rules',
   'order_copies',
+  'order_reviews',
   'order_subscriptions',
   'order_subscription_items',
   'packages',
@@ -675,6 +695,10 @@ export type ResourceFields = {
   adjustments: models.Adjustment
   adyen_gateways: models.AdyenGateway
   adyen_payments: models.AdyenPayment
+  agents: models.Agent
+  agreements: models.Agreement
+  agreement_addresses: models.AgreementAddress
+  agreement_identities: models.AgreementIdentity
   applications: models.Application
   attachments: models.Attachment
   authorizations: models.Authorization
@@ -725,6 +749,8 @@ export type ResourceFields = {
   google_geocoders: models.GoogleGeocoder
   imports: models.Import
   in_stock_subscriptions: models.InStockSubscription
+  inbound_emails: models.InboundEmail
+  inbound_messages: models.InboundMessage
   inventory_models: models.InventoryModel
   inventory_return_locations: models.InventoryReturnLocation
   inventory_stock_locations: models.InventoryStockLocation
@@ -742,6 +768,7 @@ export type ResourceFields = {
   order_amount_promotion_rules: models.OrderAmountPromotionRule
   order_copies: models.OrderCopy
   order_factories: models.OrderFactory
+  order_reviews: models.OrderReview
   order_subscriptions: models.OrderSubscription
   order_subscription_items: models.OrderSubscriptionItem
   order_validation_rules: models.OrderValidationRule
@@ -819,6 +846,7 @@ export type ResourceFields = {
   tax_rules: models.TaxRule
   taxjar_accounts: models.TaxjarAccount
   transactions: models.Transaction
+  users: models.User
   vertex_accounts: models.VertexAccount
   voids: models.Void
   webhooks: models.Webhook
@@ -832,6 +860,10 @@ export type ResourceSortFields = {
   adjustments: models.AdjustmentSort
   adyen_gateways: models.AdyenGatewaySort
   adyen_payments: models.AdyenPaymentSort
+  agents: models.AgentSort
+  agreements: models.AgreementSort
+  agreement_addresses: models.AgreementAddressSort
+  agreement_identities: models.AgreementIdentitySort
   applications: models.ApplicationSort
   attachments: models.AttachmentSort
   authorizations: models.AuthorizationSort
@@ -882,6 +914,8 @@ export type ResourceSortFields = {
   google_geocoders: models.GoogleGeocoderSort
   imports: models.ImportSort
   in_stock_subscriptions: models.InStockSubscriptionSort
+  inbound_emails: models.InboundEmailSort
+  inbound_messages: models.InboundMessageSort
   inventory_models: models.InventoryModelSort
   inventory_return_locations: models.InventoryReturnLocationSort
   inventory_stock_locations: models.InventoryStockLocationSort
@@ -899,6 +933,7 @@ export type ResourceSortFields = {
   order_amount_promotion_rules: models.OrderAmountPromotionRuleSort
   order_copies: models.OrderCopySort
   order_factories: models.OrderFactorySort
+  order_reviews: models.OrderReviewSort
   order_subscriptions: models.OrderSubscriptionSort
   order_subscription_items: models.OrderSubscriptionItemSort
   order_validation_rules: models.OrderValidationRuleSort
@@ -976,6 +1011,7 @@ export type ResourceSortFields = {
   tax_rules: models.TaxRuleSort
   taxjar_accounts: models.TaxjarAccountSort
   transactions: models.TransactionSort
+  users: models.UserSort
   vertex_accounts: models.VertexAccountSort
   voids: models.VoidSort
   webhooks: models.WebhookSort

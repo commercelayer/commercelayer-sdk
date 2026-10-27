@@ -1388,6 +1388,1065 @@
             }
         },
         {
+            "id": "agent",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2017-08"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "create",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "desc": "The agent display name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Mail to order"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "desc": "Unique inbox local-part, set on create and immutable afterwards. Generated from the name when omitted (underscores, no spaces). Letters, numbers, underscores, and hyphens only.",
+                        "required": "optional, default generated from name",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "mail_to_order"
+                    },
+                    "inbound_email": {
+                        "type": "string",
+                        "desc": "The inbound inbox address derived from the slug and AGENTS_EMAIL_DOMAIN. Not writable.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "mail_to_order@agents.commercelayer.ai"
+                    },
+                    "kind": {
+                        "type": "string",
+                        "desc": "The agent kind. One of 'system'.",
+                        "required": "required, default is 'system'",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "system",
+                        "enum": [
+                            "system"
+                        ]
+                    },
+                    "pipeline": {
+                        "type": "string",
+                        "desc": "The predefined system pipeline this agent runs. Required when kind is 'system'. One of 'mail_to_order_b2b'.",
+                        "required": "optional, required when kind is 'system'",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "mail_to_order_b2b",
+                        "enum": [
+                            "mail_to_order_b2b"
+                        ]
+                    },
+                    "auto_place": {
+                        "type": "boolean",
+                        "desc": "Automatically place high-confidence orders created by this agent. Lower-confidence orders always remain pending for review.",
+                        "required": "optional, default is 'false'",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "_disable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as disabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_enable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as enabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "disabled_at": {
+                        "type": "string",
+                        "desc": "Time at which this resource was disabled.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The seller organization (tenant owner).",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgentResource",
+                        "class_name": "Organization"
+                    },
+                    "user": {
+                        "type": "has_one",
+                        "desc": "The user linked to this agent. Optional. Which user a pipeline uses is pipeline-specific: mail_to_order_b2b takes the order-review owner and inbound failure recipient from the sender's agreement.user, not from here.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "eager_load_on_include": false,
+                        "parent_resource": "Api::AgentResource",
+                        "class_name": "User"
+                    },
+                    "orders": {
+                        "type": "has_many",
+                        "desc": "The orders created by this agent.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgentResource",
+                        "class_name": "Order"
+                    },
+                    "inbound_messages": {
+                        "type": "has_many",
+                        "desc": "The inbound messages routed to this agent.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgentResource",
+                        "class_name": "InboundMessage"
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::AgentResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "name",
+                    "slug",
+                    "inbound_email",
+                    "kind",
+                    "pipeline",
+                    "disabled_at",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "organization_id",
+                    "user_id",
+                    "orders_id",
+                    "inbound_messages_id",
+                    "ids",
+                    "disabled_at_from",
+                    "disabled_at_to",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
+            "id": "agreement",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2017-08"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "authorized_sender_emails": {
+                        "type": "array",
+                        "desc": "Email addresses, besides the agreement customers, allowed to email orders for this agreement to the agent inbox (e.g. a sales agent ordering for several customers).",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": [
+                            "agent@example.com"
+                        ]
+                    },
+                    "sku_mapping": {
+                        "type": "string",
+                        "desc": "The mail-to-order SKU mapping as CSV text, with seller_sku and buyer_sku columns. Validated against the agreement market and stored as a file, replacing the previous one. Send a blank value to remove it.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "exportable": false,
+                        "transient": true,
+                        "example": "seller_sku,buyer_sku\nTSHIRT-BLK-M,BS00045\n"
+                    },
+                    "sku_mapping_url": {
+                        "type": "string",
+                        "desc": "A presigned URL to download the stored SKU mapping CSV.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://storage.example.com/sku_mappings/mapping.csv"
+                    },
+                    "code": {
+                        "type": "string",
+                        "desc": "The agreement identifier, unique per organization and environment. Optional — set by the seller.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "PO-2025-EU"
+                    },
+                    "name": {
+                        "type": "string",
+                        "desc": "The agreement display name.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Acme Corp — EU wholesale"
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The agreement status. One of 'pending', 'active', 'inactive', 'expired', or 'cancelled'.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "pending",
+                        "enum": [
+                            "pending",
+                            "active",
+                            "inactive",
+                            "expired",
+                            "cancelled"
+                        ]
+                    },
+                    "buyer_organization_id": {
+                        "type": "string",
+                        "desc": "The buyer organization ID (hashid in the API, integer FK in the DB).",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "xYZaBcDeF1"
+                    },
+                    "starts_at": {
+                        "type": "string",
+                        "desc": "The date/time from which this agreement is valid. Leave blank for no lower bound.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2025-01-01T00:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "expires_at": {
+                        "type": "string",
+                        "desc": "The date/time after which this agreement is no longer valid. Seller-configured schedule; must be after starts_at when both are set. Distinct from expired_at.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2026-01-01T00:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "activated_at": {
+                        "type": "string",
+                        "desc": "Time at which the agreement was last activated.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2025-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "deactivated_at": {
+                        "type": "string",
+                        "desc": "Time at which the agreement was last deactivated.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2025-06-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "expired_at": {
+                        "type": "string",
+                        "desc": "Time at which the agreement status was set to expired. Distinct from expires_at, which is the seller-configured validity end.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2026-01-01T00:05:00.000Z",
+                        "format": "datetime"
+                    },
+                    "cancelled_at": {
+                        "type": "string",
+                        "desc": "Time at which the agreement was cancelled.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2025-09-15T08:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "market": {
+                        "type": "has_one",
+                        "desc": "The market this agreement applies to.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": true,
+                        "parent_resource": "Api::AgreementResource",
+                        "class_name": "Market"
+                    },
+                    "buyer_organization": {
+                        "type": "has_one",
+                        "desc": "The buyer organization (cross-tenant). Written via buyer_organization_id on Provisioning; Organization is a singleton so this relationship is virtual.",
+                        "class_name": "Organization",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "virtual": true,
+                        "eager_load_on_include": false,
+                        "parent_resource": "Api::AgreementResource"
+                    },
+                    "billing_address": {
+                        "type": "has_one",
+                        "desc": "The default billing address for orders placed under this agreement.",
+                        "class_name": "Address",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgreementResource"
+                    },
+                    "shipping_address": {
+                        "type": "has_one",
+                        "desc": "The default shipping address for orders placed under this agreement.",
+                        "class_name": "Address",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgreementResource"
+                    },
+                    "user": {
+                        "type": "has_one",
+                        "desc": "The seller user responsible for this agreement. Mail-to-order notifies this user and uses them as the order review owner.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "eager_load_on_include": false,
+                        "parent_resource": "Api::AgreementResource",
+                        "class_name": "User"
+                    },
+                    "agreement_addresses": {
+                        "type": "has_many",
+                        "desc": "The other destinations orders under this agreement can ship to, besides the shipping address.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgreementResource",
+                        "class_name": "AgreementAddress"
+                    },
+                    "agreement_identities": {
+                        "type": "has_many",
+                        "desc": "The grant records linking seller-side customers to this agreement.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgreementResource",
+                        "class_name": "AgreementIdentity"
+                    },
+                    "customers": {
+                        "type": "has_many",
+                        "desc": "The seller-side customers authorized to buy under this agreement.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgreementResource",
+                        "class_name": "Customer"
+                    },
+                    "orders": {
+                        "type": "has_many",
+                        "desc": "The orders placed under this agreement.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgreementResource",
+                        "class_name": "Order"
+                    },
+                    "attachments": {
+                        "type": "has_many",
+                        "desc": "The associated attachments.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::AgreementResource",
+                        "class_name": "Attachment"
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::AgreementResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "code",
+                    "name",
+                    "status",
+                    "buyer_organization_id",
+                    "starts_at",
+                    "expires_at",
+                    "activated_at",
+                    "deactivated_at",
+                    "expired_at",
+                    "cancelled_at",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "market_id",
+                    "billing_address_id",
+                    "shipping_address_id",
+                    "user_id",
+                    "agreement_addresses_id",
+                    "agreement_identities_id",
+                    "customers_id",
+                    "orders_id",
+                    "attachments_id",
+                    "ids",
+                    "starts_at_from",
+                    "starts_at_to",
+                    "expires_at_from",
+                    "expires_at_to",
+                    "activated_at_from",
+                    "activated_at_to",
+                    "deactivated_at_from",
+                    "deactivated_at_to",
+                    "expired_at_from",
+                    "expired_at_to",
+                    "cancelled_at_from",
+                    "cancelled_at_to",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
+            "id": "agreement_address",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2017-08"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "create",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "desc": "The buyer's own name or code for this destination (e.g. a plant or warehouse), matched against the delivery place written on inbound orders.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "North warehouse"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "agreement": {
+                        "type": "has_one",
+                        "desc": "The agreement this destination belongs to.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": true,
+                        "parent_resource": "Api::AgreementAddressResource",
+                        "class_name": "Agreement"
+                    },
+                    "address": {
+                        "type": "has_one",
+                        "desc": "The destination address. Orders placed under the agreement ship here when the order names it; otherwise the agreement shipping address is used.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "parent_resource": "Api::AgreementAddressResource",
+                        "class_name": "Address"
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::AgreementAddressResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "name",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "agreement_id",
+                    "address_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
+            "id": "agreement_identity",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2017-08"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "member_id": {
+                        "type": "string",
+                        "desc": "The buyer-org membership hashid (cross-tenant reference — no DB FK constraint).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "xYZaBcDeF1"
+                    },
+                    "inbound_messages_enabled": {
+                        "type": "boolean",
+                        "desc": "Enables email-to-order for this identity. Inbound messages are skipped unless this is true.",
+                        "default": false,
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "_disable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as disabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_enable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as enabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "disabled_at": {
+                        "type": "string",
+                        "desc": "Time at which this resource was disabled.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "agreement": {
+                        "type": "has_one",
+                        "desc": "The associated agreement.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": true,
+                        "parent_resource": "Api::AgreementIdentityResource",
+                        "class_name": "Agreement"
+                    },
+                    "customer": {
+                        "type": "has_one",
+                        "desc": "The seller-side customer authorized to buy under the agreement.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": true,
+                        "parent_resource": "Api::AgreementIdentityResource",
+                        "class_name": "Customer"
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::AgreementIdentityResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "member_id",
+                    "inbound_messages_enabled",
+                    "disabled_at",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "agreement_id",
+                    "customer_id",
+                    "ids",
+                    "disabled_at_from",
+                    "disabled_at_to",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
             "id": "application",
             "type": "resources",
             "attributes": {
@@ -1739,6 +2798,8 @@
                             "orders",
                             "transactions",
                             "payment_sessions",
+                            "agreements",
+                            "customers",
                             "tax_calculators",
                             "tax_categories",
                             "skus",
@@ -1751,7 +2812,6 @@
                             "returns",
                             "carrier_accounts",
                             "coupon_recipients",
-                            "customers",
                             "payment_wallets",
                             "delivery_lead_times",
                             "shipping_methods",
@@ -2555,6 +3615,16 @@
                     "ddp": {
                         "type": "boolean",
                         "desc": "Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "pass_tax_exemption_code": {
+                        "type": "boolean",
+                        "desc": "Indicates if the customer tax exemption code is sent to Avalara as entity use code, letting Avalara determine the taxes (codes not recognized by Avalara are fully taxed). When disabled, tax calculation is skipped for exempt customers.",
                         "creatable": true,
                         "updatable": true,
                         "fetchable": true,
@@ -7563,7 +8633,7 @@
                     },
                     "tax_exemption_code": {
                         "type": "string",
-                        "desc": "A specific code to identify the tax exemption reason for this customer.",
+                        "desc": "A specific code to identify the tax exemption reason for this customer. Tax calculation is skipped for orders of exempt customers, unless the tax calculator lets the provider handle it (e.g. Avalara accounts with pass_tax_exemption_code enabled, which send it as entity use code).",
                         "required": "optional",
                         "creatable": true,
                         "updatable": true,
@@ -10207,7 +11277,7 @@
                     },
                     "resource_type": {
                         "type": "string",
-                        "desc": "The type of the affected resource. One of 'addresses', 'adjustments', 'adyen_payments', 'applications', 'attachments', 'axerve_payments', 'braintree_payments', 'bundles', 'carrier_accounts', 'checkout_com_payments', 'coupons', 'customer_addresses', 'customer_groups', 'customer_password_resets', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'delivery_lead_times', 'event_callbacks', 'event_stores', 'events', 'external_payments', 'geocoders', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_return_locations', 'inventory_stock_locations', 'klarna_payments', 'line_item_options', 'line_items', 'links', 'markets', 'merchants', 'notifications', 'order_factories', 'order_subscription_items', 'order_subscriptions', 'order_validation_rules', 'orders', 'packages', 'parcel_line_items', 'parcels', 'payment_gateways', 'payment_links', 'payment_methods', 'payment_options', 'payment_sessions', 'payment_settings', 'payment_transactions', 'payment_wallets', 'paypal_payments', 'pickups', 'price_list_schedulers', 'price_lists', 'price_tiers', 'prices', 'promotion_rules', 'promotions', 'reserved_stocks', 'resource_errors', 'return_line_items', 'returns', 'satispay_payments', 'shipments', 'shipping_categories', 'shipping_method_tiers', 'shipping_methods', 'shipping_zones', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_line_items', 'stock_locations', 'stock_reservations', 'stock_transfers', 'stores', 'stripe_payments', 'subscription_models', 'tags', 'tax_calculators', 'tax_categories', 'tax_rules', 'transactions', 'webhooks', or 'wire_transfers'.",
+                        "desc": "The type of the affected resource. One of 'addresses', 'adjustments', 'adyen_payments', 'agents', 'agreement_addresses', 'agreement_identities', 'agreements', 'applications', 'attachments', 'axerve_payments', 'braintree_payments', 'bundles', 'carrier_accounts', 'checkout_com_payments', 'coupons', 'customer_addresses', 'customer_groups', 'customer_password_resets', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'delivery_lead_times', 'event_callbacks', 'event_stores', 'events', 'external_payments', 'geocoders', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_return_locations', 'inventory_stock_locations', 'klarna_payments', 'line_item_options', 'line_items', 'links', 'markets', 'merchants', 'notifications', 'order_factories', 'order_reviews', 'order_subscription_items', 'order_subscriptions', 'order_validation_rules', 'orders', 'packages', 'parcel_line_items', 'parcels', 'payment_gateways', 'payment_links', 'payment_methods', 'payment_options', 'payment_sessions', 'payment_settings', 'payment_transactions', 'payment_wallets', 'paypal_payments', 'pickups', 'price_list_schedulers', 'price_lists', 'price_tiers', 'prices', 'promotion_rules', 'promotions', 'reserved_stocks', 'resource_errors', 'return_line_items', 'returns', 'satispay_payments', 'shipments', 'shipping_categories', 'shipping_method_tiers', 'shipping_methods', 'shipping_zones', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_line_items', 'stock_locations', 'stock_reservations', 'stock_transfers', 'stores', 'stripe_payments', 'subscription_models', 'tags', 'tax_calculators', 'tax_categories', 'tax_rules', 'transactions', 'users', 'webhooks', or 'wire_transfers'.",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -10222,6 +11292,10 @@
                             "addresses",
                             "adjustments",
                             "adyen_payments",
+                            "agents",
+                            "agreement_addresses",
+                            "agreement_identities",
+                            "agreements",
                             "applications",
                             "attachments",
                             "axerve_payments",
@@ -10255,6 +11329,7 @@
                             "merchants",
                             "notifications",
                             "order_factories",
+                            "order_reviews",
                             "order_subscription_items",
                             "order_subscriptions",
                             "order_validation_rules",
@@ -10305,6 +11380,7 @@
                             "tax_categories",
                             "tax_rules",
                             "transactions",
+                            "users",
                             "webhooks",
                             "wire_transfers"
                         ],
@@ -10313,6 +11389,10 @@
                                 "addresses",
                                 "adjustments",
                                 "adyen_payments",
+                                "agents",
+                                "agreement_addresses",
+                                "agreement_identities",
+                                "agreements",
                                 "applications",
                                 "attachments",
                                 "axerve_payments",
@@ -10346,6 +11426,7 @@
                                 "merchants",
                                 "notifications",
                                 "order_factories",
+                                "order_reviews",
                                 "order_subscription_items",
                                 "order_subscriptions",
                                 "order_validation_rules",
@@ -10391,6 +11472,7 @@
                                 "tax_categories",
                                 "tax_rules",
                                 "transactions",
+                                "users",
                                 "webhooks",
                                 "wire_transfers"
                             ],
@@ -10641,7 +11723,7 @@
                 "fields": {
                     "resource_type": {
                         "type": "string",
-                        "desc": "The type of resource being exported. One of 'addresses', 'adjustments', 'adyen_payments', 'applications', 'attachments', 'axerve_payments', 'braintree_payments', 'bundles', 'carrier_accounts', 'checkout_com_payments', 'coupons', 'customer_addresses', 'customer_groups', 'customer_password_resets', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'delivery_lead_times', 'event_callbacks', 'event_stores', 'events', 'external_payments', 'geocoders', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_return_locations', 'inventory_stock_locations', 'klarna_payments', 'line_item_options', 'line_items', 'links', 'markets', 'merchants', 'notifications', 'order_factories', 'order_subscription_items', 'order_subscriptions', 'order_validation_rules', 'orders', 'packages', 'parcel_line_items', 'parcels', 'payment_gateways', 'payment_links', 'payment_methods', 'payment_options', 'payment_sessions', 'payment_settings', 'payment_transactions', 'payment_wallets', 'paypal_payments', 'pickups', 'price_list_schedulers', 'price_lists', 'price_tiers', 'prices', 'promotion_rules', 'promotions', 'reserved_stocks', 'resource_errors', 'return_line_items', 'returns', 'satispay_payments', 'shipments', 'shipping_categories', 'shipping_method_tiers', 'shipping_methods', 'shipping_zones', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_line_items', 'stock_locations', 'stock_reservations', 'stock_transfers', 'stores', 'stripe_payments', 'subscription_models', 'tags', 'tax_calculators', 'tax_categories', 'tax_rules', 'transactions', 'webhooks', or 'wire_transfers'.",
+                        "desc": "The type of resource being exported. One of 'addresses', 'adjustments', 'adyen_payments', 'agents', 'agreement_addresses', 'agreement_identities', 'agreements', 'applications', 'attachments', 'axerve_payments', 'braintree_payments', 'bundles', 'carrier_accounts', 'checkout_com_payments', 'coupons', 'customer_addresses', 'customer_groups', 'customer_password_resets', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'delivery_lead_times', 'event_callbacks', 'event_stores', 'events', 'external_payments', 'geocoders', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_return_locations', 'inventory_stock_locations', 'klarna_payments', 'line_item_options', 'line_items', 'links', 'markets', 'merchants', 'notifications', 'order_factories', 'order_reviews', 'order_subscription_items', 'order_subscriptions', 'order_validation_rules', 'orders', 'packages', 'parcel_line_items', 'parcels', 'payment_gateways', 'payment_links', 'payment_methods', 'payment_options', 'payment_sessions', 'payment_settings', 'payment_transactions', 'payment_wallets', 'paypal_payments', 'pickups', 'price_list_schedulers', 'price_lists', 'price_tiers', 'prices', 'promotion_rules', 'promotions', 'reserved_stocks', 'resource_errors', 'return_line_items', 'returns', 'satispay_payments', 'shipments', 'shipping_categories', 'shipping_method_tiers', 'shipping_methods', 'shipping_zones', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_line_items', 'stock_locations', 'stock_reservations', 'stock_transfers', 'stores', 'stripe_payments', 'subscription_models', 'tags', 'tax_calculators', 'tax_categories', 'tax_rules', 'transactions', 'users', 'webhooks', or 'wire_transfers'.",
                         "required": "required",
                         "creatable": true,
                         "updatable": false,
@@ -10653,6 +11735,10 @@
                             "addresses",
                             "adjustments",
                             "adyen_payments",
+                            "agents",
+                            "agreement_addresses",
+                            "agreement_identities",
+                            "agreements",
                             "applications",
                             "attachments",
                             "axerve_payments",
@@ -10686,6 +11772,7 @@
                             "merchants",
                             "notifications",
                             "order_factories",
+                            "order_reviews",
                             "order_subscription_items",
                             "order_subscriptions",
                             "order_validation_rules",
@@ -10736,6 +11823,7 @@
                             "tax_categories",
                             "tax_rules",
                             "transactions",
+                            "users",
                             "webhooks",
                             "wire_transfers"
                         ],
@@ -10744,6 +11832,10 @@
                                 "addresses",
                                 "adjustments",
                                 "adyen_payments",
+                                "agents",
+                                "agreement_addresses",
+                                "agreement_identities",
+                                "agreements",
                                 "applications",
                                 "attachments",
                                 "axerve_payments",
@@ -10777,6 +11869,7 @@
                                 "merchants",
                                 "notifications",
                                 "order_factories",
+                                "order_reviews",
                                 "order_subscription_items",
                                 "order_subscriptions",
                                 "order_validation_rules",
@@ -10822,6 +11915,7 @@
                                 "tax_categories",
                                 "tax_rules",
                                 "transactions",
+                                "users",
                                 "webhooks",
                                 "wire_transfers"
                             ],
@@ -16972,6 +18066,626 @@
             }
         },
         {
+            "id": "inbound_email",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2017-08"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "type": {
+                        "type": "string",
+                        "desc": "The inbound message's type.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "inbound_emails",
+                        "enum": [
+                            "inbound_emails"
+                        ]
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The inbound message processing status. One of 'pending' (default), 'processing', 'awaiting_info', 'completed', or 'failed'.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "pending",
+                        "aasm": true,
+                        "enum": [
+                            "pending",
+                            "processing",
+                            "awaiting_info",
+                            "completed",
+                            "failed"
+                        ]
+                    },
+                    "error_code": {
+                        "type": "string",
+                        "desc": "A machine-readable code describing why processing failed, if any.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "unresolvable_sku"
+                    },
+                    "error_message": {
+                        "type": "string",
+                        "desc": "A human-readable description of the processing failure, if any.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "SKU UNKNOWN is not purchasable in the agreement market."
+                    },
+                    "diagnostic": {
+                        "type": "object",
+                        "desc": "Structured failure details containing a globally unique identifier, scope, stable code, severity, description, an optional runtime message, and an optional nested details object.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "{ \"identifier\": \"mail_to_order_b2b.unresolvable_sku\", \"scope\": \"mail_to_order_b2b\", \"code\": \"unresolvable_sku\", \"severity\": \"error\", \"description\": \"No requested item could be matched to the catalogue.\" }"
+                    },
+                    "subject": {
+                        "type": "string",
+                        "desc": "The email subject, when the inbound channel is email.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "PO-2026-041"
+                    },
+                    "from_address": {
+                        "type": "string",
+                        "desc": "The authenticated sender email address.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "buyer@example.com"
+                    },
+                    "extraction": {
+                        "type": "object",
+                        "desc": "Requested lines, resolved SKUs with resolution and prices, unresolved lines left off the order, and validation status.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "{ \"requested\": { \"po_reference\": \"PO-2026-041\", \"order_notes\": null, \"items\": [], \"issues\": [], \"embedded_instructions\": [] }, \"resolved\": { \"agreement_id\": \"XAyRWNUzyN\", \"agreement_code\": \"EU-WHOLESALE\", \"items\": [], \"unresolved\": [] }, \"validation\": { \"status\": \"needs_review\", \"warnings\": [{ \"identifier\": \"mail_to_order_b2b.price_mismatch\", \"scope\": \"mail_to_order_b2b\", \"code\": \"price_mismatch\", \"severity\": \"warning\", \"description\": \"The buyer-stated unit price differs from the effective market unit price.\", \"message\": \"TSHIRT-BLK-M requested 2800, market 2900\", \"details\": { \"sku_code\": \"TSHIRT-BLK-M\", \"requested_unit_amount_cents\": 2800, \"market_unit_amount_cents\": 2900 } }], \"blockers\": [], \"history\": { \"recent_order_count\": 0 } } }"
+                    },
+                    "raw_payload_url": {
+                        "type": "string",
+                        "desc": "A presigned URL to download the stored raw payload.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://storage.example.com/inbound/message.eml"
+                    },
+                    "_fail": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute to fail a message awaiting info when there is no customer or agreement to assign (error code 'dismissed').",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "customer": {
+                        "type": "has_one",
+                        "desc": "The customer the message is for, matched from the sender or, for an authorized sender, from the message. Can be set, together with the agreement, only while the message is awaiting info; processing then resumes.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Customer"
+                    },
+                    "agreement": {
+                        "type": "has_one",
+                        "desc": "The agreement selected for the customer. Can be set, together with the customer, only while the message is awaiting info; processing then resumes.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Agreement"
+                    },
+                    "order": {
+                        "type": "has_one",
+                        "desc": "The order created from this inbound message, if processing succeeded.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Order"
+                    },
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The seller organization (tenant owner).",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Organization"
+                    },
+                    "agent": {
+                        "type": "has_one",
+                        "desc": "The agent whose inbox received this message.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Agent"
+                    },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Event"
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::InboundEmailResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "type",
+                    "status",
+                    "error_code",
+                    "subject",
+                    "from_address",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "customer_id",
+                    "agreement_id",
+                    "order_id",
+                    "organization_id",
+                    "agent_id",
+                    "events_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": "inbound_message"
+            }
+        },
+        {
+            "id": "inbound_message",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2017-08"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "update"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "type": {
+                        "type": "string",
+                        "desc": "The inbound message's type.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "inbound_emails",
+                        "enum": [
+                            "inbound_emails"
+                        ]
+                    },
+                    "status": {
+                        "type": "string",
+                        "desc": "The inbound message processing status. One of 'pending' (default), 'processing', 'awaiting_info', 'completed', or 'failed'.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "pending",
+                        "aasm": true,
+                        "enum": [
+                            "pending",
+                            "processing",
+                            "awaiting_info",
+                            "completed",
+                            "failed"
+                        ]
+                    },
+                    "error_code": {
+                        "type": "string",
+                        "desc": "A machine-readable code describing why processing failed, if any.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "unresolvable_sku"
+                    },
+                    "error_message": {
+                        "type": "string",
+                        "desc": "A human-readable description of the processing failure, if any.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "SKU UNKNOWN is not purchasable in the agreement market."
+                    },
+                    "diagnostic": {
+                        "type": "object",
+                        "desc": "Structured failure details containing a globally unique identifier, scope, stable code, severity, description, an optional runtime message, and an optional nested details object.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "{ \"identifier\": \"mail_to_order_b2b.unresolvable_sku\", \"scope\": \"mail_to_order_b2b\", \"code\": \"unresolvable_sku\", \"severity\": \"error\", \"description\": \"No requested item could be matched to the catalogue.\" }"
+                    },
+                    "subject": {
+                        "type": "string",
+                        "desc": "The email subject, when the inbound channel is email.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "PO-2026-041"
+                    },
+                    "from_address": {
+                        "type": "string",
+                        "desc": "The authenticated sender email address.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "buyer@example.com"
+                    },
+                    "extraction": {
+                        "type": "object",
+                        "desc": "Requested lines, resolved SKUs with resolution and prices, unresolved lines left off the order, and validation status.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "{ \"requested\": { \"po_reference\": \"PO-2026-041\", \"order_notes\": null, \"items\": [], \"issues\": [], \"embedded_instructions\": [] }, \"resolved\": { \"agreement_id\": \"XAyRWNUzyN\", \"agreement_code\": \"EU-WHOLESALE\", \"items\": [], \"unresolved\": [] }, \"validation\": { \"status\": \"needs_review\", \"warnings\": [{ \"identifier\": \"mail_to_order_b2b.price_mismatch\", \"scope\": \"mail_to_order_b2b\", \"code\": \"price_mismatch\", \"severity\": \"warning\", \"description\": \"The buyer-stated unit price differs from the effective market unit price.\", \"message\": \"TSHIRT-BLK-M requested 2800, market 2900\", \"details\": { \"sku_code\": \"TSHIRT-BLK-M\", \"requested_unit_amount_cents\": 2800, \"market_unit_amount_cents\": 2900 } }], \"blockers\": [], \"history\": { \"recent_order_count\": 0 } } }"
+                    },
+                    "raw_payload_url": {
+                        "type": "string",
+                        "desc": "A presigned URL to download the stored raw payload.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "https://storage.example.com/inbound/message.eml"
+                    },
+                    "_fail": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute to fail a message awaiting info when there is no customer or agreement to assign (error code 'dismissed').",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "customer": {
+                        "type": "has_one",
+                        "desc": "The customer the message is for, matched from the sender or, for an authorized sender, from the message. Can be set, together with the agreement, only while the message is awaiting info; processing then resumes.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Customer"
+                    },
+                    "agreement": {
+                        "type": "has_one",
+                        "desc": "The agreement selected for the customer. Can be set, together with the customer, only while the message is awaiting info; processing then resumes.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Agreement"
+                    },
+                    "order": {
+                        "type": "has_one",
+                        "desc": "The order created from this inbound message, if processing succeeded.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Order"
+                    },
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The seller organization (tenant owner).",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Organization"
+                    },
+                    "agent": {
+                        "type": "has_one",
+                        "desc": "The agent whose inbox received this message.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundEmailResource",
+                        "class_name": "Agent"
+                    },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::InboundMessageResource",
+                        "class_name": "Event"
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::InboundMessageResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "type",
+                    "status",
+                    "error_code",
+                    "subject",
+                    "from_address",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "customer_id",
+                    "agreement_id",
+                    "order_id",
+                    "organization_id",
+                    "agent_id",
+                    "events_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
             "id": "inventory_model",
             "type": "resources",
             "attributes": {
@@ -20995,6 +22709,17 @@
                         "sortable": true,
                         "example": "true"
                     },
+                    "on_hold": {
+                        "type": "boolean",
+                        "desc": "Indicates if the order is on hold because the last order review is pending.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "delegate": "on_hold?",
+                        "example": "false"
+                    },
                     "editable": {
                         "type": "boolean",
                         "desc": "Indicates if the order can be edited.",
@@ -21016,6 +22741,18 @@
                         "filterable": true,
                         "sortable": false,
                         "example": "john@example.com"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "desc": "A free-text note on the order. The latest value is kept.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "exportable": false,
+                        "example": "Please leave at the reception"
                     },
                     "customer_password": {
                         "type": "string",
@@ -22346,6 +24083,17 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "_validate_tax_exemption_code": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to check the customer tax exemption code against the order's tax calculator, before taxes are calculated. Returns an error if the code is not valid for the tax calculator or the order's country (currently checked for Avalara accounts passing the tax exemption code only).",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
                     "_nullify_payment_source": {
                         "type": "boolean",
                         "trigger": true,
@@ -22876,6 +24624,39 @@
                         "parent_resource": "Api::OrderResource",
                         "class_name": "Store"
                     },
+                    "agreement": {
+                        "type": "has_one",
+                        "desc": "The agreement under which this order is placed.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "parent_resource": "Api::OrderResource",
+                        "class_name": "Agreement"
+                    },
+                    "inbound_message": {
+                        "type": "has_one",
+                        "desc": "The inbound message this order was created from, if any.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::OrderResource",
+                        "class_name": "InboundMessage"
+                    },
+                    "agent": {
+                        "type": "has_one",
+                        "desc": "The agent that created this order, if any.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::OrderResource",
+                        "class_name": "Agent"
+                    },
                     "default_shipping_method": {
                         "type": "has_one",
                         "desc": "The shipping method to use as default for shipments.",
@@ -23007,6 +24788,14 @@
                         "sortable": false,
                         "parent_resource": "Api::OrderResource",
                         "class_name": "LineItem"
+                    },
+                    "order_reviews": {
+                        "type": "has_many",
+                        "desc": "The associated order reviews.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::OrderResource",
+                        "class_name": "OrderReview"
                     },
                     "line_item_options": {
                         "type": "has_many",
@@ -23318,7 +25107,9 @@
                     "payment_status",
                     "fulfillment_status",
                     "guest",
+                    "on_hold",
                     "customer_email",
+                    "notes",
                     "language_code",
                     "currency_code",
                     "tax_included",
@@ -23361,10 +25152,14 @@
                     "shipping_address_id",
                     "billing_address_id",
                     "store_id",
+                    "agreement_id",
+                    "inbound_message_id",
+                    "agent_id",
                     "payment_method_id",
                     "payment_source_id",
                     "discount_engine_item_id",
                     "line_items_id",
+                    "order_reviews_id",
                     "line_item_options_id",
                     "payment_sessions_id",
                     "stock_reservations_id",
@@ -24251,6 +26046,278 @@
                     "completed_at_to",
                     "failed_at_from",
                     "failed_at_to",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
+            "id": "order_review",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2017-08"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "create",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "status": {
+                        "type": "string",
+                        "desc": "The order review status. One of 'pending', 'accepted', or 'rejected'.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "pending",
+                        "aasm": true,
+                        "enum": [
+                            "pending",
+                            "accepted",
+                            "rejected"
+                        ]
+                    },
+                    "reason": {
+                        "type": "string",
+                        "desc": "A free-form reason for the review, if any.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Order exceeds the approved spending limit."
+                    },
+                    "resolved_at": {
+                        "type": "string",
+                        "desc": "Time at which the review was resolved (left the pending state).",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "desc": "Free-form note about the review outcome (e.g. rejection reason).",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "Order exceeds the approved spending limit for this customer."
+                    },
+                    "_accept": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this order review as accepted.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_reject": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this order review as rejected.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "requester": {
+                        "type": "has_one",
+                        "desc": "The requester of the review.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "polymorphic": true,
+                        "eager_load_on_include": false,
+                        "parent_resource": "Api::OrderReviewResource",
+                        "class_name": "Requester",
+                        "enum": [
+                            "agents",
+                            "customers",
+                            "users"
+                        ]
+                    },
+                    "owner": {
+                        "type": "has_one",
+                        "desc": "The owner of the review.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "polymorphic": true,
+                        "eager_load_on_include": false,
+                        "parent_resource": "Api::OrderReviewResource",
+                        "class_name": "Owner",
+                        "enum": [
+                            "customers",
+                            "users"
+                        ]
+                    },
+                    "order": {
+                        "type": "has_one",
+                        "desc": "The order being gated by this review.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": true,
+                        "parent_resource": "Api::OrderReviewResource",
+                        "class_name": "Order"
+                    },
+                    "organization": {
+                        "type": "has_one",
+                        "desc": "The seller organization (tenant owner).",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::OrderReviewResource",
+                        "class_name": "Organization"
+                    },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::OrderReviewResource",
+                        "class_name": "Event"
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::OrderReviewResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "status",
+                    "reason",
+                    "resolved_at",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "requester_id",
+                    "owner_id",
+                    "order_id",
+                    "organization_id",
+                    "events_id",
+                    "ids",
+                    "resolved_at_from",
+                    "resolved_at_to",
                     "created_at_from",
                     "created_at_to",
                     "updated_at_from",
@@ -25954,6 +28021,18 @@
                         "type": "integer",
                         "default": false,
                         "desc": "Enables triggering of webhooks during imports, default is false.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "false"
+                    },
+                    "agreements_enabled": {
+                        "type": "boolean",
+                        "default": false,
+                        "addon": true,
+                        "desc": "Enables B2B agreements for the organization as a seller, default is false.",
                         "creatable": false,
                         "updatable": false,
                         "fetchable": true,
@@ -30223,7 +32302,7 @@
                     },
                     "vaulting": {
                         "type": "boolean",
-                        "desc": "Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Checkout.com, PayPal, Stripe and external gateways with a token URL.",
+                        "desc": "Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Braintree, Checkout.com, PayPal, Stripe and external gateways with a token URL.",
                         "required": "optional, default is 'false'",
                         "creatable": true,
                         "updatable": false,
@@ -33618,7 +35697,7 @@
                         "required": "required",
                         "creatable": true,
                         "updatable": true,
-                        "fetchable": false,
+                        "fetchable": true,
                         "filterable": false,
                         "sortable": false,
                         "exportable": false,
@@ -49796,6 +51875,161 @@
             }
         },
         {
+            "id": "user",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2017-08"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "first_name": {
+                        "type": "string",
+                        "desc": "The user's first name.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "desc": "The user's last name.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Smith"
+                    },
+                    "email": {
+                        "type": "string",
+                        "desc": "The user's email address.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "john@example.com"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::UserResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": null
+            }
+        },
+        {
             "id": "vertex_account",
             "type": "resources",
             "attributes": {
@@ -50900,8 +53134,8 @@
         }
     ],
     "meta": {
-        "record_count": 152,
+        "record_count": 160,
         "page_count": 1,
-        "version": "release-v4.0.5"
+        "version": "pre-release-v4.2.0-b2b.11"
     }
 }

@@ -74,7 +74,7 @@ interface Customer extends Resource {
    */
   profile_id?: string | null
   /**
-   * A specific code to identify the tax exemption reason for this customer.
+   * A specific code to identify the tax exemption reason for this customer. Tax calculation is skipped for orders of exempt customers, unless the tax calculator lets the provider handle it (e.g. Avalara accounts with pass_tax_exemption_code enabled, which send it as entity use code).
    * @example ```"xxx-yyy-zzz"```
    */
   tax_exemption_code?: string | null
@@ -147,7 +147,7 @@ interface CustomerCreate extends ResourceCreate {
    */
   profile_id?: string | null
   /**
-   * A specific code to identify the tax exemption reason for this customer.
+   * A specific code to identify the tax exemption reason for this customer. Tax calculation is skipped for orders of exempt customers, unless the tax calculator lets the provider handle it (e.g. Avalara accounts with pass_tax_exemption_code enabled, which send it as entity use code).
    * @example ```"xxx-yyy-zzz"```
    */
   tax_exemption_code?: string | null
@@ -178,7 +178,7 @@ interface CustomerUpdate extends ResourceUpdate {
    */
   profile_id?: string | null
   /**
-   * A specific code to identify the tax exemption reason for this customer.
+   * A specific code to identify the tax exemption reason for this customer. Tax calculation is skipped for orders of exempt customers, unless the tax calculator lets the provider handle it (e.g. Avalara accounts with pass_tax_exemption_code enabled, which send it as entity use code).
    * @example ```"xxx-yyy-zzz"```
    */
   tax_exemption_code?: string | null

@@ -12,6 +12,10 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #adjustments?: api.Adjustments
   #adyen_gateways?: api.AdyenGateways
   #adyen_payments?: api.AdyenPayments
+  #agents?: api.Agents
+  #agreements?: api.Agreements
+  #agreement_addresses?: api.AgreementAddresses
+  #agreement_identities?: api.AgreementIdentities
   #application?: api.Applications
   #attachments?: api.Attachments
   #authorizations?: api.Authorizations
@@ -62,6 +66,8 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #google_geocoders?: api.GoogleGeocoders
   #imports?: api.Imports
   #in_stock_subscriptions?: api.InStockSubscriptions
+  #inbound_emails?: api.InboundEmails
+  #inbound_messages?: api.InboundMessages
   #inventory_models?: api.InventoryModels
   #inventory_return_locations?: api.InventoryReturnLocations
   #inventory_stock_locations?: api.InventoryStockLocations
@@ -79,6 +85,7 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #order_amount_promotion_rules?: api.OrderAmountPromotionRules
   #order_copies?: api.OrderCopies
   #order_factories?: api.OrderFactories
+  #order_reviews?: api.OrderReviews
   #order_subscriptions?: api.OrderSubscriptions
   #order_subscription_items?: api.OrderSubscriptionItems
   #order_validation_rules?: api.OrderValidationRules
@@ -156,6 +163,7 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #tax_rules?: api.TaxRules
   #taxjar_accounts?: api.TaxjarAccounts
   #transactions?: api.Transactions
+  #users?: api.Users
   #vertex_accounts?: api.VertexAccounts
   #voids?: api.Voids
   #webhooks?: api.Webhooks
@@ -197,6 +205,20 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   }
   get adyen_payments(): api.AdyenPayments {
     return this.#adyen_payments || (this.#adyen_payments = api.adyen_payments.withAdapter(this.adapter))
+  }
+  get agents(): api.Agents {
+    return this.#agents || (this.#agents = api.agents.withAdapter(this.adapter))
+  }
+  get agreements(): api.Agreements {
+    return this.#agreements || (this.#agreements = api.agreements.withAdapter(this.adapter))
+  }
+  get agreement_addresses(): api.AgreementAddresses {
+    return this.#agreement_addresses || (this.#agreement_addresses = api.agreement_addresses.withAdapter(this.adapter))
+  }
+  get agreement_identities(): api.AgreementIdentities {
+    return (
+      this.#agreement_identities || (this.#agreement_identities = api.agreement_identities.withAdapter(this.adapter))
+    )
   }
   get application(): api.Applications {
     return this.#application || (this.#application = api.application.withAdapter(this.adapter))
@@ -394,6 +416,12 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
       (this.#in_stock_subscriptions = api.in_stock_subscriptions.withAdapter(this.adapter))
     )
   }
+  get inbound_emails(): api.InboundEmails {
+    return this.#inbound_emails || (this.#inbound_emails = api.inbound_emails.withAdapter(this.adapter))
+  }
+  get inbound_messages(): api.InboundMessages {
+    return this.#inbound_messages || (this.#inbound_messages = api.inbound_messages.withAdapter(this.adapter))
+  }
   get inventory_models(): api.InventoryModels {
     return this.#inventory_models || (this.#inventory_models = api.inventory_models.withAdapter(this.adapter))
   }
@@ -456,6 +484,9 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   }
   get order_factories(): api.OrderFactories {
     return this.#order_factories || (this.#order_factories = api.order_factories.withAdapter(this.adapter))
+  }
+  get order_reviews(): api.OrderReviews {
+    return this.#order_reviews || (this.#order_reviews = api.order_reviews.withAdapter(this.adapter))
   }
   get order_subscriptions(): api.OrderSubscriptions {
     return this.#order_subscriptions || (this.#order_subscriptions = api.order_subscriptions.withAdapter(this.adapter))
@@ -739,6 +770,9 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   }
   get transactions(): api.Transactions {
     return this.#transactions || (this.#transactions = api.transactions.withAdapter(this.adapter))
+  }
+  get users(): api.Users {
+    return this.#users || (this.#users = api.users.withAdapter(this.adapter))
   }
   get vertex_accounts(): api.VertexAccounts {
     return this.#vertex_accounts || (this.#vertex_accounts = api.vertex_accounts.withAdapter(this.adapter))
