@@ -2561,6 +2561,16 @@
                         "filterable": false,
                         "sortable": false,
                         "example": "true"
+                    },
+                    "pass_tax_exemption_code": {
+                        "type": "boolean",
+                        "desc": "Indicates if the customer tax exemption code is sent to Avalara as entity use code, letting Avalara determine the taxes (codes not recognized by Avalara are fully taxed). When disabled, tax calculation is skipped for exempt customers.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
                     }
                 },
                 "relationships": {
@@ -7563,7 +7573,7 @@
                     },
                     "tax_exemption_code": {
                         "type": "string",
-                        "desc": "A specific code to identify the tax exemption reason for this customer.",
+                        "desc": "A specific code to identify the tax exemption reason for this customer. Tax calculation is skipped for orders of exempt customers, unless the tax calculator lets the provider handle it (e.g. Avalara accounts with pass_tax_exemption_code enabled, which send it as entity use code).",
                         "required": "optional",
                         "creatable": true,
                         "updatable": true,
@@ -22346,6 +22356,17 @@
                         "sortable": false,
                         "example": "true"
                     },
+                    "_validate_tax_exemption_code": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to check the customer tax exemption code against the order's tax calculator, before taxes are calculated. Returns an error if the code is not valid for the tax calculator or the order's country (currently checked for Avalara accounts passing the tax exemption code only).",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
                     "_nullify_payment_source": {
                         "type": "boolean",
                         "trigger": true,
@@ -30223,7 +30244,7 @@
                     },
                     "vaulting": {
                         "type": "boolean",
-                        "desc": "Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Checkout.com, PayPal, Stripe and external gateways with a token URL.",
+                        "desc": "Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Braintree, Checkout.com, PayPal, Stripe and external gateways with a token URL.",
                         "required": "optional, default is 'false'",
                         "creatable": true,
                         "updatable": false,
@@ -33618,7 +33639,7 @@
                         "required": "required",
                         "creatable": true,
                         "updatable": true,
-                        "fetchable": false,
+                        "fetchable": true,
                         "filterable": false,
                         "sortable": false,
                         "exportable": false,
@@ -50902,6 +50923,6 @@
     "meta": {
         "record_count": 152,
         "page_count": 1,
-        "version": "release-v4.0.5"
+        "version": "pre-release-v4.1.0-milestone.1"
     }
 }

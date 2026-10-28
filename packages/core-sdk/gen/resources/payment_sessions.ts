@@ -128,7 +128,7 @@ interface PaymentSession extends Resource {
    */
   options?: Record<string, any> | null
   /**
-   * Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Checkout.com, PayPal, Stripe and external gateways with a token URL.
+   * Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Braintree, Checkout.com, PayPal, Stripe and external gateways with a token URL.
    * @example ```true```
    */
   vaulting?: boolean | null
@@ -213,7 +213,7 @@ interface PaymentSessionCreate extends ResourceCreate {
    */
   options?: Record<string, any> | null
   /**
-   * Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Checkout.com, PayPal, Stripe and external gateways with a token URL.
+   * Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Braintree, Checkout.com, PayPal, Stripe and external gateways with a token URL.
    * @example ```true```
    */
   vaulting?: boolean | null
