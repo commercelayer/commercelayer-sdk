@@ -1191,6 +1191,11 @@ interface OrderUpdate extends ResourceUpdate {
    */
   _update_taxes?: boolean | null
   /**
+   * Send this attribute if you want to check the customer tax exemption code against the order's tax calculator, before taxes are calculated. Returns an error if the code is not valid for the tax calculator or the order's country (currently checked for Avalara accounts passing the tax exemption code only).
+   * @example ```true```
+   */
+  _validate_tax_exemption_code?: boolean | null
+  /**
    * Send this attribute if you want to nullify the payment source for this order.
    * @deprecated Deprecated in API version 2026-05.
    */
@@ -2098,6 +2103,18 @@ class Orders extends ApiResource<Order> {
   ): Promise<Order> {
     return this.resources.update<OrderUpdate, Order>(
       { id: typeof id === 'string' ? id : id.id, type: Orders.TYPE, _update_taxes: true },
+      params,
+      options,
+    )
+  }
+
+  async _validate_tax_exemption_code(
+    id: string | Order,
+    params?: QueryParamsRetrieve<Order>,
+    options?: ResourcesConfig,
+  ): Promise<Order> {
+    return this.resources.update<OrderUpdate, Order>(
+      { id: typeof id === 'string' ? id : id.id, type: Orders.TYPE, _validate_tax_exemption_code: true },
       params,
       options,
     )

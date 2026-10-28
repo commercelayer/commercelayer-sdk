@@ -25,6 +25,7 @@ import type { PaymentMethod, PaymentMethodType } from './payment_methods'
 import type { PaymentRule } from './payment_rules'
 import type { PriceListScheduler } from './price_list_schedulers'
 import type { PriceList, PriceListType } from './price_lists'
+import type { RulesTaxCalculator, RulesTaxCalculatorType } from './rules_tax_calculators'
 import type { ShippingMethod, ShippingMethodType } from './shipping_methods'
 import type { Store } from './stores'
 import type { StripeTaxAccount, StripeTaxAccountType } from './stripe_tax_accounts'
@@ -45,6 +46,7 @@ type VertexAccountRel = ResourceRel & { type: VertexAccountType }
 type TaxjarAccountRel = ResourceRel & { type: TaxjarAccountType }
 type ManualTaxCalculatorRel = ResourceRel & { type: ManualTaxCalculatorType }
 type ExternalTaxCalculatorRel = ResourceRel & { type: ExternalTaxCalculatorType }
+type RulesTaxCalculatorRel = ResourceRel & { type: RulesTaxCalculatorType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type GeocoderRel = ResourceRel & { type: GeocoderType }
 type ShippingMethodRel = ResourceRel & { type: ShippingMethodType }
@@ -144,6 +146,7 @@ interface Market extends Resource {
     | TaxjarAccount
     | ManualTaxCalculator
     | ExternalTaxCalculator
+    | RulesTaxCalculator
     | null
   customer_group?: CustomerGroup | null
   geocoder?: Geocoder | null
@@ -239,6 +242,7 @@ interface MarketCreate extends ResourceCreate {
     | TaxjarAccountRel
     | ManualTaxCalculatorRel
     | ExternalTaxCalculatorRel
+    | RulesTaxCalculatorRel
     | null
   customer_group?: CustomerGroupRel | null
   geocoder?: GeocoderRel | null
@@ -328,6 +332,7 @@ interface MarketUpdate extends ResourceUpdate {
     | TaxjarAccountRel
     | ManualTaxCalculatorRel
     | ExternalTaxCalculatorRel
+    | RulesTaxCalculatorRel
     | null
   customer_group?: CustomerGroupRel | null
   geocoder?: GeocoderRel | null

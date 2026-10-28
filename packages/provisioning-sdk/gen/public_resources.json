@@ -84,6 +84,48 @@
                         "sortable": false,
                         "example": "xxxx-yyyy-zzzz"
                     },
+                    "expiring_secret": {
+                        "type": "string",
+                        "desc": "The previous API credential secret, still accepted until `expiring_secret_at`. `null` when no rotation is active.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "xxxx-yyyy-zzzz"
+                    },
+                    "expiring_secret_at": {
+                        "type": "datetime",
+                        "desc": "Time at which the previously rotated secret stops being valid. Stays set after that time. `null` before any rotation.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z"
+                    },
+                    "expiring_secret_active": {
+                        "type": "boolean",
+                        "desc": "Indicates if a previous secret is still accepted. `false` once `expiring_secret_at` has passed, and before any rotation.",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_rotate_secret": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute to rotate the client secret. The previous secret stays valid until `expiring_secret_at`.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
                     "scopes": {
                         "type": "string",
                         "desc": "The API credential scopes.",
@@ -225,6 +267,7 @@
                     "confidential",
                     "redirect_uri",
                     "client_id",
+                    "expiring_secret_at",
                     "scopes",
                     "expires_in",
                     "mode",
@@ -238,6 +281,8 @@
                     "organization_id",
                     "role_id",
                     "ids",
+                    "expiring_secret_at_from",
+                    "expiring_secret_at_to",
                     "created_at_from",
                     "created_at_to",
                     "updated_at_from",

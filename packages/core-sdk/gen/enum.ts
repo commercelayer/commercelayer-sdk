@@ -123,6 +123,7 @@ const apiResources = [
   'resource_errors',
   'returns',
   'return_line_items',
+  'rules_tax_calculators',
   'satispay_gateways',
   'satispay_payments',
   'shipments',
@@ -149,6 +150,7 @@ const apiResources = [
   'subscription_models',
   'tags',
   'talon_one_accounts',
+  'tax_business_rules',
   'tax_calculators',
   'tax_categories',
   'tax_rules',
@@ -289,6 +291,7 @@ export const creatableResources = [
   'recurring_order_copies',
   'returns',
   'return_line_items',
+  'rules_tax_calculators',
   'satispay_gateways',
   'satispay_payments',
   'shipments',
@@ -313,6 +316,7 @@ export const creatableResources = [
   'subscription_models',
   'tags',
   'talon_one_accounts',
+  'tax_business_rules',
   'tax_categories',
   'tax_rules',
   'taxjar_accounts',
@@ -429,6 +433,7 @@ export const updatableResources = [
   'refunds',
   'returns',
   'return_line_items',
+  'rules_tax_calculators',
   'satispay_gateways',
   'satispay_payments',
   'shipments',
@@ -453,6 +458,7 @@ export const updatableResources = [
   'subscription_models',
   'tags',
   'talon_one_accounts',
+  'tax_business_rules',
   'tax_categories',
   'tax_rules',
   'taxjar_accounts',
@@ -566,6 +572,7 @@ export const deletableResources = [
   'recurring_order_copies',
   'returns',
   'return_line_items',
+  'rules_tax_calculators',
   'satispay_gateways',
   'satispay_payments',
   'shipments',
@@ -590,6 +597,7 @@ export const deletableResources = [
   'subscription_models',
   'tags',
   'talon_one_accounts',
+  'tax_business_rules',
   'tax_categories',
   'tax_rules',
   'taxjar_accounts',
@@ -788,6 +796,7 @@ export type ResourceFields = {
   resource_errors: models.ResourceError
   returns: models.Return
   return_line_items: models.ReturnLineItem
+  rules_tax_calculators: models.RulesTaxCalculator
   satispay_gateways: models.SatispayGateway
   satispay_payments: models.SatispayPayment
   shipments: models.Shipment
@@ -814,6 +823,7 @@ export type ResourceFields = {
   subscription_models: models.SubscriptionModel
   tags: models.Tag
   talon_one_accounts: models.TalonOneAccount
+  tax_business_rules: models.TaxBusinessRule
   tax_calculators: models.TaxCalculator
   tax_categories: models.TaxCategory
   tax_rules: models.TaxRule
@@ -945,6 +955,7 @@ export type ResourceSortFields = {
   resource_errors: models.ResourceErrorSort
   returns: models.ReturnSort
   return_line_items: models.ReturnLineItemSort
+  rules_tax_calculators: models.RulesTaxCalculatorSort
   satispay_gateways: models.SatispayGatewaySort
   satispay_payments: models.SatispayPaymentSort
   shipments: models.ShipmentSort
@@ -971,6 +982,7 @@ export type ResourceSortFields = {
   subscription_models: models.SubscriptionModelSort
   tags: models.TagSort
   talon_one_accounts: models.TalonOneAccountSort
+  tax_business_rules: models.TaxBusinessRuleSort
   tax_calculators: models.TaxCalculatorSort
   tax_categories: models.TaxCategorySort
   tax_rules: models.TaxRuleSort

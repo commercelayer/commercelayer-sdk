@@ -456,6 +456,12 @@ export type {
 } from './resources/return_line_items'
 export type { Return, ReturnCreate, ReturnSort, ReturnUpdate } from './resources/returns'
 export type {
+  RulesTaxCalculator,
+  RulesTaxCalculatorCreate,
+  RulesTaxCalculatorSort,
+  RulesTaxCalculatorUpdate,
+} from './resources/rules_tax_calculators'
+export type {
   SatispayGateway,
   SatispayGatewayCreate,
   SatispayGatewaySort,
@@ -556,6 +562,12 @@ export type {
   TalonOneAccountSort,
   TalonOneAccountUpdate,
 } from './resources/talon_one_accounts'
+export type {
+  TaxBusinessRule,
+  TaxBusinessRuleCreate,
+  TaxBusinessRuleSort,
+  TaxBusinessRuleUpdate,
+} from './resources/tax_business_rules'
 export type { TaxCalculator, TaxCalculatorSort } from './resources/tax_calculators'
 export type { TaxCategory, TaxCategoryCreate, TaxCategorySort, TaxCategoryUpdate } from './resources/tax_categories'
 export type { TaxRule, TaxRuleCreate, TaxRuleSort, TaxRuleUpdate } from './resources/tax_rules'

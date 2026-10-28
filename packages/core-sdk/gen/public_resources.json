@@ -1734,12 +1734,12 @@
                             "customer_groups",
                             "line_items",
                             "promotions",
+                            "tax_calculators",
                             "geocoders",
                             "payment_methods",
                             "orders",
                             "transactions",
                             "payment_sessions",
-                            "tax_calculators",
                             "tax_categories",
                             "skus",
                             "shipping_categories",
@@ -2431,7 +2431,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "id": {
@@ -2555,6 +2556,16 @@
                     "ddp": {
                         "type": "boolean",
                         "desc": "Indicates if the seller is responsible for paying/remitting the customs duty & import tax to the customs authorities.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "pass_tax_exemption_code": {
+                        "type": "boolean",
+                        "desc": "Indicates if the customer tax exemption code is sent to Avalara as entity use code, letting Avalara determine the taxes (codes not recognized by Avalara are fully taxed). When disabled, tax calculation is skipped for exempt customers.",
                         "creatable": true,
                         "updatable": true,
                         "fetchable": true,
@@ -7563,7 +7574,7 @@
                     },
                     "tax_exemption_code": {
                         "type": "string",
-                        "desc": "A specific code to identify the tax exemption reason for this customer.",
+                        "desc": "A specific code to identify the tax exemption reason for this customer. Tax calculation is skipped for orders of exempt customers, unless the tax calculator lets the provider handle it (e.g. Avalara accounts with pass_tax_exemption_code enabled, which send it as entity use code).",
                         "required": "optional",
                         "creatable": true,
                         "updatable": true,
@@ -12452,7 +12463,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "id": {
@@ -19832,7 +19844,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "id": {
@@ -20351,7 +20364,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "customer_group": {
@@ -22339,6 +22353,17 @@
                         "type": "boolean",
                         "trigger": true,
                         "desc": "Send this attribute if you want to force tax calculation for this order (a tax calculator must be associated to the order's market).",
+                        "creatable": false,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_validate_tax_exemption_code": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to check the customer tax exemption code against the order's tax calculator, before taxes are calculated. Returns an error if the code is not valid for the tax calculator or the order's country (currently checked for Avalara accounts passing the tax exemption code only).",
                         "creatable": false,
                         "updatable": true,
                         "fetchable": false,
@@ -30223,7 +30248,7 @@
                     },
                     "vaulting": {
                         "type": "boolean",
-                        "desc": "Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Checkout.com, PayPal, Stripe and external gateways with a token URL.",
+                        "desc": "Indicates that the payment instrument used for this session must be stored for future payments. Supported by Adyen, Braintree, Checkout.com, PayPal, Stripe and external gateways with a token URL.",
                         "required": "optional, default is 'false'",
                         "creatable": true,
                         "updatable": false,
@@ -33618,7 +33643,7 @@
                         "required": "required",
                         "creatable": true,
                         "updatable": true,
-                        "fetchable": false,
+                        "fetchable": true,
                         "filterable": false,
                         "sortable": false,
                         "exportable": false,
@@ -40898,6 +40923,227 @@
             }
         },
         {
+            "id": "rules_tax_calculator",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2026-05"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "create",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "desc": "The tax calculator's internal name.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "Personal tax calculator"
+                    },
+                    "type": {
+                        "type": "string",
+                        "desc": "The tax calculator's type.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "avalara_accounts",
+                        "enum": [
+                            "avalara_accounts",
+                            "stripe_tax_accounts",
+                            "vertex_accounts",
+                            "taxjar_accounts",
+                            "manual_tax_calculators",
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
+                        ]
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    },
+                    "default_tax_rate": {
+                        "type": "float",
+                        "desc": "Fallback tax rate when no rule group matches.",
+                        "required": "optional, default is 0.0",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "0.25"
+                    },
+                    "freight_taxable": {
+                        "type": "boolean",
+                        "desc": "Whether shipment line items are taxed.",
+                        "required": "optional, default is 'false'",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "false"
+                    }
+                },
+                "relationships": {
+                    "markets": {
+                        "type": "has_many",
+                        "desc": "The associated markets.",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::RulesTaxCalculatorResource",
+                        "class_name": "Market"
+                    },
+                    "attachments": {
+                        "type": "has_many",
+                        "desc": "The associated attachments.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::RulesTaxCalculatorResource",
+                        "class_name": "Attachment"
+                    },
+                    "events": {
+                        "type": "has_many",
+                        "desc": "The associated events.",
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::RulesTaxCalculatorResource",
+                        "class_name": "Event"
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::RulesTaxCalculatorResource"
+                    },
+                    "tax_business_rules": {
+                        "type": "has_many",
+                        "desc": "The associated tax business rules.",
+                        "class_name": "TaxBusinessRule",
+                        "creatable": true,
+                        "updatable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "parent_resource": "Api::RulesTaxCalculatorResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "name",
+                    "type",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "freight_taxable",
+                    "q",
+                    "markets_id",
+                    "attachments_id",
+                    "events_id",
+                    "tax_business_rules_id",
+                    "ids",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": "tax_calculator"
+            }
+        },
+        {
             "id": "satispay_gateway",
             "type": "resources",
             "attributes": {
@@ -47816,7 +48062,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "id": {
@@ -48564,6 +48811,234 @@
             }
         },
         {
+            "id": "tax_business_rule",
+            "type": "resources",
+            "attributes": {
+                "singleton": false,
+                "addon": false,
+                "hidden": false,
+                "versions": [
+                    "2026-05"
+                ],
+                "actions": [
+                    "list",
+                    "retrieve",
+                    "create",
+                    "update",
+                    "delete"
+                ],
+                "examples": {},
+                "filter_scopes": [],
+                "fields": {
+                    "template_id": {
+                        "type": "string",
+                        "desc": "The identifier of the template to be used (UUID).",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "c3d4e5f6-a7b8-9012-cdef-123456789abc"
+                    },
+                    "template_kind": {
+                        "type": "string",
+                        "desc": "The template subject (line_item or line_item_option).",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "example": "line_item"
+                    },
+                    "template_settings": {
+                        "type": "object",
+                        "desc": "The settings for the template used, including groups.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": {}
+                    },
+                    "expires_at": {
+                        "type": "string",
+                        "desc": "The expiration date/time of this tax rule.",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "2018-01-02T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "id": {
+                        "format": "id",
+                        "type": "string",
+                        "desc": "Unique identifier for the resource (hash).",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "XAyRWNUzyN"
+                    },
+                    "_disable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as disabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "_enable": {
+                        "type": "boolean",
+                        "trigger": true,
+                        "desc": "Send this attribute if you want to mark this resource as enabled.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "example": "true"
+                    },
+                    "disabled_at": {
+                        "type": "string",
+                        "desc": "Time at which this resource was disabled.",
+                        "required": "optional",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was created.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "desc": "Time at which the resource was last updated.",
+                        "required": "required",
+                        "creatable": false,
+                        "updatable": false,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "2018-01-01T12:00:00.000Z",
+                        "format": "datetime"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                    },
+                    "reference_origin": {
+                        "type": "string",
+                        "desc": "Any identifier of the third party system that defines the reference code.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": true,
+                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                        "required": "optional",
+                        "creatable": true,
+                        "updatable": true,
+                        "fetchable": true,
+                        "filterable": true,
+                        "sortable": false,
+                        "monitored": true,
+                        "example": {
+                            "foo": "bar"
+                        }
+                    }
+                },
+                "relationships": {
+                    "ruleable": {
+                        "type": "has_one",
+                        "desc": "The rules tax calculator associated to the rule.",
+                        "required": "required",
+                        "creatable": true,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "polymorphic": true,
+                        "eager_load_on_include": false,
+                        "parent_resource": "Api::TaxBusinessRuleResource",
+                        "class_name": "Ruleable",
+                        "enum": [
+                            "tax_calculators"
+                        ]
+                    },
+                    "event_stores": {
+                        "type": "has_many",
+                        "desc": "The associated event stores.",
+                        "class_name": "EventStore",
+                        "creatable": false,
+                        "updatable": false,
+                        "filterable": false,
+                        "sortable": false,
+                        "virtual": true,
+                        "exportable": false,
+                        "includable": false,
+                        "parent_resource": "Api::TaxBusinessRuleResource"
+                    }
+                },
+                "filters": [
+                    "id",
+                    "template_id",
+                    "template_kind",
+                    "disabled_at",
+                    "created_at",
+                    "updated_at",
+                    "reference",
+                    "reference_origin",
+                    "metadata",
+                    "q",
+                    "ids",
+                    "expires_at_from",
+                    "expires_at_to",
+                    "disabled_at_from",
+                    "disabled_at_to",
+                    "created_at_from",
+                    "created_at_to",
+                    "updated_at_from",
+                    "updated_at_to"
+                ],
+                "parent_resource": "business_rule"
+            }
+        },
+        {
             "id": "tax_calculator",
             "type": "resources",
             "attributes": {
@@ -48608,7 +49083,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "id": {
@@ -48888,7 +49364,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "attachments": {
@@ -49276,7 +49753,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "id": {
@@ -49843,7 +50321,8 @@
                             "vertex_accounts",
                             "taxjar_accounts",
                             "manual_tax_calculators",
-                            "external_tax_calculators"
+                            "external_tax_calculators",
+                            "rules_tax_calculators"
                         ]
                     },
                     "id": {
@@ -50900,8 +51379,8 @@
         }
     ],
     "meta": {
-        "record_count": 152,
+        "record_count": 154,
         "page_count": 1,
-        "version": "release-v4.0.5"
+        "version": "pre-release-v4.2.0-taxes.1"
     }
 }

@@ -18,8 +18,8 @@ type ApiCredentialRel = ResourceRel & { type: ApiCredentialType }
 type OrganizationRel = ResourceRel & { type: OrganizationType }
 type RoleRel = ResourceRel & { type: RoleType }
 
-export type ApiCredentialSort = Pick<ApiCredential, 'id' | 'name' | 'mode'> & ResourceSort
-// export type ApiCredentialFilter = Pick<ApiCredential, 'id' | 'name' | 'kind' | 'confidential' | 'redirect_uri' | 'client_id' | 'scopes' | 'expires_in' | 'mode' | 'custom'> & ResourceFilter
+export type ApiCredentialSort = Pick<ApiCredential, 'id' | 'name' | 'expiring_secret_at' | 'mode'> & ResourceSort
+// export type ApiCredentialFilter = Pick<ApiCredential, 'id' | 'name' | 'kind' | 'confidential' | 'redirect_uri' | 'client_id' | 'expiring_secret_at' | 'scopes' | 'expires_in' | 'mode' | 'custom'> & ResourceFilter
 
 /**
  * The Api credential object is returned as part of the response body of each successful list, retrieve, create, update or delete API call to the /api/api_credentials endpoint.
@@ -59,6 +59,21 @@ interface ApiCredential extends Resource {
    * @example ```"xxxx-yyyy-zzzz"```
    */
   client_secret: string
+  /**
+   * The previous API credential secret, still accepted until `expiring_secret_at`. `null` when no rotation is active.
+   * @example ```"xxxx-yyyy-zzzz"```
+   */
+  expiring_secret?: string | null
+  /**
+   * Time at which the previously rotated secret stops being valid. Stays set after that time. `null` before any rotation.
+   * @example ```"2018-01-01T12:00:00.000Z"```
+   */
+  expiring_secret_at?: string | null
+  /**
+   * Indicates if a previous secret is still accepted. `false` once `expiring_secret_at` has passed, and before any rotation.
+   * @example ```true```
+   */
+  expiring_secret_active?: boolean | null
   /**
    * The API credential scopes.
    * @example ```"market:all market:9 market:122 market:6 stock_location:6 stock_location:33"```
@@ -130,6 +145,11 @@ interface ApiCredentialUpdate extends ResourceUpdate {
    */
   redirect_uri?: string | null
   /**
+   * Send this attribute to rotate the client secret. The previous secret stays valid until `expiring_secret_at`.
+   * @example ```true```
+   */
+  _rotate_secret?: boolean | null
+  /**
    * The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).
    * @example ```7200```
    */
@@ -195,6 +215,18 @@ class ApiCredentials extends ApiResource<ApiCredential> {
       params,
       options,
     ) as unknown as Role
+  }
+
+  async _rotate_secret(
+    id: string | ApiCredential,
+    params?: QueryParamsRetrieve<ApiCredential>,
+    options?: ResourcesConfig,
+  ): Promise<ApiCredential> {
+    return this.resources.update<ApiCredentialUpdate, ApiCredential>(
+      { id: typeof id === 'string' ? id : id.id, type: ApiCredentials.TYPE, _rotate_secret: true },
+      params,
+      options,
+    )
   }
 
   isApiCredential(resource: any): resource is ApiCredential {

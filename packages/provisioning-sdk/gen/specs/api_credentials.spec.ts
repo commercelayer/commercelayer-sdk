@@ -241,4 +241,28 @@ describe('ApiCredentials resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* relationship.role stop */
+
+  /* trigger._rotate_secret start */
+  test(resourceType + '._rotate_secret', async () => {
+    let triggerAttr = '_rotate_secret'
+    if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+
+    const triggerValue = true
+    const attributes = { [triggerAttr]: triggerValue }
+    const id = TestData.id
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, id)
+      return interceptRequest()
+    })
+
+    await api_credentials
+      ._rotate_secret(id, {}, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* trigger._rotate_secret stop */
 })

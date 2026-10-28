@@ -125,6 +125,7 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #resource_errors?: api.ResourceErrors
   #returns?: api.Returns
   #return_line_items?: api.ReturnLineItems
+  #rules_tax_calculators?: api.RulesTaxCalculators
   #satispay_gateways?: api.SatispayGateways
   #satispay_payments?: api.SatispayPayments
   #shipments?: api.Shipments
@@ -151,6 +152,7 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   #subscription_models?: api.SubscriptionModels
   #tags?: api.Tags
   #talon_one_accounts?: api.TalonOneAccounts
+  #tax_business_rules?: api.TaxBusinessRules
   #tax_calculators?: api.TaxCalculators
   #tax_categories?: api.TaxCategories
   #tax_rules?: api.TaxRules
@@ -640,6 +642,11 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   get return_line_items(): api.ReturnLineItems {
     return this.#return_line_items || (this.#return_line_items = api.return_line_items.withAdapter(this.adapter))
   }
+  get rules_tax_calculators(): api.RulesTaxCalculators {
+    return (
+      this.#rules_tax_calculators || (this.#rules_tax_calculators = api.rules_tax_calculators.withAdapter(this.adapter))
+    )
+  }
   get satispay_gateways(): api.SatispayGateways {
     return this.#satispay_gateways || (this.#satispay_gateways = api.satispay_gateways.withAdapter(this.adapter))
   }
@@ -724,6 +731,9 @@ class CommerceLayerClient extends CommerceLayerSingleClient {
   }
   get talon_one_accounts(): api.TalonOneAccounts {
     return this.#talon_one_accounts || (this.#talon_one_accounts = api.talon_one_accounts.withAdapter(this.adapter))
+  }
+  get tax_business_rules(): api.TaxBusinessRules {
+    return this.#tax_business_rules || (this.#tax_business_rules = api.tax_business_rules.withAdapter(this.adapter))
   }
   get tax_calculators(): api.TaxCalculators {
     return this.#tax_calculators || (this.#tax_calculators = api.tax_calculators.withAdapter(this.adapter))

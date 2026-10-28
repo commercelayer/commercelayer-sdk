@@ -15,6 +15,7 @@ import type { Event } from './events'
 import type { ExternalTaxCalculator } from './external_tax_calculators'
 import type { ManualTaxCalculator } from './manual_tax_calculators'
 import type { Market } from './markets'
+import type { RulesTaxCalculator } from './rules_tax_calculators'
 import type { StripeTaxAccount } from './stripe_tax_accounts'
 import type { TaxjarAccount } from './taxjar_accounts'
 import type { VertexAccount } from './vertex_accounts'
@@ -24,6 +25,7 @@ type TaxCalculatorType =
   | 'avalara_accounts'
   | 'external_tax_calculators'
   | 'manual_tax_calculators'
+  | 'rules_tax_calculators'
   | 'stripe_tax_accounts'
   | 'taxjar_accounts'
   | 'vertex_accounts'
@@ -41,6 +43,7 @@ type TaxCalculator =
   | AvalaraAccount
   | ExternalTaxCalculator
   | ManualTaxCalculator
+  | RulesTaxCalculator
   | StripeTaxAccount
   | TaxjarAccount
   | VertexAccount
@@ -127,6 +130,7 @@ class TaxCalculators extends ApiResource<TaxCalculator> {
           'avalara_accounts',
           'external_tax_calculators',
           'manual_tax_calculators',
+          'rules_tax_calculators',
           'stripe_tax_accounts',
           'taxjar_accounts',
           'vertex_accounts',

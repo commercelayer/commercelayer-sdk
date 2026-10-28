@@ -63,12 +63,12 @@ type PriceListRel = ResourceRel & { type: PriceListType }
 type CustomerGroupRel = ResourceRel & { type: CustomerGroupType }
 type LineItemRel = ResourceRel & { type: LineItemType }
 type PromotionRel = ResourceRel & { type: PromotionType }
+type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type GeocoderRel = ResourceRel & { type: GeocoderType }
 type PaymentMethodRel = ResourceRel & { type: PaymentMethodType }
 type OrderRel = ResourceRel & { type: OrderType }
 type TransactionRel = ResourceRel & { type: TransactionType }
 type PaymentSessionRel = ResourceRel & { type: PaymentSessionType }
-type TaxCalculatorRel = ResourceRel & { type: TaxCalculatorType }
 type TaxCategoryRel = ResourceRel & { type: TaxCategoryType }
 type SkuRel = ResourceRel & { type: SkuType }
 type ShippingCategoryRel = ResourceRel & { type: ShippingCategoryType }
@@ -136,12 +136,12 @@ interface Attachment extends Resource {
     | CustomerGroup
     | LineItem
     | Promotion
+    | TaxCalculator
     | Geocoder
     | PaymentMethod
     | Order
     | Transaction
     | PaymentSession
-    | TaxCalculator
     | TaxCategory
     | Sku
     | ShippingCategory
@@ -202,12 +202,12 @@ interface AttachmentCreate extends ResourceCreate {
     | CustomerGroupRel
     | LineItemRel
     | PromotionRel
+    | TaxCalculatorRel
     | GeocoderRel
     | PaymentMethodRel
     | OrderRel
     | TransactionRel
     | PaymentSessionRel
-    | TaxCalculatorRel
     | TaxCategoryRel
     | SkuRel
     | ShippingCategoryRel
@@ -266,12 +266,12 @@ interface AttachmentUpdate extends ResourceUpdate {
     | CustomerGroupRel
     | LineItemRel
     | PromotionRel
+    | TaxCalculatorRel
     | GeocoderRel
     | PaymentMethodRel
     | OrderRel
     | TransactionRel
     | PaymentSessionRel
-    | TaxCalculatorRel
     | TaxCategoryRel
     | SkuRel
     | ShippingCategoryRel
