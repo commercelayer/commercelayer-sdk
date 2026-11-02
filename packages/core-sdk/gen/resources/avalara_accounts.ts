@@ -56,6 +56,11 @@ interface AvalaraAccount extends Resource {
    * @example ```true```
    */
   ddp?: boolean | null
+  /**
+   * Indicates if the customer tax exemption code is sent to Avalara as entity use code, letting Avalara determine the taxes (codes not recognized by Avalara are fully taxed). When disabled, tax calculation is skipped for exempt customers.
+   * @example ```true```
+   */
+  pass_tax_exemption_code?: boolean | null
 
   markets?: Market[] | null
   attachments?: Attachment[] | null
@@ -95,6 +100,11 @@ interface AvalaraAccountCreate extends ResourceCreate {
    * @example ```true```
    */
   ddp?: boolean | null
+  /**
+   * Indicates if the customer tax exemption code is sent to Avalara as entity use code, letting Avalara determine the taxes (codes not recognized by Avalara are fully taxed). When disabled, tax calculation is skipped for exempt customers.
+   * @example ```true```
+   */
+  pass_tax_exemption_code?: boolean | null
 
   tax_categories?: TaxCategoryRel[] | null
 }
@@ -130,6 +140,11 @@ interface AvalaraAccountUpdate extends ResourceUpdate {
    * @example ```true```
    */
   ddp?: boolean | null
+  /**
+   * Indicates if the customer tax exemption code is sent to Avalara as entity use code, letting Avalara determine the taxes (codes not recognized by Avalara are fully taxed). When disabled, tax calculation is skipped for exempt customers.
+   * @example ```true```
+   */
+  pass_tax_exemption_code?: boolean | null
 
   tax_categories?: TaxCategoryRel[] | null
 }

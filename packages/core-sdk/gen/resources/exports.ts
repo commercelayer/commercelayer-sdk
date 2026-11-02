@@ -41,13 +41,17 @@ interface Export extends Resource {
   readonly type: ExportType
 
   /**
-   * The type of resource being exported. One of 'addresses', 'adjustments', 'adyen_payments', 'applications', 'attachments', 'axerve_payments', 'braintree_payments', 'bundles', 'carrier_accounts', 'checkout_com_payments', 'coupons', 'customer_addresses', 'customer_groups', 'customer_password_resets', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'delivery_lead_times', 'event_callbacks', 'event_stores', 'events', 'external_payments', 'geocoders', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_return_locations', 'inventory_stock_locations', 'klarna_payments', 'line_item_options', 'line_items', 'links', 'markets', 'merchants', 'notifications', 'order_factories', 'order_subscription_items', 'order_subscriptions', 'order_validation_rules', 'orders', 'packages', 'parcel_line_items', 'parcels', 'payment_gateways', 'payment_links', 'payment_methods', 'payment_options', 'payment_sessions', 'payment_settings', 'payment_transactions', 'payment_wallets', 'paypal_payments', 'pickups', 'price_list_schedulers', 'price_lists', 'price_tiers', 'prices', 'promotion_rules', 'promotions', 'reserved_stocks', 'resource_errors', 'return_line_items', 'returns', 'satispay_payments', 'shipments', 'shipping_categories', 'shipping_method_tiers', 'shipping_methods', 'shipping_zones', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_line_items', 'stock_locations', 'stock_reservations', 'stock_transfers', 'stores', 'stripe_payments', 'subscription_models', 'tags', 'tax_calculators', 'tax_categories', 'tax_rules', 'transactions', 'webhooks', or 'wire_transfers'.
+   * The type of resource being exported. One of 'addresses', 'adjustments', 'adyen_payments', 'agents', 'agreement_addresses', 'agreement_identities', 'agreements', 'applications', 'attachments', 'axerve_payments', 'braintree_payments', 'bundles', 'carrier_accounts', 'checkout_com_payments', 'coupons', 'customer_addresses', 'customer_groups', 'customer_password_resets', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'delivery_lead_times', 'event_callbacks', 'event_stores', 'events', 'external_payments', 'geocoders', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_return_locations', 'inventory_stock_locations', 'klarna_payments', 'line_item_options', 'line_items', 'links', 'markets', 'merchants', 'notifications', 'order_factories', 'order_reviews', 'order_subscription_items', 'order_subscriptions', 'order_validation_rules', 'orders', 'packages', 'parcel_line_items', 'parcels', 'payment_gateways', 'payment_links', 'payment_methods', 'payment_options', 'payment_sessions', 'payment_settings', 'payment_transactions', 'payment_wallets', 'paypal_payments', 'pickups', 'price_list_schedulers', 'price_lists', 'price_tiers', 'prices', 'promotion_rules', 'promotions', 'reserved_stocks', 'resource_errors', 'return_line_items', 'returns', 'satispay_payments', 'shipments', 'shipping_categories', 'shipping_method_tiers', 'shipping_methods', 'shipping_zones', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_line_items', 'stock_locations', 'stock_reservations', 'stock_transfers', 'stores', 'stripe_payments', 'subscription_models', 'tags', 'tax_calculators', 'tax_categories', 'tax_rules', 'transactions', 'users', 'webhooks', or 'wire_transfers'.
    * @example ```"skus"```
    */
   resource_type:
     | 'addresses'
     | 'adjustments'
     | 'adyen_payments'
+    | 'agents'
+    | 'agreement_addresses'
+    | 'agreement_identities'
+    | 'agreements'
     | 'applications'
     | 'attachments'
     | 'axerve_payments'
@@ -81,6 +85,7 @@ interface Export extends Resource {
     | 'merchants'
     | 'notifications'
     | 'order_factories'
+    | 'order_reviews'
     | 'order_subscription_items'
     | 'order_subscriptions'
     | 'order_validation_rules'
@@ -131,6 +136,7 @@ interface Export extends Resource {
     | 'tax_categories'
     | 'tax_rules'
     | 'transactions'
+    | 'users'
     | 'webhooks'
     | 'wire_transfers'
   /**
@@ -219,13 +225,17 @@ interface Export extends Resource {
 
 interface ExportCreate extends ResourceCreate {
   /**
-   * The type of resource being exported. One of 'addresses', 'adjustments', 'adyen_payments', 'applications', 'attachments', 'axerve_payments', 'braintree_payments', 'bundles', 'carrier_accounts', 'checkout_com_payments', 'coupons', 'customer_addresses', 'customer_groups', 'customer_password_resets', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'delivery_lead_times', 'event_callbacks', 'event_stores', 'events', 'external_payments', 'geocoders', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_return_locations', 'inventory_stock_locations', 'klarna_payments', 'line_item_options', 'line_items', 'links', 'markets', 'merchants', 'notifications', 'order_factories', 'order_subscription_items', 'order_subscriptions', 'order_validation_rules', 'orders', 'packages', 'parcel_line_items', 'parcels', 'payment_gateways', 'payment_links', 'payment_methods', 'payment_options', 'payment_sessions', 'payment_settings', 'payment_transactions', 'payment_wallets', 'paypal_payments', 'pickups', 'price_list_schedulers', 'price_lists', 'price_tiers', 'prices', 'promotion_rules', 'promotions', 'reserved_stocks', 'resource_errors', 'return_line_items', 'returns', 'satispay_payments', 'shipments', 'shipping_categories', 'shipping_method_tiers', 'shipping_methods', 'shipping_zones', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_line_items', 'stock_locations', 'stock_reservations', 'stock_transfers', 'stores', 'stripe_payments', 'subscription_models', 'tags', 'tax_calculators', 'tax_categories', 'tax_rules', 'transactions', 'webhooks', or 'wire_transfers'.
+   * The type of resource being exported. One of 'addresses', 'adjustments', 'adyen_payments', 'agents', 'agreement_addresses', 'agreement_identities', 'agreements', 'applications', 'attachments', 'axerve_payments', 'braintree_payments', 'bundles', 'carrier_accounts', 'checkout_com_payments', 'coupons', 'customer_addresses', 'customer_groups', 'customer_password_resets', 'customer_payment_sources', 'customer_subscriptions', 'customers', 'delivery_lead_times', 'event_callbacks', 'event_stores', 'events', 'external_payments', 'geocoders', 'gift_cards', 'in_stock_subscriptions', 'inventory_models', 'inventory_return_locations', 'inventory_stock_locations', 'klarna_payments', 'line_item_options', 'line_items', 'links', 'markets', 'merchants', 'notifications', 'order_factories', 'order_reviews', 'order_subscription_items', 'order_subscriptions', 'order_validation_rules', 'orders', 'packages', 'parcel_line_items', 'parcels', 'payment_gateways', 'payment_links', 'payment_methods', 'payment_options', 'payment_sessions', 'payment_settings', 'payment_transactions', 'payment_wallets', 'paypal_payments', 'pickups', 'price_list_schedulers', 'price_lists', 'price_tiers', 'prices', 'promotion_rules', 'promotions', 'reserved_stocks', 'resource_errors', 'return_line_items', 'returns', 'satispay_payments', 'shipments', 'shipping_categories', 'shipping_method_tiers', 'shipping_methods', 'shipping_zones', 'sku_list_items', 'sku_lists', 'sku_options', 'skus', 'stock_items', 'stock_line_items', 'stock_locations', 'stock_reservations', 'stock_transfers', 'stores', 'stripe_payments', 'subscription_models', 'tags', 'tax_calculators', 'tax_categories', 'tax_rules', 'transactions', 'users', 'webhooks', or 'wire_transfers'.
    * @example ```"skus"```
    */
   resource_type:
     | 'addresses'
     | 'adjustments'
     | 'adyen_payments'
+    | 'agents'
+    | 'agreement_addresses'
+    | 'agreement_identities'
+    | 'agreements'
     | 'applications'
     | 'attachments'
     | 'axerve_payments'
@@ -259,6 +269,7 @@ interface ExportCreate extends ResourceCreate {
     | 'merchants'
     | 'notifications'
     | 'order_factories'
+    | 'order_reviews'
     | 'order_subscription_items'
     | 'order_subscriptions'
     | 'order_validation_rules'
@@ -309,6 +320,7 @@ interface ExportCreate extends ResourceCreate {
     | 'tax_categories'
     | 'tax_rules'
     | 'transactions'
+    | 'users'
     | 'webhooks'
     | 'wire_transfers'
   /**
