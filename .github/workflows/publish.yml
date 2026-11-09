@@ -67,7 +67,8 @@ jobs:
       # Versions are set by hand because independent mode applies one bump
       # keyword to every package and has no --scope, and because Lerna's
       # `<name>@<version>` tags would not match release.yml's `*-v*` trigger.
-      # Lerna 10 performs the npm OIDC token exchange itself, per package.
+      # Lerna-Lite performs the npm OIDC token exchange itself, per package, and
+      # resolves `catalog:` ranges from pnpm-workspace.yaml.
       - name: Publish prerelease
         if: github.event.release.prerelease
         run: pnpm lerna publish from-package --dist-tag beta --yes --no-push --loglevel verbose

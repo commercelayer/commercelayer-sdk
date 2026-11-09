@@ -3,10 +3,8 @@ packages:
 
 allowBuilds:
   esbuild: true
-  nx: true
 onlyBuiltDependencies:
   - esbuild
-  - nx
 overrides:
   "esbuild": "^0.28.2"
 
