@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Shared, target-agnostic runtime for the Commerce Layer SDKs. Consumed as source through each package's @runtime/* path alias and bundled into its lib/; never published, and deliberately not imported by package name (tsup's dts build cannot cross a package boundary that exports raw .ts).",
+  "description": "Shared, target-agnostic runtime for the Commerce Layer SDKs. Consumed as source through each package's @runtime/* path alias and bundled into its lib/; never published, and deliberately not imported by package name (tsup's dts build could not cross a package boundary that exports raw .ts).",
   "scripts": {
     "ts:check": "tsc --noEmit -p tsconfig.json"
   },

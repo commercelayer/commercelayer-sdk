@@ -19,7 +19,7 @@
     }
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "generate": "tsx ../sdk-generator/src/generator.ts && pnpm check",
     "generate-local": "tsx ../sdk-generator/src/generator.ts --local && pnpm check",
     "lint": "biome check --enforce-assist=true",
@@ -60,7 +60,7 @@
     "json-typescript": "catalog:",
     "jsonapi-typescript": "catalog:",
     "publint": "catalog:",
-    "tsup": "catalog:",
+    "tsdown": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
     "varlock": "catalog:",
