@@ -6,9 +6,6 @@
     "version": {
       "message": "chore(release): publish [skip ci]",
       "preid": "beta"
-    },
-    "publish": {
-      "verifyAccess": false
     }
   }
 }
