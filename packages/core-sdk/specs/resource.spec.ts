@@ -57,7 +57,9 @@ describe('SDK:resource suite', () => {
   })
 
   test('resource.create', async () => {
-    const email = 'spec@sdk-test.org'
+    // Unique per run: concurrent runs share the same organization, and a
+    // fixed address fails with 422 "has already been taken".
+    const email = `spec+${crypto.randomUUID()}@sdk-test.org`
     const customer = await customers.create({ email })
     expect(customer.id).not.toBeUndefined()
     expect(customer.email).toEqual(email)

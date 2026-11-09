@@ -16,6 +16,14 @@ permissions:
   contents: read
   id-token: write
 
+# A release commit that bumps several packages pushes one tag per package, and
+# each tag's release starts a run. `from-package` publishes every unpublished
+# package, so parallel runs would race to publish the same versions (and share
+# the test organization). Queue them instead; later runs find nothing left.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
 jobs:
   publish:
     name: Publish to npm
