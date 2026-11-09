@@ -44,12 +44,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build packages
+        # The build also runs publint + arethetypeswrong over the real
+        # tarballs (see tsdown.config.js) and fails on any problem.
         run: pnpm -r build
-
-      - name: Verify packaging
-        # publint + arethetypeswrong over the real tarballs. Cheap, and the last
-        # chance to catch a broken exports map before it is immutable on npm.
-        run: pnpm -r verify:pack
 
       - name: Run specs
         env:

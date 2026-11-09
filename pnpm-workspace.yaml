@@ -7,7 +7,7 @@ onlyBuiltDependencies:
   - esbuild
 
 catalog:
-  '@arethetypeswrong/cli': '^0.18.5'
+  '@arethetypeswrong/core': '^0.18.5'
   '@biomejs/biome': '^2.6.6'
   '@commercelayer/js-auth': '^8.1.0'
   '@types/debug': '^4.1.13'

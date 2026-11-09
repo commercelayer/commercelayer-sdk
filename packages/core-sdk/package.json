@@ -47,8 +47,7 @@
     "ts:check": "tsc --noEmit -p tsconfig.json",
     "test": "vitest",
     "test-local": "tsx test/spot.ts",
-    "coverage": "vitest run --coverage",
-    "verify:pack": "publint && attw --pack ."
+    "coverage": "vitest run --coverage"
   },
   "keywords": [
     "javascript",
@@ -69,7 +68,7 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "catalog:",
+    "@arethetypeswrong/core": "catalog:",
     "@biomejs/biome": "catalog:",
     "@commercelayer/js-auth": "catalog:",
     "@commercelayer/sdk-generator": "workspace:*",
@@ -86,7 +85,10 @@
     "varlock": "catalog:",
     "vitest": "catalog:"
   },
-  "repository": "github:commercelayer/commercelayer-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commercelayer/commercelayer-sdk.git"
+  },
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues",
   "publishConfig": {
     "access": "public"

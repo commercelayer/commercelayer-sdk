@@ -43,4 +43,10 @@ export default defineConfig({
   // means `require(...).default`; this only silences Rolldown's MIXED_EXPORTS
   // warning about it.
   outputOptions: { exports: 'named' },
+  // publint + arethetypeswrong over the packed tarball on every build: the
+  // last chance to catch a broken exports map before it is immutable on npm.
+  // attw defaults to the `esm-only` profile and to warnings; require every
+  // resolution mode (CJS included) and fail the build instead.
+  publint: true,
+  attw: { profile: 'strict', level: 'error' },
 })

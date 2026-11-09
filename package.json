@@ -22,7 +22,7 @@
     "dep:major": "pnpm dlx npm-check-updates --workspaces --root -u",
     "dep:semver": "pnpm dlx npm-check-updates --workspaces --root -u -t semver",
     "verify:surface": "node scripts/compare-public-surface.mjs",
-    "prerelease:check": "pnpm -r build && pnpm -r verify:pack && node scripts/compare-public-surface.mjs packages/core-sdk",
+    "prerelease:check": "pnpm -r build && node scripts/compare-public-surface.mjs packages/core-sdk",
     "lerna": "pnpm dlx --package=@lerna-lite/cli@5.6.4 --package=@lerna-lite/version@5.6.4 --package=@lerna-lite/publish@5.6.4 lerna"
   },
   "devDependencies": {
@@ -31,6 +31,9 @@
   "engines": {
     "node": ">=20"
   },
-  "repository": "github:commercelayer/commercelayer-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/commercelayer/commercelayer-sdk.git"
+  },
   "bugs": "https://github.com/commercelayer/commercelayer-sdk/issues"
 }
