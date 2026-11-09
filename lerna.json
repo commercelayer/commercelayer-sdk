@@ -1,14 +1,11 @@
 {
-  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "$schema": "https://unpkg.com/@lerna-lite/cli@5.6.4/schemas/lerna-schema.json",
   "version": "independent",
   "npmClient": "pnpm",
   "command": {
     "version": {
       "message": "chore(release): publish [skip ci]",
       "preid": "beta"
-    },
-    "publish": {
-      "verifyAccess": false
     }
   }
 }

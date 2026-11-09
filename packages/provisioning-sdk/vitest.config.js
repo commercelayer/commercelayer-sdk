@@ -10,10 +10,10 @@ export default defineConfig({
     alias: {
       // The shared runtime imports its target-specific catalogue from
       // `#registry`. Vite does not read tsconfig `paths`, so the binding has to
-      // be repeated here — see tsconfig.json and tsup.config.js.
+      // be repeated here — see tsconfig.json and tsdown.config.js.
       '#registry': fileURLToPath(new URL('./gen/binding.ts', import.meta.url)),
       // The shared runtime is consumed as source via a path alias rather than
-      // as a package: tsup's dts build cannot cross a package boundary whose
+      // as a package: tsup's dts build could not cross a package boundary whose
       // exports map points at raw .ts files.
       '@runtime': fileURLToPath(new URL('../sdk-runtime/src', import.meta.url)),
     },

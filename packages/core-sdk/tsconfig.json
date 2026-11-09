@@ -15,7 +15,7 @@
     // "outFile": "./",                             /* Concatenate and emit output to single file. */
     "outDir": "lib/cjs" /* Redirect output structure to the directory. */,
     /* No `rootDir`: the shared runtime lives outside this package's src/, and
-       pinning rootDir to ./src makes tsc reject those files (TS6059). tsup
+       pinning rootDir to ./src makes tsc reject those files (TS6059). tsdown
        performs the emit, and tsc runs with noEmit, so it serves no purpose. */
     // "composite": true,                           /* Enable project compilation */
     // "tsBuildInfoFile": "./",                     /* Specify file to store incremental compilation information */
