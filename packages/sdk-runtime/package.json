@@ -9,10 +9,10 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/debug": "^4.1.13",
-    "@types/node": "^25.9.9",
-    "json-typescript": "^1.1.2",
-    "jsonapi-typescript": "^0.1.3",
-    "typescript": "^5.9.3"
+    "@types/debug": "catalog:",
+    "@types/node": "catalog:",
+    "json-typescript": "catalog:",
+    "jsonapi-typescript": "catalog:",
+    "typescript": "catalog:"
   }
 }

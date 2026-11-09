@@ -9,3 +9,20 @@ onlyBuiltDependencies:
   - nx
 overrides:
   "esbuild": "^0.28.2"
+
+catalog:
+  '@arethetypeswrong/cli': '^0.18.5'
+  '@biomejs/biome': '^2.6.6'
+  '@commercelayer/js-auth': '^8.1.0'
+  '@types/debug': '^4.1.13'
+  '@types/node': '^25.9.9'
+  '@varlock/aws-secrets-plugin': '^1.2.5'
+  '@vitest/coverage-v8': '^5.1.0'
+  json-typescript: '^1.1.2'
+  jsonapi-typescript: '^0.1.3'
+  publint: '^0.3.25'
+  tsup: '^8.5.1'
+  tsx: '^4.23.15'
+  typescript: '^5.9.3'
+  varlock: '^1.24.0'
+  vitest: '^5.1.0'

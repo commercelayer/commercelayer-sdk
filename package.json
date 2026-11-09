@@ -19,14 +19,14 @@
     "check": "biome check --enforce-assist=true --write",
     "release": "pnpm upgrade && pnpm lint && pnpm build && pnpm test",
     "release:version": "pnpm lerna version --no-git-tag-version --no-private && node scripts/finish-version.mjs",
-    "dep:major": "pnpm dlx npm-check-updates --packageFile '**/package.json' -u",
-    "dep:semver": "pnpm dlx npm-check-updates -t semver --packageFile '**/package.json' -u",
+    "dep:major": "pnpm dlx npm-check-updates --workspaces --root -u",
+    "dep:semver": "pnpm dlx npm-check-updates --workspaces --root -u -t semver",
     "verify:surface": "node scripts/compare-public-surface.mjs",
     "prerelease:check": "pnpm -r build && pnpm -r verify:pack && node scripts/compare-public-surface.mjs packages/core-sdk",
     "lerna": "pnpm dlx --allow-build=nx lerna@10.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.5"
+    "@biomejs/biome": "catalog:"
   },
   "engines": {
     "node": ">=20"
