@@ -1,6 +1,6 @@
 {
   "name": "@commercelayer/provisioning-sdk",
-  "version": "3.0.1",
+  "version": "3.0.2-beta.0",
   "main": "lib/index.cjs",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
