@@ -20,7 +20,7 @@ import {
   randomValue,
   TestData,
 } from '../../test/common'
-import { addresses, customers, markets, orders, stores, tags } from '../api'
+import { addresses, agreements, customers, markets, orders, stores, tags } from '../api'
 import type { Order } from '../model'
 
 let cl: CommerceLayerSingleClient
@@ -41,6 +41,7 @@ describe('Orders resource', () => {
       shipping_address: addresses.relationship(TestData.id),
       billing_address: addresses.relationship(TestData.id),
       store: stores.relationship(TestData.id),
+      agreement: agreements.relationship(TestData.id),
       tags: [tags.relationship(TestData.id)],
     }
 
@@ -301,6 +302,63 @@ describe('Orders resource', () => {
   })
   /* relationship.store stop */
 
+  /* relationship.agreement start */
+  test(resourceType + '.agreement', async () => {
+    const id = TestData.id
+    const params = { fields: { agreements: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'agreement')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .agreement(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.agreement stop */
+
+  /* relationship.inbound_message start */
+  test(resourceType + '.inbound_message', async () => {
+    const id = TestData.id
+    const params = { fields: { inbound_messages: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'inbound_message')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .inbound_message(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.inbound_message stop */
+
+  /* relationship.agent start */
+  test(resourceType + '.agent', async () => {
+    const id = TestData.id
+    const params = { fields: { agents: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'agent')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .agent(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.agent stop */
+
   /* relationship.default_shipping_method start */
   test(resourceType + '.default_shipping_method', async () => {
     const id = TestData.id
@@ -471,6 +529,25 @@ describe('Orders resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* relationship.line_items stop */
+
+  /* relationship.order_reviews start */
+  test(resourceType + '.order_reviews', async () => {
+    const id = TestData.id
+    const params = { fields: { order_reviews: CommonData.paramsFields } }
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourcePath, id, currentAccessToken, 'order_reviews')
+      checkCommonParams(request, params)
+      return interceptRequest()
+    })
+
+    await orders
+      .order_reviews(id, params, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* relationship.order_reviews stop */
 
   /* relationship.line_item_options start */
   test(resourceType + '.line_item_options', async () => {
@@ -1339,6 +1416,30 @@ describe('Orders resource', () => {
       .finally(() => cl.removeInterceptor('request'))
   })
   /* trigger._update_taxes stop */
+
+  /* trigger._validate_tax_exemption_code start */
+  test(resourceType + '._validate_tax_exemption_code', async () => {
+    let triggerAttr = '_validate_tax_exemption_code'
+    if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+
+    const triggerValue = true
+    const attributes = { [triggerAttr]: triggerValue }
+    const id = TestData.id
+
+    const _intId = cl.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('PATCH')
+      checkCommon(request, resourcePath, id, currentAccessToken)
+      checkCommonData(data, resourceType, attributes, id)
+      return interceptRequest()
+    })
+
+    await orders
+      ._validate_tax_exemption_code(id, {}, CommonData.options)
+      .catch(handleError)
+      .finally(() => cl.removeInterceptor('request'))
+  })
+  /* trigger._validate_tax_exemption_code stop */
 
   /* trigger._nullify_payment_source start */
   test(resourceType + '._nullify_payment_source', async () => {

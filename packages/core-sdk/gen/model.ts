@@ -7,6 +7,19 @@ export type { Address, AddressCreate, AddressSort, AddressUpdate } from './resou
 export type { Adjustment, AdjustmentCreate, AdjustmentSort, AdjustmentUpdate } from './resources/adjustments'
 export type { AdyenGateway, AdyenGatewayCreate, AdyenGatewaySort, AdyenGatewayUpdate } from './resources/adyen_gateways'
 export type { AdyenPayment, AdyenPaymentCreate, AdyenPaymentSort, AdyenPaymentUpdate } from './resources/adyen_payments'
+export type { Agent, AgentCreate, AgentSort, AgentUpdate } from './resources/agents'
+export type {
+  AgreementAddress,
+  AgreementAddressCreate,
+  AgreementAddressSort,
+  AgreementAddressUpdate,
+} from './resources/agreement_addresses'
+export type {
+  AgreementIdentity,
+  AgreementIdentitySort,
+  AgreementIdentityUpdate,
+} from './resources/agreement_identities'
+export type { Agreement, AgreementSort, AgreementUpdate } from './resources/agreements'
 export type { Application, ApplicationSort } from './resources/applications'
 export type { Attachment, AttachmentCreate, AttachmentSort, AttachmentUpdate } from './resources/attachments'
 export type { Authorization, AuthorizationSort, AuthorizationUpdate } from './resources/authorizations'
@@ -217,6 +230,8 @@ export type {
   InStockSubscriptionSort,
   InStockSubscriptionUpdate,
 } from './resources/in_stock_subscriptions'
+export type { InboundEmail, InboundEmailSort, InboundEmailUpdate } from './resources/inbound_emails'
+export type { InboundMessage, InboundMessageSort, InboundMessageUpdate } from './resources/inbound_messages'
 export type {
   InventoryModel,
   InventoryModelCreate,
@@ -278,6 +293,7 @@ export type {
 } from './resources/order_amount_promotion_rules'
 export type { OrderCopy, OrderCopyCreate, OrderCopySort, OrderCopyUpdate } from './resources/order_copies'
 export type { OrderFactory, OrderFactorySort } from './resources/order_factories'
+export type { OrderReview, OrderReviewCreate, OrderReviewSort, OrderReviewUpdate } from './resources/order_reviews'
 export type {
   OrderSubscriptionItem,
   OrderSubscriptionItemCreate,
@@ -566,6 +582,7 @@ export type {
   TaxjarAccountUpdate,
 } from './resources/taxjar_accounts'
 export type { Transaction, TransactionSort } from './resources/transactions'
+export type { User, UserSort } from './resources/users'
 export type {
   VertexAccount,
   VertexAccountCreate,

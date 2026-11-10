@@ -78,6 +78,11 @@ interface PaymentSettingPaypal extends Resource {
    */
   disabled_at?: string | null
   /**
+   * The gateway client ID.
+   * @example ```"xxxx-yyyy-zzzz"```
+   */
+  client_id: string
+  /**
    * The gateway webhook ID, generated automatically.
    * @example ```"xxxx-yyyy-zzzz"```
    */

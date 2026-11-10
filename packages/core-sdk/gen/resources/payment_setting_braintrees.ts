@@ -88,6 +88,11 @@ interface PaymentSettingBraintree extends Resource {
    */
   merchant_account_id: string
   /**
+   * The Google Pay merchant ID, issued by the Google Pay & Wallet Console and required to offer Google Pay in production.
+   * @example ```"BCR2DN4TXXXXXXXX"```
+   */
+  google_pay_merchant_id?: string | null
+  /**
    * The gateway webhook URL to configure manually in the Braintree Control Panel.
    * @example ```"https://core.commercelayer.co/webhook_callbacks/payment_setting_braintrees/xxxxx"```
    */
@@ -161,6 +166,11 @@ interface PaymentSettingBraintreeCreate extends ResourceCreate {
    * @example ```"xxxx-yyyy-zzzz"```
    */
   merchant_account_id: string
+  /**
+   * The Google Pay merchant ID, issued by the Google Pay & Wallet Console and required to offer Google Pay in production.
+   * @example ```"BCR2DN4TXXXXXXXX"```
+   */
+  google_pay_merchant_id?: string | null
 }
 
 interface PaymentSettingBraintreeUpdate extends ResourceUpdate {
@@ -222,6 +232,11 @@ interface PaymentSettingBraintreeUpdate extends ResourceUpdate {
    * @example ```"xxxx-yyyy-zzzz"```
    */
   merchant_account_id?: string | null
+  /**
+   * The Google Pay merchant ID, issued by the Google Pay & Wallet Console and required to offer Google Pay in production.
+   * @example ```"BCR2DN4TXXXXXXXX"```
+   */
+  google_pay_merchant_id?: string | null
 }
 
 /** @since 2026-05 */
