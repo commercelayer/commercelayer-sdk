@@ -637,6 +637,18 @@ interface Order extends Resource {
    */
   payment_taken_sessions_count?: number | null
   /**
+   * The amount in cents covered by payment sessions in a payment-taken state (authorized, paid or partially paid). Available only for the new payments version.
+   * @since 2026-05
+   * @example ```1000```
+   */
+  payment_taken_amount_cents?: number | null
+  /**
+   * The percentage of the order total (with taxes) covered by payment sessions in a payment-taken state (authorized, paid or partially paid). Available only for the new payments version.
+   * @since 2026-05
+   * @example ```100```
+   */
+  payment_taken_percentage?: number | null
+  /**
    * The total number of tax calculations. This can be useful to monitor external tax service usage.
    * @example ```1```
    */
@@ -1190,6 +1202,11 @@ interface OrderUpdate extends ResourceUpdate {
    * @example ```true```
    */
   _update_taxes?: boolean | null
+  /**
+   * Send this attribute if you want to check the customer tax exemption code against the order's tax calculator, before taxes are calculated. Returns an error if the code is not valid for the tax calculator or the order's country (currently checked for Avalara accounts passing the tax exemption code only).
+   * @example ```true```
+   */
+  _validate_tax_exemption_code?: boolean | null
   /**
    * Send this attribute if you want to nullify the payment source for this order.
    * @deprecated Deprecated in API version 2026-05.
@@ -2098,6 +2115,18 @@ class Orders extends ApiResource<Order> {
   ): Promise<Order> {
     return this.resources.update<OrderUpdate, Order>(
       { id: typeof id === 'string' ? id : id.id, type: Orders.TYPE, _update_taxes: true },
+      params,
+      options,
+    )
+  }
+
+  async _validate_tax_exemption_code(
+    id: string | Order,
+    params?: QueryParamsRetrieve<Order>,
+    options?: ResourcesConfig,
+  ): Promise<Order> {
+    return this.resources.update<OrderUpdate, Order>(
+      { id: typeof id === 'string' ? id : id.id, type: Orders.TYPE, _validate_tax_exemption_code: true },
       params,
       options,
     )
