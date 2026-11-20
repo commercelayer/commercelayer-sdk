@@ -12,7 +12,7 @@
  *
  * So: run lerna with --no-git-tag-version --no-private, then this. It
  *   1. commits the bumped manifests,
- *   2. tags each bumped package as `<directory>-v<version>`.
+ *   2. tags each bumped package as `<directory>-v<version>` (annotated).
  *
  * Private packages are left alone by --no-private; if one has moved anyway,
  * this refuses rather than release a version nothing publishes.
@@ -114,7 +114,13 @@ const subject =
 
 run('add', '--', ...dirs.map((d) => `${PACKAGES_DIR}/${d}/package.json`))
 run('commit', '-m', subject)
-for (const b of bumped) run('tag', b.tag)
+// Always annotated, always with -m. A bare `git tag <name>` is lightweight only
+// by default: with `tag.gpgSign = true` in the user's git config, git turns it
+// into a signed annotated tag and opens $EDITOR for the message. execFileSync
+// pipes stdio, so that editor never reaches the terminal and the script hangs
+// forever on an invisible prompt. Supplying the message keeps the result the
+// same for everyone, signed or not.
+for (const b of bumped) run('tag', '-a', b.tag, '-m', `${b.name} v${b.to}`)
 
 const head = DRY ? '<dry-run>' : git('rev-parse', '--short', 'HEAD')
 console.log(`\n✔ ${DRY ? 'Would commit' : 'Committed'} ${head}: ${subject}`)
